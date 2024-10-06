@@ -9,8 +9,10 @@
   
 /*Main Section*/
 .main {
-    height: 100vh;
+    height: 300px;
     width: 100%;
+    min-width: 1000px;
+    min-height: 900px;
     background-color:#101010;
 }
 
