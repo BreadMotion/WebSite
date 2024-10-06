@@ -26,6 +26,15 @@ footer p:nth-child(1) {
     margin-top: 20px;
     font-weight: bold;
 }
+footer p:nth-child(1) span {
+    font-family: "Cherry Bomb One", system-ui;
+
+    color: lightseagreen;
+    font-size: 30px;
+    margin-top: 20px;
+    padding: 0px 0px 0px 1px;
+    font-weight: bold;
+}
 footer p:nth-child(2) {
     font-family: system-ui;
     color: white;
