@@ -1,0 +1,64 @@
+/*common*/
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Cherry Bomb One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/*footer*/
+footer {
+    width: 100%;
+    height: 410px;
+    background-color: #101010;
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    align-items: left;
+}
+footer p:nth-child(1) {
+    color: white;
+    font-size: 30px;
+    margin-left: 20px;
+    margin-top: 20px;
+    font-weight: bold;
+}
+footer p:nth-child(2) {
+    color: white;
+    font-size: 12px;
+    margin-left: 15px;
+    margin-top: 10px;
+    width: 500px;
+}
+
+.social {
+    display: flex;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+.social a {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    font-size: 20px;
+    background-color: lightseagreen;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+.social a:hover {
+    transform: scale(1.3);
+}
+
+.end {
+    color: white;
+    margin-top: 200px;
+    font-size: 10px;
+    margin-right: 20px;
+    display: flex;
+    align-items: right;
+    justify-content:right;
+}

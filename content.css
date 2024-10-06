@@ -1,0 +1,79 @@
+/*common*/
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Cherry Bomb One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/*Content Section*/
+.content {
+    padding-top: 230px;
+}
+.content .body {
+    display: flex;
+    justify-content: space-evenly;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+/*コンテンツ画像*/
+.content .body img {
+    display: inline;
+    width: 500px;
+    height: 500px;
+    margin-top: -50px;
+}
+/*名前*/
+h1 {
+    color: white;
+    margin: 20px 0 20px;
+    font-size: 75px;
+}
+/*プログラム言語*/
+h3 {
+    color: white;
+    font-size: 25px;
+    margin-bottom: 50px;
+}
+/*ゲームエンジニア*/
+h4 {
+    color: pink;
+    letter-spacing: 2px;
+    font-size: 20px;
+}
+/*contact form*/
+.newslatter form {
+    position: relative;
+}
+/*Contact button*/
+.newslatter form input:first-child {
+    width: 80%;
+    position: absolute;
+    right: auto;
+    padding: 10px 30px;
+    
+    border:2px solid lightseagreen;
+    border-radius: 30px;
+    box-shadow: 1px 1px 10px black;
+}
+.newslatter form input:last-child {
+    position: absolute;
+    top: 2px;
+    margin-left: 62%;
+    padding: 10px 30px;
+    
+    border: none;
+    background-color: lightseagreen;
+    border-radius: 30px;
+    color: white;
+    box-shadow: 1px 1px 10px black;
+}
+.newslatter form input:last-child:hover {
+    
+    background-color: seagreen;
+    border-radius: 30px;
+    color: gray;
+    box-shadow: 1px 1px 10px black;
+}

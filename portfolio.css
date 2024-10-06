@@ -1,0 +1,72 @@
+/*common*/
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "Cherry Bomb One", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/*portfolio*/
+.portfolio {
+    background-color: #101010;
+    width: 100%;
+    padding: 100px 0;
+    position: relative;
+}
+.title h2 {
+    color: white;
+    font-size: 75px;
+    margin: 30px auto;
+    text-align: center;
+}
+.box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+}
+.card {
+    height: 420px;
+    width: 365px;
+    background-color: #191919;
+    padding: 20px 35px;
+    margin: 20px;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    vertical-align: middle;
+}
+.card i{
+    color: lightseagreen;
+    font-size: 50px;
+    margin-bottom: 25px 0;
+}
+.card h5 {
+    color: white;
+    font-size: 23px;
+    margin-bottom: 30px;
+}
+.pragraph p {
+    color: white;
+    font-size: 16px;
+    line-height: 25px;
+    margin-bottom: 2px;
+}
+
+.card a {
+    background-color: lightseagreen;
+    padding: 13px 30px;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    border: 2px solid green;
+    position:absolute;
+    bottom: 30px;
+    margin-left: 70px;
+}
+.card .button:hover{
+    background-color:transparent;
+    cursor: pointer;
+    border: 2px solid green;
+}
