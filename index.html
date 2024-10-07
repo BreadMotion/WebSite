@@ -1,27 +1,47 @@
 <!DOCTYPE html>
 <html laang="ja">
     <head>    
+        <title>Porfolio</title>
+        <!-- setting meta data -->
         <meta charset="UTF-8"/>
         <meta http-equiv="X_UA_Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes" />
-        <title>Porfolio</title>
-        <link rel="stylesheet" href="./css/style.css" />
-        <link rel="stylesheet" href="./css/content.css"/>
-        <link rel="stylesheet" href="./css/aboutme.css"/>
-        <link rel="stylesheet" href="./css/portfolio.css" />
-        <link rel="stylesheet" href="./css/contact.css" />
-        <link rel="stylesheet" href="./css/footer.css" />
         
+        <!-- import css -->
+        <link rel="stylesheet" href="css/style.css" />
+        <link rel="stylesheet" href="css/content.css"/>
+        <link rel="stylesheet" href="css/aboutme.css"/>
+        <link rel="stylesheet" href="css/portfolio.css" />
+        <link rel="stylesheet" href="css/contact.css" />
+        <link rel="stylesheet" href="css/footer.css" />
+
+        <!-- import google font api -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap" rel="stylesheet" />    
         
+        <!-- import google font api -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet" />
+        
+        <!-- import font awsome library -->
+        <script src="https://kit.fontawesome.com/f6d11522bd.js" crossorigin="anonymous"></script>
+        
+        <!-- import processing library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js"></script>
+        
+        <!-- import javascript -->
+       
     </head>
     <body>
-        <script src="https://kit.fontawesome.com/f6d11522bd.js" crossorigin="anonymous"></script>
+        <!-- Processing Section -->
+        <!-- https://processing.org/examples/storinginput.html -->
+        <!-- https://openprocessing.org/browse# -->
+        <div class="Processing" style="position:absolute; z-index: 0; outline:none;">
+            <canvas id="canvas1" data-src="js/main.pjs"></canvas>
+            <script ></script>
+        </div>
 
         <!-- main Section -->
         <div class="main">
