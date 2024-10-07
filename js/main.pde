@@ -10,7 +10,7 @@
  */
 
 // Size of cells
-int cellSize = 5;
+int cellSize = 20;
 
 // How likely for a cell to be alive at start (in percentage)
 float probabilityOfAliveAtStart = 15;
@@ -27,16 +27,19 @@ color dead = color(0);
 int[][] cells; 
 // Buffer to record the state of the cells and use this 
 // while changing the others in the interations
-int[][] cellsBuffer; 
+int[][] cellsBuffer;
 
-// Pause
-boolean pause = false;
+int PWidth = 1080;
+int PHeight = 900;
+float ScaleW = 1.0;
+float ScaleH = 1.0;
 
 void setup() {
-  size(1920, 900);
+  size(1080, 900);
+
   // Instantiate arrays 
-  cells = new int[width/cellSize][height/cellSize];
-  cellsBuffer = new int[width/cellSize][height/cellSize];
+  cells = new int[PWidth/cellSize][PHeight/cellSize];
+  cellsBuffer = new int[PWidth/cellSize][PHeight/cellSize];
 
   // This stroke will draw the background grid
   stroke(48);
@@ -44,8 +47,8 @@ void setup() {
   noSmooth();
 
   // Initialization of cells
-  for (int x=0; x<width/cellSize; x++) {
-    for (int y=0; y<height/cellSize; y++) {
+  for (int x=0; x<PWidth/cellSize; x++) {
+    for (int y=0; y<PHeight/cellSize; y++) {
       float state = random (100);
       if (state > probabilityOfAliveAtStart) { 
         state = 0;
@@ -62,10 +65,9 @@ void setup() {
 
 
 void draw() {
-
   //Draw grid
-  for (int x=0; x<width/cellSize; x++) {
-    for (int y=0; y<height/cellSize; y++) {
+  for (int x=0; x<PWidth/cellSize; x++) {
+    for (int y=0; y<PWidth/cellSize; y++) {
       if (cells[x][y]==1) {
         fill(alive); // If alive
       }
@@ -77,56 +79,27 @@ void draw() {
   }
   // Iterate if timer ticks
   if (millis()-lastRecordedTime>interval) {
-    if (!pause) {
       iteration();
       lastRecordedTime = millis();
-    }
-  }
-
-  // Create  new cells manually on pause
-  if (pause && mousePressed) {
-    // Map and avoid out of bound errors
-    int xCellOver = int(map(mouseX, 0, width, 0, width/cellSize));
-    xCellOver = constrain(xCellOver, 0, width/cellSize-1);
-    int yCellOver = int(map(mouseY, 0, height, 0, height/cellSize));
-    yCellOver = constrain(yCellOver, 0, height/cellSize-1);
-
-    // Check against cells in buffer
-    if (cellsBuffer[xCellOver][yCellOver]==1) { // Cell is alive
-      cells[xCellOver][yCellOver]=0; // Kill
-      fill(dead); // Fill with kill color
-    }
-    else { // Cell is dead
-      cells[xCellOver][yCellOver]=1; // Make alive
-      fill(alive); // Fill alive color
-    }
-  } 
-  else if (pause && !mousePressed) { // And then save to buffer once mouse goes up
-    // Save cells to buffer (so we opeate with one array keeping the other intact)
-    for (int x=0; x<width/cellSize; x++) {
-      for (int y=0; y<height/cellSize; y++) {
-        cellsBuffer[x][y] = cells[x][y];
-      }
-    }
   }
 }
 
 void iteration() { // When the clock ticks
   // Save cells to buffer (so we opeate with one array keeping the other intact)
-  for (int x=0; x<width/cellSize; x++) {
-    for (int y=0; y<height/cellSize; y++) {
+  for (int x=0; x<PWidth/cellSize; x++) {
+    for (int y=0; y<PHeight/cellSize; y++) {
       cellsBuffer[x][y] = cells[x][y];
     }
   }
 
   // Visit each cell:
-  for (int x=0; x<width/cellSize; x++) {
-    for (int y=0; y<height/cellSize; y++) {
+  for (int x=0; x<PWidth/cellSize; x++) {
+    for (int y=0; y<PHeight/cellSize; y++) {
       // And visit all the neighbours of each cell
       int neighbours = 0; // We'll count the neighbours
       for (int xx=x-1; xx<=x+1;xx++) {
         for (int yy=y-1; yy<=y+1;yy++) {  
-          if (((xx>=0)&&(xx<width/cellSize))&&((yy>=0)&&(yy<height/cellSize))) { // Make sure you are not out of bounds
+          if (((xx>=0)&&(xx<PWidth/cellSize))&&((yy>=0)&&(yy<PHeight/cellSize))) { // Make sure you are not out of bounds
             if (!((xx==x)&&(yy==y))) { // Make sure to to check against self
               if (cellsBuffer[xx][yy]==1){
                 neighbours ++; // Check alive neighbours and count them
@@ -149,31 +122,3 @@ void iteration() { // When the clock ticks
     } // End of y loop
   } // End of x loop
 } // End of function
-
-void keyPressed() {
-  if (key=='r' || key == 'R') {
-    // Restart: reinitialization of cells
-    for (int x=0; x<width/cellSize; x++) {
-      for (int y=0; y<height/cellSize; y++) {
-        float state = random (100);
-        if (state > probabilityOfAliveAtStart) {
-          state = 0;
-        }
-        else {
-          state = 1;
-        }
-        cells[x][y] = int(state); // Save state of each cell
-      }
-    }
-  }
-  if (key==' ') { // On/off of pause
-    pause = !pause;
-  }
-  if (key=='c' || key == 'C') { // Clear all
-    for (int x=0; x<width/cellSize; x++) {
-      for (int y=0; y<height/cellSize; y++) {
-        cells[x][y] = 0; // Save all to zero
-      }
-    }
-  }
-}
