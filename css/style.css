@@ -7,7 +7,8 @@
   font-weight: 400;
   font-style: normal;
 
-  outline: 2px solid blue;
+  z-index: 1;
+  /*outline: 2px solid blue;*/
 }
 
 /*Main Section*/
@@ -21,7 +22,7 @@
   background-color: #101010;
 }
 
-nav {
+.main nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -29,42 +30,42 @@ nav {
 }
 
 /*ヘッダーの真ん中の３ボタン*/
-nav ul li {
+.main nav ul li {
   display: inline-block;
   position: relative;
   padding: 10px 25px;
   left: -30px;
 }
-nav ul li a {
+.main nav ul li a {
   color: white;
   text-decoration: none;
   font-weight: bold;
   transition: all 0.3s;
 }
-nav ul li a:hover {
+.main nav ul li a:hover {
   color: lightseagreen;
 }
 
 /*ヘッダーの左ロゴ*/
-.logo {
+.main .logo {
   color: white;
   font-size: 35px;
   letter-spacing: 1px;
   cursor: pointer;
 }
-span {
+.main .logo span {
   color: lightseagreen;
   padding: 0px 0px 0px 10px;
 }
 
 /*ヘッダーお問い合わせボタン*/
-.btn {
+.main .btn {
   background-color: lightseagreen;
   color: white;
   padding: 10px 25px;
   text-decoration: none;
   transition: all 0.3s;
 }
-.btn:hover {
+.main a:hover {
   border-radius: 20px;
 }
