@@ -1,41 +1,52 @@
 /*common*/
-*{
-    margin: 0;
-    padding: 0;
-    font-family: "Cherry Bomb One", system-ui;
-    font-weight: 400;
-    font-style: normal;
+* {
+  margin: 0;
+  padding: 0;
+
+  font-family: "Cherry Bomb One", system-ui;
+  font-weight: 400;
+  font-style: normal;
 }
 
 /*contact*/
 .contact {
-    width: 100%;
-    height: 150px;
-    display: flex;
-    flex-direction: column;
-    justify-items: center;
-    align-items: center;
-    background-color: #191919;
-    padding: 80px 0;
+  min-width: 1080px;
+
+  width: auto;
+  height: 100%;
+
+  background-color: #191919;
+  padding: 10px 0;
+
+  top: 20px;
+
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
 }
 .contact p {
-    color: white;
-    font-size: 30px;
-    font-weight: bold;
-    margin-bottom: 25px;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+
+  bottom: 20px;
 }
 .contact .contact-buttom {
-     background-color: lightseagreen;
-     padding: 13px 30px;
-     color: white;
-     font-weight: bold;
-     text-decoration: none;
-     border-radius: 30px;
-     transition: all 0.3px;
+  background-color: lightseagreen;
+  color: white;
+  padding: 13px 30px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 30px;
+
+  margin-bottom: 20px;
+
+  transition: all 0.3px;
 }
 .contact .contact-buttom:hover {
-    background-color: transparent;
-    border: 2px solid green;
-    cursor: pointer;
-}
+  background-color: transparent;
+  border: 2px solid green;
 
+  cursor: pointer;
+}
