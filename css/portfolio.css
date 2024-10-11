@@ -9,23 +9,19 @@
 
   overflow: scroll;
 }
-.title h2 {
+.portfolio .title h2 {
   color: white;
   font-size: 75px;
   margin: 30px auto;
   text-align: center;
 }
 .portfolio .box {
-  min-height: 400px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
-  margin-bottom: 50px;
 }
 .portfolio .box .card {
-  height: 550px;
+  height: 500px;
   width: 250px;
 
   background-color: #191919;
@@ -37,20 +33,20 @@
   vertical-align: middle;
   overflow: hidden;
 }
-.card i {
+.portfolio .box .card i {
   color: lightseagreen;
   font-size: 50px;
 
   margin-bottom: 25px 0;
 }
-.card h5 {
+.portfolio .box .card h5 {
   font-family: "Yomogi", cursive;
   color: white;
   font-size: 23px;
 
   margin-bottom: 30px;
 }
-.pragraph p {
+.portfolio .box .card .pragraph p {
   font-family: "Yomogi", cursive;
   color: white;
   font-size: 16px;
@@ -59,8 +55,8 @@
   margin-bottom: 2px;
 }
 
-.card a {
-  font-family: "Yomogi", cursive;
+.portfolio .box .card a {
+  font-family: "Cherry Bomb One", system-ui;
   background-color: lightseagreen;
   padding: 13px 30px;
   color: white;
@@ -72,7 +68,33 @@
   bottom: 30px;
   margin-left: 70px;
 }
-.card .button:hover {
+.portfolio .box .card a:hover {
+  background-color: transparent;
+  cursor: pointer;
+  border: 2px solid green;
+}
+
+.portfolio .end {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  align-items: center;
+  text-align: center;
+
+  margin-top: 15px;
+  margin-bottom: 40px;
+}
+.portfolio .end a {
+  font-family: "Cherry Bomb One", system-ui;
+
+  background-color: lightseagreen;
+  padding: 13px 50px;
+  color: white;
+  font-weight: bold;
+  border-radius: 30px;
+  border: 2px solid green;
+}
+.portfolio .end a:hover {
   background-color: transparent;
   cursor: pointer;
   border: 2px solid green;
