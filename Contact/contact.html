@@ -10,28 +10,39 @@
       content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes"
     />
 
+    <!-- import google font api -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- import google font api -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap"
+      rel="stylesheet"
+    />
+
     <!-- import css -->
     <link rel="stylesheet" href="./../style.css" />
     <link rel="stylesheet" href="./../css/header.css" />
     <link rel="stylesheet" href="./../css/footer.css" />
+    <link rel="stylesheet" href="./css/main.css" />
 
     <!-- import javascript -->
     <script src="./js/contact.js"></script>
   </head>
   <body onload="init()">
-    <main>
-      <div class="main">
-        <form name="contentForm" id="contentForm">
-          <input
-            type="email"
-            name="address"
-            id="address"
-            value="メールアドレス"
-          />
-          <input type="submit" name="submit" value="送信" />
-        </form>
-      </div>
-    </main>
+    <!-- import font awsome library -->
+    <script
+      src="https://kit.fontawesome.com/f6d11522bd.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- import processing library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js"></script>
     <script>
       //import header section
       fetch("./../header.html")
@@ -47,5 +58,18 @@
           document.querySelector("main").insertAdjacentHTML("beforeend", data)
         );
     </script>
+    <main>
+      <div class="main">
+        <form name="contentForm" id="contentForm">
+          <input
+            type="email"
+            name="address"
+            id="address"
+            value="メールアドレス"
+          />
+          <input type="submit" name="submit" value="送信" />
+        </form>
+      </div>
+    </main>
   </body>
 </html>

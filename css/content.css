@@ -3,20 +3,26 @@
   min-width: 1080px;
 
   width: auto;
-  height: 670px;
+  height: 720px;
 
   overflow: scroll;
 
   background-color: #101010;
-  width: auto;
 
-  padding-top: 230px;
+  padding-top: 30px;
 }
+.content .Processing {
+  position: absolute;
+  z-index: 0;
+  outline-style: none;
+}
+
 .content .body {
   display: flex;
   justify-content: space-evenly;
   padding-right: 50px;
   max-height: 700px;
+  padding-top: 200px;
   padding-left: 50px;
 }
 
