@@ -11,23 +11,41 @@
     />
 
     <!-- import css -->
-    <link rel="stylesheet" href="./../css/style.css" />
-    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="./../style.css" />
+    <link rel="stylesheet" href="./../css/header.css" />
+    <link rel="stylesheet" href="./../css/footer.css" />
 
     <!-- import javascript -->
     <script src="./js/contact.js"></script>
   </head>
   <body onload="init()">
-    <div class="main">
-      <form name="contentForm" id="contentForm">
-        <input
-          type="email"
-          name="address"
-          id="address"
-          value="メールアドレス"
-        />
-        <input type="submit" name="submit" value="送信" />
-      </form>
-    </div>
+    <main>
+      <div class="main">
+        <form name="contentForm" id="contentForm">
+          <input
+            type="email"
+            name="address"
+            id="address"
+            value="メールアドレス"
+          />
+          <input type="submit" name="submit" value="送信" />
+        </form>
+      </div>
+    </main>
+    <script>
+      //import header section
+      fetch("./../header.html")
+        .then((response) => response.text())
+        .then((data) =>
+          document.querySelector("main").insertAdjacentHTML("afterbegin", data)
+        );
+
+      //import fotter section
+      fetch("./../footer.html")
+        .then((response) => response.text())
+        .then((data) =>
+          document.querySelector("main").insertAdjacentHTML("beforeend", data)
+        );
+    </script>
   </body>
 </html>

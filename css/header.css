@@ -1,16 +1,17 @@
-/*Main Section*/
-.main {
+/*header Section*/
+header {
   min-width: 1080px;
-  min-height: 900px;
 
   width: auto;
+  height: auto;
 
   overflow: scroll;
 
   background-color: #101010;
-}
 
-.main nav {
+  width: auto;
+}
+header nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -18,42 +19,42 @@
 }
 
 /*ヘッダーの真ん中の３ボタン*/
-.main nav ul li {
+header nav ul li {
   display: inline-block;
   position: relative;
   padding: 10px 25px;
   left: -30px;
 }
-.main nav ul li a {
+header nav ul li a {
   color: white;
   text-decoration: none;
   font-weight: bold;
   transition: all 0.3s;
 }
-.main nav ul li a:hover {
+header nav ul li a:hover {
   color: lightseagreen;
 }
 
 /*ヘッダーの左ロゴ*/
-.main .logo {
+header .logo {
   color: white;
   font-size: 35px;
   letter-spacing: 1px;
   cursor: pointer;
 }
-.main .logo span {
+header .logo span {
   color: lightseagreen;
   padding: 0px 0px 0px 10px;
 }
 
 /*ヘッダーお問い合わせボタン*/
-.main .btn {
+header .btn {
   background-color: lightseagreen;
   color: white;
   padding: 10px 25px;
   text-decoration: none;
   transition: all 0.3s;
 }
-.main .btn:hover {
+header .btn:hover {
   border-radius: 20px;
 }
