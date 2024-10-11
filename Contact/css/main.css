@@ -1,42 +1,54 @@
 /*main*/
 .main {
-  display: flex;
-  justify-content: space-evenly;
-  padding-right: 50px;
-  max-height: 700px;
-  padding-top: 30px;
-  padding-left: 50px;
+  min-width: 1080px;
   background-color: #191919;
+
+  padding-top: 10px;
+
+  text-align: center;
 }
 
-.main form {
-  position: flex;
+.main .otoiawase {
+  font-size: 50px;
+  color: white;
 }
 
-.main form input:first-child {
-  width: 80%;
-  padding: 10px 30px;
+.main .input div {
+  padding-bottom: 10px;
+}
+
+.main .input div p {
+  color: white;
+  font-size: 24px;
+}
+
+.main .input form {
+  padding-bottom: 30px;
+}
+
+.main .input form input {
+  text-align: center;
+  font-family: "Yomogi", cursive;
+}
+
+.main .input form input:first-child {
+  width: auto;
+  padding: 10px 100px;
 
   color: black;
   border: 2px solid lightseagreen;
   border-radius: 30px;
   box-shadow: 1px 1px 10px black;
 }
-.main form input:last-child {
-  position: relative;
-  margin-left: 78%;
-  top: -41px;
-  padding: 10px 20px;
 
-  border: none;
+.main .input form input:last-child:hover {
   background-color: lightseagreen;
-  border-radius: 30px;
-  color: white;
-  box-shadow: 1px 1px 10px black;
-}
-.main form input:last-child:hover {
-  background-color: seagreen;
   border-radius: 30px;
   color: gray;
   box-shadow: 1px 1px 10px black;
+}
+
+.main .input .last-input input {
+  font-family: "Cherry Bomb One", system-ui;
+  margin-top: 70px;
 }
