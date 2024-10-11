@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ja">
     <head>    
-        <title>Porfolio</title>
+        <title>Top Page</title>
         <!-- setting meta data -->
         <meta charset="UTF-8"/>
         <meta http-equiv="X_UA_Compatible" content="IE=edge" />
@@ -9,12 +9,12 @@
         
         <!-- import css -->
         <link rel="stylesheet" href="css/style.css" />
-        <link rel="stylesheet" href="css/main.css" />
+        <link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="css/footer.css" />
         <link rel="stylesheet" href="css/content.css"/>
         <link rel="stylesheet" href="css/aboutme.css"/>
         <link rel="stylesheet" href="css/portfolio.css" />
         <link rel="stylesheet" href="css/contact.css" />
-        <link rel="stylesheet" href="css/footer.css" />
 
         <!-- import google font api -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -36,6 +36,7 @@
          <script src="./js/sendContact.js"></script>
     </head>
     <body>
+    <main>
         <!-- Processing Section -->
         <!-- Document: https://processing.org/examples/storinginput.html -->
         <!-- Samples: https://openprocessing.org/browse# -->
@@ -43,35 +44,23 @@
             <canvas id="canvas1" data-src="js/main.pde"></canvas>
         </div>
 
-        <!-- main Section -->
-        <div class="main">
-            <nav>
-                <h2 class="logo">Pan<span>KUN</span></h2>
-                <ul>
-                    <li><a href="https://breadmotion.github.io/WebSite/">Home</a></li>
-                    <li><a href="./Blog/Blogs/blog_00001.html">Blog</a></li>
-                    <li><a href="./Portfolio/Portfolios/portfolio_0001.html">Portfolio</a></li>
-                </ul>
-                <a href="./Contact/contact.html" class="btn">おといあわせ</a>
-            </nav>
-
-            <div class="content">
-                <div class="body">
-                    <div class="portfolioInfo">
-                        <h4>ゲームエンジニア</h4>
-                        <h1>Pan <span>KUN</span></h1>
-                        <h3>C++/C#/Javascript</h3>
-                        <div class="newslatter">
-                            <form name="contentForm"">
-                                <input type="email" name="address" placeholder="メールアドレス" required/>
-                                <input type="button" name="submit" value="おといあわせ" onclick="getform()"/>
-                            </form>
-                        </div>
+        <!-- content section -->
+        <div class="content">
+            <div class="body">
+                <div class="portfolioInfo">
+                    <h4>ゲームエンジニア</h4>
+                    <h1>Pan <span>KUN</span></h1>
+                    <h3>C++/C#/Javascript</h3>
+                    <div class="newslatter">
+                        <form name="contentForm"">
+                            <input type="email" name="address" placeholder="メールアドレス" required/>
+                            <input type="button" name="submit" value="おといあわせ" onclick="getform()"/>
+                        </form>
                     </div>
-                    <img src="./Image/Kaguya-Runa.jpg" alt="">
                 </div>
-            </div>  
-        </div>
+                <img src="./Image/Kaguya-Runa.jpg" alt="">
+            </div>
+        </div>  
         
         <!-- about me section -->
         <section class="about">
@@ -137,52 +126,26 @@
             </div>
         </div>
 
+        <!-- bolg section -->
+        <div class="blog">
+        </div>
+
         <!-- contact section -->
         <div class="contact">
             <p>Contact</p>
             <a href="./Contact/contact.html" class="contact-buttom">おといあわせ</a>
         </div>
-
-        <!-- fotter section -->
-        <footer>
-            <div class="link">
-                <p>Pan <span>KUN</span></p>
-                <p>- Social Account URL -</p>
-                <div class="social">
-                    <a href="https://x.com/BREAD200011"><i class="fa-brands fa-square-x-twitter"></i></a>
-                    <a href="https://github.com/BreadMotion"><i class="fab fa-github"></i></a>
-                    <a href="https://game-creators.camp/@bread2000__"><i class="fa-solid fa-link"></i></a>
-                    <a href="https://discord.gg/zqqvg3wZ"><i class="fa-brands fa-discord"></i></a>
-                    <a href="mailto:yamazakimotionpg@gmail.com"><i class="fa-regular fa-envelope"></i></a>
-                </div>
-                <p class="end">Copy Right @PanKUN</p>
-            </div>
-            <div class="otherlink">
-                <div class="list">
-                    <h5>コンテンツ</h5>
-                    <div class="element">
-                        <a href="https://breadmotion.github.io/WebSite/">Home</a>
-                        <a href="./Portfolio/portfolio.html">Porfolio</a>
-                        <a href="./Blog/Blogs/blog_00001.html">Blog</a>
-                        <a href="./Contact/contact.html" class="button">Contact</a>
-                    </div>
-                </div>
-                <div class="list">
-                    <h5>れんらく</h5>
-                    <div class="element">
-                        <a href="tel:08057013869" class="button">でんわ</a>
-                        <a href="mailto:yamazakimotionpg@gmail.com" class="button">メール</a>
-                    </div>
-                </div>
-                <div class="list">
-                    <h5>リンク</h5>
-                    <div class="element">
-                        <a href="https://x.com/BREAD200011" class="button">Twitter(X)</a>
-                        <a href="https://game-creators.camp/@bread2000__" class="button">GameCreatorsCamp</a>
-                        <a href="https://github.com/BreadMotion" class="button">Github</a>
-                    </div>
-                </div>
-            </div>
-        </fotter>
+    </main>
+    <script>
+        //import header section
+        fetch("header.html")
+        .then((response) => response.text())
+        .then((data) => document.querySelector("main").insertAdjacentHTML('afterbegin', data));
+        
+        //import fotter section
+        fetch("footer.html")
+        .then((response) => response.text())
+        .then((data) => document.querySelector("main").insertAdjacentHTML('beforeend', data));
+    </script>
     </body>
 </html>

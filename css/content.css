@@ -3,6 +3,12 @@
   min-width: 1080px;
 
   width: auto;
+  height: 670px;
+
+  overflow: scroll;
+
+  background-color: #101010;
+  width: auto;
 
   padding-top: 230px;
 }
