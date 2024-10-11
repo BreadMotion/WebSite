@@ -22,6 +22,10 @@ function paraValue(paraName) {
 }
 
 function init() {
-  var result = "<input " + "type=" + paraValue("address") + " />";
-  document.getElementById("address").innerHTML = result;
+  var param = paraValue("address");
+  if (param == "") {
+  } else {
+    var result = "<input " + "type=" + param + " />";
+    document.getElementById("address").innerHTML = result;
+  }
 }
