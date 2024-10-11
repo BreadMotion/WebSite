@@ -27,9 +27,18 @@
     />
 
     <!-- import css -->
-    <link rel="stylesheet" href="./../css/style.css" />
-    <link rel="stylesheet" href="./../css/header.css" />
-    <link rel="stylesheet" href="./../css/footer.css" />
+    <link
+      rel="stylesheet"
+      href="https://breadmotion.github.io/WebSite/css/style.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://breadmotion.github.io/WebSite/css/header.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://breadmotion.github.io/WebSite/css/footer.css"
+    />
     <link rel="stylesheet" href="./css/main.css" />
   </head>
   <body>
@@ -42,14 +51,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js"></script>
     <script>
       //import header section
-      fetch("./../header.html")
+      fetch("https://breadmotion.github.io/WebSite/header.html")
         .then((response) => response.text())
         .then((data) =>
           document.querySelector("main").insertAdjacentHTML("afterbegin", data)
         );
 
       //import fotter section
-      fetch("./../footer.html")
+      fetch("https://breadmotion.github.io/WebSite/footer.html")
         .then((response) => response.text())
         .then((data) =>
           document.querySelector("main").insertAdjacentHTML("beforeend", data)
