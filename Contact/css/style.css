@@ -1,15 +1,50 @@
-/*common*/
-* {
-  margin: 0;
-  padding: 0;
+/*main*/
+.main {
+  display: flex;
+  justify-content: space-evenly;
 
-  font-family: "Cherry Bomb One", system-ui;
-  font-weight: 400;
-  font-style: normal;
+  width: auto;
+  height: auto;
 
-  z-index: 1;
-  /*outline: 2px solid blue;*/
+  background-color: #191919;
+
+  position: flex;
 }
 
-form {
+.main form {
+  position: flex;
+  width: auto;
+  height: auto;
+
+  margin-top: 10%;
+  margin-bottom: 10%;
+}
+
+.main form input:first-child {
+  width: auto;
+  padding: 10px 30px;
+
+  color: white;
+  border: 2px solid lightseagreen;
+  border-radius: 30px;
+  box-shadow: 1px 1px 10px black;
+}
+.main form input:last-child {
+  position: relative;
+  margin-left: 50%;
+  top: -50%;
+  width: auto;
+  padding: 10px 20px;
+
+  border: none;
+  background-color: lightseagreen;
+  border-radius: 30px;
+  color: white;
+  box-shadow: 1px 1px 10px black;
+}
+.main form input:last-child:hover {
+  background-color: seagreen;
+  border-radius: 30px;
+  color: gray;
+  box-shadow: 1px 1px 10px black;
 }
