@@ -2,38 +2,30 @@
 .main {
   display: flex;
   justify-content: space-evenly;
-
-  width: auto;
-  height: auto;
-
+  padding-right: 50px;
+  max-height: 700px;
+  padding-top: 30px;
+  padding-left: 50px;
   background-color: #191919;
-
-  position: flex;
 }
 
 .main form {
   position: flex;
-  width: auto;
-  height: auto;
-
-  margin-top: 10%;
-  margin-bottom: 10%;
 }
 
 .main form input:first-child {
-  width: auto;
+  width: 80%;
   padding: 10px 30px;
 
-  color: white;
+  color: black;
   border: 2px solid lightseagreen;
   border-radius: 30px;
   box-shadow: 1px 1px 10px black;
 }
 .main form input:last-child {
   position: relative;
-  margin-left: 50%;
-  top: -50%;
-  width: auto;
+  margin-left: 78%;
+  top: -41px;
   padding: 10px 20px;
 
   border: none;
