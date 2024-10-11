@@ -25,7 +25,6 @@ function init() {
   var param = paraValue("address");
   if (param == "") {
   } else {
-    var result = "<input " + "type=" + param + " />";
-    document.getElementById("address").innerHTML = result;
+    document.getElementById("address").inputMode = param;
   }
 }

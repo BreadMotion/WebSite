@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html laang="ja">
+<html lang="ja">
   <head>
     <title>Contact</title>
     <!-- setting meta data -->
@@ -11,14 +11,23 @@
     />
 
     <!-- import css -->
+    <link rel="stylesheet" href="./../css/style.css" />
     <link rel="stylesheet" href="css/style.css" />
 
     <!-- import javascript -->
     <script src="./js/contact.js"></script>
   </head>
   <body onload="init()">
-    <form name="contentForm" action="#?">
-      <input type="submit" name="submit" value="送信" />
-    </form>
+    <div class="main">
+      <form name="contentForm" id="contentForm">
+        <input
+          type="email"
+          name="address"
+          id="address"
+          value="メールアドレス"
+        />
+        <input type="submit" name="submit" value="送信" />
+      </form>
+    </div>
   </body>
 </html>
