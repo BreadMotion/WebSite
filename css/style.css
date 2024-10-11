@@ -66,6 +66,6 @@
   text-decoration: none;
   transition: all 0.3s;
 }
-.main a:hover {
+.main .btn:hover {
   border-radius: 20px;
 }
