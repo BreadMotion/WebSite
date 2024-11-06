@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Blog</title>
+    <!-- setting meta data -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X_UA_Compatible" content="IE=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes"
+    />
+
+    <!-- import google font api -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- import google font api -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- import css -->
+    <link
+      rel="stylesheet"
+      href="https://breadmotion.github.io/WebSite/css/style.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://breadmotion.github.io/WebSite/css/header.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://breadmotion.github.io/WebSite/css/footer.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://breadmotion.github.io/WebSite/Blog/css/main.css"
+    />
+    <link rel="stylesheet" href="./Blogs/css/style.css" />
+  </head>
+  <body>
+    <!-- import font awsome library -->
+    <script
+      src="https://kit.fontawesome.com/f6d11522bd.js"
+      crossorigin="anonymous"
+    ></script>
+    <!-- import processing library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js"></script>
+    <!-- import markdown library -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+    <!-- html import section -->
+    <script>
+      //import header.html section
+      fetch("https://breadmotion.github.io/WebSite/header.html")
+        .then((response) => response.text())
+        .then((data) =>
+          document.querySelector("main").insertAdjacentHTML("afterbegin", data)
+        );
+
+      //import fotter section
+      fetch("https://breadmotion.github.io/WebSite/footer.html")
+        .then((response) => response.text())
+        .then((data) =>
+          document.querySelector("main").insertAdjacentHTML("beforeend", data)
+        );
+    </script>
+
+    <script>
+      function PeekPage(pageid) {
+        var URL = "https://breadmotion.github.io/WebSite/blog.html";
+        var param = "?pageid=" + pageid;
+        location.href = URL = param;
+      }
+    </script>
+    <main>
+      <h2>ファイル一覧</h2>
+    </main>
+  </body>
+</html>
