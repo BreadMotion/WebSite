@@ -72,21 +72,19 @@
           document.querySelector("main").insertAdjacentHTML("beforeend", data)
         );
     </script>
+
+    <script>
+      function PeekPage(pageid) {
+        var URL = "https://breadmotion.github.io/WebSite/Blog/blog.html";
+        var param = "?pageid=" + pageid;
+        location.href = URL = param;
+      }
+    </script>
     <main>
-      <div clas="box" id="box">
-        <div class="markdown" id="markdown">
-          <!-- will import markdown -->
-          <script>
-            //import markdown section
-            var exportMarkdown = document.getElementById("markdown");
-            fetch("./Blogs/" + location.search, { method: "GET" })
-              .then((response) => response.text())
-              .then((text) => {
-                exportMarkdown.innerHTML = marked.parse(text);
-              });
-          </script>
-        </div>
-      </div>
+      <div class="content">
+        <h2>ファイル一覧</h2>
+        <a href="https://breadmotion.github.io/WebSite/Blog/blog.html?blog_0001.md">ブログはじめました!</a><br>
+        <a href="https://breadmotion.github.io/WebSite/Blog/blog.html?blog_0002.md">Unity のプロジェクトに Odin を導入するときの Git 管理</a>
     </main>
   </body>
 </html>
