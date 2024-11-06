@@ -65,22 +65,12 @@
         );
     </script>
     <main>
-      <div clas="box" id="box">
-        <div class="markdown" id="markdown">
-          <!-- will import markdown -->
-          <script>
-            //import markdown section
-            var param = new URL(window.location.href).searchParams.get(
-              "pageid"
-            );
-            var exportMarkdown = document.getElementById("markdown");
-            fetch("./Portfolios/" + param, { method: "GET" })
-              .then((response) => response.text())
-              .then((text) => {
-                exportMarkdown.innerHTML = marked.parse(text);
-              });
-          </script>
-        </div>
+      <div class="content">
+        <h2>ポートフォリオ一覧</h2>
+        <a href="./portfolio.html?pageid=portfolio_0001.md">霊迷の湯</a><br />
+        <a href="./portfolio.html?pageid=portfolio_0002.md"
+          >クマの逆転プロ野球</a
+        >
       </div>
     </main>
   </body>
