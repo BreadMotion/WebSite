@@ -78,8 +78,11 @@
           <!-- will import markdown -->
           <script>
             //import markdown section
+            var param = new URL(window.location.href).searchParams.get(
+              "pageid"
+            );
             var exportMarkdown = document.getElementById("markdown");
-            fetch("./Blogs/" + location.search, { method: "GET" })
+            fetch("./Blogs/" + param, { method: "GET" })
               .then((response) => response.text())
               .then((text) => {
                 exportMarkdown.innerHTML = marked.parse(text);
