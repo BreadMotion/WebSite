@@ -43,10 +43,7 @@
       rel="stylesheet"
       href="https://breadmotion.github.io/WebSite/Blog/css/main.css"
     />
-    <link 
-      rel="stylesheet" 
-      href="./Blogs/css/style.css"
-    />
+    <link rel="stylesheet" href="./Blogs/css/style.css" />
   </head>
   <body>
     <!-- import font awsome library -->
@@ -58,7 +55,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js"></script>
     <!-- import markdown library -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    
+
     <!-- html import section -->
     <script>
       //import header.html section
@@ -67,7 +64,7 @@
         .then((data) =>
           document.querySelector("main").insertAdjacentHTML("afterbegin", data)
         );
-      
+
       //import fotter section
       fetch("https://breadmotion.github.io/WebSite/footer.html")
         .then((response) => response.text())
@@ -82,12 +79,12 @@
           <script>
             //import markdown section
             var exportMarkdown = document.getElementById("markdown");
-            fetch("./Blogs/blog_00001.md", {method: "GET"})  
-              .then(response => response.text())
-              .then(text => {
+            fetch("./Blogs/" + location.search, { method: "GET" })
+              .then((response) => response.text())
+              .then((text) => {
                 exportMarkdown.innerHTML = marked.parse(text);
               });
-          </script>  
+          </script>
         </div>
       </div>
     </main>
