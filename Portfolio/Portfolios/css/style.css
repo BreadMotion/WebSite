@@ -1,285 +1,270 @@
-html {
-  font-size: 100%;
-  overflow-y: scroll;
-  -webkit-text-size-adjust: 100%;
-  -ms-text-size-adjust: 100%;
+main {
+  min-width: 1080px;
+  background-color: #191919;
 }
 
-body {
-  color: #444;
-  font-family: Georgia, Palatino, "Palatino Linotype", Times, "Times New Roman",
-    serif;
-  font-size: 12px;
-  line-height: 1.5em;
-  padding: 1em;
-  margin: auto;
-  max-width: 42em;
-  background: #fefefe;
+.box {
+  min-width: 880px;
+  padding: 0 10%;
+
+  background-color: #191919;
+  overflow: scroll;
+  align-content: center;
 }
 
-a {
-  color: #0645ad;
-  text-decoration: none;
-}
+.markdown {
+  margin: 10px 30vmax 0 10vmax;
+  max-width: 1080px;
+  font-family: "Yomogi", cursive;
+  background-color: #191919;
+  color: #fff;
 
-a:visited {
-  color: #06e;
-}
-
-a:active {
-  color: #faa700;
-}
-
-a:focus {
-  outline: thin dotted;
-}
-
-a:hover,
-a:active {
-  outline: 0;
-}
-
-::selection {
-  background: rgba(255, 255, 0, 0.3);
-  color: #000;
-}
-
-a::-moz-selection {
-  background: rgba(255, 255, 0, 0.3);
-  color: #0645ad;
-}
-
-a::selection {
-  background: rgba(255, 255, 0, 0.3);
-  color: #0645ad;
-}
-
-a::selection {
-  background: rgba(255, 255, 0, 0.3);
-  color: #0645ad;
-}
-
-p {
-  margin: 1em 0;
-}
-
-img {
-  max-width: 100%;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-weight: normal;
-  color: #111;
-  line-height: 1em;
-}
-
-h1 {
-  font-size: 2.5em;
-}
-
-h2 {
-  font-size: 2em;
-}
-
-h3 {
-  font-size: 1.5em;
-}
-
-h4 {
-  font-size: 1.2em;
-}
-
-h5 {
-  font-size: 1em;
-}
-
-h6 {
-  font-size: 0.09em;
-}
-
-blockquote {
-  color: #666666;
-  margin: 0;
-  padding-left: 3em;
-  border-left: 0.5em #eee solid;
-}
-
-hr {
-  display: block;
-  border: 0;
-  border-top: 1px solid #aaa;
-  border-bottom: 1px solid #eee;
-  margin: 1em 0;
-  padding: 0;
-}
-
-pre,
-code,
-kbd,
-samp {
-  color: #000;
-  font-family: monospace, monospace;
-  _font-family: "courier new", monospace;
-  font-size: 0.98em;
-}
-
-pre {
-  white-space: pre;
-  white-space: pre-wrap;
-  word-wrap: break-word;
-}
-
-b,
-strong {
-  font-weight: bold;
-}
-
-dfn {
-  font-style: italic;
-}
-
-ins {
-  background: #ff9;
-  color: #000;
-  text-decoration: none;
-}
-
-mark {
-  background: #ff0;
-  color: #000;
-  font-style: italic;
-  font-weight: bold;
-}
-
-sub,
-sup {
-  font-size: 75%;
-  line-height: 0;
-  position: relative;
-  vertical-align: baseline;
-}
-
-sup {
-  top: -0.5em;
-}
-
-sub {
-  bottom: -0.25em;
-}
-
-ul,
-ol {
-  margin: 1em 0;
-  padding: 0 0 0 2em;
-}
-
-li p:last-child {
-  margin: 0;
-}
-
-dd {
-  margin: 0 0 0 2em;
-}
-
-img {
-  border: 0;
-  -ms-interpolation-mode: bicubic;
-  vertical-align: middle;
-}
-
-table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-td {
-  vertical-align: top;
-}
-
-@media only screen and (min-width: 480px) {
-  body {
+  .text-cell {
+    font-family: "Yomogi", cursive;
     font-size: 14px;
-  }
-}
-
-@media only screen and (min-width: 768px) {
-  body {
-    font-size: 16px;
-  }
-}
-
-@media print {
-  * {
-    background: transparent !important;
-    color: black !important;
-    filter: none !important;
-    -ms-filter: none !important;
-  }
-
-  body {
-    font-size: 12pt;
-    max-width: 100%;
-  }
-
-  a,
-  a:visited {
-    text-decoration: underline;
-  }
-
-  hr {
-    height: 1px;
-    border: 0;
-    border-bottom: 1px solid black;
-  }
-
-  a[href]:after {
-    content: " (" attr(href) ")";
-  }
-
-  .ir a:after,
-  a[href^="avascript:"]:after,
-  a[href^="#"]:after {
-    content: "";
+    padding: 50px;
   }
 
   pre,
-  blockquote {
-    border: 1px solid #999;
-    padding-right: 1em;
-    page-break-inside: avoid;
+  .entry-content pre {
+    margin-top: 20px;
+    padding: 0;
   }
 
-  tr,
-  img {
-    page-break-inside: avoid;
+  .code-cell {
+    font-family: "Yomogi", cursive;
+    font-size: 12px;
+    padding: 50px;
   }
 
-  img {
-    max-width: 100% !important;
+  pre > code,
+  .entry-content pre > code {
+    max-height: 900px;
+    max-width: 80vmax;
+
+    padding: 20px 25px;
+
+    margin: 0;
+
+    font-family: monospace;
+    font-size: 1.1em;
+    color: #fafafa;
+    box-sizing: border-box;
+
+    display: block;
+    background: #1f1f1f;
+    overflow: scroll;
+    white-space: pre;
   }
 
-  @page :left {
-    margin: 15mm 20mm 15mm 10mm;
+  .markdown-cell {
+    font-family: "Yomogi", cursive;
+    font-size: 14px;
   }
 
-  @page :right {
-    margin: 15mm 10mm 15mm 20mm;
+  .latex-cell {
+    font-family: "Yomogi", cursive;
+    font-size: 14px;
   }
 
-  p,
-  h2,
+  h1 {
+    font-family: "Yomogi", cursive;
+    position: relative;
+    padding: 1em 0;
+    padding-left: 50px;
+    padding-right: 50px;
+  }
+
+  h1::before,
+  h1::after {
+    font-family: "Yomogi", cursive;
+    position: absolute;
+    left: 0;
+    content: "";
+    width: 100%;
+    height: 6px;
+    box-sizing: border-box;
+  }
+
+  h1::before {
+    font-family: "Yomogi", cursive;
+    top: 0;
+    border-top: 2px solid lightseagreen;
+    border-bottom: 1px solid lightseagreen;
+  }
+
+  h1::after {
+    font-family: "Yomogi", cursive;
+    bottom: 0;
+    border-top: 1px solid lightseagreen;
+    border-bottom: 2px solid lightseagreen;
+  }
+
+  h2 {
+    font-family: "Yomogi", cursive;
+    position: relative;
+    padding: 0.75em 1em 0.75em 3em;
+    border: 1px solid lightseagreen;
+  }
+
+  h2::after {
+    width: 6px;
+    height: -webkit-calc(100% - 1em);
+
+    top: 0.5em;
+    left: 2em;
+
+    content: "";
+    font-family: "Yomogi", cursive;
+    position: absolute;
+    height: calc(100% - 1em);
+    background-color: lightseagreen;
+    border-radius: 4px;
+  }
+
   h3 {
-    orphans: 3;
-    windows: 3;
+    font-family: "Yomogi", cursive;
+    padding: 0.5em 0.75em;
+    background-color: #191919;
+    border-left: 6px solid lightseagreen;
   }
 
-  h2,
-  h3 {
-    page-break-after: avoid;
+  h4 {
+    font-family: "Yomogi", cursive;
+    padding: 0.5em 0.75em;
+    background-color: #191919;
+    border-radius: 6px;
+  }
+
+  h5 {
+    font-family: "Yomogi", cursive;
+    padding: 0.5em 0.75em;
+    border-bottom-style: dotted;
+    border-bottom-color: lightseagreen;
+    border-bottom-width: thin;
+  }
+  h6 {
+    font-family: "Yomogi", cursive;
+  }
+
+  table thead th {
+    font-family: "Yomogi", cursive;
+    background: lightseagreen;
+    font-weight: bold;
+    vertical-align: top;
+    color: #fff;
+  }
+
+  hr {
+    font-family: "Yomogi", cursive;
+    background-color: #fff;
+    border-top: 1px dashed lightseagreen;
+  }
+
+  strong {
+    font-family: "Yomogi", cursive;
+    background: linear-gradient(transparent 60%, lightseagreen 100%);
+  }
+  li .a {
+  }
+
+  ul > li {
+    font-family: "Yomogi", cursive;
+    padding: 0px;
+    margin: 0px;
+  }
+
+  ul > li {
+    font-family: "Yomogi", cursive;
+    list-style-type: none !important;
+    list-style-image: none !important;
+    margin: 5px 0px 5px 10px !important;
+  }
+
+  ul > li {
+    font-family: "Yomogi", cursive;
+    position: relative;
+    padding-left: 20px;
+  }
+
+  ul > li:before {
+    top: 3px;
+    left: 2px;
+    height: 0;
+    width: 0;
+
+    font-family: "Yomogi", cursive;
+    content: "";
+    box-shadow: 0 0 2px 2px rgba(255, 255, 255, 0.2) inset;
+
+    display: block;
+    position: absolute;
+
+    border-top: 6px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 6px solid transparent;
+    border-left: 9px solid lightseagreen;
+  }
+
+  a {
+    font-family: "Yomogi", cursive;
+    position: relative;
+    color: lightseagreen;
+    padding-left: 100px;
+  }
+
+  a:before {
+    font-family: "Yomogi", cursive;
+    content: "→ ";
+  }
+
+  ol {
+    font-family: "Yomogi", cursive;
+    counter-reset: li;
+    padding: 0;
+    list-style: none;
+  }
+  ol li {
+    font-family: "Yomogi", cursive;
+    position: relative;
+    margin: 0 0 8px 4em;
+    padding: 2px 8px;
+  }
+  ol li:before {
+    font-family: "Yomogi", cursive;
+    content: counter(li);
+    counter-increment: li;
+    position: absolute;
+    top: -2px;
+    left: -2em;
+    width: 2em;
+    padding: 3px 0;
+    color: #fff;
+    background: lightseagreen;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 20px;
+  }
+
+  img {
+    font-family: "Yomogi", cursive;
+    height: 50%;
+    width: 50%;
+
+    -webkit-transition: all 1s ease;
+    -moz-transition: all 1s ease;
+    -o-transition: all 1s ease;
+    -ms-transition: all 1s ease;
+    transition: all 1s ease;
+  }
+
+  img:hover {
+    font-family: "Yomogi", cursive;
+    width: 100%;
+    height: 100%;
+  }
+
+  p {
+    font-family: "Yomogi", cursive;
   }
 }
