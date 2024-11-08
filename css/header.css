@@ -10,51 +10,113 @@ header {
   background-color: #101010;
 
   width: auto;
-}
-header nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 45px 8% 0 8%;
+
+  nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 45px 8% 0 8%;
+  }
+
+  /*ヘッダーの真ん中の３ボタン*/
+  nav ul li {
+    display: inline-block;
+    position: relative;
+    padding: 10px 25px;
+    left: -30px;
+  }
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+  nav ul li a:hover {
+    color: lightseagreen;
+  }
+
+  /*ヘッダーの左ロゴ*/
+  .logo {
+    color: white;
+    font-size: 35px;
+    letter-spacing: 1px;
+    cursor: pointer;
+  }
+  .logo span {
+    color: lightseagreen;
+    padding: 0px 0px 0px 10px;
+  }
+
+  /*ヘッダーお問い合わせボタン*/
+  .btn {
+    background-color: lightseagreen;
+    color: white;
+    padding: 10px 25px;
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  .btn:hover {
+    border-radius: 20px;
+  }
 }
 
-/*ヘッダーの真ん中の３ボタン*/
-header nav ul li {
-  display: inline-block;
-  position: relative;
-  padding: 10px 25px;
-  left: -30px;
-}
-header nav ul li a {
-  color: white;
-  text-decoration: none;
-  font-weight: bold;
-  transition: all 0.3s;
-}
-header nav ul li a:hover {
-  color: lightseagreen;
-}
+@media screen and (max-width: 480px) {
+  header {
+    min-width: 480px;
 
-/*ヘッダーの左ロゴ*/
-header .logo {
-  color: white;
-  font-size: 35px;
-  letter-spacing: 1px;
-  cursor: pointer;
-}
-header .logo span {
-  color: lightseagreen;
-  padding: 0px 0px 0px 10px;
-}
+    width: auto;
+    height: auto;
 
-/*ヘッダーお問い合わせボタン*/
-header .btn {
-  background-color: lightseagreen;
-  color: white;
-  padding: 10px 25px;
-  text-decoration: none;
-  transition: all 0.3s;
-}
-header .btn:hover {
-  border-radius: 20px;
+    overflow: scroll;
+    background-color: #101010;
+
+    width: auto;
+
+    nav {
+      display: flex;
+      position: relative;
+      padding: 0px 0px 0px 20px;
+      font-size: 15px;
+    }
+
+    /* ヘッダーの真ん中の３ボタン */
+    nav ul li {
+      left: 1%;
+      display: inline-block;
+      position: relative;
+      padding: 0px 5px;
+      align-items: center;
+    }
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .logo {
+      color: white;
+      font-size: 30px;
+      letter-spacing: 1px;
+      cursor: pointer;
+    }
+    .logo span {
+      color: lightseagreen;
+      padding: 0px 0px 0px 10px;
+    }
+
+    /*ヘッダーお問合わせボタン*/
+    .btn {
+      margin-top: -10px;
+      background-color: lightseagreen;
+      color: white;
+      padding: 8px 20px;
+      text-decoration: none;
+      transition: all 0.3s;
+    }
+    .btn:hover {
+      border-radius: 0px;
+      border-bottom-left-radius: 20px;
+    }
+  }
 }
