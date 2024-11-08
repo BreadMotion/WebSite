@@ -27,18 +27,9 @@
     />
 
     <!-- import css -->
-    <link
-      rel="stylesheet"
-      href="https://breadmotion.github.io/WebSite/css/style.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://breadmotion.github.io/WebSite/css/header.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://breadmotion.github.io/WebSite/css/footer.css"
-    />
+    <link rel="stylesheet" href="./../css/style.css" />
+    <link rel="stylesheet" href="./../css/header.css" />
+    <link rel="stylesheet" href="./../css/footer.css" />
     <link rel="stylesheet" href="./css/main.css" />
   </head>
   <body>
@@ -55,14 +46,14 @@
     <!-- html import section -->
     <script>
       //import header.html section
-      fetch("https://breadmotion.github.io/WebSite/header.html")
+      fetch("./../header.html")
         .then((response) => response.text())
         .then((data) =>
           document.querySelector("main").insertAdjacentHTML("afterbegin", data)
         );
 
       //import fotter section
-      fetch("https://breadmotion.github.io/WebSite/footer.html")
+      fetch("./../footer.html")
         .then((response) => response.text())
         .then((data) =>
           document.querySelector("main").insertAdjacentHTML("beforeend", data)
