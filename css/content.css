@@ -10,77 +10,155 @@
   background-color: #101010;
 
   padding-top: 30px;
-}
-.content .Processing {
-  position: absolute;
-  z-index: 0;
-  outline-style: none;
+
+  .Processing {
+    position: absolute;
+    z-index: 0;
+    outline-style: none;
+  }
+
+  .body {
+    display: flex;
+    justify-content: space-evenly;
+    padding-right: 50px;
+    max-height: 700px;
+    padding-top: 200px;
+    padding-left: 50px;
+  }
+
+  /*コンテンツ画像*/
+  .body img {
+    display: inline;
+    width: 500px;
+    height: 500px;
+    margin-top: -50px;
+  }
+  /*名前*/
+  .body h1 {
+    color: white;
+    margin: 20px 0 20px;
+    font-size: 75px;
+  }
+  /*プログラム言語*/
+  .body h3 {
+    color: white;
+    font-size: 25px;
+    margin-bottom: 50px;
+  }
+  /*ゲームエンジニア*/
+  .body h4 {
+    color: pink;
+    letter-spacing: 2px;
+    font-size: 20px;
+  }
+
+  /*contact form*/
+  .newslatter form {
+    position: flex;
+  }
+  /*Contact button*/
+  .newslatter form input:first-child {
+    width: 80%;
+    padding: 10px 30px;
+
+    color: black;
+    border: 2px solid lightseagreen;
+    border-radius: 30px;
+    box-shadow: 1px 1px 10px black;
+  }
+  .newslatter form input:last-child {
+    position: relative;
+    margin-left: 69%;
+    top: -41px;
+    padding: 10px 20px;
+
+    border: none;
+    background-color: lightseagreen;
+    border-radius: 30px;
+    color: white;
+    box-shadow: 1px 1px 10px black;
+  }
+  .newslatter form input:last-child:hover {
+    background-color: seagreen;
+    border-radius: 30px;
+    color: gray;
+    box-shadow: 1px 1px 10px black;
+  }
 }
 
-.content .body {
-  display: flex;
-  justify-content: space-evenly;
-  padding-right: 50px;
-  max-height: 700px;
-  padding-top: 200px;
-  padding-left: 50px;
-}
+@media screen and (max-width: 550px) {
+  .content {
+    min-width: 550px;
+    width: auto;
+    height: auto;
+    overflow: scroll;
+    background-color: #101010;
+    padding-top: 0px;
 
-/*コンテンツ画像*/
-.content .body img {
-  display: inline;
-  width: 500px;
-  height: 500px;
-  margin-top: -50px;
-}
-/*名前*/
-.content .body h1 {
-  color: white;
-  margin: 20px 0 20px;
-  font-size: 75px;
-}
-/*プログラム言語*/
-.content .body h3 {
-  color: white;
-  font-size: 25px;
-  margin-bottom: 50px;
-}
-/*ゲームエンジニア*/
-.content .body h4 {
-  color: pink;
-  letter-spacing: 2px;
-  font-size: 20px;
-}
+    .Processing {
+      position: absolute;
+      z-index: 1;
+      outline-style: none;
+    }
 
-/*contact form*/
-.content .newslatter form {
-  position: flex;
-}
-/*Contact button*/
-.content .newslatter form input:first-child {
-  width: 80%;
-  padding: 10px 30px;
+    .body {
+      display: flex;
+      justify-content: space-evenly;
+      padding-right: 0px;
+      max-height: 350px;
+      padding-top: 100px;
+      margin-left: -20px;
+      padding-bottom: 35px;
+    }
 
-  color: black;
-  border: 2px solid lightseagreen;
-  border-radius: 30px;
-  box-shadow: 1px 1px 10px black;
-}
-.content .newslatter form input:last-child {
-  position: relative;
-  margin-left: 69%;
-  top: -41px;
-  padding: 10px 20px;
+    /*コンテンツ画像*/
+    .body img {
+      display: inline;
+      width: 210px;
+      height: 210px;
+      margin-top: -50px;
+      margin-right: 40px;
+    }
+    /*名前*/
+    .body h1 {
+      color: white;
+      font-size: 25px;
+      margin-left: 30px;
+    }
+    /*プログラム言語*/
+    .body h3 {
+      color: white;
+      font-size: 18px;
+      margin-left: 30px;
+    }
+    /*ゲームエンジニア*/
+    .body h4 {
+      color: pink;
+      letter-spacing: 2px;
+      font-size: 15px;
+      margin-left: 30px;
+    }
 
-  border: none;
-  background-color: lightseagreen;
-  border-radius: 30px;
-  color: white;
-  box-shadow: 1px 1px 10px black;
-}
-.content .newslatter form input:last-child:hover {
-  background-color: seagreen;
-  border-radius: 30px;
-  color: gray;
-  box-shadow: 1px 1px 10px black;
+    .newslatter {
+      margin-top: 70px;
+    }
+
+    /*contact form*/
+    .newslatter form {
+      position: flex;
+      margin-left: 30px;
+    }
+    /*Contact button*/
+    .newslatter form input:first-child {
+      width: 170%;
+      padding: 5px 10px;
+    }
+    .newslatter form input:last-child {
+      position: relative;
+      align-items: right;
+      margin-left: 142%;
+      top: -31px;
+      padding: 5px 15px;
+    }
+  }
 }

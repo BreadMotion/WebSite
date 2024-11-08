@@ -1,8 +1,8 @@
 # PanKUN Home Page へようこそ
 
-作者の Portfolio と Blog がまとまったホームページです。
+作者のPortfolioと技術Blogが書いてあるホームページです。
 
-URL はこちら [PanKUN Home Page](https://breadmotion.github.io/WebSite/)
+ページは[こちら](https://breadmotion.github.io/WebSite/)
 
 > [!WARNING]
 > 開発途中です。
