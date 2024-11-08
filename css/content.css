@@ -86,9 +86,9 @@
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 550px) {
   .content {
-    min-width: 480px;
+    min-width: 550px;
     width: auto;
     height: auto;
     overflow: scroll;
@@ -117,24 +117,26 @@
       width: 210px;
       height: 210px;
       margin-top: -50px;
-      margin-right: 20px;
+      margin-right: 40px;
     }
     /*名前*/
     .body h1 {
       color: white;
       font-size: 25px;
+      margin-left: 30px;
     }
     /*プログラム言語*/
     .body h3 {
       color: white;
       font-size: 18px;
-      margin-right: 20px;
+      margin-left: 30px;
     }
     /*ゲームエンジニア*/
     .body h4 {
       color: pink;
       letter-spacing: 2px;
       font-size: 15px;
+      margin-left: 30px;
     }
 
     .newslatter {
@@ -144,16 +146,17 @@
     /*contact form*/
     .newslatter form {
       position: flex;
+      margin-left: 30px;
     }
     /*Contact button*/
     .newslatter form input:first-child {
-      width: 180%;
+      width: 170%;
       padding: 5px 10px;
     }
     .newslatter form input:last-child {
       position: relative;
       align-items: right;
-      margin-left: 150%;
+      margin-left: 142%;
       top: -31px;
       padding: 5px 15px;
     }

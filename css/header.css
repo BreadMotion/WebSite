@@ -60,9 +60,9 @@ header {
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 550px) {
   header {
-    min-width: 480px;
+    min-width: 550px;
 
     width: auto;
     height: auto;
