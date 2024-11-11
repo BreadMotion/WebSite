@@ -138,6 +138,7 @@
       position: flex;
       width: 0%;
       height: 0%;
+      transition: all 0.3s;
     }
     /*Contact button*/
     .newslatter form input:first-child {
@@ -149,6 +150,7 @@
       border: 0px solid lightseagreen;
       border-radius: 0px;
       box-shadow: 0px 0px 0px black;
+      transition: all 0.3s;
     }
     .newslatter form input:last-child {
       width: 0%;
@@ -163,6 +165,7 @@
       border-radius: 0px;
       color: white;
       box-shadow: 0px 0px 0px black;
+      transition: all 0.3s;
     }
     .newslatter form input:last-child:hover {
       width: 0%;
@@ -171,6 +174,7 @@
       border-radius: 0px;
       color: gray;
       box-shadow: 0px 0px 0px black;
+      transition: all 0.3s;
     }
   }
 }

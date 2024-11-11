@@ -162,13 +162,15 @@
       color: white;
       font-weight: bold;
       border-radius: 30px;
-      border: 2px solid green;
+      border: 2px solid lightseagreen;
       font-size: 80%;
 
       position: absolute;
       bottom: 0%;
-      margin-left: 73%;
+      margin-left: 70%;
       margin-bottom: 3%;
+
+      transition: all 0.3s;
     }
     .box .card a:hover {
       background-color: transparent;
@@ -191,7 +193,7 @@
       color: white;
       font-weight: bold;
       border-radius: 30px;
-      border: 2px solid green;
+      border: 2px solid lightseagreen;
     }
     .end a:hover {
       background-color: transparent;
