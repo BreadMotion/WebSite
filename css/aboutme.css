@@ -5,54 +5,119 @@
 
   padding: 100px 0;
   background-color: #191919;
-}
-.about .main2 {
-  width: 1080px;
-  display: flex;
-  margin: 0 auto;
-  align-items: center;
-  justify-content: space-around;
+
+  .main2 {
+    width: 1080px;
+    display: flex;
+    margin: 0 auto;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  img {
+    width: 500px;
+    padding: 0 20px;
+  }
 }
 
-.about img {
-  width: 500px;
-  padding: 0 20px;
-}
 .about-text {
   color: white;
   width: 800px;
   padding: 0 20px;
-}
-.about-text h2 {
-  color: white;
-  font-size: 75px;
-  margin-bottom: 20px;
-}
-.about-text h5 {
-  color: white;
-  letter-spacing: 1px;
-  font-size: 22px;
-  margin-bottom: 25px;
-}
-.about-text p {
-  font-family: "Yomogi", cursive;
 
-  color: white;
-  letter-spacing: 1px;
-  line-height: 28px;
-  margin-bottom: 45px;
-  font-size: 18px;
+  h2 {
+    color: white;
+    font-size: 75px;
+    margin-bottom: 20px;
+  }
+  h5 {
+    color: white;
+    letter-spacing: 1px;
+    font-size: 22px;
+    margin-bottom: 25px;
+  }
+  p {
+    font-family: "Yomogi", cursive;
+
+    color: white;
+    letter-spacing: 1px;
+    line-height: 28px;
+    margin-bottom: 45px;
+    font-size: 18px;
+  }
+  a {
+    background-color: lightseagreen;
+    padding: 13px 30px;
+    color: white;
+    font-weight: bold;
+    border-radius: 30px;
+    border: 2px solid green;
+  }
+  a:hover {
+    background-color: transparent;
+    cursor: pointer;
+    border: 2px solid green;
+  }
 }
-.about a {
-  background-color: lightseagreen;
-  padding: 13px 30px;
-  color: white;
-  font-weight: bold;
-  border-radius: 30px;
-  border: 2px solid green;
-}
-.about a:hover {
-  background-color: transparent;
-  cursor: pointer;
-  border: 2px solid green;
+
+@media screen and (max-width: 480px) {
+  .about {
+    min-width: auto;
+    width: auto;
+    padding: 100px 0px;
+    background-color: #191919;
+
+    .main2 {
+      width: auto;
+      display: flex;
+      margin: 0 auto;
+      align-items: center;
+      justify-content: space-around;
+    }
+
+    img {
+      width: 0%;
+    }
+  }
+
+  .about-text {
+    color: white;
+    width: auto;
+    padding: 0 20px;
+
+    h2 {
+      color: white;
+      font-size: 200%;
+      margin-bottom: 10%;
+    }
+    h5 {
+      color: white;
+      letter-spacing: 1px;
+      font-size: 150%;
+      margin-bottom: 10%;
+    }
+    p {
+      font-family: "Yomogi", cursive;
+
+      color: white;
+      letter-spacing: 1px;
+      line-height: 28px;
+      margin-bottom: 10%;
+      font-size: 70%;
+    }
+    a {
+      margin-left: 30%;
+      background-color: lightseagreen;
+      padding: 13px 30px;
+      color: white;
+      font-weight: bold;
+      border-radius: 30px;
+      border: 2px solid green;
+    }
+    a:hover {
+      background-color: transparent;
+      cursor: pointer;
+      border: 2px solid green;
+    }
+  }
 }

@@ -133,26 +133,44 @@
       margin-left: 10%;
     }
 
-    .newslatter {
-      margin-top: 70px;
-    }
-
     /*contact form*/
     .newslatter form {
       position: flex;
-      margin-left: 10%;
+      width: 0%;
+      height: 0%;
     }
     /*Contact button*/
     .newslatter form input:first-child {
-      width: 190%;
-      padding: 5px 10px;
+      width: 0%;
+      height: 0%;
+      padding: 0px 0px;
+
+      color: black;
+      border: 0px solid lightseagreen;
+      border-radius: 0px;
+      box-shadow: 0px 0px 0px black;
     }
     .newslatter form input:last-child {
+      width: 0%;
+      height: 0%;
       position: relative;
-      align-items: right;
-      margin-left: 152%;
-      top: -31px;
-      padding: 5px 15px;
+      margin-left: 0%;
+      top: 0px;
+      padding: 0px 0px;
+
+      border: none;
+      background-color: lightseagreen;
+      border-radius: 0px;
+      color: white;
+      box-shadow: 0px 0px 0px black;
+    }
+    .newslatter form input:last-child:hover {
+      width: 0%;
+      height: 0%;
+      background-color: seagreen;
+      border-radius: 0px;
+      color: gray;
+      box-shadow: 0px 0px 0px black;
     }
   }
 }
