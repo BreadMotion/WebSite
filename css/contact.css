@@ -40,3 +40,45 @@
 
   cursor: pointer;
 }
+
+@media screen and (max-width: 480px) {
+  .contact {
+    min-width: auto;
+
+    width: auto;
+    height: 100%;
+
+    background-color: #191919;
+    padding: 10px 0;
+
+    top: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    align-items: center;
+  }
+  .contact p {
+    color: white;
+    font-size: 200%;
+    font-weight: bold;
+
+    bottom: 20px;
+  }
+  .contact .contact-buttom {
+    background-color: lightseagreen;
+    color: white;
+    padding: 13px 30px;
+    font-weight: bold;
+
+    border-radius: 30px;
+    border: 2px solid lightseagreen;
+    margin-bottom: 10px;
+  }
+  .contact .contact-buttom:hover {
+    background-color: transparent;
+    border: 2px solid green;
+
+    cursor: pointer;
+  }
+}

@@ -86,9 +86,9 @@
   }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 480px) {
   .content {
-    min-width: 800px;
+    min-width: auto;
     width: auto;
     height: auto;
     overflow: scroll;
@@ -114,45 +114,67 @@
     /*コンテンツ画像*/
     .body img {
       display: inline;
-      width: 250px;
-      height: 250px;
+      width: 45%;
+      height: 45%;
       margin-top: -50px;
-      margin-right: 50px;
+      margin-right: 10%;
     }
     /*名前*/
     .body h1 {
       color: white;
-      font-size: 60px;
-      margin-left: 30px;
+      font-size: 30px;
+      margin-left: 10%;
     }
     /*ゲームエンジニア*/
     .body h4 {
       color: pink;
       letter-spacing: 2px;
-      font-size: 30px;
-      margin-left: 30px;
-    }
-
-    .newslatter {
-      margin-top: 70px;
+      font-size: 15px;
+      margin-left: 10%;
     }
 
     /*contact form*/
     .newslatter form {
       position: flex;
-      margin-left: 50px;
+      width: 0%;
+      height: 0%;
+      transition: all 0.3s;
     }
     /*Contact button*/
     .newslatter form input:first-child {
-      width: 190%;
-      padding: 5px 10px;
+      width: 0%;
+      height: 0%;
+      padding: 0px 0px;
+
+      color: black;
+      border: 0px solid lightseagreen;
+      border-radius: 0px;
+      box-shadow: 0px 0px 0px black;
+      transition: all 0.3s;
     }
     .newslatter form input:last-child {
+      width: 0%;
+      height: 0%;
       position: relative;
-      align-items: right;
-      margin-left: 166%;
-      top: -31px;
-      padding: 5px 15px;
+      margin-left: 0%;
+      top: 0px;
+      padding: 0px 0px;
+
+      border: none;
+      background-color: lightseagreen;
+      border-radius: 0px;
+      color: white;
+      box-shadow: 0px 0px 0px black;
+      transition: all 0.3s;
+    }
+    .newslatter form input:last-child:hover {
+      width: 0%;
+      height: 0%;
+      background-color: seagreen;
+      border-radius: 0px;
+      color: gray;
+      box-shadow: 0px 0px 0px black;
+      transition: all 0.3s;
     }
   }
 }
