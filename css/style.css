@@ -10,7 +10,7 @@
   z-index: 1;
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 800px) {
   * {
     font-weight: 200;
   }

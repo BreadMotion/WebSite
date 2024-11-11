@@ -86,9 +86,9 @@
   }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (max-width: 800px) {
   .content {
-    min-width: 550px;
+    min-width: 800px;
     width: auto;
     height: auto;
     overflow: scroll;
@@ -114,28 +114,22 @@
     /*コンテンツ画像*/
     .body img {
       display: inline;
-      width: 210px;
-      height: 210px;
+      width: 250px;
+      height: 250px;
       margin-top: -50px;
-      margin-right: 40px;
+      margin-right: 50px;
     }
     /*名前*/
     .body h1 {
       color: white;
-      font-size: 25px;
-      margin-left: 30px;
-    }
-    /*プログラム言語*/
-    .body h3 {
-      color: white;
-      font-size: 18px;
+      font-size: 60px;
       margin-left: 30px;
     }
     /*ゲームエンジニア*/
     .body h4 {
       color: pink;
       letter-spacing: 2px;
-      font-size: 15px;
+      font-size: 30px;
       margin-left: 30px;
     }
 
@@ -146,17 +140,17 @@
     /*contact form*/
     .newslatter form {
       position: flex;
-      margin-left: 30px;
+      margin-left: 50px;
     }
     /*Contact button*/
     .newslatter form input:first-child {
-      width: 170%;
+      width: 190%;
       padding: 5px 10px;
     }
     .newslatter form input:last-child {
       position: relative;
       align-items: right;
-      margin-left: 142%;
+      margin-left: 166%;
       top: -31px;
       padding: 5px 15px;
     }
