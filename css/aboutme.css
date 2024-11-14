@@ -76,7 +76,8 @@
     }
 
     img {
-      width: 0%;
+      width: 0px;
+      padding: 0 20px;
     }
   }
 
