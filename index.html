@@ -34,7 +34,7 @@
       crossorigin="anonymous"
     ></script>
     <!-- import processing library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.min.js"></script>
     <script>
       //import header section
       fetch("./header.html")
@@ -52,13 +52,13 @@
     </script>
     <main>
         <!-- content section -->
-        <div class="content">
+        <div class="content" id="content">
             <!-- Processing Section -->
             <!-- Document: https://processing.org/examples/storinginput.html -->
             <!-- Samples: https://openprocessing.org/browse# -->
             <div class="Processing">
-                <canvas id="canvas1"></canvas>
-                <script src="./js/main.js"></script>
+                <canvas id="canvas"></canvas>
+                <script type="text/processing" data-processing-target="canvas" src="./js/main.pde"></script>
             </div>
 
             <div class="body">

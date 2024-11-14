@@ -1,10 +1,17 @@
 function processingProc(processing) {
   processing.setup = function () {
-    processing.size(document.body.clientWidth, 720);
+    processing.size(
+      document.body.clientWidth,
+      document.getElementById("content").offsetHeight - 30
+    );
     processing.noStroke();
   };
 
   processing.draw = function () {
+    processing.size(
+      document.body.clientWidth,
+      document.getElementById("content").offsetHeight - 30
+    );
     processing.background(0);
     processing.translate(width / 2, height / 2);
     processing.pointLight(
