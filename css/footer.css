@@ -10,103 +10,219 @@ footer {
   display: flex;
   justify-content: space-between;
   overflow: scroll;
+
+  .link {
+    min-width: 50%;
+    max-width: 50%;
+    width: 50%;
+
+    display: inline-block;
+  }
+  .otherlink {
+    min-width: 400px;
+    max-width: 400px;
+
+    margin-top: 40px;
+    margin-right: 40px;
+
+    display: flex;
+    justify-content: right;
+  }
+  p:nth-child(1) {
+    font-family: "Cherry Bomb One", system-ui;
+    color: white;
+    font-size: 30px;
+    font-weight: bold;
+
+    margin-left: 20px;
+    top: 20px;
+  }
+  p:nth-child(1) span {
+    font-family: "Cherry Bomb One", system-ui;
+    color: lightseagreen;
+    font-size: 30px;
+    padding: 0px 0px 0px 1px;
+    font-weight: bold;
+
+    top: 20px;
+  }
+  p:nth-child(2) {
+    width: 500px;
+
+    font-family: system-ui;
+    color: white;
+    font-size: 12px;
+
+    margin-left: 15px;
+    top: 10px;
+  }
+
+  /*メディア関係*/
+  .social {
+    display: flex;
+    margin-left: 10px;
+    margin-top: 10px;
+  }
+  .social a {
+    width: 45px;
+    height: 45px;
+
+    background-color: lightseagreen;
+    border-radius: 50%;
+    font-size: 20px;
+    text-decoration: none;
+
+    margin-left: 10px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .social a:hover {
+    transform: scale(1.3);
+  }
+
+  /*ページ内コンテンツリンク*/
+  .otherlink .list {
+    width: 100px;
+    height: 50%;
+
+    margin-left: 15px;
+  }
+  .otherlink .list h5 {
+    color: white;
+    font-size: 18px;
+  }
+  .otherlink .list .element a {
+    color: blueviolet;
+    font-size: 15px;
+
+    display: list-item;
+  }
+
+  /*コピーライト*/
+  .end {
+    font-family: none;
+    color: white;
+    font-size: 10px;
+
+    margin-top: 200px;
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
 }
-footer .link {
-  min-width: 50%;
-  max-width: 50%;
-  width: 50%;
 
-  display: inline-block;
-}
-footer .otherlink {
-  min-width: 400px;
-  max-width: 400px;
+@media screen and (max-width: 480px) {
+  footer {
+    min-width: auto;
 
-  margin-top: 40px;
-  margin-right: 40px;
+    width: auto;
+    height: auto;
 
-  display: flex;
-  justify-content: right;
-}
-footer p:nth-child(1) {
-  font-family: "Cherry Bomb One", system-ui;
-  color: white;
-  font-size: 30px;
-  font-weight: bold;
+    background-color: #101010;
 
-  margin-left: 20px;
-  top: 20px;
-}
-footer p:nth-child(1) span {
-  font-family: "Cherry Bomb One", system-ui;
-  color: lightseagreen;
-  font-size: 30px;
-  padding: 0px 0px 0px 1px;
-  font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    overflow: scroll;
 
-  top: 20px;
-}
-footer p:nth-child(2) {
-  width: 500px;
+    .link {
+      min-width: 30%;
+      max-width: 30%;
+      width: 30%;
 
-  font-family: system-ui;
-  color: white;
-  font-size: 12px;
+      display: inline-block;
+    }
+    .otherlink {
+      min-width: 70%;
+      max-width: 70%;
 
-  margin-left: 15px;
-  top: 10px;
-}
+      margin-top: 40px;
+      margin-right: 40px;
 
-/*メディア関係*/
-footer .social {
-  display: flex;
-  margin-left: 10px;
-  margin-top: 10px;
-}
-footer .social a {
-  width: 45px;
-  height: 45px;
+      display: flex;
+      justify-content: right;
+    }
+    p:nth-child(1) {
+      font-family: "Cherry Bomb One", system-ui;
+      color: white;
+      font-size: 100%;
+      font-weight: bold;
 
-  background-color: lightseagreen;
-  border-radius: 50%;
-  font-size: 20px;
-  text-decoration: none;
+      margin-left: 20px;
+      top: 20px;
+    }
+    p:nth-child(1) span {
+      font-family: "Cherry Bomb One", system-ui;
+      color: lightseagreen;
+      font-size: 100%;
+      padding: 0px 0px 0px 1px;
+      font-weight: bold;
 
-  margin-left: 10px;
+      top: 20px;
+    }
+    p:nth-child(2) {
+      width: auto;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-footer .social a:hover {
-  transform: scale(1.3);
-}
+      font-family: system-ui;
+      color: white;
+      font-size: 30%;
 
-/*ページ内コンテンツリンク*/
-footer .otherlink .list {
-  width: 100px;
-  height: 50%;
+      margin-left: 15px;
+      top: 10px;
+    }
 
-  margin-left: 15px;
-}
-footer .otherlink .list h5 {
-  color: white;
-  font-size: 18px;
-}
-footer .otherlink .list .element a {
-  color: blueviolet;
-  font-size: 15px;
+    /*メディア関係*/
+    .social {
+      display: flex;
+      margin-left: 15px;
+      margin-top: 10px;
+      width: 150%;
+    }
+    .social a {
+      width: 40px;
+      height: 40px;
 
-  display: list-item;
-}
+      background-color: lightseagreen;
+      border-radius: 40px;
+      font-size: 100%;
+      text-decoration: none;
+      margin-left: 2%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    .social a:hover {
+      transform: scale(1.3);
+    }
 
-/*コピーライト*/
-footer .end {
-  font-family: none;
-  color: white;
-  font-size: 10px;
+    /*ページ内コンテンツリンク*/
+    .otherlink .list {
+      width: 20%;
+      height: 30%;
 
-  margin-top: 200px;
-  margin-left: 20px;
-  margin-bottom: 10px;
+      margin-left: 0px;
+    }
+    .otherlink .list h5 {
+      color: white;
+      font-size: 13px;
+    }
+    .otherlink .list .element a {
+      color: blueviolet;
+      font-size: 10px;
+
+      display: list-item;
+    }
+
+    /*コピーライト*/
+    .end {
+      font-family: none;
+      color: white;
+      font-size: 10px;
+
+      margin-top: 200px;
+      margin-left: 20px;
+      margin-bottom: 10px;
+    }
+  }
 }
