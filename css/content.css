@@ -1,14 +1,10 @@
 /*Content Section*/
 .content {
   min-width: 1080px;
-
   width: auto;
   height: 720px;
-
   overflow: scroll;
-
   background-color: #101010;
-
   padding-top: 30px;
 
   .Processing {
