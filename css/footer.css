@@ -176,11 +176,11 @@ footer {
       display: flex;
       margin-left: 15px;
       margin-top: 10px;
-      width: 150%;
+      width: 100%;
     }
     .social a {
-      width: 40px;
-      height: 40px;
+      width: 20px;
+      height: 20px;
 
       background-color: lightseagreen;
       border-radius: 40px;

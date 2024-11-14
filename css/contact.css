@@ -74,6 +74,7 @@
     border-radius: 30px;
     border: 2px solid lightseagreen;
     margin-bottom: 10px;
+    transition: all 0.3s;
   }
   .contact .contact-buttom:hover {
     background-color: transparent;
