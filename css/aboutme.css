@@ -112,7 +112,8 @@
       color: white;
       font-weight: bold;
       border-radius: 30px;
-      border: 2px solid green;
+      border: 2px solid lightseagreen;
+      transition: all 0.3s;
     }
     a:hover {
       background-color: transparent;
