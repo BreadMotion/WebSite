@@ -4,10 +4,11 @@ role: Full Stack Enginner
 tech: Unity / C#
 platform: PC/Steam
 description: ８番ライクホラー
-store page: https://store.steampowered.com/app/2806350/_/
-Game Creators Camp: https://game-creators.camp/games/37683783/Reimei_no_Yu
-チームリーダーX: https://x.com/shi_ro_Gorilla/
 tags: game, steam, pc
+storepage: https://store.steampowered.com/app/2806350/_/
+GameCreatorsCamp: https://game-creators.camp/games/37683783/Reimei_no_Yu
+X: https://x.com/shi_ro_Gorilla/
+thumbnail: https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2806350/header_japanese.jpg?t=1710480483
 ---
 
 ## 開発元 : Studio ShiroGorilla

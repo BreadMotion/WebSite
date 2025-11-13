@@ -155,8 +155,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       thumb.className = "portfolio-thumb";
       if (work.thumbnail) {
         const img = document.createElement("img");
-        img.src = post.thumbnail;
-        img.alt = post.title;
+        img.src = work.thumbnail;
+        img.alt = work.title;
         thumb.appendChild(img);
       }
 
