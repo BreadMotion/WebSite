@@ -10,8 +10,6 @@ Game Creators Camp: https://game-creators.camp/recruits/DALbqHqjLTaGNTMDVpvC
 tags: game, ios, android
 ---
 
-# クマの逆転プロ野球
-
 ## 開発元 : Game Creators Shool
 
 リリース日 : 予定日 2025 年

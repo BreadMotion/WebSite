@@ -10,8 +10,6 @@ Game Creators Camp: https://game-creators.camp/games/37683783/Reimei_no_Yu
 tags: game, steam, pc
 ---
 
-# 霊迷の湯
-
 ## 開発元 : Studio ShiroGorilla
 
 リリース日 : 2024/3/8

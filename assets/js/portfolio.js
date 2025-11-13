@@ -31,6 +31,8 @@ function stripFrontMatter(md) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const initialTag = getQueryParam("tag");
+
   const listSection = document.getElementById(
     "portfolioListSection",
   );
@@ -50,6 +52,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   );
   const detailLinks = document.getElementById(
     "portfolioDetailLinks",
+  );
+  const detailTags = document.getElementById(
+    "portfolioDetailTags",
   );
   const techSelect = document.getElementById(
     "portfolioTechFilter",
@@ -90,6 +95,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   );
 
   let selectedTag = null;
+  if (initialTag) {
+    selectedTag = initialTag;
+  }
 
   function renderList(
     filterTech = "all",
@@ -233,6 +241,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         tagListElement.appendChild(chip);
       });
+
+    updateTagChipActive();
   }
 
   function updateTagChipActive() {
@@ -321,6 +331,27 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (work.platform)
       metaParts.push(`Platform: ${work.platform}`);
     detailMeta.textContent = metaParts.join(" / ");
+
+    if (detailTags) {
+      detailTags.innerHTML = "";
+      const tags = Array.isArray(work.tags)
+        ? work.tags
+        : [];
+      if (tags.length > 0) {
+        const label = document.createTextNode("タグ:");
+        detailTags.appendChild(label);
+
+        tags.forEach((tag) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.textContent = tag;
+          btn.addEventListener("click", () => {
+            window.location.href = `portfolio.html?tag=${encodeURIComponent(tag)}`;
+          });
+          detailTags.appendChild(btn);
+        });
+      }
+    }
 
     if (!work.contentPath) {
       detailBody.textContent =

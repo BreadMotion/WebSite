@@ -15,7 +15,6 @@
 }
 
 /* フィルタ/検索/タグ */
-
 .portfolio-filters,
 .portfolio-search,
 .portfolio-tags {
@@ -84,7 +83,6 @@
 }
 
 /* 一覧レイアウト */
-
 .portfolio-list {
     list-style: none;
     margin: 0;
@@ -185,6 +183,32 @@
     color: var(--color-text-muted);
 }
 
+.portfolio-detail-tags {
+    margin: 0 0 10px;
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+}
+
+.portfolio-detail-tags button {
+    margin-left: 4px;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid #475569;
+    background: rgba(15, 23, 42, 0.9);
+    color: var(--color-text-muted);
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition:
+        background 0.12s ease-out,
+        border-color 0.12s ease-out,
+        color 0.12s ease-out;
+}
+
+.portfolio-detail-tags button:hover {
+    background: #1f2937;
+    color: #e5e7eb;
+}
+
 .portfolio-detail-body {
     margin-top: 12px;
     font-size: 0.95rem;
@@ -211,7 +235,6 @@
 }
 
 /* スマホ向け */
-
 @media (max-width: 768px) {
     .portfolio-item {
         flex-direction: column;
