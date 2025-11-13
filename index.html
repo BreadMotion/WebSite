@@ -73,274 +73,317 @@
     </head>
     <body>
         <!-- header は layout.js が自動挿入 -->
-        <main class="main-container">
-            <section class="hero">
-                <div class="hero-main">
-                    <h1>PanKUN</h1>
-                    <p class="hero-subtitle">
-                        クライアント/ツール/サーバーエンジニア
-                    </p>
+        <div class="page-shell">
+            <main class="main-container">
+                <section class="hero reveal-on-scroll">
+                    <div class="hero-main">
+                        <h1>PanKUN</h1>
+                        <p class="hero-subtitle">
+                            クライアント/ツール/サーバーエンジニア
+                        </p>
 
-                    <div class="hero-badges">
-                        <span class="hero-badge"
-                            >Unity / C#</span
-                        >
-                        <span class="hero-badge"
-                            >UE5 / C++</span
-                        >
-                        <span class="hero-badge"
-                            >Node.js / Discord Bot</span
-                        >
-                        <span class="hero-badge"
-                            >Linux / CI\CD</span
-                        >
+                        <div class="hero-badges">
+                            <span class="hero-badge"
+                                >Unity / C#</span
+                            >
+                            <span class="hero-badge"
+                                >UE5 / C++</span
+                            >
+                            <span class="hero-badge"
+                                >Node.js / Discord Bot</span
+                            >
+                            <span class="hero-badge"
+                                >Linux / CI\CD</span
+                            >
+                        </div>
+
+                        <div class="hero-actions">
+                            <a
+                                href="portfolio.html"
+                                class="btn btn-primary"
+                                >ポートフォリオを見る</a
+                            >
+                            <a
+                                href="blog.html"
+                                class="btn btn-primary"
+                                >ブログを読む</a
+                            >
+                        </div>
                     </div>
 
-                    <div class="hero-actions">
-                        <a
-                            href="portfolio.html"
-                            class="btn btn-primary"
-                            >ポートフォリオを見る</a
-                        >
-                        <a
-                            href="blog.html"
-                            class="btn btn-primary"
-                            >ブログを読む</a
-                        >
-                    </div>
-                </div>
+                    <aside class="hero-side">
+                        <h2>最近の更新</h2>
+                        <div class="home-latest">
+                            <div class="home-latest-block">
+                                <h3
+                                    class="home-latest-title"
+                                >
+                                    Latest Blog
+                                </h3>
+                                <ul
+                                    id="homeLatestBlog"
+                                    class="home-latest-list"
+                                ></ul>
+                            </div>
 
-                <aside class="hero-side">
-                    <h2>最近の更新</h2>
-                    <div class="home-latest">
-                        <div class="home-latest-block">
-                            <h3 class="home-latest-title">
-                                Latest Blog
+                            <div class="home-latest-block">
+                                <h3
+                                    class="home-latest-title"
+                                >
+                                    Latest Portfolio
+                                </h3>
+                                <ul
+                                    id="homeLatestPortfolio"
+                                    class="home-latest-list"
+                                ></ul>
+                            </div>
+                        </div>
+                    </aside>
+                </section>
+
+                <section
+                    class="section section--profile reveal-on-scroll"
+                    id="about"
+                >
+                    <h2 class="section__title">
+                        About / Profile
+                    </h2>
+
+                    <div class="profile-grid">
+                        <!-- 経験年数 -->
+                        <article class="profile-card">
+                            <h3 class="profile-card-title">
+                                経験
                             </h3>
-                            <ul
-                                id="homeLatestBlog"
-                                class="home-latest-list"
-                            ></ul>
-                        </div>
+                            <ul class="profile-list">
+                                <li>
+                                    <span
+                                        class="profile-label"
+                                        >学生開発</span
+                                    ><span
+                                        class="profile-value"
+                                        >約 4 年</span
+                                    >
+                                </li>
+                                <li>
+                                    <span
+                                        class="profile-label"
+                                        >業務（ゲームクライアント）</span
+                                    ><span
+                                        class="profile-value"
+                                        >約 2.5 年</span
+                                    >
+                                </li>
+                                <li>
+                                    <span
+                                        class="profile-label"
+                                        >個人・趣味開発</span
+                                    ><span
+                                        class="profile-value"
+                                        >約 1.5 年</span
+                                    >
+                                </li>
+                            </ul>
+                            <p class="profile-note">
+                                学生時代から一貫してゲーム開発に関わりつつ、ツールやインフラ周りも触りながら守備範囲が広くコミット力の高いポジションを目指しています。
+                            </p>
+                        </article>
 
-                        <div class="home-latest-block">
-                            <h3 class="home-latest-title">
-                                Latest Portfolio
+                        <!-- 技術スタック -->
+                        <article class="profile-card">
+                            <h3 class="profile-card-title">
+                                Tech Stack
                             </h3>
-                            <ul
-                                id="homeLatestPortfolio"
-                                class="home-latest-list"
-                            ></ul>
-                        </div>
+                            <div class="profile-tagset">
+                                <div
+                                    class="profile-tagset-label"
+                                >
+                                    Game / Client
+                                </div>
+                                <div
+                                    class="profile-taglist"
+                                >
+                                    <span
+                                        class="profile-tag"
+                                        >Unity</span
+                                    >
+                                    <span
+                                        class="profile-tag"
+                                        >C#</span
+                                    >
+                                    <span
+                                        class="profile-tag"
+                                        >UE5</span
+                                    >
+                                    <span
+                                        class="profile-tag"
+                                        >C++</span
+                                    >
+                                    <span
+                                        class="profile-tag"
+                                        >Blueprint</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="profile-tagset">
+                                <div
+                                    class="profile-tagset-label"
+                                >
+                                    Backend / Tools
+                                </div>
+                                <div
+                                    class="profile-taglist"
+                                >
+                                    <span
+                                        class="profile-tag"
+                                        >Node.js</span
+                                    >
+                                    <span
+                                        class="profile-tag"
+                                        >Express</span
+                                    >
+                                    <span
+                                        class="profile-tag"
+                                        >Discord Bot</span
+                                    >
+                                    <span
+                                        class="profile-tag"
+                                        >Slack Bot</span
+                                    >
+                                    <span
+                                        class="profile-tag"
+                                        >GAS</span
+                                    >
+                                </div>
+                            </div>
+                            <div class="profile-tagset">
+                                <div
+                                    class="profile-tagset-label"
+                                >
+                                    Infra / DevOps
+                                </div>
+                                <div
+                                    class="profile-taglist"
+                                >
+                                    <span
+                                        class="profile-tag"
+                                        >Linux/Ubuntu
+                                        Server</span
+                                    >
+                                    <span
+                                        class="profile-tag"
+                                        >Git / GitHub</span
+                                    >
+                                    <span
+                                        class="profile-tag"
+                                        >Jenkins</span
+                                    >
+                                </div>
+                            </div>
+                        </article>
+
+                        <!-- 得意領域 -->
+                        <article class="profile-card">
+                            <h3 class="profile-card-title">
+                                Focus / 得意領域
+                            </h3>
+                            <ul class="profile-list">
+                                <li>
+                                    <span
+                                        class="profile-label"
+                                        >ゲームクライアント</span
+                                    >
+                                    <span
+                                        class="profile-value"
+                                    >
+                                        ゲームロジック /
+                                        コアロジック /
+                                        アセット運用 / UI/UX
+                                        / 演出
+                                    </span>
+                                </li>
+                                <li>
+                                    <span
+                                        class="profile-label"
+                                        >ツール開発</span
+                                    >
+                                    <span
+                                        class="profile-value"
+                                        >Discord Bot / Slack
+                                        Bot /
+                                        自動化スクリプト /
+                                        CI/CD /
+                                        社内運営に関わるツール
+                                    </span>
+                                </li>
+                                <li>
+                                    <span
+                                        class="profile-label"
+                                        >インフラ遊び</span
+                                    >
+                                    <span
+                                        class="profile-value"
+                                        >自宅常駐サーバー(Discord
+                                        Bot, Minecraft,
+                                        トンネル接続による外部公開)</span
+                                    >
+                                </li>
+                            </ul>
+                            <p class="profile-note">
+                                「とりあえず必要なものは自前で用意してみる」スタイルで、クライアント開発に限らず周辺の環境整備も一緒にやることが多いです。
+                                非エンジニアでも高度なことができるようにしつつ、どのような環境でも様々な視点で行動できるようにしています。
+                            </p>
+                        </article>
                     </div>
-                </aside>
-            </section>
+                </section>
 
-            <section
-                class="section section--profile"
-                id="about"
-            >
-                <h2 class="section__title">
-                    About / Profile
-                </h2>
-
-                <div class="profile-grid">
-                    <!-- 経験年数 -->
-                    <article class="profile-card">
-                        <h3 class="profile-card-title">
-                            経験
-                        </h3>
-                        <ul class="profile-list">
-                            <li>
-                                <span class="profile-label"
-                                    >学生開発</span
-                                ><span class="profile-value"
-                                    >約 4 年</span
+                <section
+                    class="section section--top-grid reveal-on-scroll"
+                >
+                    <h2 class="section__title">
+                        コンテンツ
+                    </h2>
+                    <ul class="card-list">
+                        <li class="card">
+                            <h3>Blog</h3>
+                            <p class="text-muted">
+                                技術メモや開発日誌など
+                            </p>
+                            <p>
+                                <a href="blog.html"
+                                    >ブログ一覧へ →</a
                                 >
-                            </li>
-                            <li>
-                                <span class="profile-label"
-                                    >業務（ゲームクライアント）</span
-                                ><span class="profile-value"
-                                    >約 2.5 年</span
+                            </p>
+                        </li>
+                        <li class="card">
+                            <h3>Portfolio</h3>
+                            <p class="text-muted">
+                                制作したゲームやツールの紹介。
+                            </p>
+                            <p>
+                                <a href="portfolio.html"
+                                    >作品一覧へ →</a
                                 >
-                            </li>
-                            <li>
-                                <span class="profile-label"
-                                    >個人・趣味開発</span
-                                ><span class="profile-value"
-                                    >約 1.5 年</span
+                            </p>
+                        </li>
+                        <li class="card">
+                            <h3>Contact</h3>
+                            <p class="text-muted">
+                                お仕事のご相談など。
+                            </p>
+                            <p>
+                                <a href="contact.html"
+                                    >お問い合わせ →</a
                                 >
-                            </li>
-                        </ul>
-                        <p class="profile-note">
-                            学生時代から一貫してゲーム開発に関わりつつ、ツールやインフラ周りも触りながら守備範囲が広くコミット力の高いポジションを目指しています。
-                        </p>
-                    </article>
-
-                    <!-- 技術スタック -->
-                    <article class="profile-card">
-                        <h3 class="profile-card-title">
-                            Tech Stack
-                        </h3>
-                        <div class="profile-tagset">
-                            <div
-                                class="profile-tagset-label"
-                            >
-                                Game / Client
-                            </div>
-                            <div class="profile-taglist">
-                                <span class="profile-tag"
-                                    >Unity</span
-                                >
-                                <span class="profile-tag"
-                                    >C#</span
-                                >
-                                <span class="profile-tag"
-                                    >UE5</span
-                                >
-                                <span class="profile-tag"
-                                    >C++</span
-                                >
-                                <span class="profile-tag"
-                                    >Blueprint</span
-                                >
-                            </div>
-                        </div>
-                        <div class="profile-tagset">
-                            <div
-                                class="profile-tagset-label"
-                            >
-                                Backend / Tools
-                            </div>
-                            <div class="profile-taglist">
-                                <span class="profile-tag"
-                                    >Node.js</span
-                                >
-                                <span class="profile-tag"
-                                    >Express</span
-                                >
-                                <span class="profile-tag"
-                                    >Discord Bot</span
-                                >
-                                <span class="profile-tag"
-                                    >Slack Bot</span
-                                >
-                                <span class="profile-tag"
-                                    >GAS</span
-                                >
-                            </div>
-                        </div>
-                        <div class="profile-tagset">
-                            <div
-                                class="profile-tagset-label"
-                            >
-                                Infra / DevOps
-                            </div>
-                            <div class="profile-taglist">
-                                <span class="profile-tag"
-                                    >Linux/Ubuntu
-                                    Server</span
-                                >
-                                <span class="profile-tag"
-                                    >Git / GitHub</span
-                                >
-                                <span class="profile-tag"
-                                    >Jenkins</span
-                                >
-                            </div>
-                        </div>
-                    </article>
-
-                    <!-- 得意領域 -->
-                    <article class="profile-card">
-                        <h3 class="profile-card-title">
-                            Focus / 得意領域
-                        </h3>
-                        <ul class="profile-list">
-                            <li>
-                                <span class="profile-label"
-                                    >ゲームクライアント</span
-                                >
-                                <span class="profile-value">
-                                    ゲームロジック /
-                                    コアロジック /
-                                    アセット運用 / UI/UX /
-                                    演出
-                                </span>
-                            </li>
-                            <li>
-                                <span class="profile-label"
-                                    >ツール開発</span
-                                >
-                                <span class="profile-value"
-                                    >Discord Bot / Slack Bot
-                                    / 自動化スクリプト /
-                                    CI/CD /
-                                    社内運営に関わるツール
-                                </span>
-                            </li>
-                            <li>
-                                <span class="profile-label"
-                                    >インフラ遊び</span
-                                >
-                                <span class="profile-value"
-                                    >自宅常駐サーバー(Discord
-                                    Bot, Minecraft,
-                                    トンネル接続による外部公開)</span
-                                >
-                            </li>
-                        </ul>
-                        <p class="profile-note">
-                            「とりあえず必要なものは自前で用意してみる」スタイルで、クライアント開発に限らず周辺の環境整備も一緒にやることが多いです。
-                            非エンジニアでも高度なことができるようにしつつ、どのような環境でも様々な視点で行動できるようにしています。
-                        </p>
-                    </article>
-                </div>
-            </section>
-
-            <section class="section section--top-grid">
-                <h2 class="section__title">コンテンツ</h2>
-                <ul class="card-list">
-                    <li class="card">
-                        <h3>Blog</h3>
-                        <p class="text-muted">
-                            技術メモや開発日誌など
-                        </p>
-                        <p>
-                            <a href="blog.html"
-                                >ブログ一覧へ →</a
-                            >
-                        </p>
-                    </li>
-                    <li class="card">
-                        <h3>Portfolio</h3>
-                        <p class="text-muted">
-                            制作したゲームやツールの紹介。
-                        </p>
-                        <p>
-                            <a href="portfolio.html"
-                                >作品一覧へ →</a
-                            >
-                        </p>
-                    </li>
-                    <li class="card">
-                        <h3>Contact</h3>
-                        <p class="text-muted">
-                            お仕事のご相談など。
-                        </p>
-                        <p>
-                            <a href="contact.html"
-                                >お問い合わせ →</a
-                            >
-                        </p>
-                    </li>
-                </ul>
-            </section>
-        </main>
-
+                            </p>
+                        </li>
+                    </ul>
+                </section>
+            </main>
+        </div>
         <!-- 共通JS -->
         <script src="assets/js/layout.js" defer></script>
+        <script src="assets/js/ui.js"></script>
         <!-- トップページ専用JS（今は空でもOK） -->
         <script src="assets/js/top.js" defer></script>
     </body>

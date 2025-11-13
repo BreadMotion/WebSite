@@ -68,6 +68,7 @@
         background 0.12s ease-out,
         border-color 0.12s ease-out,
         color 0.12s ease-out,
+        box-shadow 0.12s ease-out,
         transform 0.12s ease-out;
 }
 
@@ -77,9 +78,16 @@
 }
 
 .blog-tag-chip.active {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
+    background:
+        radial-gradient(
+            circle at 0 0,
+            rgba(56, 189, 248, 0.4),
+            transparent 55%
+        ),
+        var(--color-accent);
     color: #f9fafb;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
 }
 
 /* 一覧 */

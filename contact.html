@@ -67,75 +67,84 @@
     </head>
     <body>
         <!-- header は layout.js が自動挿入 -->
-
-        <main class="main-container">
-            <section class="page-header">
-                <h1>Contact</h1>
-                <p>
-                    お仕事のご相談やご連絡は、以下のフォームまたはメールからお願いします。
-                </p>
-                <p>
-                    メール:
-                    <a href="mailto:example@example.com"
-                        >example@example.com</a
-                    >
-                </p>
-            </section>
-
-            <section class="section">
-                <h2>お問い合わせフォーム（ダミー）</h2>
-                <form id="contactForm" class="contact-form">
-                    <div class="form-field">
-                        <label for="name">お名前</label>
-                        <input
-                            type="text"
-                            id="name"
-                            name="name"
-                            required
-                        />
-                    </div>
-
-                    <div class="form-field">
-                        <label for="email"
-                            >メールアドレス</label
+        <div class="page-shell">
+            <main class="main-container">
+                <section
+                    class="page-header reveal-on-scroll"
+                >
+                    <h1>Contact</h1>
+                    <p>
+                        お仕事のご相談やご連絡は、以下のフォームまたはメールからお願いします。
+                    </p>
+                    <p>
+                        メール:
+                        <a href="mailto:example@example.com"
+                            >example@example.com</a
                         >
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            required
-                        />
-                    </div>
+                    </p>
+                </section>
 
-                    <div class="form-field">
-                        <label for="message">内容</label>
-                        <textarea
-                            id="message"
-                            name="message"
-                            rows="5"
-                            required
-                        ></textarea>
-                    </div>
+                <section class="section reveal-on-scroll">
+                    <h2>お問い合わせフォーム（ダミー）</h2>
+                    <form
+                        id="contactForm"
+                        class="contact-form"
+                    >
+                        <div class="form-field">
+                            <label for="name">お名前</label>
+                            <input
+                                type="text"
+                                id="name"
+                                name="name"
+                                required
+                            />
+                        </div>
 
-                    <div class="form-actions">
-                        <button type="submit">
-                            送信（ダミー）
-                        </button>
-                    </div>
+                        <div class="form-field">
+                            <label for="email"
+                                >メールアドレス</label
+                            >
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                required
+                            />
+                        </div>
 
-                    <p
-                        id="contactResult"
-                        class="contact-result"
-                        aria-live="polite"
-                    ></p>
-                </form>
-            </section>
-        </main>
+                        <div class="form-field">
+                            <label for="message"
+                                >内容</label
+                            >
+                            <textarea
+                                id="message"
+                                name="message"
+                                rows="5"
+                                required
+                            ></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit">
+                                送信（ダミー）
+                            </button>
+                        </div>
+
+                        <p
+                            id="contactResult"
+                            class="contact-result"
+                            aria-live="polite"
+                        ></p>
+                    </form>
+                </section>
+            </main>
+        </div>
 
         <!-- footer も layout.js が自動挿入 -->
 
         <!-- 共通JS -->
         <script src="assets/js/layout.js" defer></script>
+        <script src="assets/js/ui.js"></script>
         <!-- Contact専用JS -->
         <script src="assets/js/contact.js" defer></script>
     </body>
