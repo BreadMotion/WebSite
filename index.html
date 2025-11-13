@@ -1,186 +1,140 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-    <head>    
-        <title>Top Page</title>
-        <!-- setting meta data -->
-        <meta charset="UTF-8"/>
-        <meta http-equiv="X_UA_Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+    <head>
+        <meta charset="UTF-8" />
+        <title>Pan<span>KUN</span></title>
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1"
+        />
 
-        <!-- import google font api -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&display=swap" rel="stylesheet" />    
-        
-        <!-- import google font api -->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Yomogi&display=swap" rel="stylesheet" />
+        <!-- 共通CSS -->
+        <link
+            rel="stylesheet"
+            href="assets/css/base.css"
+            class="active"
+        />
+        <link
+            rel="stylesheet"
+            href="assets/css/layout.css"
+            class="active"
+        />
 
-        <!-- import css -->
-        <link rel="stylesheet" href="./css/style.css" />
-        <link rel="stylesheet" href="./css/header.css" />
-        <link rel="stylesheet" href="./css/footer.css" />
-        <link rel="stylesheet" href="./css/content.css"/>
-        <link rel="stylesheet" href="./css/aboutme.css"/>
-        <link rel="stylesheet" href="./css/portfolio.css" />
-        <link rel="stylesheet" href="./css/blog.css" />
-        <link rel="stylesheet" href="./css/contact.css" />
+        <!-- トップページ専用CSS -->
+        <link
+            rel="stylesheet"
+            href="assets/css/top.css"
+            class="active"
+        />
     </head>
     <body>
-    <!-- import javascript -->
-    <script src="./js/sendContact.js"></script>
-    <!-- import font awsome library -->
-    <script
-      src="https://kit.fontawesome.com/f6d11522bd.js"
-      crossorigin="anonymous"
-    ></script>
-    <!-- import processing library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/processing.js/1.6.6/processing.js"></script>
-    <script>
-      //import header section
-      fetch("./header.html")
-        .then((response) => response.text())
-        .then((data) =>
-          document.querySelector("main").insertAdjacentHTML("afterbegin", data)
-        );
-
-      //import fotter section
-      fetch("./footer.html")
-        .then((response) => response.text())
-        .then((data) =>
-          document.querySelector("main").insertAdjacentHTML("beforeend", data)
-        );
-    </script>
-    <main>
-        <!-- content section -->
-        <div class="content">
-            <!-- Processing Section -->
-            <!-- Document: https://processing.org/examples/storinginput.html -->
-            <!-- Samples: https://openprocessing.org/browse# -->
-            <div class="Processing">
-                <canvas id="canvas1" data-src="./js/main.pde"></canvas>
-            </div>
-
-            <div class="body">
-                <div class="portfolioInfo">
-                    <h4>ゲームエンジニア</h4>
-                    <h1>Pan <span>KUN</span></h1>
-                    <div class="newslatter">
-                        <form name="contentForm"">
-                            <input type="email" name="address" placeholder="メールアドレス" required/>
-                            <input type="button" name="submit" value="おといあわせ" onclick="getform()"/>
-                        </form>
-                    </div>
-                </div>
-                <img src="./Image/Kaguya-Runa.jpg" alt="">
-            </div>
-        </div>  
-        
-        <!-- about me section -->
-        <section class="about">
-            <div class="main2">
-                <img src="./Image/Kaguya-Runa.jpg" alt=""/>
-                <div class="about-text">
-                    <h2>About Me</h2>
-                    <h5>Game Developer & FullStack Engineer</h5>
-                    <p>
-                        私は普段ゲーム会社でクライアントエンジニア、システムエンジニアとして働きながらプライベートでゲーム、ツール、サーバーやデータベース等を作成しています。
+        <!-- header は layout.js が自動挿入 -->
+        <main class="main-container">
+            <section class="hero">
+                <div class="hero-main">
+                    <h1>PanKUN</h1>
+                    <p class="hero-subtitle">
+                        クライアント/ツール/サーバーエンジニア
                     </p>
-                    <p>
-                        言語に依存はなく作る目的に合わせて言語を使用しており、そのたびに学習が必要なためある程度の言語は会得しています。
-                    </p>
-                    <a href="./Contact/contact.html" class="button">おといあわせ</a>
-                </div>
-            </div>
-        </section>
 
-        <!-- portfolio section -->
-        <div class="portfolio">
-            <div class="title"><h2>Portfolio</h2></div>
-            <div class="box">
-                <div class="card">
-                    <i class="fa-solid fa-gamepad"></i>
-                    <h5>霊迷の湯</h5>
-                    <div class="pragraph">
-                        <p>開発元: Studio ShiroGorilla</p>
-                        <p>リリース日: 2024/3/8</p>
-                        <p>プラットフォーム: steam</p>
-                        <p>ジャンル: ホラー ８番ライク</p>
-                        <a href="./Portfolio/portfolio.html?pageid=portfolio_0001.md" class="button">ひらく</a>
+                    <div class="hero-badges">
+                        <span class="hero-badge"
+                            >Unity / C#</span
+                        >
+                        <span class="hero-badge"
+                            >UE5 / C++</span
+                        >
+                        <span class="hero-badge"
+                            >Node.js / Discord Bot</span
+                        >
+                        <span class="hero-badge"
+                            >Linux / CI\CD</span
+                        >
                     </div>
-                </div>
-                <div class="card">
-                    <i class="fa-solid fa-gamepad"></i>
-                    <h5>クマの逆転プロ野球</h5>
-                    <div class="pragraph">
-                        <p>開発元: まつさん</p>
-                        <p>リリース日: 未定</p>
-                        <p>プラットフォーム: Google Play</p>
-                        <p>ジャンル: カジュアル</p>
-                        <a href="./Portfolio/portfolio.html?pageid=portfolio_0002.md" class="button">ひらく</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <i class="fa-solid fa-gamepad"></i>
-                    <h5>Game Developer</h5>
-                    <div class="pragraph">
-                        <p>開発元: test</p>
-                        <p>リリース日: test</p>
-                        <p>プラットフォーム: test</p>
-                        <p>ジャンル: test</p>
-                        <a href="./Portfolio/portfoliohome.html" class="button">ひらく</a>
-                    </div>
-                </div>
-            </div>
-            <div class="end">
-                <a href="./Portfolio/portfoliohome.html" class="button">もっとみる</a>
-            </div>
-        </div>
-        <hr width="auto" size="5" noshade="">
 
-        <!-- bolg section -->
-        <div class="blog">
-            <div class="title"><h2>Blog</h2></div>
-            <div class="box">
-                <div class="card">
-                    <i class="fa-solid fa-code"></i>
-                    <h5>ブログはじめました!</h5>
-                    <div class="pragraph">
-                        <p>投稿日: ****</p>
-                        <p>ジャンル: 雑談</p>
-                        <a href="./Blog/blog.html?pageid=blog_00001.md" class="button">ひらく</a>
+                    <div class="hero-actions">
+                        <a
+                            href="portfolio.html"
+                            class="btn btn-primary"
+                            >ポートフォリオを見る</a
+                        >
+                        <a
+                            href="blog.html"
+                            class="btn btn-primary"
+                            >ブログを読む</a
+                        >
                     </div>
                 </div>
-                <div class="card">
-                    <i class="fa-solid fa-code"></i>
-                    <h5>Unityの共同プロジェクトにOdinを導入する時の注意点</h5>
-                    <div class="pragraph">
-                        <p>投稿日: **** </p> 
-                        <p>ジャンル: Unity, 拡張機能, Git</p>
-                        <a href="./Blog/blog.html?pageid=blog_00002.md" class="button">ひらく</a>
-                    </div>
-                </div>
-                <div class="card">
-                    <i class="fa-solid fa-code"></i>
-                    <h5>TEST</h5>
-                    <div class="pragraph">
-                        <p>投稿日: ****</p>
-                        <p>ジャンル: none</p>
-                        <a href="./Blog/bloghome.html" class="button">ひらく</a>
-                    </div>
-                </div>
-            </div>
-            <div class="end">
-                <a href="./Blog/bloghome.html">もっとみる</a>
-            </div>
-        </div>
 
-        <!-- contact section -->
-        <div class="contact">
-            <p>Contact</p>
-            <a href="./WebSite/Contact/contact.html" class="contact-buttom">おといあわせ</a>
-        </div>
-    </main>
+                <aside class="hero-side">
+                    <h2>最近の更新</h2>
+                    <div class="home-latest">
+                        <div class="home-latest-block">
+                            <h3 class="home-latest-title">
+                                Latest Blog
+                            </h3>
+                            <ul
+                                id="homeLatestBlog"
+                                class="home-latest-list"
+                            ></ul>
+                        </div>
+
+                        <div class="home-latest-block">
+                            <h3 class="home-latest-title">
+                                Latest Portfolio
+                            </h3>
+                            <ul
+                                id="homeLatestPortfolio"
+                                class="home-latest-list"
+                            ></ul>
+                        </div>
+                    </div>
+                </aside>
+            </section>
+
+            <section class="section section--top-grid">
+                <h2 class="section__title">コンテンツ</h2>
+                <ul class="card-list">
+                    <li class="card">
+                        <h3>Blog</h3>
+                        <p class="text-muted">
+                            技術メモや開発日誌など
+                        </p>
+                        <p>
+                            <a href="blog.html"
+                                >ブログ一覧へ →</a
+                            >
+                        </p>
+                    </li>
+                    <li class="card">
+                        <h3>Portfolio</h3>
+                        <p class="text-muted">
+                            制作したゲームやツールの紹介。
+                        </p>
+                        <p>
+                            <a href="portfolio.html"
+                                >作品一覧へ →</a
+                            >
+                        </p>
+                    </li>
+                    <li class="card">
+                        <h3>Contact</h3>
+                        <p class="text-muted">
+                            お仕事のご相談など。
+                        </p>
+                        <p>
+                            <a href="contact.html"
+                                >お問い合わせ →</a
+                            >
+                        </p>
+                    </li>
+                </ul>
+            </section>
+        </main>
+
+        <!-- 共通JS -->
+        <script src="assets/js/layout.js" defer></script>
+        <!-- トップページ専用JS（今は空でもOK） -->
+        <script src="assets/js/top.js" defer></script>
     </body>
 </html>

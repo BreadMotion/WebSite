@@ -1,0 +1,108 @@
+/* ヘッダー */
+.page-header {
+    margin-bottom: 16px;
+}
+
+.page-header h1 {
+    margin: 0 0 4px;
+    font-size: 1.4rem;
+}
+
+.page-header p {
+    margin: 0 0 4px;
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+}
+
+.page-header a {
+    color: var(--color-accent);
+    text-decoration: underline;
+    font-size: 0.9rem;
+}
+
+/* フォーム */
+
+.contact-form {
+    max-width: 520px;
+}
+
+.form-field {
+    margin-bottom: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.form-field label {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+}
+
+.form-field input,
+.form-field textarea {
+    padding: 8px 10px;
+    border-radius: 12px;
+    border: 1px solid var(--color-border-soft);
+    background: rgba(15, 23, 42, 0.95);
+    color: var(--color-text);
+    font-size: 0.9rem;
+}
+
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: #6b7280;
+}
+
+.form-field input:focus,
+.form-field textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.6);
+}
+
+.form-actions {
+    margin-top: 8px;
+}
+
+.form-actions button {
+    padding: 7px 18px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    font-size: 0.9rem;
+    background: var(--color-accent);
+    color: #f9fafb;
+    box-shadow: 0 12px 28px rgba(79, 70, 229, 0.7);
+    transition:
+        background 0.12s ease-out,
+        transform 0.12s ease-out,
+        box-shadow 0.12s ease-out;
+}
+
+.form-actions button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 18px 40px rgba(79, 70, 229, 0.9);
+}
+
+.contact-result {
+    margin-top: 10px;
+    font-size: 0.9rem;
+}
+
+/* 成功/エラー用の色は JS で上書きしているなら、そのままでOK
+   必要ならクラスで制御する形にも変更可 */
+.contact-result--ok {
+    color: #4ade80;
+}
+
+.contact-result--ng {
+    color: #f97373;
+}
+
+/* スマホ */
+
+@media (max-width: 640px) {
+    .contact-form {
+        max-width: 100%;
+    }
+}
