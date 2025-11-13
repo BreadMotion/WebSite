@@ -110,10 +110,14 @@ async function generatePortfolio() {
     const platform = meta.platform || "";
     const description = meta.description || "";
     const tags = parseTags(meta.tags);
+    const thumbnail = meta.thumbnail;
 
     const links = {};
-    if (meta.detail) links.detail = meta.detail;
-    if (meta.github) links.github = meta.github;
+    if (meta.storepage) links.storepage = meta.storepage;
+    if (meta.GameCreatorsCamp)
+      links.GameCreatorsCamp = meta.GameCreatorsCamp;
+    if (meta.X) links.X = meta.X;
+    if (meta.Youtube) links.Youtube = meta.Youtube;
 
     entries.push({
       id,
@@ -124,6 +128,7 @@ async function generatePortfolio() {
       description,
       tags,
       contentPath: `content/portfolio/${file}`,
+      thumbnail,
       links,
     });
   }
