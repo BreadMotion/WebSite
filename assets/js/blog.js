@@ -311,7 +311,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     detailSection.style.display = "";
 
     const post = posts.find((p) => p.id === id);
-
     if (!post) {
       detailTitle.textContent =
         "記事が見つかりませんでした";
@@ -357,16 +356,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       const res = await fetch(post.contentPath);
       if (!res.ok) throw new Error(res.statusText);
-      const md = await res.text();
+      const markdown = await res.text();
+      const bodyOnly = stripFrontMatter(markdown);
 
-      if (typeof marked === "undefined") {
-        detailBody.textContent =
-          "Markdown パーサが読み込めていません。";
-        return;
+      // marked.js があれば使う / 無ければプレーンテキストで表示
+      if (window.marked) {
+        detailBody.innerHTML = marked.parse(bodyOnly);
+      } else {
+        detailBody.textContent = bodyOnly;
       }
-
-      const bodyOnly = stripFrontMatter(md);
-      detailBody.innerHTML = marked.parse(bodyOnly);
     } catch (err) {
       console.error(
         "記事本文の読み込みに失敗しました:",
