@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Pan<span>KUN</span> | Blog</title>
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1"
+        />
+
+        <!-- 共通CSS -->
+        <link
+            rel="stylesheet"
+            href="assets/css/base.css"
+            class="active"
+        />
+        <link
+            rel="stylesheet"
+            href="assets/css/layout.css"
+            class="active"
+        />
+
+        <!-- Blog専用CSS -->
+        <link
+            rel="stylesheet"
+            href="assets/css/blog.css"
+            class="active"
+        />
+    </head>
+    <body>
+        <!-- header は layout.js が自動挿入 -->
+        <main class="main-container">
+            <section class="page-header">
+                <h1>Blog</h1>
+                <p>
+                    技術メモや開発日記などをまとめています
+                </p>
+
+                <div class="blog-filters">
+                    <label for="blogCategoryFilter"
+                        >カテゴリ:</label
+                    >
+                    <select id="blogCategoryFilter">
+                        <option value="all">すべて</option>
+                        <!-- blog.js からカテゴリを追加 -->
+                    </select>
+                </div>
+
+                <div class="blog-search">
+                    <label for="blogSearchInput"
+                        >検索:</label
+                    >
+                    <input
+                        type="search"
+                        id="blogSearchInput"
+                        placeholder="タイトル・概要・カテゴリで検索"
+                        autocomplete="off"
+                    />
+                </div>
+
+                <div class="blog-tags">
+                    <span class="blog-tags-label"
+                        >タグ:</span
+                    >
+                    <div
+                        id="blogTagList"
+                        class="blog-tags-list"
+                    >
+                        <!-- blog.js からタグボタンを追加 -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- 一覧表示用セクション -->
+            <section id="blogListSection" class="section">
+                <h2>記事一覧</h2>
+                <ul id="blogList" class="blog-list">
+                    <!-- blog.js で自動生成 -->
+                </ul>
+            </section>
+
+            <!-- 詳細表示用セクション（初期は非表示） -->
+            <section
+                id="blogDetailSection"
+                class="section"
+                style="display: none"
+            >
+                <a href="blog.html" class="active"
+                    >&laquo; 一覧に戻る</a
+                >
+                <h2 id="blogDetailTitle"></h2>
+                <p
+                    id="blogDetailMeta"
+                    class="blog-meta"
+                ></p>
+                <div
+                    id="blogDetailBody"
+                    class="blog-detail-body"
+                ></div>
+            </section>
+        </main>
+
+        <!-- footer も layout.js が自動挿入 -->
+        <!-- Markdown パーサ（marked） -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
+            defer
+        ></script>
+
+        <!-- 共通JS -->
+        <script src="assets/js/layout.js" defer></script>
+        <!-- Blog専用JS -->
+        <script src="assets/js/blog.js" defer></script>
+    </body>
+</html>

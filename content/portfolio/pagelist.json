@@ -1,0 +1,32 @@
+[
+  {
+    "id": "portfolio_0002",
+    "title": "クマの逆転プロ野球",
+    "role": "Full Stack Enginner",
+    "tech": "\"Unity / C#",
+    "platform": "android, ios",
+    "description": "カジュアル",
+    "tags": [
+      "game",
+      "ios",
+      "android"
+    ],
+    "contentPath": "content/portfolio/portfolio_0002.md",
+    "links": {}
+  },
+  {
+    "id": "portfolio_0001",
+    "title": "霊迷の湯",
+    "role": "Full Stack Enginner",
+    "tech": "Unity / C#",
+    "platform": "PC/Steam",
+    "description": "８番ライクホラー",
+    "tags": [
+      "game",
+      "steam",
+      "pc"
+    ],
+    "contentPath": "content/portfolio/portfolio_0001.md",
+    "links": {}
+  }
+]
