@@ -1,5 +1,3 @@
-// assets/js/portfolio.js
-
 function getQueryParam(name) {
   const params = new URLSearchParams(
     window.location.search,

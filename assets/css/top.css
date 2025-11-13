@@ -94,7 +94,6 @@
 }
 
 /* サイドパネル（例：最近の更新など） */
-
 .hero-side {
     background: rgba(15, 23, 42, 0.9);
     border-radius: var(--radius-lg);
@@ -120,7 +119,6 @@
 }
 
 /* トップ下のコンテンツカードは layout.css の .section / .card を流用 */
-
 .section--top-grid .card-list {
     grid-template-columns: repeat(
         auto-fit,
@@ -128,8 +126,56 @@
     );
 }
 
-/* スマホ向け */
+.home-latest {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(260px, 1fr)
+    );
+    gap: 14px;
+}
 
+.home-latest-block {
+    background: rgba(15, 23, 42, 0.94);
+    border-radius: var(--radius-md);
+    padding: 12px 14px;
+    border: 1px solid var(--color-border-soft);
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.7);
+}
+
+.home-latest-title {
+    margin: 0 0 6px;
+    font-size: 1rem;
+}
+
+.home-latest-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.home-latest-item + .home-latest-item {
+    margin-top: 6px;
+}
+
+.home-latest-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.home-latest-link-title {
+    display: block;
+}
+
+.home-latest-link-meta {
+    display: block;
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+/* スマホ向け */
 @media (max-width: 768px) {
     .hero {
         grid-template-columns: 1fr;

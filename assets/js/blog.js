@@ -1,5 +1,3 @@
-// assets/js/blog.js
-
 function getQueryParam(name) {
   const params = new URLSearchParams(
     window.location.search,
@@ -33,6 +31,8 @@ function stripFrontMatter(md) {
 }
 
 document.addEventListener("DOMContentLoaded", async () => {
+  const initialTag = getQueryParam("tag");
+
   const listSection = document.getElementById(
     "blogListSection",
   );
@@ -48,6 +48,9 @@ document.addEventListener("DOMContentLoaded", async () => {
   );
   const detailBody = document.getElementById(
     "blogDetailBody",
+  );
+  const detailTags = document.getElementById(
+    "blogDetailTags",
   );
   const categorySelect = document.getElementById(
     "blogCategoryFilter",
@@ -86,6 +89,10 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   // 選択中タグ（null = すべて）
   let selectedTag = null;
+
+  if (initialTag) {
+    selectedTag = initialTag;
+  }
 
   // 一覧描画
   function renderList(
@@ -229,6 +236,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         tagListElement.appendChild(chip);
       });
+
+    updateTagChipActive();
   }
 
   function updateTagChipActive() {
@@ -317,6 +326,27 @@ document.addEventListener("DOMContentLoaded", async () => {
       ? ` / カテゴリ: ${post.category}`
       : "";
     detailMeta.textContent = `${post.date || ""}${categoryText}`;
+
+    if (detailTags) {
+      detailTags.innerHTML = "";
+      const tags = Array.isArray(post.tags)
+        ? post.tags
+        : [];
+      if (tags.length > 0) {
+        const label = document.createTextNode("タグ:");
+        detailTags.appendChild(label);
+
+        tags.forEach((tag) => {
+          const btn = document.createElement("button");
+          btn.type = "button";
+          btn.textContent = tag;
+          btn.addEventListener("click", () => {
+            window.location.href = `blog.html?tag=${encodeURIComponent(tag)}`;
+          });
+          detailTags.appendChild(btn);
+        });
+      }
+    }
 
     if (!post.contentPath) {
       detailBody.textContent =
