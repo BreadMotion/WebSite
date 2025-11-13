@@ -74,7 +74,7 @@
     <body>
         <!-- header は layout.js が自動挿入 -->
         <main class="main-container">
-            <section class="hero">
+            <section class="hero reveal-on-scroll">
                 <div class="hero-main">
                     <h1>PanKUN</h1>
                     <p class="hero-subtitle">
@@ -137,7 +137,7 @@
             </section>
 
             <section
-                class="section section--profile"
+                class="section section--profile reveal-on-scroll"
                 id="about"
             >
                 <h2 class="section__title">
@@ -299,7 +299,9 @@
                 </div>
             </section>
 
-            <section class="section section--top-grid">
+            <section
+                class="section section--top-grid reveal-on-scroll"
+            >
                 <h2 class="section__title">コンテンツ</h2>
                 <ul class="card-list">
                     <li class="card">
@@ -341,6 +343,7 @@
 
         <!-- 共通JS -->
         <script src="assets/js/layout.js" defer></script>
+        <script src="assets/js/ui.js"></script>
         <!-- トップページ専用JS（今は空でもOK） -->
         <script src="assets/js/top.js" defer></script>
     </body>

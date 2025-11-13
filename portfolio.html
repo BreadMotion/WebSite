@@ -68,7 +68,7 @@
     <body>
         <!-- header は layout.js が自動挿入 -->
         <main class="main-container">
-            <section class="page-header">
+            <section class="page-header reveal-on-scroll">
                 <h1>Portfolio</h1>
                 <p>
                     これまで制作したゲームやツールの紹介です。
@@ -112,7 +112,7 @@
             <!-- 一覧表示 -->
             <section
                 id="portfolioListSection"
-                class="section"
+                class="section reveal-on-scroll"
             >
                 <h2>作品一覧</h2>
                 <ul
@@ -126,7 +126,7 @@
             <!-- 詳細表示 -->
             <section
                 id="portfolioDetailSection"
-                class="section"
+                class="section reveal-on-scroll"
                 style="display: none"
             >
                 <a href="portfolio.html"
@@ -161,6 +161,7 @@
 
         <!-- 共通JS -->
         <script src="assets/js/layout.js" defer></script>
+        <script src="assets/js/ui.js"></script>
         <!-- Portfolio専用JS -->
         <script src="assets/js/portfolio.js" defer></script>
     </body>

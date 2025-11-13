@@ -78,3 +78,17 @@ button {
     color: var(--color-text-muted);
     font-size: 0.85rem;
 }
+
+/* === Scroll Reveal 共通 === */
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+    transition:
+        opacity 0.75s ease-out,
+        transform 0.75s ease-out;
+}
+
+.reveal-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
