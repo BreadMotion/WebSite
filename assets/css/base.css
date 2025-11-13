@@ -37,6 +37,7 @@ body {
 }
 
 body {
+    overflow-x: hidden;
     margin: 0;
     font-family: var(--font-body);
     line-height: 1.7;
