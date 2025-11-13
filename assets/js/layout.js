@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // header/footer を挿入する先：page-shell があればそこ、なければ body
+  const shell =
+    document.querySelector(".page-shell") || document.body;
+
   // 今のページのファイル名を取得（クエリは無視されるので blog.html?id=xxx でも blog.html になる）
   const currentPath = (() => {
     const name = location.pathname.split("/").pop();
@@ -12,16 +16,10 @@ document.addEventListener("DOMContentLoaded", () => {
   ])
     .then(([headerHtml, footerHtml]) => {
       // body の先頭に header、末尾に footer を挿入
-      document.body.insertAdjacentHTML(
-        "afterbegin",
-        headerHtml,
-      );
-      document.body.insertAdjacentHTML(
-        "beforeend",
-        footerHtml,
-      );
+      shell.insertAdjacentHTML("afterbegin", headerHtml);
+      shell.insertAdjacentHTML("beforeend", footerHtml);
 
-      // ★ ヘッダー挿入後にナビの active を設定
+      // ヘッダー挿入後にナビの active を設定
       const navLinks =
         document.querySelectorAll(".site-nav a");
       navLinks.forEach((link) => {

@@ -279,3 +279,22 @@
         align-items: flex-start;
     }
 }
+
+/* sticky footer 用の指定 */
+.page-shell {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.site-header {
+    flex-shrink: 0;
+}
+
+.main-container {
+    flex: 1 0 auto; /* ここが「余り高さ」を担当する */
+}
+
+.site-footer {
+    flex-shrink: 0;
+}
