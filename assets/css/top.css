@@ -175,6 +175,88 @@
     color: var(--color-text-muted);
 }
 
+/* About / Profile セクション */
+.section--profile {
+    margin-top: 22px;
+}
+
+.profile-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(260px, 1fr)
+    );
+    gap: 14px;
+}
+
+.profile-card {
+    background: rgba(15, 23, 42, 0.96);
+    border-radius: var(--radius-md);
+    padding: 14px 16px;
+    border: 1px solid var(--color-border-soft);
+    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.8);
+}
+
+.profile-card-title {
+    margin: 0 0 8px;
+    font-size: 1rem;
+}
+
+.profile-list {
+    list-style: none;
+    margin: 0 0 8px;
+    padding: 0;
+    font-size: 0.9rem;
+}
+
+.profile-list li {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 4px;
+}
+
+.profile-label {
+    font-weight: 600;
+    font-size: 0.86rem;
+}
+
+.profile-value {
+    font-size: 0.86rem;
+    color: var(--color-text-muted);
+}
+
+.profile-note {
+    margin: 4px 0 0;
+    font-size: 0.82rem;
+    color: var(--color-text-muted);
+}
+
+/* タグスタイル */
+
+.profile-tagset {
+    margin-bottom: 8px;
+}
+
+.profile-tagset-label {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-bottom: 2px;
+}
+
+.profile-taglist {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.profile-tag {
+    font-size: 0.78rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.7);
+    background: rgba(15, 23, 42, 0.95);
+}
+
 /* スマホ向け */
 @media (max-width: 768px) {
     .hero {
