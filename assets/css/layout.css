@@ -140,18 +140,6 @@
 
 /* 共通セクション／カード */
 .section {
-    background:
-        radial-gradient(
-            circle at top left,
-            rgba(79, 70, 229, 0.25),
-            transparent 55%
-        ),
-        radial-gradient(
-            circle at bottom right,
-            rgba(56, 189, 248, 0.2),
-            transparent 55%
-        ),
-        var(--color-panel);
     border-radius: var(--radius-lg);
     padding: 20px 22px;
     margin-bottom: 22px;
@@ -288,6 +276,18 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    background:
+        radial-gradient(
+            circle at 0% 0%,
+            rgba(56, 189, 248, 0.3),
+            transparent 55%
+        ),
+        radial-gradient(
+            circle at 100% 100%,
+            rgba(79, 70, 229, 0.45),
+            transparent 60%
+        ),
+        #020617;
 }
 
 .site-header {
