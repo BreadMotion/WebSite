@@ -6,13 +6,13 @@
     "tech": "\"Unity / C#",
     "platform": "android, ios",
     "description": "カジュアル",
-    "tags": [
-      "game",
-      "ios",
-      "android"
-    ],
+    "tags": ["game", "ios", "android"],
     "contentPath": "content/portfolio/portfolio_0002.md",
-    "links": {}
+    "thumbnail": "https://github.com/user-attachments/assets/f0314371-190f-43a0-981b-a94f501a2adc",
+    "links": {
+      "GameCreatorsCamp": "https://game-creators.camp/recruits/DALbqHqjLTaGNTMDVpvC",
+      "Youtube": "https://www.youtube.com/@%E3%81%8F%E3%81%84%E3%81%97%E3%82%93%E3%81%BC%E3%81%86%E3%82%AF%E3%83%9E%E3%81%AE%E7%94%9F%E6%B4%BB/featured"
+    }
   },
   {
     "id": "portfolio_0001",
@@ -21,11 +21,7 @@
     "tech": "Unity / C#",
     "platform": "PC/Steam",
     "description": "８番ライクホラー",
-    "tags": [
-      "game",
-      "steam",
-      "pc"
-    ],
+    "tags": ["game", "steam", "pc"],
     "contentPath": "content/portfolio/portfolio_0001.md",
     "links": {}
   }
