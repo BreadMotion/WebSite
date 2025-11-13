@@ -313,18 +313,18 @@ document.addEventListener("DOMContentLoaded", async () => {
     detailSection.style.display = "";
 
     const work = works.find((w) => w.id === id);
-
     if (!work) {
       detailTitle.textContent =
         "作品が見つかりませんでした";
       detailMeta.textContent = "";
       detailBody.textContent =
-        "指定された作品 ID は存在しません。";
+        "指定された ID の作品が見つかりません。";
+      if (detailTags) detailTags.textContent = "";
       return;
     }
 
-    detailTitle.textContent = work.title;
-
+    // タイトル・メタ
+    detailTitle.textContent = work.title || "(無題)";
     const metaParts = [];
     if (work.role) metaParts.push(`Role: ${work.role}`);
     if (work.tech) metaParts.push(`Tech: ${work.tech}`);
@@ -332,6 +332,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       metaParts.push(`Platform: ${work.platform}`);
     detailMeta.textContent = metaParts.join(" / ");
 
+    // タグ表示（省略可）
     if (detailTags) {
       detailTags.innerHTML = "";
       const tags = Array.isArray(work.tags)
@@ -360,15 +361,13 @@ document.addEventListener("DOMContentLoaded", async () => {
       try {
         const res = await fetch(work.contentPath);
         if (!res.ok) throw new Error(res.statusText);
-        const md = await res.text();
-
-        if (typeof marked === "undefined") {
-          detailBody.textContent =
-            "Markdown パーサが読み込めていません。";
-          return;
+        const markdown = await res.text();
+        const bodyOnly = stripFrontMatter(markdown);
+        if (window.marked) {
+          detailBody.innerHTML = marked.parse(bodyOnly);
+        } else {
+          detailBody.textContent = bodyOnly;
         }
-        const bodyOnly = stripFrontMatter(md);
-        detailBody.innerHTML = marked.parse(bodyOnly);
       } catch (err) {
         console.error("作品詳細の読み込みに失敗:", err);
         detailBody.textContent =
