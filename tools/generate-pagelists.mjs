@@ -6,15 +6,12 @@ const ROOT = process.cwd();
 
 async function readDirMd(dir) {
   const files = await fs.readdir(dir);
-  return files.filter((f) =>
-    f.toLowerCase().endsWith(".md"),
-  );
+  return files.filter((f) => f.toLowerCase().endsWith(".md"));
 }
 
 // --- フロントマターをパース（超シンプル実装） ---
 function parseFrontMatter(mdText) {
-  if (!mdText.startsWith("---"))
-    return { meta: {}, body: mdText };
+  if (!mdText.startsWith("---")) return { meta: {}, body: mdText };
 
   const endIndex = mdText.indexOf("\n---", 3);
   if (endIndex === -1) return { meta: {}, body: mdText };
@@ -61,6 +58,7 @@ async function generateBlog() {
     const date = meta.date || "";
     const category = meta.category || "";
     const description = meta.description || "";
+    const thumbnail = meta.thumbnail || "";
     const tags = parseTags(meta.tags);
 
     entries.push({
@@ -69,6 +67,7 @@ async function generateBlog() {
       date,
       category,
       description,
+      thumbnail,
       tags,
       contentPath: `content/blog/${file}`,
     });
@@ -80,14 +79,8 @@ async function generateBlog() {
     return db - da;
   });
 
-  await fs.writeFile(
-    outPath,
-    JSON.stringify(entries, null, 2),
-    "utf8",
-  );
-  console.log(
-    `Blog pagelist.json を更新しました: ${outPath}`,
-  );
+  await fs.writeFile(outPath, JSON.stringify(entries, null, 2), "utf8");
+  console.log(`Blog pagelist.json を更新しました: ${outPath}`);
 }
 
 // Portfolio 用 pagelist.json 生成
@@ -114,8 +107,7 @@ async function generatePortfolio() {
 
     const links = {};
     if (meta.storepage) links.storepage = meta.storepage;
-    if (meta.GameCreatorsCamp)
-      links.GameCreatorsCamp = meta.GameCreatorsCamp;
+    if (meta.GameCreatorsCamp) links.GameCreatorsCamp = meta.GameCreatorsCamp;
     if (meta.X) links.X = meta.X;
     if (meta.Youtube) links.Youtube = meta.Youtube;
 
@@ -133,18 +125,10 @@ async function generatePortfolio() {
     });
   }
 
-  entries.sort((a, b) =>
-    (a.title || "").localeCompare(b.title || "", "ja"),
-  );
+  entries.sort((a, b) => (a.title || "").localeCompare(b.title || "", "ja"));
 
-  await fs.writeFile(
-    outPath,
-    JSON.stringify(entries, null, 2),
-    "utf8",
-  );
-  console.log(
-    `Portfolio pagelist.json を更新しました: ${outPath}`,
-  );
+  await fs.writeFile(outPath, JSON.stringify(entries, null, 2), "utf8");
+  console.log(`Portfolio pagelist.json を更新しました: ${outPath}`);
 }
 
 async function main() {
