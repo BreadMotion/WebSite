@@ -1,7 +1,7 @@
 ---
 title: クマの逆転プロ野球
 role: Full Stack Enginner
-tech: "Unity / C#
+tech: Unity / C#
 platform: android, ios
 description: カジュアル
 contentPath: content/portfolio/portfolio_0002.md
