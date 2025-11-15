@@ -1,0 +1,16 @@
+/* Products 用カードのサムネイル枠 */
+.product-card .card__thumb {
+    flex-shrink: 0;
+    width: 500px;
+    height: 180px;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
+/* 画像を枠いっぱいにフィットさせる */
+.product-card .card__thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* 全体をカバーしつつトリミング */
+    display: block;
+}
