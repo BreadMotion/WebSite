@@ -1,0 +1,59 @@
+[
+  {
+    "id": "product_0001",
+    "title": "Sample Action Game",
+    "type": "Game",
+    "platform": ["Windows", "Android"],
+    "description": "個人で開発した3Dアクションゲーム。ゲームパッド対応。",
+    "tags": ["game", "action", "unity"],
+    "thumbnail": "assets/img/ogp.png",
+    "storeLinks": [
+      {
+        "label": "Booth",
+        "url": "https://example.com/booth/sample-game"
+      },
+      {
+        "label": "itch.io",
+        "url": "https://example.com/itch/sample-game"
+      }
+    ],
+    "downloadLinks": [
+      {
+        "label": "Windows版 .zip",
+        "url": "https://example.com/downloads/sample-game-win.zip"
+      }
+    ]
+  },
+  {
+    "id": "product_0002",
+    "title": "Unity Editor Helper Plugin",
+    "type": "Plugin",
+    "platform": ["Unity"],
+    "description": "インスペクター拡張とコンテキストメニューをまとめた Unity 用エディタ拡張。",
+    "tags": ["unity", "editor", "tool", "odin"],
+    "thumbnail": "assets/img/ogp.png",
+    "storeLinks": [
+      {
+        "label": "Asset Store",
+        "url": "https://example.com/assetstore/editor-helper"
+      }
+    ],
+    "downloadLinks": []
+  },
+  {
+    "id": "product_0003",
+    "title": "Build Pipeline Tool",
+    "type": "Tool",
+    "platform": ["Windows"],
+    "description": "ビルドとデプロイを自動化するためのスタンドアロンツール。",
+    "tags": ["tool", "build", "pipeline"],
+    "thumbnail": "assets/img/ogp.png",
+    "storeLinks": [],
+    "downloadLinks": [
+      {
+        "label": "実行ファイルダウンロード",
+        "url": "https://example.com/downloads/build-tool.zip"
+      }
+    ]
+  }
+]
