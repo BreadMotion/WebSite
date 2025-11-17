@@ -9,6 +9,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let allProducts = [];
 
+  // -----------------------------
+  // JSON 読み込み
+  // -----------------------------
   async function loadProducts() {
     try {
       const res = await fetch("assets/data/products.json");
@@ -24,25 +27,27 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // -----------------------------
+  // フィルタ適用＋描画
+  // -----------------------------
   function render() {
     const keyword = (searchInput?.value || "").trim().toLowerCase();
     const typeFilter = typeSelect?.value || "";
 
     const filtered = allProducts.filter((p) => {
-      // 種類フィルタ
       if (typeFilter && p.type !== typeFilter) return false;
 
-      // キーワードフィルタ
       if (keyword) {
         const haystack = [
-          p.title,
-          p.description,
+          p.title || "",
+          p.description || "",
           p.type || "",
           ...(p.platform || []),
           ...(p.tags || []),
         ]
           .join(" ")
           .toLowerCase();
+
         if (!haystack.includes(keyword)) return false;
       }
 
@@ -51,37 +56,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
     listEl.innerHTML = "";
 
-    if (filtered.length === 0) {
+    if (!filtered.length) {
       if (emptyEl) emptyEl.style.display = "block";
       return;
-    } else if (emptyEl) {
-      emptyEl.style.display = "none";
     }
+    if (emptyEl) emptyEl.style.display = "none";
 
     filtered.forEach((p) => {
       const card = document.createElement("article");
       card.className = "card card--clickable product-card";
 
-      // サムネ
+      // サムネイル
       if (p.thumbnail) {
         const thumb = document.createElement("div");
         thumb.className = "card__thumb";
         const img = document.createElement("img");
         img.src = p.thumbnail;
-        img.alt = p.title;
+        img.alt = p.title || "";
         thumb.appendChild(img);
         card.appendChild(thumb);
       }
 
+      // 本文
       const body = document.createElement("div");
       body.className = "card__body";
 
       const titleRow = document.createElement("div");
       titleRow.className = "card__title-row";
-
-      const title = document.createElement("h3");
-      title.className = "card__title";
-      title.textContent = p.title;
 
       if (p.type) {
         const pill = document.createElement("span");
@@ -90,10 +91,14 @@ document.addEventListener("DOMContentLoaded", () => {
         titleRow.appendChild(pill);
       }
 
+      const title = document.createElement("h3");
+      title.className = "card__title";
+      title.textContent = p.title || "";
       titleRow.appendChild(title);
+
       body.appendChild(titleRow);
 
-      if (p.platform && p.platform.length > 0) {
+      if (p.platform && p.platform.length) {
         const plat = document.createElement("p");
         plat.className = "card__meta";
         plat.textContent = `Platform: ${p.platform.join(", ")}`;
@@ -107,8 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
         body.appendChild(desc);
       }
 
-      // タグ
-      if (p.tags && p.tags.length > 0) {
+      if (p.tags && p.tags.length) {
         const tagRow = document.createElement("div");
         tagRow.className = "card__tags";
         p.tags.forEach((t) => {
@@ -120,11 +124,10 @@ document.addEventListener("DOMContentLoaded", () => {
         body.appendChild(tagRow);
       }
 
-      // リンク群
-      const linkRow = document.createElement("div");
-      linkRow.className = "card__actions";
+      const actions = document.createElement("div");
+      actions.className = "card__actions";
 
-      if (p.storeLinks && p.storeLinks.length > 0) {
+      if (p.storeLinks && p.storeLinks.length) {
         p.storeLinks.forEach((link) => {
           const a = document.createElement("a");
           a.href = link.url;
@@ -132,22 +135,22 @@ document.addEventListener("DOMContentLoaded", () => {
           a.rel = "noopener noreferrer";
           a.className = "btn btn--sm btn--outline";
           a.textContent = link.label || "Store";
-          linkRow.appendChild(a);
+          actions.appendChild(a);
         });
       }
 
-      if (p.downloadLinks && p.downloadLinks.length > 0) {
+      if (p.downloadLinks && p.downloadLinks.length) {
         p.downloadLinks.forEach((link) => {
           const a = document.createElement("a");
           a.href = link.url;
           a.className = "btn btn--sm btn--primary";
           a.textContent = link.label || "Download";
-          linkRow.appendChild(a);
+          actions.appendChild(a);
         });
       }
 
-      if (linkRow.children.length > 0) {
-        body.appendChild(linkRow);
+      if (actions.children.length) {
+        body.appendChild(actions);
       }
 
       card.appendChild(body);
@@ -155,15 +158,15 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // -----------------------------
+  // フィルタ操作イベント
+  // -----------------------------
   if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      render();
-    });
+    searchInput.addEventListener("input", render);
   }
+
   if (typeSelect) {
-    typeSelect.addEventListener("change", () => {
-      render();
-    });
+    typeSelect.addEventListener("change", render);
   }
 
   loadProducts();
