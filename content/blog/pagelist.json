@@ -58,6 +58,22 @@
     "contentPath": "content/blog/blog_00004.md"
   },
   {
+    "id": "blog_00008",
+    "title": "Discord Bot のアーキテクチャを見直した話",
+    "date": "2025-02-01",
+    "category": "Discord",
+    "description": "Discord Bot の構成メモ コマンド／イベントをプラグイン的に追加",
+    "thumbnail": "https://media.discordapp.net/attachments/1415947581938208850/1415947582332469258/-LIVEZeppVR2.jpg?ex=691c1272&is=691ac0f2&hm=4bc2d860c73e2b17c812e443c942ca67a024d315d02c5f19a6f4196e3ce4b123&=&format=webp&width=1151&height=647",
+    "tags": [
+      "discord",
+      "nodejs",
+      "architecture",
+      "plugin",
+      "tool"
+    ],
+    "contentPath": "content/blog/blog_00008.md"
+  },
+  {
     "id": "blog_00003",
     "title": "Odin でコンテキストエディター作ってみた",
     "date": "2024-06-10",
