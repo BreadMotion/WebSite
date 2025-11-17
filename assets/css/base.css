@@ -59,6 +59,7 @@ body {
 /* リンク */
 a {
     color: inherit;
+    color: aqua;
 }
 a:hover {
     opacity: 0.9;
