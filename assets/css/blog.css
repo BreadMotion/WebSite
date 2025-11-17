@@ -255,6 +255,14 @@
         monospace;
 }
 
+.blog-detail-body img {
+    max-width: 100%; /* コンテナ幅以内に収める */
+    height: auto; /* アスペクト比維持 */
+    display: block;
+    margin: 1rem auto; /* 余白（お好みで） */
+    border-radius: 12px; /* 角丸にしたい場合 */
+}
+
 /* スマホ向け */
 @media (max-width: 640px) {
     .blog-filters,
