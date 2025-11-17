@@ -82,5 +82,20 @@
       "diary"
     ],
     "contentPath": "content/blog/blog_00001.md"
+  },
+  {
+    "id": "blog_00007",
+    "title": "RClone導入フロー",
+    "date": "2025-11-x17",
+    "category": "tool",
+    "description": "Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ",
+    "thumbnail": "assets/images/blog/tools/rclone.png",
+    "tags": [
+      "rclone",
+      "windows",
+      "tools",
+      "drive"
+    ],
+    "contentPath": "content/blog/blog_00007.md"
   }
 ]
