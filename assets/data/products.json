@@ -23,5 +23,21 @@
         "url": "https://discord.com/oauth2/authorize?client_id=1415944915514556508"
       }
     ]
+  },
+  {
+    "id": "product_0002",
+    "title": "霊迷の湯",
+    "type": "Game",
+    "platform": ["PC", "steam"],
+    "description": "多くの有名配信者の方々にご配信いただけたゲーム[dev:Shirogorilla  Game Studio. ]",
+    "tags": ["game", "pc"],
+    "thumbnail": "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/2806350/header_japanese.jpg?t=1710480483",
+    "storeLinks": [
+      {
+        "label": "Steam Store",
+        "url": "https://store.steampowered.com/app/2806350/_/"
+      }
+    ],
+    "downloadLinks": []
   }
 ]

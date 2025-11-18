@@ -24,6 +24,7 @@ thumbnail: https://github.com/user-attachments/assets/f0314371-190f-43a0-981b-a9
 ### URL
 
 [作品ストアページ - google play store](https://test "google play store")
+
 [作品ページ - Game Creators Camp](https://game-creators.camp/recruits/DALbqHqjLTaGNTMDVpvC "作品 page")
 
 ### その他 SNS
