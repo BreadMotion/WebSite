@@ -1,7 +1,5 @@
-/* assets/css/products.css */
-
 /* =========================
-   Products 一覧ページ 共通
+   フィルタ UI
    ========================= */
 
 .products-filters {
@@ -24,11 +22,17 @@
     color: var(--color-text-muted);
 }
 
-/* 丸っこくて暗めの入力 UI（Portfolio に寄せる） */
+/* 丸っこくて暗めの入力 UI */
 .products-filter__control {
-    border: 1px solid #475569;
-    background: rgba(15, 23, 42, 0.9);
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(148, 163, 184, 0.2),
+            transparent 55%
+        ),
+        rgba(15, 23, 42, 0.96);
     border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.4);
     color: var(--color-text);
     padding: 6px 14px;
     font-size: 0.9rem;
@@ -44,43 +48,45 @@
 .products-filter__control:focus {
     outline: none;
     border-color: var(--color-accent);
-    box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.55);
+    box-shadow:
+        0 0 0 1px rgba(79, 70, 229, 0.9),
+        0 18px 40px rgba(37, 99, 235, 0.65);
 }
 
-/* 種類＝固定幅、検索＝広がる */
-.products-filter:nth-child(1) {
+/* 種類 = 固定幅 / 検索 = 広がる */
+.products-filter:first-child {
     min-width: 160px;
 }
-.products-filter:nth-child(2) {
+.products-filter:last-child {
     flex: 1;
     min-width: 220px;
 }
 
 /* =========================
-   Products カードレイアウト
+   プロダクトカード
    ========================= */
 
 .product-card {
     display: flex;
-    gap: 16px;
+    gap: 18px;
     align-items: stretch;
 }
 
 /* サムネイル枠 */
 .product-card .card__thumb {
     flex-shrink: 0;
-    width: 220px;
+    width: 260px;
     max-width: 40%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
+    border-radius: 18px;
     background:
         radial-gradient(
             circle at top,
-            rgba(148, 163, 184, 0.8),
+            rgba(148, 163, 184, 0.5),
             transparent 55%
         ),
         #020617;
-    border-radius: 16px;
 }
 
 .product-card .card__thumb img {
@@ -100,13 +106,81 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
-/* タグ・ボタンは既存の .tag / .btn スタイルを利用 */
+/* 種類ピル（Discord / Tool など） */
+.product-card .pill {
+    font-size: 0.7rem;
+    padding: 2px 10px;
+    border-radius: 999px;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.6);
+    color: var(--color-text-muted);
+}
+
+/* タグ（tooldiscordbot など） */
+.product-card .card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.product-card .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    color: var(--color-text-muted);
+}
+
+/* リンクボタン群（Repository / サーバーに追加 等） */
+.product-card .card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.product-card .card__actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    text-decoration: none;
+    white-space: nowrap;
+    border: 1px solid rgba(148, 163, 184, 0.55);
+    background: radial-gradient(
+        circle at top,
+        rgba(37, 99, 235, 0.22),
+        transparent 55%
+    );
+    color: var(--color-accent);
+    box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 18px 40px rgba(15, 23, 42, 0.75);
+}
+
+.product-card .card__actions a:hover {
+    border-color: rgba(129, 140, 248, 0.9);
+    color: #e5e7eb;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(129, 140, 248, 0.4),
+            transparent 55%
+        ),
+        rgba(15, 23, 42, 0.98);
+}
 
 /* =========================
-   スマホ / タブレット向け
+   レスポンシブ
    ========================= */
 
 @media (max-width: 768px) {
@@ -131,5 +205,9 @@
         width: 100%;
         max-width: 100%;
         aspect-ratio: 16 / 9;
+    }
+
+    .product-card .card__actions {
+        justify-content: flex-start;
     }
 }
