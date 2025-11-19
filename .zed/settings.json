@@ -18,10 +18,5 @@
     "LICENSE",
     "favicon.ico",
     "assets/img"
-  ],
-  "terminal": {
-    "shell": {
-      "program": "C:\\Windows\\System32\\cmd.exe"
-    }
-  }
+  ]
 }
