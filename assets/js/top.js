@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   // Blog: 日付降順で3件
   if (blogListEl) {
     try {
-      const res = await fetch("content/blog/pagelist.json");
+      const res = await fetch("assets/data/blogList.json");
       if (!res.ok) throw new Error(res.statusText);
       const posts = await res.json();
 
@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (portListEl) {
     try {
       const res = await fetch(
-        "content/portfolio/pagelist.json",
+        "assets/data/portfolioList.json",
       );
       if (!res.ok) throw new Error(res.statusText);
       const works = await res.json();

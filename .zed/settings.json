@@ -15,8 +15,6 @@
     "node_modules",
     "*.vscode",
     "package-lock.json",
-    "LICENSE",
-    "favicon.ico",
-    "assets/img"
+    "LICENSE"
   ]
 }
