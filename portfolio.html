@@ -36,21 +36,21 @@
 
         <meta
             name="description"
-            content="エンジニア PanKUNのポートフォリオ"
+            content="PanKUN のポートフォリオ。制作したゲームやツール、参加プロジェクトの一覧。"
         />
 
         <meta
             property="og:title"
-            content="PanKUN Potrfolio | pankun.dev"
+            content="PanKUN Portfolio | pankun.dev"
         />
         <meta
             property="og:description"
-            content="エンジニア PanKUNのポートフォリオ/制作したゲームやツール、技術ブログを掲載"
+            content="制作したゲームやツール、参加しているプロジェクトの一覧ページ。"
         />
         <meta property="og:type" content="website" />
         <meta
             property="og:url"
-            content="https://breadmotion.github.io/WebSite/"
+            content="https://breadmotion.github.io/WebSite/portfolio.html"
         />
         <meta
             property="og:image"
@@ -67,19 +67,14 @@
         />
         <meta
             name="twitter:description"
-            content="エンジニア PanKUNポートフォリオ"
+            content="制作したゲームやツール、参加プロジェクトの一覧。"
         />
         <meta
             name="twitter:image"
             content="https://breadmotion.github.io/WebSite/assets/img/ogp.png"
         />
-        <meta
-            name="google-site-verification"
-            content="2us9bSy_ytt-3S-o8CVDVK8SPFWC9G3h39tzB-TKq7c"
-        />
     </head>
-    <body>
-        <!-- header は layout.js が自動挿入 -->
+    <body data-page="portfolio">
         <div class="page-shell">
             <main class="main-container">
                 <section
@@ -87,96 +82,78 @@
                 >
                     <h1>Portfolio</h1>
                     <p>
-                        これまで制作したゲームやツールの紹介です。
+                        制作したゲームやツール、参加しているプロジェクトをまとめています。
                     </p>
+                    <p>
+                        個人制作・インディー・業務で関わったものを、できる範囲で公開しています。
+                    </p>
+                </section>
 
-                    <div class="portfolio-filters">
-                        <label for="portfolioTechFilter"
-                            >技術スタック:</label
-                        >
-                        <select id="portfolioTechFilter">
-                            <option value="all">
-                                すべて
-                            </option>
-                            <!-- portfolio.js から自動追加 -->
-                        </select>
-                    </div>
+                <section class="section reveal-on-scroll">
+                    <div class="section-header">
+                        <h2>作品一覧</h2>
 
-                    <div class="portfolio-search">
-                        <label for="portfolioSearchInput"
-                            >検索:</label
-                        >
-                        <input
-                            type="search"
-                            id="portfolioSearchInput"
-                            placeholder="タイトル・概要・Role・Platform で検索"
-                            autocomplete="off"
-                        />
-                    </div>
+                        <!-- フィルタ UI -->
+                        <div class="portfolio-filters">
+                            <div class="portfolio-filter">
+                                <span
+                                    class="portfolio-filter__label"
+                                >
+                                    カテゴリ
+                                </span>
+                                <select
+                                    id="portfolioCategoryFilter"
+                                    class="select portfolio-filter__control"
+                                >
+                                    <option value="">
+                                        すべて
+                                    </option>
+                                    <option value="Game">
+                                        Game
+                                    </option>
+                                    <option value="Tool">
+                                        Tool
+                                    </option>
+                                    <option value="Plugin">
+                                        Plugin
+                                    </option>
+                                    <option value="Other">
+                                        Other
+                                    </option>
+                                </select>
+                            </div>
 
-                    <div class="portfolio-tags">
-                        <span class="portfolio-tags-label"
-                            >タグ:</span
-                        >
-                        <div
-                            id="portfolioTagList"
-                            class="portfolio-tags-list"
-                        >
-                            <!-- portfolio.js からタグボタンを追加 -->
+                            <div class="portfolio-filter">
+                                <span
+                                    class="portfolio-filter__label"
+                                >
+                                    検索
+                                </span>
+                                <input
+                                    type="search"
+                                    id="portfolioSearch"
+                                    class="input input--search portfolio-filter__control"
+                                    placeholder="タイトル・概要・タグで検索"
+                                />
+                            </div>
                         </div>
                     </div>
-                </section>
 
-                <!-- 一覧表示 -->
-                <section
-                    id="portfolioListSection"
-                    class="section reveal-on-scroll"
-                >
-                    <h2>作品一覧</h2>
-                    <ul
-                        id="portfolioList"
-                        class="portfolio-list"
-                    >
-                        <!-- portfolio.js で自動生成 -->
-                    </ul>
-                </section>
-
-                <!-- 詳細表示 -->
-                <section
-                    id="portfolioDetailSection"
-                    class="section reveal-on-scroll"
-                    style="display: none"
-                >
-                    <a href="portfolio.html"
-                        >&larr; 一覧に戻る</a
-                    >
-                    <h2 id="portfolioDetailTitle"></h2>
-                    <p
-                        id="portfolioDetailMeta"
-                        class="portfolio-meta"
-                    ></p>
-                    <p
-                        id="portfolioDetailTags"
-                        class="portfolio-detail-tags"
-                    ></p>
                     <div
-                        id="portfolioDetailBody"
-                        class="portfolio-detail-body"
+                        id="portfolioList"
+                        class="card-grid"
                     ></div>
+
                     <p
-                        id="portfolioDetailLinks"
-                        class="portfolio-links"
-                    ></p>
+                        id="portfolioEmptyMessage"
+                        class="text-muted"
+                        style="display: none"
+                    >
+                        条件に一致する作品がありません。
+                    </p>
                 </section>
             </main>
         </div>
-
-        <!-- footer も layout.js が自動挿入 -->
-        <!-- Markdown パーサ（Blog と共通のものでOK） -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
-            defer
-        ></script>
 
         <!-- 共通JS -->
         <script src="assets/js/layout.js" defer></script>

@@ -1,408 +1,200 @@
-function getQueryParam(name) {
-  const params = new URLSearchParams(
-    window.location.search,
-  );
-  return params.get(name);
-}
-
-function stripFrontMatter(md) {
-  if (!md) return md;
-
-  if (md.startsWith("---")) {
-    const endIndex = md.indexOf("\n---", 3);
-    if (endIndex !== -1) {
-      return md.slice(endIndex + 4).trimStart();
-    }
-  }
-
-  const lines = md.split("\n");
-  if (lines[0].startsWith("title:")) {
-    let i = 0;
-    while (i < lines.length && lines[i].trim() !== "") {
-      i++;
-    }
-    return lines
-      .slice(i + 1)
-      .join("\n")
-      .trimStart();
-  }
-
-  return md;
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  const initialTag = getQueryParam("tag");
-
-  const listSection = document.getElementById(
-    "portfolioListSection",
-  );
-  const listElement =
-    document.getElementById("portfolioList");
-  const detailSection = document.getElementById(
-    "portfolioDetailSection",
-  );
-  const detailTitle = document.getElementById(
-    "portfolioDetailTitle",
-  );
-  const detailMeta = document.getElementById(
-    "portfolioDetailMeta",
-  );
-  const detailBody = document.getElementById(
-    "portfolioDetailBody",
-  );
-  const detailLinks = document.getElementById(
-    "portfolioDetailLinks",
-  );
-  const detailTags = document.getElementById(
-    "portfolioDetailTags",
-  );
-  const techSelect = document.getElementById(
-    "portfolioTechFilter",
+document.addEventListener("DOMContentLoaded", () => {
+  const listEl = document.getElementById("portfolioList");
+  const emptyEl = document.getElementById(
+    "portfolioEmptyMessage",
   );
   const searchInput = document.getElementById(
-    "portfolioSearchInput",
+    "portfolioSearch",
   );
-  const tagListElement = document.getElementById(
-    "portfolioTagList",
-  );
-
-  if (!listSection || !listElement || !detailSection) {
-    console.error(
-      "portfolio.html の要素取得に失敗しました。",
-    );
-    return;
-  }
-
-  let works = [];
-  try {
-    const res = await fetch(
-      "content/portfolio/pagelist.json",
-    );
-    if (!res.ok) throw new Error(res.statusText);
-    works = await res.json();
-  } catch (err) {
-    console.error(
-      "portfolio pagelist.json の読み込みに失敗:",
-      err,
-    );
-    listElement.innerHTML =
-      "<li>作品一覧を読み込めませんでした。</li>";
-    return;
-  }
-
-  works.sort((a, b) =>
-    (a.title || "").localeCompare(b.title || "", "ja"),
+  const categorySelect = document.getElementById(
+    "portfolioCategoryFilter",
   );
 
-  let selectedTag = null;
-  if (initialTag) {
-    selectedTag = initialTag;
-  }
+  if (!listEl) return;
 
-  function renderList(
-    filterTech = "all",
-    searchText = "",
-    tag = null,
-  ) {
-    const q = (searchText || "").toLowerCase();
-    listElement.innerHTML = "";
+  /** @type {Array<any>} */
+  let allWorks = [];
 
-    const filtered = works.filter((work) => {
-      // Tech
-      if (filterTech !== "all") {
-        if (!work.tech || work.tech !== filterTech)
-          return false;
+  // -----------------------------
+  // JSON 読み込み
+  // -----------------------------
+  async function loadWorks() {
+    try {
+      const res = await fetch(
+        "assets/data/portfolioList.json",
+      );
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      allWorks = await res.json();
+      render();
+    } catch (err) {
+      console.error("Failed to load portfolio list:", err);
+      if (emptyEl) {
+        emptyEl.textContent =
+          "作品一覧の読み込みに失敗しました。";
+        emptyEl.style.display = "block";
       }
+    }
+  }
 
-      // Tag
-      if (tag) {
+  // -----------------------------
+  // 描画
+  // -----------------------------
+  function render() {
+    const keyword = (searchInput?.value || "")
+      .trim()
+      .toLowerCase();
+    const categoryFilter = (
+      categorySelect?.value || ""
+    ).trim();
+
+    const filtered = allWorks.filter((work) => {
+      // カテゴリフィルタ（空文字ならスキップ）
+      if (
+        categoryFilter &&
+        work.category !== categoryFilter
+      )
+        return false;
+
+      // キーワードフィルタ
+      if (keyword) {
         const tags = Array.isArray(work.tags)
           ? work.tags
-          : [];
-        if (!tags.includes(tag)) return false;
-      }
+          : String(work.tags || "")
+              .split(",")
+              .map((t) => t.trim())
+              .filter(Boolean);
 
-      // Search
-      if (q) {
         const haystack = [
           work.title || "",
           work.description || "",
+          work.category || "",
           work.role || "",
           work.tech || "",
-          work.platform || "",
-          ...(Array.isArray(work.tags) ? work.tags : []),
+          ...tags,
         ]
           .join(" ")
           .toLowerCase();
 
-        if (!haystack.includes(q)) return false;
+        if (!haystack.includes(keyword)) return false;
       }
 
       return true;
     });
 
-    if (filtered.length === 0) {
-      listElement.innerHTML =
-        "<li>該当する作品がありません。</li>";
+    listEl.innerHTML = "";
+
+    if (!filtered.length) {
+      if (emptyEl) emptyEl.style.display = "block";
       return;
     }
+    if (emptyEl) emptyEl.style.display = "none";
 
     filtered.forEach((work) => {
-      const li = document.createElement("li");
-      li.className = "portfolio-item";
+      const card = document.createElement("article");
+      card.className =
+        "card card--clickable portfolio-card";
 
-      const thumb = document.createElement("div");
-      thumb.className = "portfolio-thumb";
+      // サムネイル
       if (work.thumbnail) {
+        const thumb = document.createElement("div");
+        thumb.className = "card__thumb";
         const img = document.createElement("img");
         img.src = work.thumbnail;
-        img.alt = work.title;
+        img.alt = work.title || "";
         thumb.appendChild(img);
+        card.appendChild(thumb);
       }
 
       const body = document.createElement("div");
-      body.className = "portfolio-body";
+      body.className = "card__body";
 
-      const h3 = document.createElement("h3");
-      h3.textContent = work.title;
-
+      // メタ（カテゴリ / 年）
       const meta = document.createElement("p");
-      meta.className = "portfolio-meta";
-      const parts = [];
-      if (work.role) parts.push(`Role: ${work.role}`);
-      if (work.tech) parts.push(`Tech: ${work.tech}`);
-      if (work.platform)
-        parts.push(`Platform: ${work.platform}`);
-      meta.textContent = parts.join(" / ");
-
-      const desc = document.createElement("p");
-      desc.className = "portfolio-desc";
-      desc.textContent = work.description || "";
-
-      const linksP = document.createElement("p");
-      linksP.className = "portfolio-links";
-      const detailLink = document.createElement("a");
-      detailLink.href = `portfolio.html?id=${encodeURIComponent(work.id)}`;
-      detailLink.textContent = "詳細";
-      linksP.appendChild(detailLink);
-
-      body.appendChild(h3);
+      meta.className = "card__meta";
+      const dateText = work.date || "";
+      const categoryText = work.category || "";
+      meta.textContent = [dateText, categoryText]
+        .filter(Boolean)
+        .join(" / ");
       body.appendChild(meta);
-      body.appendChild(desc);
-      body.appendChild(linksP);
 
-      li.appendChild(thumb);
-      li.appendChild(body);
+      // タイトル行
+      const titleRow = document.createElement("div");
+      titleRow.className = "card__title-row";
 
-      li.addEventListener("click", (e) => {
-        if (e.target.closest("a")) {
-          return;
-        }
-        window.location.href = detailLink.href;
-      });
+      const title = document.createElement("h3");
+      title.className = "card__title";
+      title.textContent = work.title || "";
+      titleRow.appendChild(title);
 
-      listElement.appendChild(li);
-    });
-  }
+      body.appendChild(titleRow);
 
-  function setupTagChips() {
-    if (!tagListElement) return;
-
-    const allTags = new Set();
-    works.forEach((w) => {
-      (Array.isArray(w.tags) ? w.tags : []).forEach((t) => {
-        if (t && t.trim() !== "") allTags.add(t);
-      });
-    });
-
-    tagListElement.innerHTML = "";
-
-    Array.from(allTags)
-      .sort()
-      .forEach((tag) => {
-        const chip = document.createElement("button");
-        chip.type = "button";
-        chip.textContent = tag;
-        chip.className = "portfolio-tag-chip";
-
-        chip.addEventListener("click", () => {
-          if (selectedTag === tag) {
-            selectedTag = null;
-          } else {
-            selectedTag = tag;
-          }
-          updateTagChipActive();
-          renderList(
-            techSelect ? techSelect.value : "all",
-            searchInput ? searchInput.value : "",
-            selectedTag,
-          );
-        });
-
-        tagListElement.appendChild(chip);
-      });
-
-    updateTagChipActive();
-  }
-
-  function updateTagChipActive() {
-    if (!tagListElement) return;
-    const chips = tagListElement.querySelectorAll(
-      ".portfolio-tag-chip",
-    );
-    chips.forEach((chip) => {
-      if (chip.textContent === selectedTag) {
-        chip.classList.add("active");
-      } else {
-        chip.classList.remove("active");
+      // ロール / 担当
+      if (work.role) {
+        const role = document.createElement("p");
+        role.className = "card__meta card__meta--role";
+        role.textContent = `Role: ${work.role}`;
+        body.appendChild(role);
       }
+
+      // 概要
+      if (work.description) {
+        const desc = document.createElement("p");
+        desc.className = "card__description";
+        desc.textContent = work.description;
+        body.appendChild(desc);
+      }
+
+      // タグ
+      if (work.tags && work.tags.length) {
+        const tagRow = document.createElement("div");
+        tagRow.className = "card__tags";
+        work.tags.forEach((t) => {
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = t;
+          tagRow.appendChild(tag);
+        });
+        body.appendChild(tagRow);
+      }
+
+      // 外部リンク（ストア・リポジトリなど）があるなら表示
+      if (work.links && work.links.length) {
+        const actions = document.createElement("div");
+        actions.className = "card__actions";
+        work.links.forEach((link) => {
+          const a = document.createElement("a");
+          a.href = link.url;
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          a.textContent = link.label || "Link";
+          actions.appendChild(a);
+        });
+        body.appendChild(actions);
+      }
+
+      card.appendChild(body);
+
+      // カード全体クリックで作品詳細ページへ
+      card.addEventListener("click", () => {
+        if (work.contentPath) {
+          window.location.href = work.contentPath;
+        }
+      });
+
+      listEl.appendChild(card);
     });
   }
 
-  // Tech
-  if (techSelect) {
-    const techs = Array.from(
-      new Set(
-        works
-          .map((w) => w.tech)
-          .filter((t) => t && t.trim() !== ""),
-      ),
-    );
-
-    techs.forEach((tech) => {
-      const option = document.createElement("option");
-      option.value = tech;
-      option.textContent = tech;
-      techSelect.appendChild(option);
-    });
-
-    techSelect.addEventListener("change", () => {
-      renderList(
-        techSelect.value,
-        searchInput ? searchInput.value : "",
-        selectedTag,
-      );
-    });
-  }
-
-  // Search
+  // -----------------------------
+  // イベント
+  // -----------------------------
   if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      renderList(
-        techSelect ? techSelect.value : "all",
-        searchInput.value,
-        selectedTag,
-      );
-    });
+    searchInput.addEventListener("input", render);
+  }
+  if (categorySelect) {
+    categorySelect.addEventListener("change", render);
   }
 
-  setupTagChips();
-
-  const id = getQueryParam("id");
-
-  if (!id) {
-    listSection.style.display = "";
-    detailSection.style.display = "none";
-    renderList(
-      techSelect ? techSelect.value : "all",
-      searchInput ? searchInput.value : "",
-      selectedTag,
-    );
-  } else {
-    listSection.style.display = "none";
-    detailSection.style.display = "";
-
-    const work = works.find((w) => w.id === id);
-    if (!work) {
-      detailTitle.textContent =
-        "作品が見つかりませんでした";
-      detailMeta.textContent = "";
-      detailBody.textContent =
-        "指定された ID の作品が見つかりません。";
-      if (detailTags) detailTags.textContent = "";
-      return;
-    }
-
-    // タイトル・メタ
-    detailTitle.textContent = work.title || "(無題)";
-    const metaParts = [];
-    if (work.role) metaParts.push(`Role: ${work.role}`);
-    if (work.tech) metaParts.push(`Tech: ${work.tech}`);
-    if (work.platform)
-      metaParts.push(`Platform: ${work.platform}`);
-    detailMeta.textContent = metaParts.join(" / ");
-
-    // タグ表示（省略可）
-    if (detailTags) {
-      detailTags.innerHTML = "";
-      const tags = Array.isArray(work.tags)
-        ? work.tags
-        : [];
-      if (tags.length > 0) {
-        const label = document.createTextNode("タグ:");
-        detailTags.appendChild(label);
-
-        tags.forEach((tag) => {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.textContent = tag;
-          btn.addEventListener("click", () => {
-            window.location.href = `portfolio.html?tag=${encodeURIComponent(tag)}`;
-          });
-          detailTags.appendChild(btn);
-        });
-      }
-    }
-
-    if (!work.contentPath) {
-      detailBody.textContent =
-        "この作品の本文ファイルが設定されていません。";
-    } else {
-      try {
-        const res = await fetch(work.contentPath);
-        if (!res.ok) throw new Error(res.statusText);
-        const markdown = await res.text();
-        const bodyOnly = stripFrontMatter(markdown);
-        if (window.marked) {
-          detailBody.innerHTML = marked.parse(bodyOnly);
-        } else {
-          detailBody.textContent = bodyOnly;
-        }
-      } catch (err) {
-        console.error("作品詳細の読み込みに失敗:", err);
-        detailBody.textContent =
-          "作品詳細を読み込めませんでした。";
-      }
-    }
-
-    detailLinks.innerHTML = "";
-    if (work.links) {
-      const linkParts = [];
-      if (work.links.detail) {
-        const a = document.createElement("a");
-        a.href = work.links.detail;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.textContent = "詳細ページ";
-        linkParts.push(a);
-      }
-      if (work.links.github) {
-        const a = document.createElement("a");
-        a.href = work.links.github;
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        a.textContent = "GitHub";
-        linkParts.push(a);
-      }
-
-      linkParts.forEach((a, index) => {
-        if (index > 0) {
-          detailLinks.appendChild(
-            document.createTextNode(" / "),
-          );
-        }
-        detailLinks.appendChild(a);
-      });
-    }
-  }
+  loadWorks();
 });

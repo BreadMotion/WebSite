@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Discord Bot のアーキテクチャを見直した話 | PanKUN Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Discord Bot の構成メモ コマンド／イベントをプラグイン的に追加" />
+
+    <meta property="og:title" content="Discord Bot のアーキテクチャを見直した話 | PanKUN Blog" />
+    <meta property="og:description" content="Discord Bot の構成メモ コマンド／イベントをプラグイン的に追加" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/ogp.png" />
+
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/layout.css" />
+    <link rel="stylesheet" href="../assets/css/blog.css" />
+  </head>
+  <body data-page="blog">
+    <div class="page-shell">
+      <main class="main-container">
+        <article class="post-detail reveal-on-scroll">
+          <header class="post-detail__header">
+            <p class="post-detail__meta">Sat Feb 01 2025 09:00:00 GMT+0900 (日本標準時) / Discord</p>
+            <h1 class="post-detail__title">Discord Bot のアーキテクチャを見直した話</h1>
+            <p class="post-detail__description">Discord Bot の構成メモ コマンド／イベントをプラグイン的に追加</p>
+          </header>
+
+          <section class="post-detail__body markdown-body">
+<p>こんにちは、パン君です。</p>
+<p>この記事では、個人で運用している <strong>Discord Bot のアーキテクチャをどう組み直したか</strong> をまとめます。</p>
+<p>やりたかったことはざっくりいうと、</p>
+<ul>
+<li>コマンドやイベントを「<strong>ファイルを追加するだけ</strong>」で拡張できる  </li>
+<li>サーバー上では <code>pm2</code> で常駐管理  </li>
+<li><code>git pull</code> ＋シェルスクリプトで <strong>半自動デプロイ</strong>  </li>
+<li>将来的に「管理用 Web ページ」や「API」とも連携しやすくしておく</li>
+</ul>
+<p>という構成です。</p>
+<hr>
+<h2>目標と前提</h2>
+<h3>目標</h3>
+<ol>
+<li><strong>Bot 本体をコア／プラグインに分離</strong><ul>
+<li>コマンドやイベントは「後から足せるモジュール」として扱う。</li>
+</ul>
+</li>
+<li><strong>運用を楽にする</strong><ul>
+<li>Ubuntu サーバー上で <code>pm2</code> にお任せして、SSH を切っても動き続ける。</li>
+</ul>
+</li>
+<li><strong>デプロイをシンプルにする</strong><ul>
+<li>管理用リポジトリに push → サーバー側で pull ＋再起動するだけ。</li>
+</ul>
+</li>
+</ol>
+<h3>前提</h3>
+<ul>
+<li>言語：Node.js（TypeScript も見据えつつ、現在は主に JS）</li>
+<li>ライブラリ：discord.js</li>
+<li>実行環境：Ubuntu Server + pm2</li>
+<li>外部アクセス：playit.gg でトンネルを張って、外部から接続可能</li>
+</ul>
+<hr>
+<h2>ディレクトリ構成</h2>
+<p>最終的に落ち着いた構成はこんな感じです。</p>
+<pre><code class="language-text">bot-root/
+├── Command/        # コマンドモジュール
+├── Event/          # イベントハンドラ
+├── Data/           # JSON 等の設定・永続データ
+├── Class/          # 共通クラス・ヘルパ
+├── Shell/          # デプロイ用シェルスクリプト
+├── types/          # JSDoc など型関連
+├── logs/           # pm2 のログ出力先
+├── config.json     # トークンや設定（dotenv でも可）
+└── index.js        # エントリポイント（コア）
+</code></pre>
+<p>ポイントは <strong>Comand / Event / Data を完全に分離</strong> したことです。</p>
+<ul>
+<li>index.js(コア)は「モジュールを読み込んでWiringするだけ」</li>
+<li>コマンドの中身は Command/ 下のJSファイルが担当</li>
+<li>イベントは Event/ 下のJSファイルが担当
+という形にすることで、 <strong>Bot本体を触らずに機能追加</strong> ができるようになりました。</li>
+</ul>
+<h2>コマンドのプラグイン構造</h2>
+<h3>コマンドモジュールの形</h3>
+<p>各コマンドは大体こんな形のJSファイルを１ファイルで持ちます。</p>
+<pre><code class="language-js">// Command/ping.js
+/** @type {import(&#39;../types&#39;).BotCommand} */
+module.exports = {
+  name: &quot;ping&quot;,
+  description: &quot;疎通確認用コマンド&quot;,
+  options: [],
+  async execute(interaction, context) {
+    const start = Date.now();
+    await interaction.reply(&quot;Pong!&quot;);
+    const ms = Date.now() - start;
+    console.log(`[ping] latency: ${ms}ms`);
+  },
+};
+</code></pre>
+<ul>
+<li>name / description / options はそのまま slash command の定義に流用</li>
+<li>execute には interaction と共通の context（設定・ロガーなど）を渡す</li>
+</ul>
+<h3>動的読み込み</h3>
+<p>コア側では、起動時に Command/ ディレクトリを走査して全部読み込みます。</p>
+<p>やっていることはシンプルで、</p>
+<ol>
+<li>fs.readdirSync(&quot;Command&quot;) で .js ファイル一覧を取得</li>
+<li>require して name をキーに Map に登録</li>
+<li>slash command の登録用に JSON を組み立てる
+という流れです。</li>
+</ol>
+<p>このおかげで、新しいコマンドを追加するときは</p>
+<ol>
+<li>Command/ に JS ファイルを作る</li>
+<li>Git に commit ＋ push</li>
+<li>サーバーで pull して再起動
+だけで済むようになりました。</li>
+</ol>
+<h3>イベントハンドラの構造</h3>
+<p>イベントもコマンドと同じノリでファイルベースにしています。</p>
+<pre><code class="language-js">// Event/ready.js
+/** @type {import(&#39;../types&#39;).BotEvent} */
+module.exports = {
+  name: &quot;ready&quot;,
+  once: true,
+  execute(client, context) {
+    console.log(`[ready] Logged in as ${client.user.tag}`);
+  },
+};
+</code></pre>
+<pre><code class="language-js">// Event/interactionCreate.js
+module.exports = {
+  name: &quot;interactionCreate&quot;,
+  once: false,
+  async execute(interaction, context) {
+    if (!interaction.isChatInputCommand()) return;
+
+    const command = context.commands.get(interaction.commandName);
+    if (!command) return;
+
+    try {
+      await command.execute(interaction, context);
+    } catch (err) {
+      console.error(err);
+      if (!interaction.replied) {
+        await interaction.reply({
+          content: &quot;エラーが発生しました。&quot;,
+          ephemeral: true,
+        });
+      }
+    }
+  },
+};
+</code></pre>
+<p>コア側では、Event/ を走査して
+<code>client.on(event.name, handler) or client.once(...)</code>
+を自動で登録するだけにしています。</p>
+<hr>
+<h2>pm2とデプロイフロー</h2>
+<h3>pm2での常駐</h3>
+<p>Ubuntu Server 上では pm2 を使って常駐させています。</p>
+<pre><code class="language-bash">pm2 start index.js --name bread-bot
+pm2 save
+pm2 startup
+</code></pre>
+<ul>
+<li>SSH を切っても Bot は動き続ける</li>
+<li>pm2 logs bread-bot でログ確認</li>
+<li>pm2 restart bread-bot で反映
+という基本の運用です。</li>
+</ul>
+<h3>デプロイ用スクリプト</h3>
+<p>デプロイはシンプルに Shell/ に 1 本スクリプトを置きました。</p>
+<pre><code class="language-bash">#!/usr/bin/env bash
+set -eu
+
+cd /opt/bread-bot
+
+echo &quot;[deploy] git pull&quot;
+git pull origin main
+
+echo &quot;[deploy] npm install&quot;
+npm install --production
+
+echo &quot;[deploy] restart pm2&quot;
+pm2 restart bread-bot
+</code></pre>
+<ul>
+<li>リポジトリを更新 → サーバー側でこのスクリプト実行</li>
+<li>将来的には Webhook や CI から叩いてもよい
+という形にしています。</li>
+</ul>
+<hr>
+<h2>これからやりたい拡張</h2>
+<p>現状でも「コマンドを JS 1 ファイルで追加できる Bot」になりましたが、さらにやりたいのはこのあたりです。</p>
+<ol>
+<li><strong>型まわりの強化</strong></li>
+</ol>
+<ul>
+<li>TypeScript 化 or JSDoc で interaction / context に型をつける</li>
+<li>ApplicationCommandOptionData を定義専用のヘルパにまとめる</li>
+</ul>
+<ol start="2">
+<li><strong>管理用 Web ページとの連携</strong></li>
+</ol>
+<ul>
+<li>Express / Fastify などで API を立てて</li>
+<li>「今登録されているコマンド一覧」や「Guild 状態」を Web から確認
+3.ログとメトリクス</li>
+<li>エラーや特定イベントを別チャンネルに送る</li>
+<li>Cloud 上のログ基盤に送るところまで視野に入れる</li>
+</ul>
+<hr>
+<h2>まとめ</h2>
+<ul>
+<li>コマンド／イベントを ディレクトリ単位で分割して、Bot 本体は「読み込んで繋ぐだけ」にする</li>
+<li>pm2 と簡単なシェルスクリプトで、運用とデプロイをシンプルにする</li>
+<li>将来の拡張（Web 管理画面や API）を見据えて、context という共通オブジェクトをコマンドに渡す</li>
+</ul>
+<p>こういう形にしたことで、 「1つの巨大な index.js に全部書いてある Discord Bot」
+から、だいぶ卒業できた気がします。</p>
+<p>同じように Bot を長期運用したい人の参考になれば嬉しいです。</p>
+<hr>
+
+          </section>
+        </article>
+      </main>
+    </div>
+
+    <script src="../assets/js/layout.js" defer></script>
+    <script src="../assets/js/ui.js"></script>
+  </body>
+</html>

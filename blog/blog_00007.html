@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>RClone導入フロー | PanKUN Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ" />
+
+    <meta property="og:title" content="RClone導入フロー | PanKUN Blog" />
+    <meta property="og:description" content="Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ" />
+    <meta property="og:type" content="article" />
+    <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/ogp.png" />
+
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/layout.css" />
+    <link rel="stylesheet" href="../assets/css/blog.css" />
+  </head>
+  <body data-page="blog">
+    <div class="page-shell">
+      <main class="main-container">
+        <article class="post-detail reveal-on-scroll">
+          <header class="post-detail__header">
+            <p class="post-detail__meta">Mon Nov 17 2025 09:00:00 GMT+0900 (日本標準時) / Git</p>
+            <h1 class="post-detail__title">RClone導入フロー</h1>
+            <p class="post-detail__description">Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ</p>
+          </header>
+
+          <section class="post-detail__body markdown-body">
+<p>こんにちは！パン君です</p>
+<p>WindowsでGoogle Driveと連携し、大容量ファイルをrcloneで管理します。</p>
+<ul>
+<li>WinGet の導入</li>
+<li>rclone のインストール</li>
+<li>Google Drive リモートの設定</li>
+<li>動作確認
+のステップを 一つのフローチャートにまとめて可視化しました。</li>
+</ul>
+<h1>RClone 導入フロー（Mermaid版）</h1>
+<p>最終版のフローチャートは<a href="assets/data/Rclone.html">こちら</a>です。</p>
+<p><img src="assets/img/MMD_rclone.png" alt="RClone導入フローチャート"></p>
+<hr>
+<h1>このフローで何ができる？</h1>
+<p>このフローは、Windows環境で以下の一連の作業をミスなく実行できるように可視化したものです。</p>
+<ul>
+<li>WinGet がない場合の対処</li>
+<li>rclone のインストール</li>
+<li>Google Drive リモート設定</li>
+<li>Drive フォルダ ID の取得方法</li>
+<li>動作確認の手順</li>
+</ul>
+<p>自分やチームの「Windows環境でのGit LFS代用環境構築の詰まりポイント」を解消できます。</p>
+<hr>
+<h1>概要</h1>
+<p>Windows環境でGitLFSの制限外で管理できるように共有したい場合のやり方です。
+大まかな流れは下記です。</p>
+<ul>
+<li>WinGet導入</li>
+<li>RClone導入</li>
+<li>RCloneの設定</li>
+</ul>
+<p>これ以降は運用の仕方の話になってくるうえ、
+CLIに慣れていない人に向ける場合、もう一工夫する必要がある為別の記事で記載予定です。</p>
+<hr>
+<h1>まとめ</h1>
+<p>この記事で行ったこと：</p>
+<ul>
+<li>RClone 導入に必要なステップを可視化</li>
+<li>Mermaid でフローチャート化</li>
+<li>Drive 連携の注意点（root_folder_id など）</li>
+<li>チーム用の手順書として使える内容に整備</li>
+</ul>
+
+          </section>
+        </article>
+      </main>
+    </div>
+
+    <script src="../assets/js/layout.js" defer></script>
+    <script src="../assets/js/ui.js"></script>
+  </body>
+</html>
