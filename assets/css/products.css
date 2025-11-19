@@ -1,7 +1,6 @@
 /* =========================
    フィルタ UI
    ========================= */
-
 .products-filters {
     display: flex;
     flex-wrap: wrap;
@@ -65,7 +64,6 @@
 /* =========================
    プロダクトカード
    ========================= */
-
 .product-card {
     display: flex;
     gap: 18px;
@@ -75,7 +73,7 @@
 /* サムネイル枠 */
 .product-card .card__thumb {
     flex-shrink: 0;
-    width: 260px;
+    width: 620px;
     max-width: 40%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
@@ -182,7 +180,6 @@
 /* =========================
    レスポンシブ
    ========================= */
-
 @media (max-width: 768px) {
     .products-filters {
         flex-direction: column;

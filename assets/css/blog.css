@@ -70,7 +70,7 @@
 /* サムネイル枠 */
 .blog-card .card__thumb {
     flex-shrink: 0;
-    width: 220px;
+    width: 620px;
     max-width: 40%;
     aspect-ratio: 16 / 9;
     overflow: hidden;

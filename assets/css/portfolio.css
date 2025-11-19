@@ -70,7 +70,7 @@
 /* サムネイル枠 */
 .portfolio-card .card__thumb {
     flex-shrink: 0;
-    width: 260px;
+    width: 960px;
     max-width: 40%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
