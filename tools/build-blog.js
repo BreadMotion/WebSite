@@ -47,7 +47,7 @@ function createHtml({
     <meta property="og:title" content="${safeTitle} | PanKUN Blog" />
     <meta property="og:description" content="${safeDesc}" />
     <meta property="og:type" content="article" />
-    <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/ogp.png" />
+    <meta property="og:image" content="../assets/img/ogp.png" />
 
     <link rel="stylesheet" href="../assets/css/base.css" />
     <link rel="stylesheet" href="../assets/css/layout.css" />
