@@ -70,7 +70,8 @@
 /* サムネイル枠 */
 .portfolio-card .card__thumb {
     flex-shrink: 0;
-    width: 960px;
+    width: 320px;
+    height: 100px;
     max-width: 40%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
@@ -181,7 +182,7 @@
 /* =========================
    レスポンシブ（一覧）
    ========================= */
-@media (max-width: 768px) {
+@media (max-width: 640px) {
     .portfolio-filters {
         flex-direction: column;
         align-items: stretch;

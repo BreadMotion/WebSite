@@ -1,8 +1,9 @@
 # PanKUN Home Page へようこそ
 
-作者のPortfolioと技術Blogが書いてあるホームページです。
+下記ページが記載されている自作ホームページです。
+
+- Portfolio
+- 技術Blog
+- Product(tool, game, 資料等)
 
 ページは[こちら](https://breadmotion.github.io/WebSite/)
-
-> [!WARNING]
-> 開発途中です。
