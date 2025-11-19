@@ -1,0 +1,20 @@
+{
+  "name": "website",
+  "version": "1.0.0",
+  "description": "作者のPortfolioと技術Blogが書いてあるホームページです。",
+  "main": "index.js",
+  "scripts": {
+    "build:blog": "node tools/build-blog.js",
+    "build:portfolio": "node tools/build-portfolio.js",
+    "build:sitemap": "node tools/build-sitemap.js",
+    "build:all": "npm run build:blog && npm run build:sitemap && npm run build:portfolio",
+    "start:server": "npx live-server ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.0"
+  }
+}

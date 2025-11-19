@@ -9,21 +9,12 @@
         />
 
         <!-- 共通CSS -->
-        <link
-            rel="stylesheet"
-            href="assets/css/base.css"
-            class="active"
-        />
+        <link rel="stylesheet" href="assets/css/base.css" />
         <link
             rel="stylesheet"
             href="assets/css/layout.css"
-            class="active"
         />
-        <link
-            rel="stylesheet"
-            href="assets/css/blog.css"
-            class="active"
-        />
+        <link rel="stylesheet" href="assets/css/blog.css" />
 
         <!-- アイコン -->
         <link rel="icon" href="favicon.ico" sizes="any" />
@@ -42,21 +33,21 @@
 
         <meta
             name="description"
-            content="エンジニア PanKUNのポートフォリオ"
+            content="PanKUN の技術ブログ。Unity / UE5 / ツール開発などのメモとナレッジ。"
         />
 
         <meta
             property="og:title"
-            content="PanKUN Potrfolio | pankun.dev"
+            content="PanKUN Blog | pankun.dev"
         />
         <meta
             property="og:description"
-            content="エンジニア PanKUNのブログ/制作したゲームやツール、技術ブログを掲載"
+            content="ゲーム開発・ツール開発に関する技術ブログ。Unity / UE5 / プラグイン開発など。"
         />
         <meta property="og:type" content="website" />
         <meta
             property="og:url"
-            content="https://breadmotion.github.io/WebSite/"
+            content="https://breadmotion.github.io/WebSite/blog.html"
         />
         <meta
             property="og:image"
@@ -73,19 +64,14 @@
         />
         <meta
             name="twitter:description"
-            content="エンジニア PanKUNブログ"
+            content="ゲーム開発・ツール開発に関する技術ブログ。"
         />
         <meta
             name="twitter:image"
             content="https://breadmotion.github.io/WebSite/assets/img/ogp.png"
         />
-        <meta
-            name="google-site-verification"
-            content="2us9bSy_ytt-3S-o8CVDVK8SPFWC9G3h39tzB-TKq7c"
-        />
     </head>
-    <body>
-        <!-- header は layout.js が自動挿入 -->
+    <body data-page="blog">
         <div class="page-shell">
             <main class="main-container">
                 <section
@@ -93,89 +79,76 @@
                 >
                     <h1>Blog</h1>
                     <p>
-                        技術メモや開発日記などをまとめています
+                        Unity / UE5 /
+                        ツール開発など、ゲーム制作まわりの技術メモやナレッジをまとめています。
                     </p>
+                </section>
 
-                    <div class="blog-filters">
-                        <label for="blogCategoryFilter"
-                            >カテゴリ:</label
-                        >
-                        <select id="blogCategoryFilter">
-                            <option value="all">
-                                すべて
-                            </option>
-                            <!-- blog.js からカテゴリを追加 -->
-                        </select>
-                    </div>
+                <section class="section reveal-on-scroll">
+                    <div class="section-header">
+                        <h2>記事一覧</h2>
 
-                    <div class="blog-search">
-                        <label for="blogSearchInput"
-                            >検索:</label
-                        >
-                        <input
-                            type="search"
-                            id="blogSearchInput"
-                            placeholder="タイトル・概要・カテゴリで検索"
-                            autocomplete="off"
-                        />
-                    </div>
+                        <!-- フィルタ UI -->
+                        <div class="blog-filters">
+                            <div class="blog-filter">
+                                <span
+                                    class="blog-filter__label"
+                                    >カテゴリ</span
+                                >
+                                <select
+                                    id="blogCategoryFilter"
+                                    class="select blog-filter__control"
+                                >
+                                    <option value="">
+                                        すべて
+                                    </option>
+                                    <option value="Unity">
+                                        Unity
+                                    </option>
+                                    <option value="UE5">
+                                        UE5
+                                    </option>
+                                    <option
+                                        value="プラグイン"
+                                    >
+                                        プラグイン
+                                    </option>
+                                    <option value="日記">
+                                        日記
+                                    </option>
+                                </select>
+                            </div>
 
-                    <div class="blog-tags">
-                        <span class="blog-tags-label"
-                            >タグ:</span
-                        >
-                        <div
-                            id="blogTagList"
-                            class="blog-tags-list"
-                        >
-                            <!-- blog.js からタグボタンを追加 -->
+                            <div class="blog-filter">
+                                <span
+                                    class="blog-filter__label"
+                                    >検索</span
+                                >
+                                <input
+                                    type="search"
+                                    id="blogSearch"
+                                    class="input input--search blog-filter__control"
+                                    placeholder="タイトル・概要・タグで検索"
+                                />
+                            </div>
                         </div>
                     </div>
-                </section>
 
-                <!-- 一覧表示用セクション -->
-                <section
-                    id="blogListSection"
-                    class="section reveal-on-scroll"
-                >
-                    <h2>記事一覧</h2>
-                    <ul id="blogList" class="blog-list">
-                        <!-- blog.js で自動生成 -->
-                    </ul>
-                </section>
-
-                <!-- 詳細表示用セクション（初期は非表示） -->
-                <section
-                    id="blogDetailSection"
-                    class="section reveal-on-scroll"
-                    style="display: none"
-                >
-                    <a href="blog.html" class="active"
-                        >&larr; 一覧に戻る</a
-                    >
-                    <h2 id="blogDetailTitle"></h2>
-                    <p
-                        id="blogDetailMeta"
-                        class="blog-meta"
-                    ></p>
-                    <p
-                        id="blogDetailTags"
-                        class="blog-detail-tags"
-                    ></p>
                     <div
-                        id="blogDetailBody"
-                        class="blog-detail-body"
+                        id="blogList"
+                        class="card-grid"
                     ></div>
+
+                    <p
+                        id="blogEmptyMessage"
+                        class="text-muted"
+                        style="display: none"
+                    >
+                        条件に一致する記事がありません。
+                    </p>
                 </section>
             </main>
         </div>
-
-        <!-- footer も layout.js が自動挿入 -->
-        <!-- Markdown パーサ（marked） -->
-        <script
-            src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"
-            defer
-        ></script>
 
         <!-- 共通JS -->
         <script src="assets/js/layout.js" defer></script>
