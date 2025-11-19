@@ -1,377 +1,171 @@
-function getQueryParam(name) {
-  const params = new URLSearchParams(
-    window.location.search,
+// assets/js/blog.js
+document.addEventListener("DOMContentLoaded", () => {
+  const listEl = document.getElementById("blogList");
+  const emptyEl = document.getElementById(
+    "blogEmptyMessage",
   );
-  return params.get(name);
-}
-
-function stripFrontMatter(md) {
-  if (!md) return md;
-
-  if (md.startsWith("---")) {
-    const endIndex = md.indexOf("\n---", 3);
-    if (endIndex !== -1) {
-      return md.slice(endIndex + 4).trimStart();
-    }
-  }
-
-  const lines = md.split("\n");
-  if (lines[0].startsWith("title:")) {
-    let i = 0;
-    while (i < lines.length && lines[i].trim() !== "") {
-      i++;
-    }
-    return lines
-      .slice(i + 1)
-      .join("\n")
-      .trimStart();
-  }
-
-  return md;
-}
-
-document.addEventListener("DOMContentLoaded", async () => {
-  const initialTag = getQueryParam("tag");
-
-  const listSection = document.getElementById(
-    "blogListSection",
-  );
-  const listElement = document.getElementById("blogList");
-  const detailSection = document.getElementById(
-    "blogDetailSection",
-  );
-  const detailTitle = document.getElementById(
-    "blogDetailTitle",
-  );
-  const detailMeta = document.getElementById(
-    "blogDetailMeta",
-  );
-  const detailBody = document.getElementById(
-    "blogDetailBody",
-  );
-  const detailTags = document.getElementById(
-    "blogDetailTags",
-  );
+  const searchInput = document.getElementById("blogSearch");
   const categorySelect = document.getElementById(
     "blogCategoryFilter",
   );
-  const searchInput = document.getElementById(
-    "blogSearchInput",
-  );
-  const tagListElement =
-    document.getElementById("blogTagList");
 
-  if (!listSection || !listElement || !detailSection) {
-    console.error("blog.html の要素取得に失敗しました。");
-    return;
-  }
+  if (!listEl) return;
 
-  let posts = [];
-  try {
-    const res = await fetch("content/blog/pagelist.json");
-    if (!res.ok) throw new Error(res.statusText);
-    posts = await res.json();
-  } catch (err) {
-    console.error(
-      "pagelist.json の読み込みに失敗しました:",
-      err,
-    );
-    listElement.innerHTML =
-      "<li>記事一覧を読み込めませんでした。</li>";
-    return;
-  }
+  /** @type {Array<any>} */
+  let allPosts = [];
 
-  posts.sort((a, b) => {
-    const da = a.date ? new Date(a.date) : new Date(0);
-    const db = b.date ? new Date(b.date) : new Date(0);
-    return db - da;
-  });
-
-  // 選択中タグ（null = すべて）
-  let selectedTag = null;
-
-  if (initialTag) {
-    selectedTag = initialTag;
-  }
-
-  // 一覧描画
-  function renderList(
-    filterCategory = "all",
-    searchText = "",
-    tag = null,
-  ) {
-    const q = (searchText || "").toLowerCase();
-    listElement.innerHTML = "";
-
-    const filtered = posts.filter((post) => {
-      // カテゴリ
-      if (filterCategory !== "all") {
-        if (
-          !post.category ||
-          post.category !== filterCategory
-        )
-          return false;
+  // -----------------------------
+  // JSON 読み込み
+  // -----------------------------
+  async function loadPosts() {
+    try {
+      const res = await fetch("assets/data/blogList.json");
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      allPosts = await res.json();
+      render();
+    } catch (err) {
+      console.error("Failed to load blog list:", err);
+      if (emptyEl) {
+        emptyEl.textContent =
+          "記事一覧の読み込みに失敗しました。";
+        emptyEl.style.display = "block";
       }
+    }
+  }
 
-      // タグ
-      if (tag) {
+  // -----------------------------
+  // 描画
+  // -----------------------------
+  function render() {
+    const keyword = (searchInput?.value || "")
+      .trim()
+      .toLowerCase();
+    const categoryFilter = (
+      categorySelect?.value || ""
+    ).trim();
+
+    const filtered = allPosts.filter((post) => {
+      // カテゴリフィルタ
+      if (
+        categoryFilter &&
+        post.category !== categoryFilter
+      )
+        return false;
+
+      // キーワードフィルタ
+      if (keyword) {
         const tags = Array.isArray(post.tags)
           ? post.tags
-          : [];
-        if (!tags.includes(tag)) return false;
-      }
+          : String(post.tags || "")
+              .split(",")
+              .map((t) => t.trim())
+              .filter(Boolean);
 
-      // 検索
-      if (q) {
         const haystack = [
           post.title || "",
           post.description || "",
           post.category || "",
-          ...(Array.isArray(post.tags) ? post.tags : []),
+          ...tags,
         ]
           .join(" ")
           .toLowerCase();
 
-        if (!haystack.includes(q)) return false;
+        if (!haystack.includes(keyword)) return false;
       }
 
       return true;
     });
 
-    if (filtered.length === 0) {
-      listElement.innerHTML =
-        "<li>該当する記事がありません。</li>";
+    listEl.innerHTML = "";
+
+    if (!filtered.length) {
+      if (emptyEl) emptyEl.style.display = "block";
       return;
     }
+    if (emptyEl) emptyEl.style.display = "none";
 
     filtered.forEach((post) => {
-      const li = document.createElement("li");
-      li.className = "blog-item";
+      const card = document.createElement("article");
+      card.className = "card card--clickable blog-card";
 
-      const thumb = document.createElement("div");
-      thumb.className = "blog-thumb";
+      // サムネイル
       if (post.thumbnail) {
+        const thumb = document.createElement("div");
+        thumb.className = "card__thumb";
         const img = document.createElement("img");
         img.src = post.thumbnail;
-        img.alt = post.title;
+        img.alt = post.title || "";
         thumb.appendChild(img);
+        card.appendChild(thumb);
       }
 
       const body = document.createElement("div");
-      body.className = "blog-body";
+      body.className = "card__body";
 
-      const a = document.createElement("a");
-      a.href = `blog.html?id=${encodeURIComponent(post.id)}`;
-
-      const h3 = document.createElement("h3");
-      h3.textContent = post.title;
-
+      // メタ（カテゴリ / 日付）
       const meta = document.createElement("p");
-      meta.className = "blog-meta";
-      const categoryText = post.category
-        ? ` / カテゴリ: ${post.category}`
-        : "";
-      meta.textContent = `${post.date || ""}${categoryText}`;
+      meta.className = "card__meta";
+      const dateText = post.date || "";
+      const categoryText = post.category || "";
+      meta.textContent = [dateText, categoryText]
+        .filter(Boolean)
+        .join(" / ");
+      body.appendChild(meta);
 
-      const desc = document.createElement("p");
-      desc.className = "blog-desc";
-      desc.textContent = post.description || "";
+      // タイトル
+      const titleRow = document.createElement("div");
+      titleRow.className = "card__title-row";
 
-      a.appendChild(h3);
-      a.appendChild(meta);
-      a.appendChild(desc);
+      const title = document.createElement("h3");
+      title.className = "card__title";
+      title.textContent = post.title || "";
+      titleRow.appendChild(title);
 
-      body.appendChild(a);
+      body.appendChild(titleRow);
 
-      li.appendChild(thumb);
-      li.appendChild(body);
+      // 概要
+      if (post.description) {
+        const desc = document.createElement("p");
+        desc.className = "card__description";
+        desc.textContent = post.description;
+        body.appendChild(desc);
+      }
 
-      li.addEventListener("click", (e) => {
-        if (e.target.closest("a")) {
-          // テキスト上のクリックは既存のリンク動作を使う
-          return;
+      // タグ
+      if (post.tags && post.tags.length) {
+        const tagRow = document.createElement("div");
+        tagRow.className = "card__tags";
+        post.tags.forEach((t) => {
+          const tag = document.createElement("span");
+          tag.className = "tag";
+          tag.textContent = t;
+          tagRow.appendChild(tag);
+        });
+        body.appendChild(tagRow);
+      }
+
+      card.appendChild(body);
+
+      // カード全体クリックで記事ページへ
+      card.addEventListener("click", () => {
+        if (post.contentPath) {
+          window.location.href = post.contentPath;
         }
-        window.location.href = a.href;
       });
 
-      listElement.appendChild(li);
+      listEl.appendChild(card);
     });
   }
 
-  // タグ一覧を生成
-  function setupTagChips() {
-    if (!tagListElement) return;
-
-    const allTags = new Set();
-    posts.forEach((p) => {
-      (Array.isArray(p.tags) ? p.tags : []).forEach((t) => {
-        if (t && t.trim() !== "") allTags.add(t);
-      });
-    });
-
-    tagListElement.innerHTML = "";
-
-    Array.from(allTags)
-      .sort()
-      .forEach((tag) => {
-        const chip = document.createElement("button");
-        chip.type = "button";
-        chip.textContent = tag;
-        chip.className = "blog-tag-chip";
-
-        chip.addEventListener("click", () => {
-          // 同じタグをもう一度押したら解除
-          if (selectedTag === tag) {
-            selectedTag = null;
-          } else {
-            selectedTag = tag;
-          }
-          updateTagChipActive();
-          renderList(
-            categorySelect ? categorySelect.value : "all",
-            searchInput ? searchInput.value : "",
-            selectedTag,
-          );
-        });
-
-        tagListElement.appendChild(chip);
-      });
-
-    updateTagChipActive();
-  }
-
-  function updateTagChipActive() {
-    if (!tagListElement) return;
-    const chips = tagListElement.querySelectorAll(
-      ".blog-tag-chip",
-    );
-    chips.forEach((chip) => {
-      if (chip.textContent === selectedTag) {
-        chip.classList.add("active");
-      } else {
-        chip.classList.remove("active");
-      }
-    });
-  }
-
-  // カテゴリ
-  if (categorySelect) {
-    const categories = Array.from(
-      new Set(
-        posts
-          .map((p) => p.category)
-          .filter((c) => c && c.trim() !== ""),
-      ),
-    );
-
-    categories.forEach((cat) => {
-      const option = document.createElement("option");
-      option.value = cat;
-      option.textContent = cat;
-      categorySelect.appendChild(option);
-    });
-
-    categorySelect.addEventListener("change", () => {
-      renderList(
-        categorySelect.value,
-        searchInput ? searchInput.value : "",
-        selectedTag,
-      );
-    });
-  }
-
-  // 検索
+  // -----------------------------
+  // イベント
+  // -----------------------------
   if (searchInput) {
-    searchInput.addEventListener("input", () => {
-      renderList(
-        categorySelect ? categorySelect.value : "all",
-        searchInput.value,
-        selectedTag,
-      );
-    });
+    searchInput.addEventListener("input", render);
+  }
+  if (categorySelect) {
+    categorySelect.addEventListener("change", render);
   }
 
-  // タグ生成
-  setupTagChips();
-
-  const id = getQueryParam("id");
-
-  if (!id) {
-    // 一覧
-    listSection.style.display = "";
-    detailSection.style.display = "none";
-    renderList(
-      categorySelect ? categorySelect.value : "all",
-      searchInput ? searchInput.value : "",
-      selectedTag,
-    );
-  } else {
-    // 詳細
-    listSection.style.display = "none";
-    detailSection.style.display = "";
-
-    const post = posts.find((p) => p.id === id);
-    if (!post) {
-      detailTitle.textContent =
-        "記事が見つかりませんでした";
-      detailMeta.textContent = "";
-      detailBody.textContent =
-        "指定された記事 ID は存在しません。";
-      return;
-    }
-
-    detailTitle.textContent = post.title;
-    const categoryText = post.category
-      ? ` / カテゴリ: ${post.category}`
-      : "";
-    detailMeta.textContent = `${post.date || ""}${categoryText}`;
-
-    if (detailTags) {
-      detailTags.innerHTML = "";
-      const tags = Array.isArray(post.tags)
-        ? post.tags
-        : [];
-      if (tags.length > 0) {
-        const label = document.createTextNode("タグ:");
-        detailTags.appendChild(label);
-
-        tags.forEach((tag) => {
-          const btn = document.createElement("button");
-          btn.type = "button";
-          btn.textContent = tag;
-          btn.addEventListener("click", () => {
-            window.location.href = `blog.html?tag=${encodeURIComponent(tag)}`;
-          });
-          detailTags.appendChild(btn);
-        });
-      }
-    }
-
-    if (!post.contentPath) {
-      detailBody.textContent =
-        "この記事の本文ファイルが設定されていません。";
-      return;
-    }
-
-    try {
-      const res = await fetch(post.contentPath);
-      if (!res.ok) throw new Error(res.statusText);
-      const markdown = await res.text();
-      const bodyOnly = stripFrontMatter(markdown);
-
-      // marked.js があれば使う / 無ければプレーンテキストで表示
-      if (window.marked) {
-        detailBody.innerHTML = marked.parse(bodyOnly);
-      } else {
-        detailBody.textContent = bodyOnly;
-      }
-    } catch (err) {
-      console.error(
-        "記事本文の読み込みに失敗しました:",
-        err,
-      );
-      detailBody.textContent =
-        "記事本文を読み込めませんでした。";
-    }
-  }
+  loadPosts();
 });

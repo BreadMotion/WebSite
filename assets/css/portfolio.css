@@ -1,271 +1,290 @@
-/* ヘッダー */
-.page-header {
-    margin-bottom: 16px;
-}
-
-.page-header h1 {
-    margin: 0 0 4px;
-    font-size: 1.4rem;
-}
-
-.page-header p {
-    margin: 0;
-    color: var(--color-text-muted);
-    font-size: 0.9rem;
-}
-
-/* フィルタ/検索/タグ */
-.portfolio-filters,
-.portfolio-search,
-.portfolio-tags {
-    margin-top: 8px;
+/* =========================
+   Portfolio 一覧（カード）
+   ========================= */
+.portfolio-filters {
     display: flex;
-    align-items: center;
-    gap: 8px;
     flex-wrap: wrap;
+    gap: 10px 16px;
+    align-items: center;
+    margin-top: 12px;
 }
 
-.portfolio-filters label,
-.portfolio-search label,
-.portfolio-tags-label {
+.portfolio-filter {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.portfolio-filter__label {
     font-size: 0.8rem;
     color: var(--color-text-muted);
 }
 
-.portfolio-filters select,
-.portfolio-search input[type="search"] {
-    padding: 4px 10px;
-    border-radius: 999px;
-    border: 1px solid var(--color-border-soft);
-    background: rgba(15, 23, 42, 0.9);
-    color: var(--color-text);
-    font-size: 0.85rem;
-    min-width: 250px;
-}
-
-.portfolio-filters select:focus,
-.portfolio-search input[type="search"]:focus {
-    outline: none;
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 1px rgba(79, 70, 229, 0.55);
-}
-
-.portfolio-tags-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-}
-
-.portfolio-tag-chip {
-    padding: 2px 10px;
-    border-radius: 999px;
-    border: 1px solid #475569;
-    font-size: 0.75rem;
-    cursor: pointer;
-    background: rgba(15, 23, 42, 0.92);
-    color: var(--color-text-muted);
-    transition:
-        background 0.12s ease-out,
-        border-color 0.12s ease-out,
-        color 0.12s ease-out,
-        box-shadow 0.12s ease-out,
-        transform 0.12s ease-out;
-}
-
-.portfolio-tag-chip:hover {
-    background: #1f2937;
-    transform: translateY(-1px);
-}
-
-.portfolio-tag-chip.active {
-    background:
-        radial-gradient(
-            circle at 0 0,
-            rgba(56, 189, 248, 0.4),
-            transparent 55%
-        ),
-        var(--color-accent);
-    color: #f9fafb;
-    border-color: var(--color-accent);
-    box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
-}
-
-/* 一覧レイアウト */
-.portfolio-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 14px;
-}
-
-.portfolio-item {
-    display: flex;
-    gap: 12px;
-    align-items: flex-start;
-    background: rgba(15, 23, 42, 0.92);
-    border-radius: var(--radius-md);
-    padding: 12px;
-    border: 1px solid var(--color-border-soft);
-    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.75);
-    cursor: pointer;
-    transition:
-        transform 0.12s ease-out,
-        box-shadow 0.12s ease-out,
-        border-color 0.12s ease-out,
-        background 0.12s ease-out;
-}
-
-.portfolio-item:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
-    border-color: var(--color-accent-soft);
-    background: rgba(15, 23, 42, 0.97);
-}
-
-.portfolio-item:active {
-    transform: translateY(0);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.8);
-}
-
-.portfolio-thumb {
-    width: 300px;
-    min-width: 300px;
-    height: 145px;
-    border-radius: 12px;
+/* 丸っこくて暗めの入力 UI（Blog / Products に揃える） */
+.portfolio-filter__control {
     background:
         radial-gradient(
             circle at top,
-            rgba(148, 163, 184, 0.8),
+            rgba(148, 163, 184, 0.2),
+            transparent 55%
+        ),
+        rgba(15, 23, 42, 0.96);
+    border-radius: 999px;
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    color: var(--color-text);
+    padding: 6px 14px;
+    font-size: 0.9rem;
+    box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 18px 40px rgba(15, 23, 42, 0.75);
+}
+
+.portfolio-filter__control::placeholder {
+    color: var(--color-text-muted);
+}
+
+.portfolio-filter__control:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow:
+        0 0 0 1px rgba(79, 70, 229, 0.9),
+        0 18px 40px rgba(37, 99, 235, 0.65);
+}
+
+/* カテゴリ = 固定幅 / 検索 = 広がる */
+.portfolio-filter:first-child {
+    min-width: 140px;
+}
+.portfolio-filter:last-child {
+    flex: 1;
+    min-width: 220px;
+}
+
+/* カード本体 */
+.portfolio-card {
+    display: flex;
+    gap: 16px;
+    align-items: stretch;
+}
+
+/* サムネイル枠 */
+.portfolio-card .card__thumb {
+    flex-shrink: 0;
+    width: 260px;
+    max-width: 40%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border-radius: 18px;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(148, 163, 184, 0.5),
             transparent 55%
         ),
         #020617;
-    overflow: hidden;
 }
 
-.portfolio-thumb img {
+.portfolio-card .card__thumb img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
 }
 
-.portfolio-body h3 {
-    margin: 0 0 4px;
-    font-size: 1.05rem;
+/* 本文側 */
+.portfolio-card .card__body {
+    flex: 1;
+    min-width: 0;
 }
 
-.portfolio-meta {
-    margin: 0 0 6px;
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
-}
-
-.portfolio-desc {
-    margin: 0 0 8px;
-    font-size: 0.9rem;
-}
-
-.portfolio-links a {
-    font-size: 0.85rem;
-    text-decoration: underline;
-}
-
-/* 詳細 */
-
-#portfolioDetailSection > a {
-    display: inline-block;
-    margin-bottom: 8px;
-    font-size: 0.85rem;
-    color: var(--color-text-muted);
-}
-
-#portfolioDetailTitle {
-    margin: 0 0 4px;
-    font-size: 1.3rem;
-}
-
-#portfolioDetailMeta {
-    margin: 0 0 10px;
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
-}
-
-.portfolio-detail-tags {
-    margin: 0 0 10px;
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
-}
-
-.portfolio-detail-tags button {
-    margin-left: 4px;
-    padding: 2px 8px;
-    border-radius: 999px;
-    border: 1px solid #475569;
-    background: rgba(15, 23, 42, 0.9);
-    color: var(--color-text-muted);
+.portfolio-card .card__meta {
     font-size: 0.75rem;
-    cursor: pointer;
-    transition:
-        background 0.12s ease-out,
-        border-color 0.12s ease-out,
-        color 0.12s ease-out;
+    color: var(--color-text-muted);
+    margin-bottom: 4px;
 }
 
-.portfolio-detail-tags button:hover {
-    background: #1f2937;
-    color: #e5e7eb;
+.portfolio-card .card__meta--role {
+    margin-top: 2px;
 }
 
-.portfolio-detail-body {
+.portfolio-card .card__title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.portfolio-card .card__title {
+    font-size: 1rem;
+}
+
+/* タグ */
+.portfolio-card .card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+}
+
+.portfolio-card .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 2px 10px;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    background: rgba(15, 23, 42, 0.9);
+    border: 1px solid rgba(148, 163, 184, 0.4);
+    color: var(--color-text-muted);
+}
+
+/* 外部リンクボタン群 */
+.portfolio-card .card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
     margin-top: 12px;
+}
+
+.portfolio-card .card__actions a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    text-decoration: none;
+    white-space: nowrap;
+    border: 1px solid rgba(148, 163, 184, 0.55);
+    background: radial-gradient(
+        circle at top,
+        rgba(37, 99, 235, 0.22),
+        transparent 55%
+    );
+    color: var(--color-accent);
+    box-shadow:
+        0 0 0 1px rgba(15, 23, 42, 0.9),
+        0 18px 40px rgba(15, 23, 42, 0.75);
+}
+
+.portfolio-card .card__actions a:hover {
+    border-color: rgba(129, 140, 248, 0.9);
+    color: #e5e7eb;
+    background:
+        radial-gradient(
+            circle at top,
+            rgba(129, 140, 248, 0.4),
+            transparent 55%
+        ),
+        rgba(15, 23, 42, 0.98);
+}
+
+/* =========================
+   レスポンシブ（一覧）
+   ========================= */
+@media (max-width: 768px) {
+    .portfolio-filters {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .portfolio-filter {
+        width: 100%;
+    }
+
+    .portfolio-filter__control {
+        width: 100%;
+    }
+
+    .portfolio-card {
+        flex-direction: column;
+    }
+
+    .portfolio-card .card__thumb {
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: 16 / 9;
+    }
+}
+
+/* =========================
+   作品詳細ページ用（Markdown）
+   ========================= */
+
+.work-detail {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.work-detail__header {
+    margin-bottom: 24px;
+}
+
+.work-detail__meta {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    margin-bottom: 4px;
+}
+
+.work-detail__title {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+}
+
+.work-detail__description {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+}
+
+/* Markdown 本文（blog と揃える） */
+.markdown-body {
+    line-height: 1.8;
     font-size: 0.95rem;
 }
 
-.portfolio-detail-body h1,
-.portfolio-detail-body h2,
-.portfolio-detail-body h3 {
-    margin-top: 1.4em;
+.markdown-body h2 {
+    font-size: 1.3rem;
+    margin-top: 1.8rem;
+    margin-bottom: 0.6rem;
 }
 
-.portfolio-detail-body pre {
-    padding: 8px;
-    border-radius: 10px;
-    background: #020617;
-    border: 1px solid #1e293b;
+.markdown-body h3 {
+    font-size: 1.1rem;
+    margin-top: 1.4rem;
+    margin-bottom: 0.4rem;
+}
+
+.markdown-body p {
+    margin: 0.5rem 0;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+    padding-left: 1.25rem;
+    margin: 0.5rem 0 0.8rem;
+}
+
+.markdown-body code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: rgba(15, 23, 42, 0.9);
+    padding: 0.1em 0.4em;
+    border-radius: 4px;
+}
+
+.markdown-body pre {
+    background: rgba(15, 23, 42, 0.95);
+    padding: 12px 16px;
+    border-radius: 12px;
     overflow-x: auto;
-    font-size: 0.85rem;
+    font-size: 0.85em;
+    margin: 0.8rem 0 1rem;
 }
 
-.portfolio-detail-body img {
+/* 作品本文内の画像 */
+.markdown-body img {
     max-width: 100%;
     height: auto;
     display: block;
     margin: 1rem auto;
     border-radius: 12px;
-}
-
-#portfolioDetailLinks {
-    margin-top: 10px;
-    font-size: 0.9rem;
-}
-
-/* スマホ向け */
-@media (max-width: 768px) {
-    .portfolio-item {
-        flex-direction: column;
-    }
-
-    .portfolio-thumb {
-        width: 100%;
-        height: 160px;
-    }
-}
-
-@media (max-width: 640px) {
-    .portfolio-filters,
-    .portfolio-search {
-        flex-direction: column;
-        align-items: flex-start;
-    }
 }
