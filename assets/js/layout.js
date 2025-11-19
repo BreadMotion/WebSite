@@ -11,12 +11,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // header と footer をまとめて読み込む
   Promise.all([
-    fetch("/WebSite/partials/header.html").then((r) =>
-      r.text(),
-    ),
-    fetch("/WebSite/partials/footer.html").then((r) =>
-      r.text(),
-    ),
+    fetch(
+      "https://breadmotion.github.io/WebSite/partials/header.html",
+    ).then((r) => r.text()),
+    fetch(
+      "https://breadmotion.github.io/WebSite/partials/footer.html",
+    ).then((r) => r.text()),
   ])
     .then(([headerHtml, footerHtml]) => {
       // body の先頭に header、末尾に footer を挿入
