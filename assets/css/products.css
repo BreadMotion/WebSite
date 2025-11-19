@@ -73,7 +73,8 @@
 /* サムネイル枠 */
 .product-card .card__thumb {
     flex-shrink: 0;
-    width: 620px;
+    width: 260px;
+    height: 150px;
     max-width: 40%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
@@ -180,7 +181,7 @@
 /* =========================
    レスポンシブ
    ========================= */
-@media (max-width: 768px) {
+@media (max-width: 640px) {
     .products-filters {
         flex-direction: column;
         align-items: stretch;
