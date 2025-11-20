@@ -1,129 +1,148 @@
-/* ヘッダー */
+/*
+ * layout.css
+ * サイト全体の共通レイアウト要素（ヘッダー、フッター、ナビゲーション、セクションなど）のスタイル
+ */
+
+/* ==========================================================================
+   1. ヘッダー
+   ========================================================================== */
 .site-header {
     position: sticky;
     top: 0;
     z-index: 20;
-    background: linear-gradient(
-        120deg,
-        #020617,
-        #020617 40%,
-        #0b1120 100%
-    );
-    border-bottom: 1px solid rgba(148, 163, 184, 0.3);
-    backdrop-filter: blur(14px);
+    background: var(
+        --color-surface
+    ); /* base.cssで定義したカラー変数を使用 */
+    border-bottom: 1px solid var(--color-border); /* base.cssで定義したカラー変数を使用 */
+    backdrop-filter: blur(
+        10px
+    ); /* ぼかし効果を少し弱める */
+    -webkit-backdrop-filter: blur(10px); /* Safari対応 */
+    box-shadow: var(
+        --shadow-sm
+    ); /* ヘッダーにも軽いシャドウ */
+    flex-shrink: 0; /* Sticky Footerのために追加 */
 }
 
 .site-header__inner {
-    max-width: 1080px;
+    max-width: 1120px; /* main-containerと合わせる */
     margin: 0 auto;
-    padding: 10px 18px;
+    padding: 0.75rem 1.25rem; /* rem単位で統一 (12px 20px) */
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 14px;
+    gap: 1rem; /* rem単位で統一 */
 }
 
 .site-logo {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.5rem; /* rem単位で統一 */
     text-decoration: none;
-    color: #e5e7eb;
+    color: var(--color-heading); /* 見出し色を使用 */
+    font-size: 1.125rem; /* 少し大きく */
+    font-weight: 700;
+    letter-spacing: 0.025em; /* 文字間を調整 */
 }
 
 .site-logo__mark {
-    width: 32px;
-    height: 32px;
-    border-radius: 999px;
-    background:
-        radial-gradient(
-            circle at 30% 20%,
-            #38bdf8,
-            transparent 45%
-        ),
-        radial-gradient(
-            circle at 70% 80%,
-            #4f46e5,
-            transparent 55%
-        ),
-        #020617;
+    width: 2.25rem; /* rem単位で統一 */
+    height: 2.25rem; /* rem単位で統一 */
+    border-radius: var(
+        --radius-md
+    ); /* 少し角丸をシャープに */
+    background: linear-gradient(
+        135deg,
+        var(--color-accent-dark) 0%,
+        var(--color-accent) 100%
+    ); /* アクセントカラーのグラデーション */
     display: inline-flex;
     align-items: center;
     justify-content: center;
     font-weight: 700;
-    font-size: 0.95rem;
-    box-shadow:
-        0 0 12px rgba(56, 189, 248, 0.9),
-        0 0 24px rgba(79, 70, 229, 0.8);
-    animation: logo-pulse 2.4s infinite ease-in-out;
+    font-size: 1rem; /* rem単位で統一 */
+    color: #fff; /* ロゴ内のテキストは白 */
+    box-shadow: var(
+        --shadow-md
+    ); /* 新しいシャドウ変数を使用 */
+    animation: logo-pulse 2.8s infinite ease-in-out; /* アニメーションは継続 */
 }
 
 @keyframes logo-pulse {
     0%,
     100% {
         transform: scale(1);
-        box-shadow:
-            0 0 10px rgba(56, 189, 248, 0.7),
-            0 0 20px rgba(79, 70, 229, 0.6);
+        box-shadow: var(--shadow-md);
     }
     50% {
-        transform: scale(1.08);
-        box-shadow:
-            0 0 16px rgba(56, 189, 248, 1),
-            0 0 30px rgba(79, 70, 229, 1);
+        transform: scale(1.05); /* 少し控えめに */
+        box-shadow: var(--shadow-lg);
     }
 }
 
 .site-logo__text {
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    font-size: 1rem;
+    /* base.cssの--color-headingが適用されるため、ここでは指定不要 */
+    /* font-weight: 700; */ /* site-logoで指定済み */
+    /* letter-spacing: 0.05em; */ /* site-logoで指定済み */
+    /* font-size: 1rem; */ /* site-logoで指定済み */
 }
 
-/* ナビ */
-
+/* ==========================================================================
+   2. ナビゲーション
+   ========================================================================== */
 .site-nav {
     display: flex;
-    gap: 6px;
+    gap: 0.5rem; /* rem単位で統一 */
     flex-wrap: wrap;
     justify-content: flex-end;
 }
 
 .site-nav a {
     position: relative;
-    color: #e5e7eb;
+    color: var(--color-text-muted); /* 控えめなテキスト色 */
     text-decoration: none;
-    font-size: 0.85rem;
-    padding: 4px 12px;
-    border-radius: 999px;
+    font-size: 0.95rem; /* 少し大きく */
+    padding: 0.35rem 0.9rem; /* rem単位で統一 (6px 14px) */
+    border-radius: var(
+        --radius-md
+    ); /* base.cssの変数を使用 */
     border: 1px solid transparent;
     transition:
-        background 0.12s ease-out,
-        border-color 0.12s ease-out,
-        color 0.12s ease-out,
-        transform 0.12s ease-out,
-        box-shadow 0.12s ease-out;
+        background 0.2s ease-out,
+        border-color 0.2s ease-out,
+        color 0.2s ease-out,
+        transform 0.15s ease-out,
+        box-shadow 0.2s ease-out;
 }
 
 .site-nav a:hover {
-    background: rgba(15, 23, 42, 0.9);
-    border-color: rgba(148, 163, 184, 0.55);
-    transform: translateY(-1px);
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.9);
+    background: var(
+        --color-accent-soft
+    ); /* アクセントカラーのソフトバージョン */
+    border-color: var(--color-border);
+    color: var(
+        --color-text
+    ); /* ホバーで明るいテキスト色に */
+    transform: translateY(-2px); /* 少し上に移動 */
+    box-shadow: var(--shadow-md); /* 中程度のシャドウ */
 }
 
 .site-nav a::after {
     content: "";
     position: absolute;
-    left: 12px;
-    right: 12px;
-    bottom: 2px;
-    height: 1px;
-    border-radius: 999px;
-    background: linear-gradient(90deg, #38bdf8, #4f46e5);
+    left: 0.75rem; /* paddingに合わせて調整 */
+    right: 0.75rem; /* paddingに合わせて調整 */
+    bottom: 0.2rem; /* 下線を少し上に */
+    height: 2px; /* 少し太く */
+    border-radius: var(--radius-sm); /* 細かい角丸 */
+    background: linear-gradient(
+        90deg,
+        var(--color-accent),
+        var(--color-accent-dark)
+    ); /* アクセントカラーのグラデーション */
     transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.18s ease-out;
+    transform-origin: center; /* 中央から広がるように */
+    transition: transform 0.2s ease-out;
 }
 
 .site-nav a:hover::after,
@@ -134,47 +153,61 @@
 .site-nav a.active {
     background: var(--color-accent);
     border-color: var(--color-accent);
-    color: #f9fafb;
-    box-shadow: 0 10px 24px rgba(79, 70, 229, 0.8);
+    color: #fff; /* アクティブ時は白テキスト */
+    box-shadow: var(--shadow-md); /* 中程度のシャドウ */
 }
 
-/* 共通セクション／カード */
+/* ==========================================================================
+   3. 共通セクション / カード
+   ========================================================================== */
 .section {
-    border-radius: var(--radius-lg);
-    padding: 20px 22px;
-    margin-bottom: 22px;
-    box-shadow: var(--shadow-soft);
-    border: 1px solid var(--color-border);
+    background: var(
+        --color-panel
+    ); /* base.cssの変数を使用 */
+    border-radius: var(
+        --radius-lg
+    ); /* base.cssの変数を使用 */
+    padding: 2rem; /* rem単位で統一 (32px) */
+    margin-bottom: 2rem; /* rem単位で統一 */
+    box-shadow: var(
+        --shadow-lg
+    ); /* 新しいシャドウ変数を使用 */
+    border: 1px solid var(--color-border); /* base.cssの変数を使用 */
 }
 
 .section--soft {
-    background: rgba(15, 23, 42, 0.9);
+    background: var(
+        --color-surface
+    ); /* 少し明るいパネル色 */
+    box-shadow: var(--shadow-md); /* 少し控えめなシャドウ */
+    border-color: var(--color-border-soft);
 }
 
 .section__title {
     margin-top: 0;
-    margin-bottom: 10px;
-    font-size: 1.1rem;
+    margin-bottom: 1.5rem; /* rem単位で統一 */
+    font-size: 1.8rem; /* 大きく */
+    font-weight: 700;
+    color: var(--color-heading);
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 0.75rem; /* rem単位で統一 */
 }
 
 .section__title::before {
     content: "";
     display: inline-block;
-    width: 6px;
-    height: 18px;
-    border-radius: 999px;
+    width: 0.3rem; /* 少し細く */
+    height: 1.8rem; /* タイトル高さに合わせる */
+    border-radius: var(--radius-sm); /* 細かい角丸 */
     background: linear-gradient(
         180deg,
         var(--color-accent),
-        #38bdf8
-    );
+        var(--color-accent-dark)
+    ); /* アクセントカラーのグラデーション */
 }
 
 /* 汎用カード */
-
 .card-list {
     list-style: none;
     margin: 0;
@@ -182,45 +215,58 @@
     display: grid;
     grid-template-columns: repeat(
         auto-fit,
-        minmax(220px, 1fr)
-    );
-    gap: 14px;
+        minmax(250px, 1fr)
+    ); /* minmaxを少し大きく */
+    gap: 1.25rem; /* rem単位で統一 (20px) */
 }
 
 .card {
-    background: rgba(15, 23, 42, 0.92);
-    border-radius: var(--radius-md);
-    padding: 14px;
+    background: var(
+        --color-surface
+    ); /* カード背景を少し明るく */
+    border-radius: var(
+        --radius-md
+    ); /* base.cssの変数を使用 */
+    padding: 1.25rem; /* rem単位で統一 (20px) */
     border: 1px solid var(--color-border-soft);
-    box-shadow: 0 10px 25px rgba(15, 23, 42, 0.6);
+    box-shadow: var(
+        --shadow-md
+    ); /* 新しいシャドウ変数を使用 */
     transition:
-        transform 0.12s ease-out,
-        box-shadow 0.12s ease-out,
-        border-color 0.12s ease-out,
-        background 0.12s ease-out;
+        transform 0.15s ease-out,
+        box-shadow 0.15s ease-out,
+        border-color 0.15s ease-out,
+        background 0.15s ease-out;
 }
 
 .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 16px 40px rgba(15, 23, 42, 0.8);
-    border-color: var(--color-accent-soft);
-    background: rgba(15, 23, 42, 0.98);
+    transform: translateY(-4px); /* 少し大きく持ち上げる */
+    box-shadow: var(--shadow-lg); /* 大きなシャドウ */
+    border-color: var(
+        --color-accent
+    ); /* ホバー時にアクセントカラーのボーダー */
+    background: var(--color-panel); /* ホバー時に少し濃く */
 }
 
-/* フッター */
+/* ==========================================================================
+   4. フッター
+   ========================================================================== */
 .site-footer {
-    border-top: 1px solid rgba(30, 64, 175, 0.6);
-    background: #020617;
-    padding: 10px 16px 18px;
-    font-size: 0.8rem;
+    border-top: 1px solid var(--color-border); /* base.cssの変数を使用 */
+    background: var(
+        --color-surface
+    ); /* base.cssの変数を使用 */
+    padding: 1rem 1.25rem 1.5rem; /* rem単位で統一 */
+    font-size: 0.875rem; /* 少し大きく */
     color: var(--color-text-muted);
+    flex-shrink: 0; /* Sticky Footerのために追加 */
 }
 
 .site-footer__inner {
-    max-width: 1080px;
+    max-width: 1120px; /* main-containerと合わせる */
     margin: 0 auto;
     display: flex;
-    gap: 8px;
+    gap: 0.75rem; /* rem単位で統一 */
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
@@ -229,7 +275,7 @@
 .site-footer__right {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 0.5rem; /* rem単位で統一 */
     flex-wrap: wrap;
     max-width: 100%;
 }
@@ -237,67 +283,89 @@
 .site-footer__right a {
     color: var(--color-text-muted);
     text-decoration: none;
-    font-size: 0.8rem;
-    padding: 2px 6px;
-    border-radius: 999px;
+    font-size: 0.875rem; /* 少し大きく */
+    padding: 0.2rem 0.6rem; /* rem単位で統一 */
+    border-radius: var(--radius-md);
     transition:
-        background 0.12s ease-out,
-        color 0.12s ease-out;
+        background 0.2s ease-out,
+        color 0.2s ease-out;
     white-space: nowrap;
 }
 
 .site-footer__right a:hover {
-    background: rgba(15, 23, 42, 0.9);
-    color: #e5e7eb;
+    background: var(
+        --color-accent-soft
+    ); /* アクセントのソフトバージョン */
+    color: var(
+        --color-text
+    ); /* ホバーで明るいテキスト色に */
 }
 
 .site-footer__sep {
-    opacity: 0.6;
+    opacity: 0.5; /* 少し控えめに */
 }
 
-/* レスポンシブ */
-@media (max-width: 640px) {
+/* ==========================================================================
+   5. レスポンシブデザイン
+   ========================================================================== */
+@media (max-width: 768px) {
+    /* ブレイクポイントを少し大きく */
     .site-header__inner {
         flex-direction: column;
         align-items: flex-start;
+        padding: 0.75rem 1rem; /* パディング調整 */
+    }
+    .site-logo {
+        margin-bottom: 0.5rem;
     }
     .site-nav {
         justify-content: flex-start;
+        width: 100%; /* 全幅を使う */
     }
-
+    .site-nav a {
+        padding: 0.3rem 0.75rem; /* 小さく */
+        font-size: 0.875rem;
+    }
+    .section {
+        padding: 1.5rem; /* モバイルで小さく */
+        margin-bottom: 1.5rem;
+    }
+    .section__title {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    .card-list {
+        grid-template-columns: 1fr; /* 1カラム表示 */
+        gap: 1rem;
+    }
+    .card {
+        padding: 1rem;
+    }
     .site-footer__inner {
         flex-direction: column;
         align-items: flex-start;
+        padding: 1rem 1rem;
+    }
+    .site-footer__right {
+        margin-top: 0.5rem;
+    }
+    .site-footer__right a {
+        font-size: 0.8rem;
     }
 }
 
-/* sticky footer 用の指定 */
+/* ==========================================================================
+   6. Sticky Footer 用の指定 (bodyに設定済みのため簡略化)
+   ========================================================================== */
 .page-shell {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background:
-        radial-gradient(
-            circle at 0% 0%,
-            rgba(56, 189, 248, 0.3),
-            transparent 55%
-        ),
-        radial-gradient(
-            circle at 100% 100%,
-            rgba(79, 70, 229, 0.45),
-            transparent 60%
-        ),
-        #020617;
+    /* body に min-height: 100vh; display: flex; flex-direction: column; を設定したため、
+       ここのflexbox関連の指定は不要になります。
+       背景グラデーションもbodyに移動しました。
+    */
+    /* min-height: 100vh; */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* background: none; */ /* base.cssのbodyで設定済み */
 }
 
-.site-header {
-    flex-shrink: 0;
-}
-
-.main-container {
-    flex: 1 0 auto; /* ここが「余り高さ」を担当する */
-}
-
-.site-footer {
-    flex-shrink: 0;
-}
+/* main-container は base.css で flex-grow: 1; を設定済み */
