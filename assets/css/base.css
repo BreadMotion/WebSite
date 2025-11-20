@@ -1,101 +1,218 @@
-/* デザイントークン */
+/*
+ * base.css
+ * 全体的なベーススタイル、デザイントークン、リセット、共通要素
+ */
+
+/* ==========================================================================
+   1. デザイントークン
+   ========================================================================== */
 :root {
-    --color-bg: #0f172a; /* ページ背景（濃紺） */
-    --color-surface: #0b1120; /* ヘッダー背景など */
-    --color-panel: #0f172a; /* カード背景 */
-    --color-border: #1e293b;
-    --color-border-soft: #1f2937;
-    --color-text: #e5e7eb;
-    --color-text-muted: #9ca3af;
-    --color-accent: #4f46e5; /* メインアクセント */
-    --color-accent-soft: rgba(79, 70, 229, 0.15);
-    --shadow-soft: 0 18px 45px rgba(15, 23, 42, 0.55);
+    /* カラーパレット */
+    --color-bg: #0d111c; /* ページ背景（より落ち着いた濃紺） */
+    --color-surface: #161b22; /* ヘッダー、フッター背景など */
+    --color-panel: #161b22; /* カード、ブロック背景 */
+    --color-border: #30363d;
+    --color-border-soft: #21262d;
 
-    --radius-lg: 18px;
-    --radius-md: 12px;
+    --color-text: #e2e8f0; /* 明るいテキスト */
+    --color-text-muted: #a0aec0; /* 控えめなテキスト */
+    --color-heading: #e2e8f0; /* 見出し色 */
 
+    --color-accent: #6366f1; /* メインアクセント (indigo-500) */
+    --color-accent-dark: #4f46e5; /* アクセントの暗いバージョン */
+    --color-accent-soft: rgba(
+        99,
+        102,
+        241,
+        0.1
+    ); /* アクセントの透明バージョン */
+
+    /* シャドウ */
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md:
+        0 4px 6px rgba(0, 0, 0, 0.1),
+        0 1px 3px rgba(0, 0, 0, 0.08);
+    --shadow-lg:
+        0 10px 15px rgba(0, 0, 0, 0.1),
+        0 4px 6px rgba(0, 0, 0, 0.05);
+    --shadow-xl:
+        0 20px 25px rgba(0, 0, 0, 0.1),
+        0 8px 10px rgba(0, 0, 0, 0.06);
+
+    /* 角丸 */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px; /* 少し小さめに調整 */
+
+    /* フォント */
     --font-body:
-        system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", "Hiragino Sans", "Noto Sans JP",
-        sans-serif;
+        "Inter", system-ui, -apple-system,
+        BlinkMacSystemFont, "Segoe UI", "Hiragino Sans",
+        "Noto Sans JP", sans-serif;
+    --font-heading: var(
+        --font-body
+    ); /* 見出しも同じフォントで統一感を出す */
 }
 
+/* ==========================================================================
+   2. CSSリセット / ベーススタイル
+   ========================================================================== */
+
+/* 全要素のボックスモデルをborder-boxに設定 */
 *,
 *::before,
 *::after {
     box-sizing: border-box;
 }
 
+/* HTMLとBodyの基本的なリセットと設定 */
 html {
-    font-size: 16px;
-    scroll-behavior: smooth;
-}
-
-html,
-body {
-    height: 100%;
+    font-size: 16px; /* 基本フォントサイズ */
+    scroll-behavior: smooth; /* スムーズスクロール */
+    -webkit-text-size-adjust: 100%; /* iOSのテキストサイズ調整を無効化 */
+    text-size-adjust: 100%;
 }
 
 body {
-    overflow-x: hidden;
     margin: 0;
+    padding: 0;
+    overflow-x: hidden; /* 横スクロールの防止 */
     font-family: var(--font-body);
-    line-height: 1.7;
+    line-height: 1.6; /* 行間を少し調整して可読性向上 */
     color: var(--color-text);
     background:
         radial-gradient(
             circle at top left,
-            rgba(79, 70, 229, 0.35),
-            transparent 55%
+            rgba(99, 102, 241, 0.1),
+            /* 新しいアクセントカラーの薄いバージョン */
+                transparent 65%
         ),
         radial-gradient(
             circle at bottom right,
-            rgba(56, 189, 248, 0.25),
-            transparent 55%
+            rgba(56, 189, 248, 0.08),
+            /* 青系の薄いグラデーション */ transparent 65%
         ),
         var(--color-bg);
+    min-height: 100vh; /* 少なくともビューポートの高さを持つように */
+    display: flex; /* flexboxを使ってフッターを下に固定しやすくする */
+    flex-direction: column;
+}
+
+/* 見出しのリセット */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-top: 0;
+    margin-bottom: 0.5em; /* 下マージンを追加 */
+    line-height: 1.2;
+    color: var(--color-heading);
+    font-family: var(--font-heading);
+}
+
+/* 段落のリセット */
+p {
+    margin-top: 0;
+    margin-bottom: 1em; /* 下マージンを追加 */
+}
+
+/* リストのリセット */
+ul,
+ol {
+    margin-top: 0;
+    margin-bottom: 1em;
+    padding-left: 1.5em; /* リストのインデント */
+    list-style: none; /* デフォルトのリストスタイルを削除 */
+}
+ul li::before,
+ol li::before {
+    /* 必要に応じてカスタムのリストスタイル（例: ドットや数字）を追加 */
 }
 
 /* リンク */
 a {
-    color: inherit;
-    color: aqua;
+    color: var(
+        --color-accent
+    ); /* アクセントカラーをリンク色に */
+    text-decoration: none; /* デフォルトの下線を削除 */
+    transition:
+        color 0.2s ease-in-out,
+        text-decoration 0.2s ease-in-out;
 }
 a:hover {
-    opacity: 0.9;
+    color: var(
+        --color-accent-dark
+    ); /* ホバー時に少し濃く */
+    text-decoration: underline; /* ホバー時に下線を表示 */
 }
 
-/* メインコンテナ */
-.main-container {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 32px 18px 48px;
+/* 画像 */
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: middle; /* 画像のベースライン調整 */
+    display: block; /* 余分なスペースを削除 */
 }
 
-/* フォーム系 */
+/* フォーム要素 */
 input,
 textarea,
 select,
 button {
-    font-family: inherit;
+    font-family: var(
+        --font-body
+    ); /* 全てのフォーム要素に共通フォント */
+    font-size: 1rem; /* デフォルトのフォントサイズを統一 */
+    line-height: 1.5;
+    color: var(--color-text);
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+}
+
+/* ==========================================================================
+   3. 共通ユーティリティクラス
+   ========================================================================== */
+
+/* メインコンテナ */
+.main-container {
+    max-width: 1120px; /* 少し広げる */
+    margin: 0 auto;
+    padding: 2.5rem 1.25rem; /* paddingをrem単位で統一 (40px 20px) */
+    flex-grow: 1; /* コンテンツが少ないページでフッターを下に固定 */
 }
 
 /* 小さいテキスト */
 .text-muted {
     color: var(--color-text-muted);
-    font-size: 0.85rem;
+    font-size: 0.9rem; /* 少し大きく */
 }
 
-/* === Scroll Reveal 共通 === */
+/* ==========================================================================
+   4. スクロールアニメーション
+   ========================================================================== */
+
 .reveal-on-scroll {
     opacity: 0;
-    transform: translateY(10px) scale(0.98);
+    transform: translateY(
+        20px
+    ); /* 少しY軸の移動量を増やす */
     transition:
-        opacity 0.75s ease-out,
-        transform 0.75s ease-out;
+        opacity 0.6s ease-out,
+        transform 0.6s ease-out;
 }
 
 .reveal-on-scroll.is-visible {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
 }
+
+/*
+ * その他のスタイルは `layout.css`, `top.css`, `blog.css` などで定義
+ */

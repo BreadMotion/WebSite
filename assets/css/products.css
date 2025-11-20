@@ -1,91 +1,115 @@
-/* =========================
-   フィルタ UI
-   ========================= */
+/*
+ * products.css
+ * 製品ページ専用のスタイル（フィルター、プロダクトカード）
+ */
+
+/* ==========================================================================
+   1. 製品一覧（フィルター）
+   ========================================================================== */
 .products-filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px 16px;
+    gap: 0.8rem 1.2rem; /* rem単位で統一 */
     align-items: center;
-    margin-top: 12px;
-    margin-bottom: 12px;
+    margin-top: 1.5rem; /* rem単位で統一 */
+    margin-bottom: 1.5rem; /* rem単位で統一 */
 }
 
 .products-filter {
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 0.4rem; /* rem単位で統一 */
 }
 
 .products-filter__label {
-    font-size: 0.8rem;
-    color: var(--color-text-muted);
+    font-size: 0.875rem; /* 少し大きく */
+    color: var(--color-text); /* 明るいテキスト色 */
+    margin-bottom: 0.2rem;
+    font-weight: 500;
 }
 
-/* 丸っこくて暗めの入力 UI */
 .products-filter__control {
-    background:
-        radial-gradient(
-            circle at top,
-            rgba(148, 163, 184, 0.2),
-            transparent 55%
-        ),
-        rgba(15, 23, 42, 0.96);
-    border-radius: 999px;
-    border: 1px solid rgba(148, 163, 184, 0.4);
+    background: var(--color-surface); /* 変数を使用 */
+    border-radius: var(--radius-md); /* 変数を使用 */
+    border: 1px solid var(--color-border); /* 変数を使用 */
     color: var(--color-text);
-    padding: 6px 14px;
-    font-size: 0.9rem;
-    box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.9),
-        0 18px 40px rgba(15, 23, 42, 0.75);
+    padding: 0.6rem 1rem; /* rem単位で統一 */
+    font-size: 0.95rem; /* 少し大きく */
+    box-shadow: var(--shadow-sm); /* 軽いシャドウ */
+    transition:
+        border-color 0.2s ease-in-out,
+        box-shadow 0.2s ease-in-out;
 }
 
 .products-filter__control::placeholder {
     color: var(--color-text-muted);
+    opacity: 0.7; /* 少し薄く */
 }
 
 .products-filter__control:focus {
     outline: none;
-    border-color: var(--color-accent);
+    border-color: var(
+        --color-accent
+    ); /* アクセントカラーに */
     box-shadow:
-        0 0 0 1px rgba(79, 70, 229, 0.9),
-        0 18px 40px rgba(37, 99, 235, 0.65);
+        0 0 0 1px var(--color-accent-soft),
+        var(--shadow-md); /* フォーカス時のシャドウ */
 }
 
 /* 種類 = 固定幅 / 検索 = 広がる */
 .products-filter:first-child {
-    min-width: 160px;
+    min-width: 10rem; /* rem単位で統一 */
 }
 .products-filter:last-child {
     flex: 1;
-    min-width: 220px;
+    min-width: 16rem; /* rem単位で統一 */
 }
 
-/* =========================
-   プロダクトカード
-   ========================= */
+/* ==========================================================================
+   2. プロダクトカード
+   ========================================================================== */
 .product-card {
     display: flex;
-    gap: 18px;
+    gap: 1.5rem; /* rem単位で統一 */
     align-items: stretch;
+    background: var(--color-panel); /* 変数を使用 */
+    border-radius: var(--radius-lg); /* 変数を使用 */
+    padding: 1.8rem; /* rem単位で統一 */
+    border: 1px solid var(--color-border); /* 変数を使用 */
+    box-shadow: var(--shadow-md); /* シャドウを統一 */
+    transition:
+        transform 0.15s ease-out,
+        box-shadow 0.15s ease-out,
+        border-color 0.15s ease-out,
+        background 0.15s ease-out;
+}
+
+.product-card:hover {
+    transform: translateY(
+        -4px
+    ); /* layout.cssのカードと合わせる */
+    box-shadow: var(
+        --shadow-lg
+    ); /* layout.cssのカードと合わせる */
+    border-color: var(
+        --color-accent
+    ); /* ホバー時にアクセントカラーのボーダー */
+    background: var(
+        --color-surface
+    ); /* ホバー時に少し明るく */
 }
 
 /* サムネイル枠 */
 .product-card .card__thumb {
     flex-shrink: 0;
-    width: 260px;
-    height: 150px;
+    width: 16rem; /* rem単位で統一 (256px) */
+    height: 9rem; /* rem単位で統一 (144px) */
     max-width: 40%;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-    border-radius: 18px;
-    background:
-        radial-gradient(
-            circle at top,
-            rgba(148, 163, 184, 0.5),
-            transparent 55%
-        ),
-        #020617;
+    border-radius: var(--radius-md); /* 変数を使用 */
+    background: var(--color-surface); /* 変数を使用 */
+    border: 1px solid var(--color-border-soft);
 }
 
 .product-card .card__thumb img {
@@ -98,93 +122,123 @@
 /* 本文側 */
 .product-card .card__body {
     flex: 1;
-    min-width: 0;
+    min-width: 0; /* flexアイテムの最小幅 */
+    display: flex;
+    flex-direction: column;
 }
 
 .product-card .card__title-row {
     display: flex;
     align-items: center;
-    gap: 8px;
-    margin-bottom: 6px;
+    gap: 0.6rem; /* rem単位で統一 */
+    margin-bottom: 0.6rem; /* rem単位で統一 */
+}
+
+.product-card .card__title {
+    font-size: 1.15rem; /* 少し大きく */
+    font-weight: 600;
+    color: var(--color-heading);
+    line-height: 1.3;
+}
+
+.product-card .card__description {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.5;
+    margin-bottom: 0.8rem;
+    flex-grow: 1; /* 残りのスペースを埋める */
 }
 
 /* 種類ピル（Discord / Tool など） */
 .product-card .pill {
-    font-size: 0.7rem;
-    padding: 2px 10px;
-    border-radius: 999px;
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid rgba(148, 163, 184, 0.6);
-    color: var(--color-text-muted);
+    font-size: 0.8rem; /* 少し大きく */
+    padding: 0.25rem 0.75rem; /* rem単位で統一 */
+    border-radius: var(--radius-md); /* 変数を使用 */
+    background: var(
+        --color-accent-soft
+    ); /* アクセントのソフトバージョン */
+    border: 1px solid var(--color-border); /* 変数を使用 */
+    color: var(--color-text); /* テキスト色を明るく */
+    white-space: nowrap; /* 改行されないように */
 }
 
 /* タグ（tooldiscordbot など） */
 .product-card .card__tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-top: 8px;
+    gap: 0.4rem; /* rem単位で統一 */
+    margin-top: 0.8rem; /* rem単位で統一 */
 }
 
 .product-card .tag {
     display: inline-flex;
     align-items: center;
-    padding: 2px 10px;
-    border-radius: 999px;
-    font-size: 0.7rem;
-    background: rgba(15, 23, 42, 0.9);
-    border: 1px solid rgba(148, 163, 184, 0.4);
-    color: var(--color-text-muted);
+    padding: 0.25rem 0.75rem; /* rem単位で統一 */
+    border-radius: var(--radius-md); /* 変数を使用 */
+    font-size: 0.8rem; /* 少し大きく */
+    background: var(
+        --color-accent-soft
+    ); /* アクセントのソフトバージョン */
+    border: 1px solid var(--color-border); /* 変数を使用 */
+    color: var(--color-text); /* テキスト色を明るく */
+    white-space: nowrap; /* タグが改行されないように */
 }
 
 /* リンクボタン群（Repository / サーバーに追加 等） */
 .product-card .card__actions {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 12px;
+    gap: 0.75rem; /* rem単位で統一 */
+    margin-top: 1rem; /* rem単位で統一 */
 }
 
 .product-card .card__actions a {
+    /* top.css の .btn-outline に近いスタイル */
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 6px 12px;
-    border-radius: 999px;
-    font-size: 0.75rem;
+    padding: 0.6rem 1.1rem; /* rem単位で統一 */
+    border-radius: var(--radius-md); /* 変数を使用 */
+    font-size: 0.9rem; /* 少し大きく */
+    font-weight: 500;
     text-decoration: none;
     white-space: nowrap;
-    border: 1px solid rgba(148, 163, 184, 0.55);
-    background: radial-gradient(
-        circle at top,
-        rgba(37, 99, 235, 0.22),
-        transparent 55%
-    );
-    color: var(--color-accent);
-    box-shadow:
-        0 0 0 1px rgba(15, 23, 42, 0.9),
-        0 18px 40px rgba(15, 23, 42, 0.75);
+    border: 1px solid var(--color-border); /* 変数を使用 */
+    background: var(--color-surface); /* 変数を使用 */
+    color: var(--color-text-muted); /* 控えめなテキスト色 */
+    box-shadow: var(--shadow-sm); /* 軽いシャドウ */
+    transition:
+        background 0.2s ease-out,
+        border-color 0.2s ease-out,
+        transform 0.15s ease-out,
+        box-shadow 0.2s ease-out,
+        color 0.2s ease-in-out;
 }
 
 .product-card .card__actions a:hover {
-    border-color: rgba(129, 140, 248, 0.9);
-    color: #e5e7eb;
-    background:
-        radial-gradient(
-            circle at top,
-            rgba(129, 140, 248, 0.4),
-            transparent 55%
-        ),
-        rgba(15, 23, 42, 0.98);
+    background: var(
+        --color-accent-soft
+    ); /* アクセントのソフトバージョン */
+    border-color: var(
+        --color-accent
+    ); /* ホバー時にアクセントカラーのボーダー */
+    color: var(
+        --color-text
+    ); /* ホバー時に明るいテキスト色に */
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md); /* 中程度のシャドウ */
 }
 
-/* =========================
-   レスポンシブ
-   ========================= */
-@media (max-width: 640px) {
+/* ==========================================================================
+   3. レスポンシブデザイン
+   ========================================================================== */
+@media (max-width: 768px) {
     .products-filters {
         flex-direction: column;
         align-items: stretch;
+        gap: 0.8rem;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 
     .products-filter {
@@ -193,19 +247,60 @@
 
     .products-filter__control {
         width: 100%;
+        font-size: 0.9rem;
+        padding: 0.5rem 0.8rem;
+    }
+
+    .products-filter:first-child,
+    .products-filter:last-child {
+        min-width: unset; /* モバイルでは最小幅を解除 */
+        flex: unset;
     }
 
     .product-card {
         flex-direction: column;
+        padding: 1rem;
+        gap: 1rem;
     }
 
     .product-card .card__thumb {
         width: 100%;
+        height: auto;
         max-width: 100%;
         aspect-ratio: 16 / 9;
+        border-radius: var(--radius-md); /* PCと統一 */
+    }
+
+    .product-card .card__title-row {
+        margin-bottom: 0.4rem;
+    }
+
+    .product-card .card__title {
+        font-size: 1.05rem;
+    }
+
+    .product-card .card__description {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .product-card .pill,
+    .product-card .tag {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.6rem;
+    }
+
+    .product-card .card__tags {
+        margin-top: 0.5rem;
     }
 
     .product-card .card__actions {
-        justify-content: flex-start;
+        margin-top: 0.8rem;
+        gap: 0.6rem;
+    }
+
+    .product-card .card__actions a {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.9rem;
     }
 }

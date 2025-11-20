@@ -1,33 +1,40 @@
+/*
+ * top.css
+ * トップページ専用のスタイル (ヒーローセクション、プロフィール、最近の更新など)
+ */
+
+/* ==========================================================================
+   1. ヒーローセクション
+   ========================================================================== */
 .hero {
     display: grid;
     grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
-    gap: 20px;
+    gap: 2.25rem; /* rem単位で統一 (36px) */
     align-items: stretch;
-    margin-bottom: 22px;
+    margin-bottom: 2.5rem; /* rem単位で統一 (40px) */
 }
 
 .hero-main {
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-lg);
-    padding: 22px 22px 20px;
-    border: 1px solid rgba(148, 163, 184, 0.45);
+    padding: 2.25rem; /* rem単位で統一 (36px) */
+    border: 1px solid var(--color-border); /* 変数を使用 */
     background:
+        /* より落ち着いたグラデーション */
         radial-gradient(
             circle at 0% 0%,
-            rgba(56, 189, 248, 0.3),
-            transparent 55%
+            rgba(56, 189, 248, 0.1),
+            transparent 60%
         ),
         radial-gradient(
             circle at 100% 100%,
-            rgba(79, 70, 229, 0.2),
-            transparent 60%
+            rgba(99, 102, 241, 0.1),
+            transparent 65%
         ),
-        #020617;
-    box-shadow:
-        0 20px 50px rgba(15, 23, 42, 0.95),
-        0 0 0 1px rgba(15, 23, 42, 0.9);
-    isolation: isolate; /* 中身と背景のレイヤーを分離 */
+        var(--color-panel); /* 変数を使用 */
+    box-shadow: var(--shadow-lg); /* よりモダンなシャドウ */
+    isolation: isolate;
 }
 
 /* グリッド + 斜めの動き（HUD っぽい） */
@@ -38,16 +45,17 @@
     background-image:
         linear-gradient(
             to right,
-            rgba(148, 163, 184, 0.18) 1px,
-            transparent 1px
+            rgba(var(--color-text-rgb), 0.08) 1px,
+            /* カラー変数のrgb版があればより良いが、今はrgbaで */
+                transparent 1px
         ),
         linear-gradient(
             to bottom,
-            rgba(148, 163, 184, 0.12) 1px,
+            rgba(var(--color-text-rgb), 0.05) 1px,
             transparent 1px
         );
-    background-size: 26px 26px;
-    opacity: 0.35;
+    background-size: 1.625rem 1.625rem; /* rem単位で統一 (26px) */
+    opacity: 0.3; /* 少し控えめに */
     mix-blend-mode: soft-light;
     transform: translate3d(0, 0, 0) rotate(5deg);
     animation: hero-grid-shift 26s linear infinite;
@@ -64,8 +72,8 @@
     background: linear-gradient(
         135deg,
         transparent,
-        rgba(248, 250, 252, 0.08),
-        transparent
+        rgba(226, 232, 240, 0.06),
+        /* --color-text の薄いバージョン */ transparent
     );
     opacity: 0;
     pointer-events: none;
@@ -95,7 +103,7 @@
         transform: translateX(-10%) rotate(8deg);
     }
     35% {
-        opacity: 0.5;
+        opacity: 0.4; /* 少し控えめに */
     }
     60% {
         opacity: 0;
@@ -108,259 +116,354 @@
 }
 
 .hero-main h1 {
-    margin: 0 0 6px;
-    font-size: 1.7rem;
+    margin: 0 0 0.5rem; /* rem単位で統一 */
+    font-size: 2.5rem; /* 大きく */
+    line-height: 1.1;
+    color: var(--color-heading);
 }
 
 .hero-main .hero-subtitle {
-    margin: 0 0 12px;
+    margin: 0 0 1rem; /* rem単位で統一 */
     color: var(--color-text-muted);
-    font-size: 0.95rem;
+    font-size: 1.125rem; /* 少し大きく */
 }
 
 .hero-badges {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
-    margin-bottom: 12px;
+    gap: 0.5rem; /* rem単位で統一 */
+    margin-bottom: 1.5rem; /* rem単位で統一 */
 }
 
 .hero-badge {
-    padding: 2px 10px;
-    border-radius: 999px;
-    border: 1px solid rgba(148, 163, 184, 0.6);
-    font-size: 0.75rem;
+    padding: 0.25rem 0.75rem; /* rem単位で統一 */
+    border-radius: var(--radius-md); /* 変数を使用 */
+    border: 1px solid var(--color-border); /* 変数を使用 */
+    background: var(--color-surface); /* 背景色を追加 */
+    font-size: 0.85rem;
     color: var(--color-text-muted);
 }
 
 .hero-actions {
-    margin-top: 12px;
+    margin-top: 1.5rem; /* rem単位で統一 */
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 0.8rem; /* rem単位で統一 */
 }
 
+/* ==========================================================================
+   2. ボタン
+   ========================================================================== */
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
-    padding: 6px 14px;
-    border-radius: 999px;
-    font-size: 0.9rem;
+    gap: 0.5rem; /* rem単位で統一 */
+    padding: 0.75rem 1.25rem; /* rem単位で統一 */
+    border-radius: var(--radius-md); /* 変数を使用 */
+    font-size: 1rem; /* 少し大きく */
+    font-weight: 600;
     border: 1px solid transparent;
     cursor: pointer;
     text-decoration: none;
     transition:
-        background 0.12s ease-out,
-        border-color 0.12s ease-out,
-        transform 0.12s ease-out,
-        box-shadow 0.12s ease-out;
+        background 0.2s ease-out,
+        border-color 0.2s ease-out,
+        transform 0.15s ease-out,
+        box-shadow 0.2s ease-out,
+        color 0.2s ease-out;
 }
 
 .btn-primary {
-    background:
-        radial-gradient(
-            circle at 20% 0%,
-            rgba(248, 250, 252, 0.15),
-            transparent 55%
-        ),
-        linear-gradient(135deg, #4f46e5, #06b6d4);
-    border-color: #4f46e5;
-    color: #f9fafb;
-    box-shadow: 0 10px 24px rgba(79, 70, 229, 0.7);
+    background: linear-gradient(
+        135deg,
+        var(--color-accent-dark) 0%,
+        var(--color-accent) 100%
+    ); /* アクセントカラーのグラデーション */
+    border-color: var(
+        --color-accent-dark
+    ); /* 暗いアクセント色をボーダーに */
+    color: #fff;
+    box-shadow: var(--shadow-md); /* 中程度のシャドウ */
 }
 
 .btn-primary:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 16px 36px rgba(79, 70, 229, 0.9);
+    transform: translateY(-2px); /* 少し上に移動 */
+    box-shadow: var(--shadow-lg); /* より大きなシャドウ */
+    background: linear-gradient(
+        135deg,
+        var(--color-accent) 0%,
+        var(--color-accent-dark) 100%
+    ); /* グラデーションの向きを少し変えるなど */
 }
 
 .btn-outline {
-    background: rgba(15, 23, 42, 0.95);
-    border-color: rgba(148, 163, 184, 0.7);
+    background: var(--color-surface); /* 背景色を指定 */
+    border-color: var(--color-border); /* 変数を使用 */
     color: var(--color-text-muted);
 }
 
 .btn-outline:hover {
-    background:
-        radial-gradient(
-            circle at 0 0,
-            rgba(56, 189, 248, 0.2),
-            transparent 55%
-        ),
-        rgba(15, 23, 42, 0.98);
-    border-color: var(--color-accent);
-    color: #e5e7eb;
+    background: var(
+        --color-accent-soft
+    ); /* アクセントのソフトバージョン */
+    border-color: var(
+        --color-accent
+    ); /* ホバー時にアクセントカラーのボーダー */
+    color: var(
+        --color-text
+    ); /* ホバー時に明るいテキスト色に */
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-sm); /* 軽いシャドウ */
 }
 
-/* サイドパネル（例：最近の更新など） */
+/* ==========================================================================
+   3. サイドパネル（例：最近の更新など）
+   ========================================================================== */
 .hero-side {
-    background: rgba(15, 23, 42, 0.9);
+    background: var(--color-panel); /* 変数を使用 */
     border-radius: var(--radius-lg);
-    padding: 16px 16px 12px;
-    border: 1px solid var(--color-border-soft);
-    box-shadow: var(--shadow-soft);
+    padding: 1.75rem; /* rem単位で統一 (28px) */
+    border: 1px solid var(--color-border); /* 変数を使用 */
+    box-shadow: var(--shadow-lg); /* シャドウを統一 */
 }
 
 .hero-side h2 {
-    margin: 0 0 8px;
-    font-size: 1rem;
-}
-
-.hero-side ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    font-size: 0.9rem;
-}
-
-.hero-side li + li {
-    margin-top: 6px;
-}
-
-/* トップ下のコンテンツカードは layout.css の .section / .card を流用 */
-.section--top-grid .card-list {
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(260px, 1fr)
-    );
+    margin: 0 0 1rem; /* rem単位で統一 */
+    font-size: 1.5rem; /* 大きく */
+    color: var(--color-heading);
 }
 
 .home-latest {
-    display: grid;
-    grid-template-columns: repeat(
-        auto-fit,
-        minmax(260px, 1fr)
-    );
-    gap: 14px;
+    display: flex; /* グリッドではなくflexに */
+    flex-direction: column; /* 縦に並べる */
+    gap: 1.25rem; /* rem単位で統一 (20px) */
 }
 
 .home-latest-block {
-    background: rgba(15, 23, 42, 0.94);
+    background: var(--color-surface); /* 変数を使用 */
     border-radius: var(--radius-md);
-    padding: 12px 14px;
-    border: 1px solid var(--color-border-soft);
-    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.7);
+    padding: 1.25rem; /* rem単位で統一 (20px) */
+    border: 1px solid var(--color-border-soft); /* 変数を使用 */
+    box-shadow: var(--shadow-md); /* シャドウを統一 */
+    flex-grow: 1; /* 横幅いっぱいに広がるように */
 }
 
 .home-latest-title {
-    margin: 0 0 6px;
-    font-size: 1rem;
+    margin: 0 0 0.75rem; /* rem単位で統一 */
+    font-size: 1.2rem;
+    color: var(--color-heading);
 }
 
 .home-latest-list {
     list-style: none;
     margin: 0;
     padding: 0;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
 }
 
 .home-latest-item + .home-latest-item {
-    margin-top: 6px;
+    margin-top: 0.75rem; /* rem単位で統一 */
 }
 
 .home-latest-link {
     text-decoration: none;
-    color: inherit;
+    color: var(--color-text); /* デフォルトのテキスト色に */
     display: block;
+    transition: color 0.2s ease-in-out;
+}
+
+.home-latest-link:hover {
+    color: var(
+        --color-accent
+    ); /* ホバーでアクセントカラーに */
 }
 
 .home-latest-link-title {
     display: block;
+    font-weight: 500;
+    margin-bottom: 0.2rem;
 }
 
 .home-latest-link-meta {
     display: block;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: var(--color-text-muted);
 }
 
-/* About / Profile セクション */
+/* ==========================================================================
+   4. プロフィールセクション
+   ========================================================================== */
 .section--profile {
-    margin-top: 22px;
+    margin-top: 2.5rem; /* rem単位で統一 */
 }
 
 .profile-grid {
     display: grid;
     grid-template-columns: repeat(
         auto-fit,
-        minmax(260px, 1fr)
-    );
-    gap: 14px;
+        minmax(280px, 1fr)
+    ); /* 最小幅を少し広げる */
+    gap: 1.25rem; /* rem単位で統一 (20px) */
 }
 
 .profile-card {
-    background: rgba(15, 23, 42, 0.96);
+    background: var(--color-surface); /* 変数を使用 */
     border-radius: var(--radius-md);
-    padding: 14px 16px;
-    border: 1px solid var(--color-border-soft);
-    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.8);
+    padding: 1.5rem; /* rem単位で統一 (24px) */
+    border: 1px solid var(--color-border-soft); /* 変数を使用 */
+    box-shadow: var(--shadow-md); /* シャドウを統一 */
 }
 
 .profile-card-title {
-    margin: 0 0 8px;
-    font-size: 1rem;
+    margin: 0 0 1rem; /* rem単位で統一 */
+    font-size: 1.3rem; /* 少し大きく */
+    color: var(--color-heading);
 }
 
 .profile-list {
     list-style: none;
-    margin: 0 0 8px;
+    margin: 0 0 1rem; /* rem単位で統一 */
     padding: 0;
-    font-size: 0.9rem;
+    font-size: 1rem; /* 少し大きく */
 }
 
 .profile-list li {
     display: flex;
     flex-direction: column;
-    margin-bottom: 4px;
+    margin-bottom: 0.6rem; /* rem単位で統一 */
 }
 
 .profile-label {
     font-weight: 600;
-    font-size: 0.86rem;
+    font-size: 0.9rem; /* 調整 */
+    color: var(--color-text);
+    margin-bottom: 0.2rem;
 }
 
 .profile-value {
-    font-size: 0.86rem;
+    font-size: 0.9rem; /* 調整 */
     color: var(--color-text-muted);
 }
 
 .profile-note {
-    margin: 4px 0 0;
-    font-size: 0.82rem;
+    margin: 1rem 0 0; /* rem単位で統一 */
+    font-size: 0.875rem; /* 少し大きく */
     color: var(--color-text-muted);
+    line-height: 1.5;
 }
 
 /* タグスタイル */
-
 .profile-tagset {
-    margin-bottom: 8px;
+    margin-bottom: 0.8rem; /* rem単位で統一 */
 }
 
 .profile-tagset-label {
-    font-size: 0.8rem;
+    font-size: 0.875rem; /* 少し大きく */
     color: var(--color-text-muted);
-    margin-bottom: 2px;
+    margin-bottom: 0.4rem; /* rem単位で統一 */
 }
 
 .profile-taglist {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px;
+    gap: 0.4rem; /* rem単位で統一 */
 }
 
 .profile-tag {
-    font-size: 0.78rem;
-    padding: 2px 8px;
-    border-radius: 999px;
-    border: 1px solid rgba(148, 163, 184, 0.7);
-    background: rgba(15, 23, 42, 0.95);
+    font-size: 0.8rem;
+    padding: 0.25rem 0.7rem; /* rem単位で統一 */
+    border-radius: var(--radius-md); /* 変数を使用 */
+    border: 1px solid var(--color-border); /* 変数を使用 */
+    background: var(
+        --color-accent-soft
+    ); /* アクセントのソフトバージョン */
+    color: var(--color-text); /* テキスト色を明るく */
 }
 
-/* スマホ向け */
+/* ==========================================================================
+   5. レスポンシブデザイン
+   ========================================================================== */
 @media (max-width: 768px) {
     .hero {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* 1カラム表示 */
+        gap: 2rem;
+        margin-bottom: 2rem;
     }
+    .hero-main {
+        padding: 1.5rem;
+    }
+    .hero-main h1 {
+        font-size: 2rem;
+    }
+    .hero-main .hero-subtitle {
+        font-size: 1rem;
+    }
+    .hero-badges {
+        margin-bottom: 1rem;
+    }
+    .hero-actions {
+        margin-top: 1rem;
+        flex-direction: column; /* ボタンを縦並びに */
+        gap: 0.75rem;
+    }
+    .btn {
+        width: 100%; /* ボタンを全幅に */
+        padding: 0.6rem 1rem;
+        font-size: 0.95rem;
+    }
+    .hero-side {
+        padding: 1.5rem;
+    }
+    .hero-side h2 {
+        font-size: 1.3rem;
+    }
+    .home-latest {
+        gap: 1rem;
+    }
+    .home-latest-block {
+        padding: 1rem;
+    }
+    .home-latest-title {
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+    .home-latest-list {
+        font-size: 0.9rem;
+    }
+    .profile-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    .profile-card {
+        padding: 1.2rem;
+    }
+    .profile-card-title {
+        font-size: 1.15rem;
+        margin-bottom: 0.8rem;
+    }
+    .profile-list {
+        font-size: 0.95rem;
+    }
+    .profile-note {
+        font-size: 0.8rem;
+        margin-top: 0.8rem;
+    }
+    .profile-tagset-label {
+        font-size: 0.8rem;
+    }
+    .profile-tag {
+        font-size: 0.75rem;
+        padding: 0.2rem 0.6rem;
+    }
+}
+
+/* ==========================================================================
+   6. トップ下のコンテンツカード (layout.cssの.section/.cardを流用)
+   ========================================================================== */
+.section--top-grid .card-list {
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(280px, 1fr)
+    ); /* minmaxを少し大きく */
 }
