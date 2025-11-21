@@ -297,7 +297,7 @@
             var(--color-accent-dark)
         )
         border-box;
-    -webkit-mask:
+    mask:
         linear-gradient(#fff 0 0) padding-box,
         linear-gradient(#fff 0 0);
     -webkit-mask-composite: destination-out;
