@@ -73,6 +73,7 @@
 }
 
 .blog-card::before {
+    cursor: pointer;
     content: "";
     position: absolute;
     z-index: -1;
@@ -109,6 +110,7 @@
 
 /* サムネイル枠 */
 .blog-card .card__thumb {
+    cursor: pointer;
     flex-shrink: 0;
     width: 14rem;
     height: 7.5rem;
@@ -168,7 +170,9 @@
     margin-top: auto; /* タグをカード下部に配置 */
 }
 
-.blog-card .tag {
+/* タグ（共通） */
+.tag {
+    cursor: pointer;
     display: inline-flex;
     align-items: center;
     padding: 0.25rem 0.75rem;
@@ -179,8 +183,9 @@
     color: var(--color-text);
     white-space: nowrap;
     transition: var(--transition-smooth);
+    text-decoration: none; /* リンクの下線を消す */
 }
-.blog-card .tag:hover {
+.tag:hover {
     background: var(--color-accent);
     color: #fff;
     box-shadow: var(--shadow-glow);
@@ -222,6 +227,30 @@
     font-size: 1.05rem;
     color: var(--color-text-muted);
     line-height: 1.6;
+}
+
+/* 記事詳細ページのタグ群（一覧の .tag と見た目を揃える） */
+/* 記事詳細ページのタグ群（.tag を共通化したので上書きは最小限） */
+.post-detail__tags {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    align-items: center;
+}
+
+/* キーボードフォーカスの見た目を明確にする（アクセシビリティ） */
+.post-detail__tags a.tag:focus {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(0, 0, 0, 0.06),
+        0 0 0 4px var(--color-accent-soft);
+    border-color: var(--color-accent);
+}
+
+/* リンク（<a class="tag">）は既存の .tag スタイルを使うので上書きは最小限にする */
+.post-detail__tags a.tag {
+    text-decoration: none; /* リンク下線を消す（見た目をバッジにする） */
 }
 
 /* ==========================================================================

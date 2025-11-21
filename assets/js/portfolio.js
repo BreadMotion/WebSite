@@ -15,9 +15,30 @@ document.addEventListener("DOMContentLoaded", () => {
   /** @type {Array<any>} */
   let allWorks = [];
 
-  // -----------------------------
+  // URL パラメータ操作ヘルパ
+  function readInitialParams() {
+    const params = new URLSearchParams(location.search);
+    const tag = params.get("tag") || "";
+    const q = params.get("q") || "";
+    const category = params.get("category") || "";
+
+    const initial = tag || q;
+    if (searchInput && initial) searchInput.value = initial;
+    if (categorySelect && category)
+      categorySelect.value = category;
+  }
+
+  function updateUrlParams(keyword, category) {
+    const params = new URLSearchParams();
+    if (keyword) params.set("q", keyword);
+    if (category) params.set("category", category);
+    const newUrl =
+      location.pathname +
+      (params.toString() ? "?" + params.toString() : "");
+    history.replaceState(null, "", newUrl);
+  }
+
   // JSON 読み込み
-  // -----------------------------
   async function loadWorks() {
     try {
       const res = await fetch(
@@ -25,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       allWorks = await res.json();
+      readInitialParams();
       render();
     } catch (err) {
       console.error("Failed to load portfolio list:", err);
@@ -36,9 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // -----------------------------
   // 描画
-  // -----------------------------
   function render() {
     const keyword = (searchInput?.value || "")
       .trim()
@@ -48,14 +68,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ).trim();
 
     const filtered = allWorks.filter((work) => {
-      // カテゴリフィルタ（空文字ならスキップ）
       if (
         categoryFilter &&
         work.category !== categoryFilter
       )
         return false;
 
-      // キーワードフィルタ
       if (keyword) {
         const tags = Array.isArray(work.tags)
           ? work.tags
@@ -81,6 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return true;
     });
 
+    updateUrlParams(keyword, categoryFilter);
+
     listEl.innerHTML = "";
 
     if (!filtered.length) {
@@ -94,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
       card.className =
         "card card--clickable portfolio-card";
 
-      // サムネイル
       if (work.thumbnail) {
         const thumb = document.createElement("div");
         thumb.className = "card__thumb";
@@ -108,7 +127,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const body = document.createElement("div");
       body.className = "card__body";
 
-      // メタ（カテゴリ / 年）
       const meta = document.createElement("p");
       meta.className = "card__meta";
       const dateText = work.date || "";
@@ -118,7 +136,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .join(" / ");
       body.appendChild(meta);
 
-      // タイトル行
       const titleRow = document.createElement("div");
       titleRow.className = "card__title-row";
 
@@ -129,7 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       body.appendChild(titleRow);
 
-      // ロール / 担当
       if (work.role) {
         const role = document.createElement("p");
         role.className = "card__meta card__meta--role";
@@ -137,7 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
         body.appendChild(role);
       }
 
-      // 概要
       if (work.description) {
         const desc = document.createElement("p");
         desc.className = "card__description";
@@ -146,19 +161,47 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // タグ
-      if (work.tags && work.tags.length) {
+      const tagsArr = Array.isArray(work.tags)
+        ? work.tags
+        : String(work.tags || "")
+            .split(",")
+            .map((t) => t.trim())
+            .filter(Boolean);
+
+      if (tagsArr.length) {
         const tagRow = document.createElement("div");
         tagRow.className = "card__tags";
-        work.tags.forEach((t) => {
+        tagsArr.forEach((t) => {
           const tag = document.createElement("span");
           tag.className = "tag";
           tag.textContent = t;
+
+          // タグクリックでそのタグでフィルタ
+          tag.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (searchInput) searchInput.value = t;
+            if (categorySelect) categorySelect.value = "";
+            render();
+            const params = new URLSearchParams();
+            params.set("q", t);
+            const newUrl =
+              location.pathname + "?" + params.toString();
+            history.replaceState(null, "", newUrl);
+          });
+
+          tag.tabIndex = 0;
+          tag.addEventListener("keydown", (ev) => {
+            if (ev.key === "Enter" || ev.key === " ") {
+              ev.preventDefault();
+              tag.click();
+            }
+          });
+
           tagRow.appendChild(tag);
         });
         body.appendChild(tagRow);
       }
 
-      // 外部リンク（ストア・リポジトリなど）があるなら表示
       if (work.links && work.links.length) {
         const actions = document.createElement("div");
         actions.className = "card__actions";
@@ -175,10 +218,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
       card.appendChild(body);
 
-      // カード全体クリックで作品詳細ページへ
       card.addEventListener("click", () => {
         if (work.contentPath) {
-          window.location.href = work.contentPath;
+          const params = new URLSearchParams();
+          const q = (searchInput?.value || "").trim();
+          const category = (
+            categorySelect?.value || ""
+          ).trim();
+          if (q) params.set("q", q);
+          if (category) params.set("category", category);
+          const target =
+            work.contentPath +
+            (params.toString()
+              ? "?" + params.toString()
+              : "");
+          window.location.href = target;
         }
       });
 
@@ -186,9 +240,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // -----------------------------
-  // イベント
-  // -----------------------------
   if (searchInput) {
     searchInput.addEventListener("input", render);
   }

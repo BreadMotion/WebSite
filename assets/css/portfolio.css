@@ -168,7 +168,9 @@
     margin-top: auto; /* タグをカード下部に配置 */
 }
 
-.portfolio-card .tag {
+/* 共通タグスタイルにする（一覧と作品詳細の両方で使う） */
+.tag {
+    cursor: pointer;
     display: inline-flex;
     align-items: center;
     padding: 0.25rem 0.75rem;
@@ -179,8 +181,9 @@
     color: var(--color-text);
     white-space: nowrap;
     transition: var(--transition-smooth);
+    text-decoration: none;
 }
-.portfolio-card .tag:hover {
+.tag:hover {
     background: var(--color-accent);
     color: #fff;
     box-shadow: var(--shadow-glow);
@@ -233,7 +236,14 @@
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-lg);
 }
-/* ... (work-detail以下のスタイルはblog.cssと共通なので省略) ... */
+
+.work-detail__tags a.tag:focus {
+    outline: none;
+    box-shadow:
+        0 0 0 3px rgba(0, 0, 0, 0.06),
+        0 0 0 4px var(--color-accent-soft);
+    border-color: var(--color-accent);
+}
 
 /* ==========================================================================
    4. Markdown 本文 (.markdown-body) - blog.css と基本的に統一

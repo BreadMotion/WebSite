@@ -1,6 +1,6 @@
 ---
 title: 霊迷の湯
-role: Full Stack Enginner
+role: Full Stack Engineer
 tech: Unity / C#
 platform: PC/Steam
 description: ８番ライクホラー
