@@ -15,6 +15,36 @@ document.addEventListener("DOMContentLoaded", () => {
   let allPosts = [];
 
   // -----------------------------
+  // URL パラメータ操作ヘルパ
+  // -----------------------------
+  function readInitialParams() {
+    const params = new URLSearchParams(location.search);
+    // 優先順: tag -> q
+    const tag = params.get("tag") || "";
+    const q = params.get("q") || "";
+    const category = params.get("category") || "";
+
+    const initial = tag || q;
+    if (searchInput && initial) {
+      searchInput.value = initial;
+    }
+    if (categorySelect && category) {
+      categorySelect.value = category;
+    }
+  }
+
+  // 現在の UI 状態を URL に反映（ページの再読み込みはしない）
+  function updateUrlParams(keyword, category) {
+    const params = new URLSearchParams();
+    if (keyword) params.set("q", keyword);
+    if (category) params.set("category", category);
+    const newUrl =
+      location.pathname +
+      (params.toString() ? "?" + params.toString() : "");
+    history.replaceState(null, "", newUrl);
+  }
+
+  // -----------------------------
   // JSON 読み込み
   // -----------------------------
   async function loadPosts() {
@@ -22,6 +52,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await fetch("assets/data/blogList.json");
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       allPosts = await res.json();
+      // 初期パラメータを読み取ってフィルタをプリセット
+      readInitialParams();
       render();
     } catch (err) {
       console.error("Failed to load blog list:", err);
@@ -52,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
       )
         return false;
 
-      // キーワードフィルタ
+      // キーワードフィルタ (タイトル/説明/カテゴリ/タグ)
       if (keyword) {
         const tags = Array.isArray(post.tags)
           ? post.tags
@@ -75,6 +107,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       return true;
     });
+
+    // フィルタ状態を URL に反映
+    updateUrlParams(keyword, categoryFilter);
 
     listEl.innerHTML = "";
 
@@ -132,13 +167,44 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       // タグ
-      if (post.tags && post.tags.length) {
+      const tagsArr = Array.isArray(post.tags)
+        ? post.tags
+        : String(post.tags || "")
+            .split(",")
+            .map((t) => t.trim())
+            .filter(Boolean);
+
+      if (tagsArr.length) {
         const tagRow = document.createElement("div");
         tagRow.className = "card__tags";
-        post.tags.forEach((t) => {
+        tagsArr.forEach((t) => {
           const tag = document.createElement("span");
           tag.className = "tag";
           tag.textContent = t;
+
+          // タグはクリックでそのタグでフィルタ
+          tag.addEventListener("click", (e) => {
+            e.stopPropagation(); // カードクリックを阻止
+            if (searchInput) searchInput.value = t;
+            if (categorySelect) categorySelect.value = "";
+            render();
+            // URL に tag（または q）として反映（履歴は積まない）
+            const params = new URLSearchParams();
+            params.set("q", t);
+            const newUrl =
+              location.pathname + "?" + params.toString();
+            history.replaceState(null, "", newUrl);
+          });
+
+          // キーボード対応
+          tag.tabIndex = 0;
+          tag.addEventListener("keydown", (ev) => {
+            if (ev.key === "Enter" || ev.key === " ") {
+              ev.preventDefault();
+              tag.click();
+            }
+          });
+
           tagRow.appendChild(tag);
         });
         body.appendChild(tagRow);
@@ -146,10 +212,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
       card.appendChild(body);
 
-      // カード全体クリックで記事ページへ
+      // カード全体クリックで記事ページへ遷移
       card.addEventListener("click", () => {
         if (post.contentPath) {
-          window.location.href = post.contentPath;
+          // 現在のフィルタ状態をクエリに付与して遷移（戻ってきたときに復元しやすくする）
+          const params = new URLSearchParams();
+          const q = (searchInput?.value || "").trim();
+          const category = (
+            categorySelect?.value || ""
+          ).trim();
+          if (q) params.set("q", q);
+          if (category) params.set("category", category);
+          const target =
+            post.contentPath +
+            (params.toString()
+              ? "?" + params.toString()
+              : "");
+          window.location.href = target;
         }
       });
 
@@ -158,14 +237,18 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // -----------------------------
-  // イベント
+  // イベント登録
   // -----------------------------
   if (searchInput) {
-    searchInput.addEventListener("input", render);
+    searchInput.addEventListener("input", () => {
+      // タイプ中は即時フィルタ（必要に応じてデバウンスを追加してください）
+      render();
+    });
   }
   if (categorySelect) {
     categorySelect.addEventListener("change", render);
   }
 
+  // 初回ロード
   loadPosts();
 });

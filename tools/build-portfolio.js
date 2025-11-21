@@ -35,6 +35,7 @@ function createHtml({
   category,
   role,
   tech,
+  tags = [],
   bodyHtml,
 }) {
   const safeTitle = escapeHtml(title);
@@ -43,6 +44,36 @@ function createHtml({
   const safeCategory = escapeHtml(category || "");
   const safeRole = escapeHtml(role || "");
   const safeTech = escapeHtml(tech || "");
+
+  // tags を配列として正規化・エスケープ（既にある場合）
+  const safeTagsArr = Array.isArray(tags)
+    ? tags
+        .map((t) => String(t).trim())
+        .filter(Boolean)
+        .map((t) => escapeHtml(t))
+    : String(tags || "")
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean)
+        .map((t) => escapeHtml(t));
+
+  const tagsHtml = safeTagsArr.length
+    ? `<p class="work-detail__tags">${safeTagsArr
+        .map(
+          (t) =>
+            `<a class="tag" href="../portfolio.html?tag=${encodeURIComponent(
+              t,
+            )}">${t}</a>`,
+        )
+        .join(" ")}</p>`
+    : "";
+
+  // meta 部分は存在する要素だけを配列に入れて " / " で join する
+  const metaParts = [];
+  if (safeDate) metaParts.push(safeDate);
+  if (safeCategory) metaParts.push(safeCategory);
+  if (safeRole) metaParts.push(`Role: ${safeRole}`);
+  const metaText = metaParts.join(" / ");
 
   return `<!doctype html>
 <html lang="ja">
@@ -66,11 +97,7 @@ function createHtml({
       <main class="main-container">
         <article class="work-detail reveal-on-scroll">
           <header class="work-detail__header">
-            <p class="work-detail__meta">
-              ${safeDate}${safeCategory ? " / " + safeCategory : ""}${
-                safeRole ? " / Role: " + safeRole : ""
-              }
-            </p>
+            <p class="work-detail__meta">${metaText}</p>
             <h1 class="work-detail__title">${safeTitle}</h1>
             ${
               safeDesc
@@ -82,6 +109,7 @@ function createHtml({
                 ? `<p class="work-detail__meta">Tech: ${safeTech}</p>`
                 : ""
             }
+            ${tagsHtml}
           </header>
 
           <section class="work-detail__body markdown-body">
@@ -141,7 +169,7 @@ ${bodyHtml}
       : [];
     const relPath = `portfolio/${id}.html`;
 
-    // 個別作品 HTML を書き出し
+    // 個別作品 HTML を書き出し（tags を渡す）
     const html = createHtml({
       id,
       title,
@@ -150,6 +178,7 @@ ${bodyHtml}
       category,
       role,
       tech,
+      tags, // ← ここで渡す
       bodyHtml: htmlBody,
     });
 

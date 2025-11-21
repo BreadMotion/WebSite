@@ -29,12 +29,36 @@ function createHtml({
   description,
   date,
   category,
+  tags = [],
   bodyHtml,
 }) {
   const safeTitle = escapeHtml(title);
   const safeDesc = escapeHtml(description || "");
   const safeDate = escapeHtml(date || "");
   const safeCategory = escapeHtml(category || "");
+  // tags は配列として受け取り、それぞれエスケープする
+  const safeTagsArr = Array.isArray(tags)
+    ? tags
+        .map((t) => String(t).trim())
+        .filter(Boolean)
+        .map((t) => escapeHtml(t))
+    : String(tags || "")
+        .split(",")
+        .map((t) => t.trim())
+        .filter(Boolean)
+        .map((t) => escapeHtml(t));
+
+  // タグ群の HTML（存在する場合）
+  const tagsHtml = safeTagsArr.length
+    ? `<p class="post-detail__tags">${safeTagsArr
+        .map(
+          (t) =>
+            `<a class="tag" href="../blog.html?tag=${encodeURIComponent(
+              t,
+            )}">${t}</a>`,
+        )
+        .join(" ")}</p>`
+    : "";
 
   return `<!doctype html>
 <html lang="ja">
@@ -67,6 +91,7 @@ function createHtml({
                 ? `<p class="post-detail__description">${safeDesc}</p>`
                 : ""
             }
+            ${tagsHtml}
           </header>
 
           <section class="post-detail__body markdown-body">
@@ -119,13 +144,14 @@ ${bodyHtml}
 
     const relPath = `blog/${id}.html`;
 
-    // 個別記事 HTML を書き出し
+    // 個別記事 HTML を書き出し（tags を渡す）
     const html = createHtml({
       id,
       title,
       description,
       date,
       category,
+      tags,
       bodyHtml: htmlBody,
     });
 

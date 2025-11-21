@@ -1,6 +1,6 @@
 ---
 title: クマの逆転プロ野球
-role: Full Stack Enginner
+role: Full Stack Engineer
 tech: Unity / C#
 platform: android, ios
 description: カジュアル
