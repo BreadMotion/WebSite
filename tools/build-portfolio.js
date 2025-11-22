@@ -77,7 +77,7 @@ function createHtml({
 
   return `<!doctype html>
 <html lang="ja">
-  <head>
+  <head prefix="og: https://ogp.me/ns#">
     <meta charset="UTF-8" />
     <title>${safeTitle} | PanKUN Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />

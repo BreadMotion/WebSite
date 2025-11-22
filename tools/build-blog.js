@@ -62,7 +62,7 @@ function createHtml({
 
   return `<!doctype html>
 <html lang="ja">
-  <head>
+  <head prefix="og: https://ogp.me/ns#">
     <meta charset="UTF-8" />
     <title>${safeTitle} | PanKUN Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -70,7 +70,7 @@ function createHtml({
 
     <meta property="og:title" content="${safeTitle} | PanKUN Blog" />
     <meta property="og:description" content="${safeDesc}" />
-    <meta property="og:type" content="article" />
+    <meta property="og:type" content="blog" />
     <meta property="og:image" content="../assets/img/ogp.png" />
 
     <link rel="stylesheet" href="../assets/css/base.css" />
