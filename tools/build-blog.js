@@ -73,6 +73,7 @@ function createHtml({
     <meta property="og:type" content="blog" />
     <meta property="og:image" content="../assets/img/ogp.png" />
     <meta property="og:site_name" content="PanKUN" />
+    <meta property="og:email" content="pankun.dev@gmail.com" />
 
     <link rel="stylesheet" href="../assets/css/base.css" />
     <link rel="stylesheet" href="../assets/css/layout.css" />
