@@ -1,7 +1,7 @@
 {
   "name": "website",
   "version": "1.0.0",
-  "description": "作者のPortfolioと技術Blogが書いてあるホームページです。",
+  "description": "PanKUN Homepage",
   "main": "index.js",
   "scripts": {
     "build:blog": "node tools/build-blog.js",
