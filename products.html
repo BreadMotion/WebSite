@@ -1,15 +1,23 @@
-<!-- products.html -->
 <!doctype html>
 <html lang="ja">
     <head>
         <meta charset="UTF-8" />
         <title>PanKUN | Products</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1"
+        />
 
         <!-- 共通CSS -->
         <link rel="stylesheet" href="assets/css/base.css" />
-        <link rel="stylesheet" href="assets/css/layout.css" />
-        <link rel="stylesheet" href="assets/css/products.css" />
+        <link
+            rel="stylesheet"
+            href="assets/css/layout.css"
+        />
+        <link
+            rel="stylesheet"
+            href="assets/css/products.css"
+        />
 
         <!-- アイコン -->
         <link rel="icon" href="favicon.ico" sizes="any" />
@@ -31,7 +39,10 @@
             content="制作・販売しているゲームやプラグイン、ツールの一覧ページ"
         />
 
-        <meta property="og:title" content="PanKUN Products | pankun.dev" />
+        <meta
+            property="og:title"
+            content="PanKUN Products | pankun.dev"
+        />
         <meta
             property="og:description"
             content="販売・配布しているゲーム、プラグイン、ツールの一覧"
@@ -46,8 +57,14 @@
             content="https://breadmotion.github.io/WebSite/assets/img/ogp.png"
         />
 
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="PanKUN Products | pankun.dev" />
+        <meta
+            name="twitter:card"
+            content="summary_large_image"
+        />
+        <meta
+            name="twitter:title"
+            content="PanKUN Products | pankun.dev"
+        />
         <meta
             name="twitter:description"
             content="販売・配布しているゲーム、プラグイン、ツールの一覧"
@@ -61,7 +78,9 @@
     <body data-page="products">
         <div class="page-shell">
             <main class="main-container">
-                <section class="page-header reveal-on-scroll">
+                <section
+                    class="page-header reveal-on-scroll"
+                >
                     <h1>Products</h1>
                     <p>
                         自分が制作・販売しているゲームやプラグイン、ツールの一覧です。
@@ -78,22 +97,34 @@
                         <!-- Portfolio のフィルタっぽい見た目に寄せた部分 -->
                         <div class="products-filters">
                             <div class="products-filter">
-                                <span class="products-filter__label">
+                                <span
+                                    class="products-filter__label"
+                                >
                                     種類
                                 </span>
                                 <select
                                     id="productTypeFilter"
                                     class="select products-filter__control"
                                 >
-                                    <option value="">すべて</option>
-                                    <option value="Game">Game</option>
-                                    <option value="Plugin">Plugin</option>
-                                    <option value="Tool">Tool</option>
+                                    <option value="">
+                                        すべて
+                                    </option>
+                                    <option value="Game">
+                                        Game
+                                    </option>
+                                    <option value="Plugin">
+                                        Plugin
+                                    </option>
+                                    <option value="Tool">
+                                        Tool
+                                    </option>
                                 </select>
                             </div>
 
                             <div class="products-filter">
-                                <span class="products-filter__label">
+                                <span
+                                    class="products-filter__label"
+                                >
                                     検索
                                 </span>
                                 <input
@@ -106,7 +137,10 @@
                         </div>
                     </div>
 
-                    <div id="productList" class="card-grid"></div>
+                    <div
+                        id="productList"
+                        class="card-grid"
+                    ></div>
 
                     <p
                         id="productEmptyMessage"
