@@ -413,3 +413,14 @@
 body.no-scroll {
     overflow: hidden;
 }
+
+#menuAnimationCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: auto;
+    min-height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
