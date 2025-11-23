@@ -414,3 +414,8 @@
         margin: 0 auto;
     }
 }
+
+/* bodyにno-scrollクラスが付与されたときのスタイル */
+body.no-scroll {
+    overflow: hidden;
+}
