@@ -1,3 +1,36 @@
+:root {
+    --color-accent: #6c63ff;
+    --color-accent-dark: #4f47cc;
+
+    --color-accent-rgb: 108, 99, 255;
+    --color-accent-dark-rgb: 79, 71, 204;
+
+    /* 新しく追加 */
+    --color-border: rgba(var(--color-text-rgb), 0.1);
+    --color-border-soft: rgba(var(--color-text-rgb), 0.05);
+
+    --color-text: #e0e0e0;
+    --color-text-muted: #a0a0a0;
+    --color-text-rgb: 224, 224, 224;
+
+    --color-background: #101217;
+    --color-surface: #1e2027;
+    --color-panel: #16181d;
+    --color-heading: #ffffff;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --shadow-glow: 0 0 15px
+        rgba(var(--color-accent-rgb), 0.3);
+
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+
+    --transition-smooth: all 0.2s ease-in-out;
+}
+
 /* ==========================================================================
    1. ヘッダー
    ========================================================================== */
@@ -5,12 +38,7 @@
     position: sticky;
     top: 0;
     z-index: 20;
-    background: rgba(
-        22,
-        27,
-        34,
-        0.8
-    ); /* 透明度を持たせる */
+    background: rgba(22, 27, 34, 0.8);
     border-bottom: 1px solid;
     border-image-source: linear-gradient(
         to right,
@@ -46,7 +74,7 @@
     transition: var(--transition-smooth);
 }
 .site-logo:hover {
-    transform: scale(1.02); /* ホバー時に少し拡大 */
+    transform: scale(1.02);
 }
 
 .site-logo__mark {
@@ -69,14 +97,17 @@
 }
 
 @keyframes logo-pulse {
-    0%,
-    100% {
+    0% {
         transform: scale(1);
         box-shadow: var(--shadow-md);
     }
     50% {
         transform: scale(1.05);
         box-shadow: var(--shadow-lg);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: var(--shadow-md);
     }
 }
 
@@ -171,7 +202,7 @@
 }
 
 .card {
-    position: relative; /* 擬似要素の位置決めの基点 */
+    position: relative;
     z-index: 1;
     background: var(--color-surface);
     border-radius: var(--radius-md);
@@ -179,7 +210,7 @@
     border: 1px solid var(--color-border-soft);
     box-shadow: var(--shadow-md);
     transition: var(--transition-smooth);
-    overflow: hidden; /* 擬似要素がはみ出さないように */
+    overflow: hidden;
 }
 
 .card::before {
@@ -209,13 +240,12 @@
 
 .card:hover {
     transform: translateY(-4px);
-    box-shadow:
-        var(--shadow-lg), var(--shadow-glow); /* 複数のシャドウを適用 */
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
     background: var(--color-panel);
 }
 
 .card:hover::before {
-    opacity: 1; /* ホバー時にボーダーを表示 */
+    opacity: 1;
 }
 
 /* ==========================================================================
@@ -267,7 +297,7 @@
     opacity: 0.5;
 }
 
-/* ==========================================================================
+/* ==========================================================================\
    5. ハンバーガーメニュー
    ========================================================================== */
 .nav-toggle {
@@ -277,7 +307,7 @@
     cursor: pointer;
     padding: 0.5rem;
     position: relative;
-    z-index: 30; /* ヘッダーより上に */
+    z-index: 30;
 }
 
 .nav-toggle__icon {
@@ -312,7 +342,7 @@
 }
 
 .nav-toggle.is-active .nav-toggle__icon {
-    background: transparent; /* 真ん中の線を消す */
+    background: transparent;
 }
 
 .nav-toggle.is-active .nav-toggle__icon::before {
@@ -325,52 +355,10 @@
     transform: rotate(-45deg);
 }
 
-/* ==========================================================================
+/* ==========================================================================\
    6. レスポンシブデザイン
    ========================================================================== */
 @media (max-width: 768px) {
-    .site-header__inner {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 0.75rem 1rem;
-    }
-    .site-logo {
-        margin-bottom: 0.5rem;
-    }
-    .site-nav {
-        justify-content: flex-start;
-        width: 100%;
-    }
-    .site-nav a {
-        padding: 0.3rem 0.75rem;
-        font-size: 0.875rem;
-    }
-    .section {
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-    }
-    .section__title {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-    }
-    .card-list {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-    .card {
-        padding: 1rem;
-    }
-    .site-footer__inner {
-        flex-direction: column;
-        align-items: flex-start;
-        padding: 1rem 1rem;
-    }
-    .site-footer__right {
-        margin-top: 0.5rem;
-    }
-    .site-footer__right a {
-        font-size: 0.8rem;
-    }
     .site-header__inner {
         flex-direction: row;
         align-items: center;
@@ -387,35 +375,69 @@
     }
 
     .site-nav {
-        display: block;
+        display: flex;
         position: fixed;
         top: 0;
-        left: -100%;
-        width: 100%;
+        right: -100%;
+        left: auto;
+        width: 80%;
         height: 100vh;
-        background: var(--color-panel);
+        background: rgba(22, 27, 34, 0.97);
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        justify-content: flex-start;
+        align-items: flex-start;
         gap: 1.5rem;
-        transition: left 0.3s ease-in-out;
+        transition: right 0.3s ease-in-out;
         z-index: 25;
-        padding-top: 5rem;
+        padding-top: calc(3.5rem + 2rem);
+        padding-bottom: 2rem;
+        flex-wrap: nowrap;
+        overflow-y: auto;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
     }
 
     .site-nav.is-open {
-        left: 0;
+        right: 0;
     }
 
     .site-nav a {
         font-size: 1.5rem;
         padding: 0.75rem 1.5rem;
-        width: fit-content;
-        margin: 0 auto;
+        width: 100%;
+        text-align: left;
+        margin: 0;
+        display: block;
+    }
+
+    .menu-animation-area {
+        position: relative;
+        margin-top: auto;
+        bottom: auto;
+        left: 0;
+        width: 100%;
+        height: 80px;
+        background: linear-gradient(
+            90deg,
+            rgba(var(--color-accent-rgb), 0.1) 0%,
+            rgba(var(--color-accent-dark-rgb), 0.1) 50%,
+            rgba(var(--color-accent-rgb), 0.1) 100%
+        );
+        background-size: 200% 100%;
+        animation: menuWave 10s linear infinite;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    @keyframes menuWave {
+        0% {
+            background-position: 0% 0%;
+        }
+        100% {
+            background-position: -200% 0%;
+        }
     }
 }
 
-/* bodyにno-scrollクラスが付与されたときのスタイル */
 body.no-scroll {
     overflow: hidden;
 }
