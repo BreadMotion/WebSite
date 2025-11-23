@@ -40,6 +40,32 @@ document.addEventListener("DOMContentLoaded", () => {
           link.classList.add("active");
         }
       });
+
+      // ヘッダー挿入後にハンバーガーメニューのロジックを設定
+      const navToggle =
+        document.querySelector(".nav-toggle");
+      const siteNav = document.querySelector(".site-nav");
+
+      if (navToggle && siteNav) {
+        navToggle.addEventListener("click", () => {
+          navToggle.classList.toggle("is-active");
+          siteNav.classList.toggle("is-open");
+          // メニューが開いているときにbodyのスクロールを無効にする
+          document.body.classList.toggle(
+            "no-scroll",
+            siteNav.classList.contains("is-open"),
+          );
+        });
+
+        // メニュー内のリンクをクリックしたらメニューを閉じる
+        siteNav.querySelectorAll("a").forEach((link) => {
+          link.addEventListener("click", () => {
+            navToggle.classList.remove("is-active");
+            siteNav.classList.remove("is-open");
+            document.body.classList.remove("no-scroll");
+          });
+        });
+      }
     })
     .catch((err) => {
       console.error(
