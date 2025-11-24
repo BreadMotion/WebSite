@@ -41,9 +41,7 @@
 .blog-filter__control:focus {
     outline: none;
     border-color: var(--color-accent);
-    box-shadow: var(
-        --shadow-glow
-    ); /* グローエフェクト適用 */
+    box-shadow: var(--shadow-glow);
 }
 
 .blog-filter:first-child {
@@ -58,7 +56,7 @@
    2. ブログ一覧（カード本体）
    ========================================================================== */
 .blog-card {
-    position: relative; /* 擬似要素の位置決めの基点 */
+    position: relative;
     z-index: 1;
     display: flex;
     gap: 1.25rem;
@@ -69,7 +67,7 @@
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-md);
     transition: var(--transition-smooth);
-    overflow: hidden; /* 擬似要素がはみ出さないように */
+    overflow: hidden;
 }
 
 .blog-card::before {
@@ -105,10 +103,9 @@
 }
 
 .blog-card:hover::before {
-    opacity: 1; /* ホバー時にボーダーを表示 */
+    opacity: 1;
 }
 
-/* サムネイル枠 */
 .blog-card .card__thumb {
     cursor: pointer;
     flex-shrink: 0;
@@ -129,10 +126,9 @@
     transition: var(--transition-smooth);
 }
 .blog-card:hover .card__thumb img {
-    transform: scale(1.05); /* ホバー時に画像を少し拡大 */
+    transform: scale(1.05);
 }
 
-/* 本文側 */
 .blog-card .card__body {
     flex: 1;
     min-width: 0;
@@ -162,15 +158,13 @@
     flex-grow: 1;
 }
 
-/* タグ */
 .blog-card .card__tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-    margin-top: auto; /* タグをカード下部に配置 */
+    margin-top: auto;
 }
 
-/* タグ（共通） */
 .tag {
     cursor: pointer;
     display: inline-flex;
@@ -183,7 +177,7 @@
     color: var(--color-text);
     white-space: nowrap;
     transition: var(--transition-smooth);
-    text-decoration: none; /* リンクの下線を消す */
+    text-decoration: none;
 }
 .tag:hover {
     background: var(--color-accent);
@@ -229,8 +223,6 @@
     line-height: 1.6;
 }
 
-/* 記事詳細ページのタグ群（一覧の .tag と見た目を揃える） */
-/* 記事詳細ページのタグ群（.tag を共通化したので上書きは最小限） */
 .post-detail__tags {
     margin-top: 1rem;
     display: flex;
@@ -239,7 +231,6 @@
     align-items: center;
 }
 
-/* キーボードフォーカスの見た目を明確にする（アクセシビリティ） */
 .post-detail__tags a.tag:focus {
     outline: none;
     box-shadow:
@@ -248,9 +239,8 @@
     border-color: var(--color-accent);
 }
 
-/* リンク（<a class="tag">）は既存の .tag スタイルを使うので上書きは最小限にする */
 .post-detail__tags a.tag {
-    text-decoration: none; /* リンク下線を消す（見た目をバッジにする） */
+    text-decoration: none;
 }
 
 /* ==========================================================================
@@ -290,7 +280,6 @@
     border-bottom: 1px dashed var(--color-border-soft);
     padding-bottom: 0.3rem;
 }
-/* ... (h4, h5, h6は省略) ... */
 
 .markdown-body p {
     margin: 1rem 0;
@@ -351,8 +340,6 @@
     box-shadow: var(--shadow-sm);
 }
 
-/* ... (table, imgは省略) ... */
-
 /* ==========================================================================
    5. レスポンシブデザイン
    ========================================================================== */
@@ -374,5 +361,4 @@
     .post-detail {
         padding: 1.5rem;
     }
-    /* ... (その他省略) ... */
 }

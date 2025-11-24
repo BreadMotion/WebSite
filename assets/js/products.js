@@ -1,12 +1,15 @@
-// assets/js/products.js
 document.addEventListener("DOMContentLoaded", () => {
   const listEl = document.getElementById("productList");
-  const emptyEl = document.getElementById("productEmptyMessage");
-  const searchInput = document.getElementById("productSearch");
-  const typeSelect = document.getElementById("productTypeFilter");
+  const emptyEl = document.getElementById(
+    "productEmptyMessage",
+  );
+  const searchInput =
+    document.getElementById("productSearch");
+  const typeSelect = document.getElementById(
+    "productTypeFilter",
+  );
 
   if (!listEl) return;
-
   let allProducts = [];
 
   // -----------------------------
@@ -21,7 +24,8 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       console.error("Failed to load products:", err);
       if (emptyEl) {
-        emptyEl.textContent = "プロダクト一覧の読み込みに失敗しました。";
+        emptyEl.textContent =
+          "プロダクト一覧の読み込みに失敗しました。";
         emptyEl.style.display = "block";
       }
     }
@@ -31,7 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // フィルタ適用＋描画
   // -----------------------------
   function render() {
-    const keyword = (searchInput?.value || "").trim().toLowerCase();
+    const keyword = (searchInput?.value || "")
+      .trim()
+      .toLowerCase();
     const typeFilter = typeSelect?.value || "";
 
     const filtered = allProducts.filter((p) => {
@@ -66,7 +72,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("article");
       card.className = "card card--clickable product-card";
 
-      // サムネイル
       if (p.thumbnail) {
         const thumb = document.createElement("div");
         thumb.className = "card__thumb";
@@ -77,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
         card.appendChild(thumb);
       }
 
-      // 本文
       const body = document.createElement("div");
       body.className = "card__body";
 

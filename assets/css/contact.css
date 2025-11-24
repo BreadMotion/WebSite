@@ -23,10 +23,9 @@
 
 .page-header a {
     color: var(--color-accent);
-    text-decoration: none; /* base.cssで設定済みだが念のため */
+    text-decoration: none;
     font-size: 1rem;
 }
-/* a:hoverのスタイルはbase.cssでグローバルに定義済み */
 
 /* ==========================================================================
    2. フォーム本体
@@ -80,12 +79,8 @@
 .form-field textarea:focus {
     outline: none;
     border-color: var(--color-accent);
-    box-shadow: var(
-        --shadow-glow
-    ); /* グローエフェクト適用 */
-    background: var(
-        --color-panel
-    ); /* フォーカス時に少し背景色を濃く */
+    box-shadow: var(--shadow-glow);
+    background: var(--color-panel);
 }
 
 .form-actions {
@@ -94,7 +89,6 @@
 }
 
 .form-actions button {
-    /* top.css の .btn-primary と同様のスタイル */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -119,8 +113,7 @@
 
 .form-actions button:hover {
     transform: translateY(-2px);
-    box-shadow:
-        var(--shadow-lg), var(--shadow-glow); /* グローエフェクト追加 */
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
     background: linear-gradient(
         135deg,
         var(--color-accent) 0%,
@@ -137,13 +130,13 @@
 }
 
 .contact-result--ok {
-    color: #84cc16; /* green-500 */
+    color: #84cc16;
     background: rgba(132, 204, 22, 0.15);
     border: 1px solid #84cc16;
 }
 
 .contact-result--ng {
-    color: #ef4444; /* red-500 */
+    color: #ef4444;
     background: rgba(239, 68, 68, 0.15);
     border: 1px solid #ef4444;
 }
@@ -161,5 +154,4 @@
     .form-actions button {
         width: 100%;
     }
-    /* ... (その他省略) ... */
 }

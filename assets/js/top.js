@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!blogListEl && !portListEl) return;
 
-  // Blog: 日付降順で3件
   if (blogListEl) {
     try {
       const res = await fetch("assets/data/blogList.json");
@@ -59,7 +58,6 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Portfolio: pagelist.json の先頭3件（今は「ピックアップ」扱いでOK）
   if (portListEl) {
     try {
       const res = await fetch(
