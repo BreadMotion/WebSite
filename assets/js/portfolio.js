@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   /** @type {Array<any>} */
   let allWorks = [];
 
-  // URL パラメータ操作ヘルパ
   function readInitialParams() {
     const params = new URLSearchParams(location.search);
     const tag = params.get("tag") || "";
@@ -38,7 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
     history.replaceState(null, "", newUrl);
   }
 
-  // JSON 読み込み
   async function loadWorks() {
     try {
       const res = await fetch(
@@ -58,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 描画
   function render() {
     const keyword = (searchInput?.value || "")
       .trim()
@@ -160,7 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
         body.appendChild(desc);
       }
 
-      // タグ
       const tagsArr = Array.isArray(work.tags)
         ? work.tags
         : String(work.tags || "")
@@ -176,7 +172,6 @@ document.addEventListener("DOMContentLoaded", () => {
           tag.className = "tag";
           tag.textContent = t;
 
-          // タグクリックでそのタグでフィルタ
           tag.addEventListener("click", (e) => {
             e.stopPropagation();
             if (searchInput) searchInput.value = t;
@@ -217,7 +212,6 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       card.appendChild(body);
-
       card.addEventListener("click", () => {
         if (work.contentPath) {
           const params = new URLSearchParams();

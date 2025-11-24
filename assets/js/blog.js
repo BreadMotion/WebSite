@@ -1,4 +1,3 @@
-// assets/js/blog.js
 document.addEventListener("DOMContentLoaded", () => {
   const listEl = document.getElementById("blogList");
   const emptyEl = document.getElementById(
@@ -33,7 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // 現在の UI 状態を URL に反映（ページの再読み込みはしない）
   function updateUrlParams(keyword, category) {
     const params = new URLSearchParams();
     if (keyword) params.set("q", keyword);
@@ -52,7 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await fetch("assets/data/blogList.json");
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       allPosts = await res.json();
-      // 初期パラメータを読み取ってフィルタをプリセット
       readInitialParams();
       render();
     } catch (err) {
@@ -77,14 +74,12 @@ document.addEventListener("DOMContentLoaded", () => {
     ).trim();
 
     const filtered = allPosts.filter((post) => {
-      // カテゴリフィルタ
       if (
         categoryFilter &&
         post.category !== categoryFilter
       )
         return false;
 
-      // キーワードフィルタ (タイトル/説明/カテゴリ/タグ)
       if (keyword) {
         const tags = Array.isArray(post.tags)
           ? post.tags
@@ -108,11 +103,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return true;
     });
 
-    // フィルタ状態を URL に反映
     updateUrlParams(keyword, categoryFilter);
 
     listEl.innerHTML = "";
-
     if (!filtered.length) {
       if (emptyEl) emptyEl.style.display = "block";
       return;
@@ -123,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const card = document.createElement("article");
       card.className = "card card--clickable blog-card";
 
-      // サムネイル
       if (post.thumbnail) {
         const thumb = document.createElement("div");
         thumb.className = "card__thumb";
@@ -137,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const body = document.createElement("div");
       body.className = "card__body";
 
-      // メタ（カテゴリ / 日付）
       const meta = document.createElement("p");
       meta.className = "card__meta";
       const dateText = post.date || "";
@@ -147,7 +138,6 @@ document.addEventListener("DOMContentLoaded", () => {
         .join(" / ");
       body.appendChild(meta);
 
-      // タイトル
       const titleRow = document.createElement("div");
       titleRow.className = "card__title-row";
 
@@ -158,7 +148,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
       body.appendChild(titleRow);
 
-      // 概要
       if (post.description) {
         const desc = document.createElement("p");
         desc.className = "card__description";
@@ -166,7 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
         body.appendChild(desc);
       }
 
-      // タグ
       const tagsArr = Array.isArray(post.tags)
         ? post.tags
         : String(post.tags || "")
@@ -182,13 +170,11 @@ document.addEventListener("DOMContentLoaded", () => {
           tag.className = "tag";
           tag.textContent = t;
 
-          // タグはクリックでそのタグでフィルタ
           tag.addEventListener("click", (e) => {
-            e.stopPropagation(); // カードクリックを阻止
+            e.stopPropagation();
             if (searchInput) searchInput.value = t;
             if (categorySelect) categorySelect.value = "";
             render();
-            // URL に tag（または q）として反映（履歴は積まない）
             const params = new URLSearchParams();
             params.set("q", t);
             const newUrl =
@@ -196,7 +182,6 @@ document.addEventListener("DOMContentLoaded", () => {
             history.replaceState(null, "", newUrl);
           });
 
-          // キーボード対応
           tag.tabIndex = 0;
           tag.addEventListener("keydown", (ev) => {
             if (ev.key === "Enter" || ev.key === " ") {
@@ -211,11 +196,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       card.appendChild(body);
-
-      // カード全体クリックで記事ページへ遷移
       card.addEventListener("click", () => {
         if (post.contentPath) {
-          // 現在のフィルタ状態をクエリに付与して遷移（戻ってきたときに復元しやすくする）
           const params = new URLSearchParams();
           const q = (searchInput?.value || "").trim();
           const category = (
@@ -241,7 +223,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // -----------------------------
   if (searchInput) {
     searchInput.addEventListener("input", () => {
-      // タイプ中は即時フィルタ（必要に応じてデバウンスを追加してください）
       render();
     });
   }
@@ -249,6 +230,5 @@ document.addEventListener("DOMContentLoaded", () => {
     categorySelect.addEventListener("change", render);
   }
 
-  // 初回ロード
   loadPosts();
 });

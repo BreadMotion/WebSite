@@ -14,7 +14,7 @@
     overflow: hidden;
     border-radius: var(--radius-lg);
     padding: 2.25rem;
-    border: 1px solid transparent; /* ボーダーは擬似要素で描画 */
+    border: 1px solid transparent;
     background:
         radial-gradient(
             ellipse 80% 50% at 50% -20%,
@@ -26,7 +26,6 @@
     isolation: isolate;
 }
 
-/* ヒーローセクションの光る枠線 */
 .hero-main::after {
     content: "";
     position: absolute;
@@ -47,7 +46,7 @@
             rgba(var(--color-accent-rgb), 0.3),
             transparent 40%
         );
-    pointer-events: none; /* マウスイベントを透過 */
+    pointer-events: none;
 }
 
 /* グリッド + 斜めの動き */
@@ -154,8 +153,7 @@
 
 .btn-primary:hover {
     transform: translateY(-2px);
-    box-shadow:
-        var(--shadow-lg), var(--shadow-glow); /* グローエフェクト追加 */
+    box-shadow: var(--shadow-lg), var(--shadow-glow);
     background: linear-gradient(
         135deg,
         var(--color-accent) 0%,
@@ -174,9 +172,7 @@
     border-color: var(--color-accent);
     color: var(--color-text);
     transform: translateY(-2px);
-    box-shadow: var(
-        --shadow-glow
-    ); /* グローエフェクト追加 */
+    box-shadow: var(--shadow-glow);
 }
 
 /* ==========================================================================
@@ -237,7 +233,7 @@
 
 .home-latest-link:hover {
     color: var(--color-accent);
-    transform: translateX(4px); /* ホバーで少し右に移動 */
+    transform: translateX(4px);
 }
 
 .home-latest-link-title {
@@ -269,7 +265,6 @@
 }
 
 .profile-card {
-    /* layout.css の .card を流用しつつ、インタラクションを追加 */
     position: relative;
     z-index: 1;
     background: var(--color-surface);

@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
     !("IntersectionObserver" in window) ||
     targets.length === 0
   ) {
-    // 古いブラウザは即表示
     targets.forEach((el) => el.classList.add("is-visible"));
     return;
   }

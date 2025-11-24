@@ -120,16 +120,8 @@ class Particle {
 window.addEventListener("load", () => {
   document.body.addEventListener("mouseenter", () => {
     isMouseInsideBrowserWindow = true;
-    console.log(
-      "Mouse entered body. isMouseInsideBrowserWindow:",
-      isMouseInsideBrowserWindow,
-    );
   });
   document.body.addEventListener("mouseleave", () => {
     isMouseInsideBrowserWindow = false;
-    console.log(
-      "Mouse left body. isMouseInsideBrowserWindow:",
-      isMouseInsideBrowserWindow,
-    );
   });
 });

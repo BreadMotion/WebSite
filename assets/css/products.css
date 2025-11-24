@@ -58,7 +58,7 @@
    2. プロダクトカード
    ========================================================================== */
 .product-card {
-    position: relative; /* 擬似要素の位置決めの基点 */
+    position: relative;
     z-index: 1;
     display: flex;
     gap: 1.5rem;
@@ -69,7 +69,7 @@
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-md);
     transition: var(--transition-smooth);
-    overflow: hidden; /* 擬似要素がはみ出さないように */
+    overflow: hidden;
 }
 
 .product-card::before {
@@ -104,10 +104,9 @@
 }
 
 .product-card:hover::before {
-    opacity: 1; /* ホバー時にボーダーを表示 */
+    opacity: 1;
 }
 
-/* サムネイル枠 */
 .product-card .card__thumb {
     flex-shrink: 0;
     width: 16rem;
@@ -127,7 +126,7 @@
     transition: var(--transition-smooth);
 }
 .product-card:hover .card__thumb img {
-    transform: scale(1.05); /* ホバー時に画像を少し拡大 */
+    transform: scale(1.05);
 }
 
 /* 本文側 */
@@ -160,7 +159,6 @@
     flex-grow: 1;
 }
 
-/* 種類ピル */
 .product-card .pill {
     font-size: 0.8rem;
     padding: 0.25rem 0.75rem;
@@ -177,7 +175,6 @@
     box-shadow: var(--shadow-glow);
 }
 
-/* タグ */
 .product-card .card__tags {
     display: flex;
     flex-wrap: wrap;
@@ -203,7 +200,6 @@
     box-shadow: var(--shadow-glow);
 }
 
-/* リンクボタン群 */
 .product-card .card__actions {
     display: flex;
     flex-wrap: wrap;
@@ -233,9 +229,7 @@
     border-color: var(--color-accent);
     color: var(--color-text);
     transform: translateY(-2px);
-    box-shadow: var(
-        --shadow-glow
-    ); /* グローエフェクト適用 */
+    box-shadow: var(--shadow-glow);
 }
 
 /* ==========================================================================
@@ -256,5 +250,4 @@
         width: 100%;
         height: auto;
     }
-    /* ... (その他省略) ... */
 }

@@ -1,4 +1,3 @@
-// --- URL パラメータから値を取る（必要なら利用。今は "address" をメール欄に入れる） ---
 function paraValue(paraName) {
   var str = location.search.split("?");
   if (str.length < 2) {
@@ -15,9 +14,7 @@ function paraValue(paraName) {
   return "";
 }
 
-// ページ読み込み完了時（必要なら body onload="init()" で呼ぶ）
 function init() {
-  // ?address=xxxx で開いたときにメール欄をプリセット
   var param = paraValue("address");
   if (param) {
     var emailInput = document.getElementById("email");
@@ -31,8 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("contactForm");
   const result = document.getElementById("contactResult");
   if (!form || !result) return;
-
-  // head で設定した API endpoint
   const endpoint = window.CONTACT_API_ENDPOINT || "";
 
   form.addEventListener("submit", async (e) => {
@@ -59,7 +54,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     result.textContent = "送信中…";
     result.style.color = "";
-    const submitButton = form.querySelector("button[type='submit']");
+    const submitButton = form.querySelector(
+      "button[type='submit']",
+    );
     if (submitButton) {
       submitButton.disabled = true;
       submitButton.textContent = "送信中…";
@@ -82,9 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
       let data = {};
       try {
         data = await res.json();
-      } catch (_) {
-        // JSON じゃなくても無視
-      }
+      } catch (_) {}
 
       if (!res.ok || (data && data.ok === false)) {
         const msg =
@@ -93,7 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
         throw new Error(msg);
       }
 
-      result.textContent = "送信しました。ご連絡ありがとうございます！";
+      result.textContent =
+        "送信しました。ご連絡ありがとうございます！";
       result.style.color = "green";
       form.reset();
     } catch (err) {

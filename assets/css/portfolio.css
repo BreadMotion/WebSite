@@ -58,7 +58,7 @@
    2. ポートフォリオ一覧（カード本体）
    ========================================================================== */
 .portfolio-card {
-    position: relative; /* 擬似要素の位置決めの基点 */
+    position: relative;
     z-index: 1;
     display: flex;
     gap: 1.5rem;
@@ -69,7 +69,7 @@
     border: 1px solid var(--color-border);
     box-shadow: var(--shadow-md);
     transition: var(--transition-smooth);
-    overflow: hidden; /* 擬似要素がはみ出さないように */
+    overflow: hidden;
 }
 
 .portfolio-card::before {
@@ -104,7 +104,7 @@
 }
 
 .portfolio-card:hover::before {
-    opacity: 1; /* ホバー時にボーダーを表示 */
+    opacity: 1;
 }
 
 /* サムネイル枠 */
@@ -127,7 +127,7 @@
     transition: var(--transition-smooth);
 }
 .portfolio-card:hover .card__thumb img {
-    transform: scale(1.05); /* ホバー時に画像を少し拡大 */
+    transform: scale(1.05);
 }
 
 /* 本文側 */
@@ -160,15 +160,13 @@
     flex-grow: 1;
 }
 
-/* タグ */
 .portfolio-card .card__tags {
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
-    margin-top: auto; /* タグをカード下部に配置 */
+    margin-top: auto;
 }
 
-/* 共通タグスタイルにする（一覧と作品詳細の両方で使う） */
 .tag {
     cursor: pointer;
     display: inline-flex;
@@ -189,7 +187,6 @@
     box-shadow: var(--shadow-glow);
 }
 
-/* 外部リンクボタン群 */
 .portfolio-card .card__actions {
     display: flex;
     flex-wrap: wrap;
@@ -219,9 +216,7 @@
     border-color: var(--color-accent);
     color: var(--color-text);
     transform: translateY(-2px);
-    box-shadow: var(
-        --shadow-glow
-    ); /* グローエフェクト適用 */
+    box-shadow: var(--shadow-glow);
 }
 
 /* ==========================================================================
@@ -253,7 +248,6 @@
     font-size: 1rem;
     color: var(--color-text);
 }
-/* ... (markdown-bodyのスタイルはblog.cssと共通なので省略) ... */
 
 /* ==========================================================================
    5. レスポンシブデザイン
@@ -273,5 +267,4 @@
         width: 100%;
         height: auto;
     }
-    /* ... (その他省略) ... */
 }
