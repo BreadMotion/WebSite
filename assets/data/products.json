@@ -9,18 +9,14 @@
     "thumbnail": "assets/img/ogp.png",
     "storeLinks": [
       {
-        "label": "Repository",
-        "url": "https://github.com/BreadMotion/Bread-s-Utility-Bot"
-      },
-      {
         "label": "稼働登録依頼",
         "url": "https://breadmotion.github.io/WebSite/contact.html"
       }
     ],
     "downloadLinks": [
       {
-        "label": "サーバーに追加する",
-        "url": "https://discord.com/oauth2/authorize?client_id=1415944915514556508"
+        "label": "~~サーバーに追加する~~(セキュリティ強化のため現在DLリンクを省いております。)",
+        "url": ""
       }
     ]
   },
