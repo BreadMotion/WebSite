@@ -175,7 +175,7 @@
     background: var(--color-accent-soft);
     border: 1px solid var(--color-border);
     color: var(--color-text);
-    white-space: nowrap;
+    white-space: pre-wrap;
     transition: var(--transition-smooth);
     text-decoration: none;
 }
@@ -338,6 +338,7 @@
     margin: 1.5rem 0;
     border: 1px solid var(--color-border-soft);
     box-shadow: var(--shadow-sm);
+    white-space: pre-wrap;
 }
 
 /* ==========================================================================
