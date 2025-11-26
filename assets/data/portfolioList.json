@@ -1,5 +1,21 @@
 [
   {
+    "id": "portfolio_0003",
+    "title": "Develop Utility",
+    "date": "",
+    "category": "",
+    "role": "Full Stack Engineer",
+    "description": "開発者用Discord Bot",
+    "tech": "Javascript / discord.js",
+    "tags": [
+      "discord",
+      "bot"
+    ],
+    "thumbnail": "assets/img/ogp.png",
+    "links": [],
+    "contentPath": "portfolio/portfolio_0003.html"
+  },
+  {
     "id": "portfolio_0002",
     "title": "クマの逆転プロ野球",
     "date": "",
