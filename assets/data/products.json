@@ -9,16 +9,11 @@
     "thumbnail": "assets/img/ogp.png",
     "storeLinks": [
       {
-        "label": "稼働登録依頼",
+        "label": "ボット追加依頼",
         "url": "https://breadmotion.github.io/WebSite/contact.html"
       }
     ],
-    "downloadLinks": [
-      {
-        "label": "~~サーバーに追加する~~(セキュリティ強化のため現在DLリンクを省いております。)",
-        "url": ""
-      }
-    ]
+    "downloadLinks": []
   },
   {
     "id": "product_0002",
