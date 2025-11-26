@@ -324,7 +324,7 @@
     color: var(--color-text);
     padding: 0.2em 0.5em;
     border-radius: var(--radius-sm);
-    white-space: nowrap;
+    white-space: pre-wrap;
 }
 
 .markdown-body pre {
