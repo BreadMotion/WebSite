@@ -128,14 +128,14 @@ function createHtml({
     <meta property="og:description" content="${safeDesc}" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="${canonicalUrl}" />
-    <meta property="og:image" content="${imageUrl}" />
+    <meta property="og:image" content="${BASE_URL}/assets/img/ogp.png" />
     <meta property="og:site_name" content="PanKUN" />
     <meta property="og:email" content="pankun.dev@gmail.com" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${safeTitle}" />
     <meta name="twitter:description" content="${safeDesc}" />
-    <meta name="twitter:image" content="${imageUrl}" />
+    <meta name="twitter:image" content="${BASE_URL}/assets/img/ogp.png" />
 
     <link rel="stylesheet" href="../assets/css/base.css" />
     <link rel="stylesheet" href="../assets/css/layout.css" />
