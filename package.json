@@ -8,7 +8,7 @@
     "build:portfolio": "node tools/build-portfolio.js",
     "build:sitemap": "node tools/build-sitemap.js",
     "build:refactor": "node tools/find-unused-css.js",
-    "build:all": "npm run build:blog && npm run build:portfolio && build:refactor && npm run build:sitemap ",
+    "build:all": "npm run build:blog && npm run build:portfolio && npm run build:refactor && npm run build:sitemap ",
     "start:server": "npx live-server ."
   },
   "keywords": [],
