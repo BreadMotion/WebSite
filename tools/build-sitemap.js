@@ -105,8 +105,8 @@ ${urlEntries.join("\n")}
 </urlset>
 `;
 
-// 書き出し
-fs.writeFileSync(OUTPUT, xml, "utf8");
+// 書き出し（前後の余計な空白を削除）
+fs.writeFileSync(OUTPUT, xml.trim(), "utf8");
 console.log(`sitemap generated: ${OUTPUT}`);
 console.log("URLs:");
 for (const rel of htmlFiles) {
