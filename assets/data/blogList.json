@@ -148,6 +148,36 @@
     "contentPath": "blog/blog_00008.html"
   },
   {
+    "id": "blog_00015",
+    "title": "p5.jsで背景アニメーションを実装してみた",
+    "date": "2024-06-28T00:00:00.000Z",
+    "category": "技術メモ",
+    "description": "静的なポートフォリオサイトに動きを取り入れるため、p5.jsを使って背景アニメーションを実装しました。導入から10パターンの実装まで、初心者の目線で振り返ります。",
+    "tags": [
+      "p5js",
+      "javascript",
+      "creative-coding",
+      "animation"
+    ],
+    "thumbnail": "assets/img/ogp.png",
+    "contentPath": "blog/blog_00015.html"
+  },
+  {
+    "id": "blog_00014",
+    "title": "CSSのリファクタリングを手軽にしてみた",
+    "date": "2024-06-27T00:00:00.000Z",
+    "category": "開発ログ",
+    "description": "個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。",
+    "tags": [
+      "css",
+      "refactoring",
+      "nodejs",
+      "automation"
+    ],
+    "thumbnail": "assets/img/ogp.png",
+    "contentPath": "blog/blog_00014.html"
+  },
+  {
     "id": "blog_00003",
     "title": "Odin でコンテキストエディター作ってみた",
     "date": "2024-06-10T00:00:00.000Z",
