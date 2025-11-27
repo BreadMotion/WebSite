@@ -13,13 +13,21 @@
     position: relative;
     overflow: hidden;
     border-radius: var(--radius-lg);
-    padding: 2.25rem;
-    border: 1px solid transparent;
+    padding: 3rem 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid var(--color-border);
     background:
         radial-gradient(
-            ellipse 80% 50% at 50% -20%,
-            rgba(var(--color-accent-rgb), 0.1),
-            transparent
+            circle at 80% 20%,
+            rgba(var(--color-accent-rgb), 0.15) 0%,
+            transparent 60%
+        ),
+        radial-gradient(
+            circle at 0% 100%,
+            rgba(var(--color-accent-dark-rgb), 0.1) 0%,
+            transparent 50%
         ),
         var(--color-panel);
     box-shadow: var(--shadow-lg);
@@ -29,24 +37,21 @@
 .hero-main::after {
     content: "";
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     border-radius: inherit;
-    border: 1px solid var(--color-border);
     background-image:
         radial-gradient(
             circle at 0% 0%,
-            rgba(56, 189, 248, 0.3),
+            rgba(var(--color-accent), 0.2),
             transparent 40%
         ),
         radial-gradient(
             circle at 100% 100%,
-            rgba(var(--color-accent-rgb), 0.3),
+            rgba(var(--color-accent-dark), 0.2),
             transparent 40%
         );
     pointer-events: none;
+    z-index: 2;
 }
 
 /* グリッド + 斜めの動き */
@@ -57,24 +62,62 @@
     background-image:
         linear-gradient(
             to right,
-            rgba(226, 232, 240, 0.08) 1px,
+            rgba(255, 255, 255, 0.1) 1px,
             transparent 1px
         ),
         linear-gradient(
             to bottom,
-            rgba(226, 232, 240, 0.05) 1px,
+            rgba(255, 255, 255, 0.05) 1px,
             transparent 1px
         );
-    background-size: 1.625rem 1.625rem;
-    opacity: 0.3;
-    mix-blend-mode: soft-light;
+    background-size: 2rem 2rem;
+    opacity: 0.4;
+    mix-blend-mode: overlay;
     transform: translate3d(0, 0, 0) rotate(5deg);
-    animation: hero-grid-shift 26s linear infinite;
+    animation: hero-grid-shift 30s linear infinite;
 }
 
 .hero-main > * {
     position: relative;
     z-index: 1;
+}
+
+/* 背景スライドショー */
+.hero-slideshow {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+    border-radius: inherit;
+    pointer-events: none;
+}
+
+.hero-bg-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: rgba(16, 18, 23, 0.8);
+    border-radius: inherit;
+    pointer-events: none;
+    backdrop-filter: blur(2px);
+}
+
+.hero-slide {
+    position: absolute;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transform: scale(1);
+    transition:
+        opacity 2s ease-in-out,
+        transform 10s linear;
+    will-change: opacity, transform;
+}
+
+.hero-slide.active {
+    opacity: 1;
+    transform: scale(1.1);
 }
 
 @keyframes hero-grid-shift {
@@ -103,7 +146,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0;
 }
 
 .hero-badge {
@@ -115,16 +158,41 @@
     color: var(--color-text-muted);
 }
 
-.hero-actions {
-    margin-top: 1.5rem;
+.hero-social {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.hero-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hero-social-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+    background: var(--color-panel);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: var(--shadow-glow);
+}
+
+.hero-actions {
+    display: none;
 }
 
 /* ==========================================================================
-   2. ボタン
+   2. ボタン (Disabled)
    ========================================================================== */
+/*
 .btn {
     display: inline-flex;
     align-items: center;
@@ -160,6 +228,7 @@
         var(--color-accent-dark) 100%
     );
 }
+*/
 
 /* ==========================================================================
    3. サイドパネル
@@ -338,19 +407,7 @@
     .hero-main .hero-subtitle {
         font-size: 1rem;
     }
-    .hero-badges {
-        margin-bottom: 1rem;
-    }
-    .hero-actions {
-        margin-top: 1rem;
-        flex-direction: column;
-        gap: 0.75rem;
-    }
-    .btn {
-        width: 100%;
-        padding: 0.6rem 1rem;
-        font-size: 0.95rem;
-    }
+
     .hero-side {
         padding: 1.5rem;
     }
@@ -450,4 +507,45 @@
 .card--link:hover .card__more {
     transform: translateX(6px);
     text-decoration: underline;
+}
+
+/* ==========================================================================
+   7. おすすめブログセクション
+   ========================================================================== */
+.section--recommend {
+    margin-top: 3rem;
+    margin-bottom: 3rem;
+}
+
+/* ==========================================================================
+   8. 最近の更新（サイドバー）の改善
+   ========================================================================== */
+.home-latest-item {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-soft);
+    border-radius: var(--radius-md);
+    padding: 1rem;
+    transition: all 0.2s ease;
+}
+
+.home-latest-item:hover {
+    border-color: var(--color-accent);
+    box-shadow: var(--shadow-md);
+    transform: translateX(4px);
+    background: var(--color-panel);
+}
+
+.home-latest-link:hover {
+    transform: none; /* 親のliで動かすので無効化 */
+    color: inherit;
+}
+
+.home-latest-link-title {
+    color: var(--color-heading);
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+}
+
+.home-latest-item:hover .home-latest-link-title {
+    color: var(--color-accent);
 }

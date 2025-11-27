@@ -15,8 +15,62 @@ document.addEventListener("DOMContentLoaded", async () => {
   const portListEl = document.getElementById(
     "homeLatestPortfolio",
   );
+  const slideshowEl =
+    document.getElementById("heroSlideshow");
 
-  if (!blogListEl && !portListEl) return;
+  if (!blogListEl && !portListEl && !slideshowEl) return;
+
+  if (slideshowEl) {
+    try {
+      const res = await fetch(
+        "assets/data/portfolioList.json",
+      );
+      if (res.ok) {
+        let items = await res.json();
+        items = items.filter((item) => item.thumbnail);
+
+        if (items.length > 0) {
+          // Fisher-Yates shuffle
+          for (let i = items.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [items[i], items[j]] = [items[j], items[i]];
+          }
+
+          let currentIndex = 0;
+          const showNextSlide = () => {
+            const item = items[currentIndex];
+            const slide = document.createElement("div");
+            slide.className = "hero-slide";
+            slide.style.backgroundImage = `url('${item.thumbnail}')`;
+
+            slideshowEl.appendChild(slide);
+
+            // Reflow
+            void slide.offsetWidth;
+
+            slide.classList.add("active");
+
+            // 古いスライドを削除
+            setTimeout(() => {
+              while (slideshowEl.children.length > 1) {
+                slideshowEl.removeChild(
+                  slideshowEl.firstElementChild,
+                );
+              }
+            }, 2500);
+
+            currentIndex =
+              (currentIndex + 1) % items.length;
+          };
+
+          showNextSlide();
+          setInterval(showNextSlide, 6000);
+        }
+      }
+    } catch (err) {
+      console.error("Hero slideshow error:", err);
+    }
+  }
 
   if (blogListEl) {
     try {
