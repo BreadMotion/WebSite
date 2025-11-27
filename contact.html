@@ -105,7 +105,7 @@
             content="2us9bSy_ytt-3S-o8CVDVK8SPFWC9G3h39tzB-TKq7c"
         />
     </head>
-    <body>
+    <body data-page="contact">
         <!-- header は layout.js が自動挿入 -->
         <div class="page-shell">
             <main class="main-container">
@@ -114,80 +114,130 @@
                 >
                     <h1>Contact</h1>
                     <p>
-                        お仕事のご相談やご連絡は、以下のフォームまたはメールからお願いします。
+                        お仕事のご相談やご連絡は、以下のフォームからお願いします。
                     </p>
-                    <p>
-                        メール:
+                    <p class="text-muted">
+                        ※直接メールをお送りいただく場合は
                         <a
                             href="mailto:pankun.eng@gmail.com"
+                            class="link-text"
                             >pankun.eng@gmail.com</a
                         >
+                        までお願いします。
                     </p>
                 </section>
 
                 <section class="section reveal-on-scroll">
-                    <h2>お問い合わせフォーム（ダミー）</h2>
+                    <div class="section-header">
+                        <h2>お問い合わせフォーム</h2>
+                    </div>
+
                     <form
                         id="contactForm"
                         class="contact-form"
+                        novalidate
                     >
                         <div class="form-field">
-                            <label for="name">お名前</label>
+                            <label
+                                for="name"
+                                class="form-label"
+                            >
+                                お名前
+                                <span class="badge-required"
+                                    >必須</span
+                                >
+                            </label>
                             <input
                                 type="text"
                                 id="name"
                                 name="name"
+                                class="input"
+                                placeholder="山田 太郎"
                                 required
+                                aria-required="true"
                             />
                         </div>
 
                         <div class="form-field">
-                            <label for="email"
-                                >メールアドレス</label
+                            <label
+                                for="email"
+                                class="form-label"
                             >
+                                メールアドレス
+                                <span class="badge-required"
+                                    >必須</span
+                                >
+                            </label>
                             <input
                                 type="email"
                                 id="email"
                                 name="email"
+                                class="input"
+                                placeholder="example@email.com"
                                 required
+                                aria-required="true"
                             />
                         </div>
 
                         <div class="form-field">
-                            <label for="message"
-                                >電話番号</label
+                            <label
+                                for="phone"
+                                class="form-label"
                             >
-                            <textarea
+                                電話番号
+                                <span class="badge-optional"
+                                    >任意</span
+                                >
+                            </label>
+                            <input
+                                type="tel"
                                 id="phone"
                                 name="phone"
-                                rows="1"
-                                required
-                            ></textarea>
+                                class="input"
+                                placeholder="090-0000-0000"
+                            />
                         </div>
 
                         <div class="form-field">
-                            <label for="message"
-                                >内容</label
+                            <label
+                                for="message"
+                                class="form-label"
                             >
+                                内容
+                                <span class="badge-required"
+                                    >必須</span
+                                >
+                            </label>
                             <textarea
                                 id="message"
                                 name="message"
-                                rows="5"
+                                class="input input--textarea"
+                                rows="8"
+                                placeholder="お問い合わせ内容をご記入ください。"
                                 required
+                                aria-required="true"
                             ></textarea>
                         </div>
 
                         <div class="form-actions">
-                            <button type="submit">
-                                送信（ダミー）
+                            <button
+                                type="submit"
+                                class="btn btn-primary btn-submit"
+                            >
+                                <span class="btn-text"
+                                    >送信する</span
+                                >
+                                <span
+                                    class="btn-loading-icon"
+                                ></span>
                             </button>
                         </div>
 
-                        <p
+                        <div
                             id="contactResult"
                             class="contact-result"
                             aria-live="polite"
-                        ></p>
+                        ></div>
                     </form>
                 </section>
             </main>
