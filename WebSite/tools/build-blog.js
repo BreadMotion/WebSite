@@ -11,6 +11,11 @@ const LIST_JSON = path.join(
   "data",
   "blogList.json",
 );
+const AD_SCRIPT_PATH = path.join(
+  ROOT,
+  "partials",
+  "ad-script.html",
+);
 
 // サイトのベースURL（末尾スラッシュなし）
 const BASE_URL = "https://breadmotion.github.io/WebSite";
@@ -45,6 +50,7 @@ function createHtml({
   tags = [],
   bodyHtml,
   thumbnail,
+  adScript = "",
 }) {
   const safeTitle = escapeHtml(title);
   const safeDesc = escapeHtml(description || "");
@@ -129,6 +135,8 @@ function createHtml({
     <!-- Canonical -->
     <link rel="canonical" href="${canonicalUrl}" />
 
+    ${adScript}
+
     <!-- JSON-LD -->
     <script type="application/ld+json">
     ${JSON.stringify(jsonLd, null, 2)}
@@ -194,6 +202,12 @@ ${bodyHtml}
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
 
+  // 広告スクリプトの読み込み
+  let adScript = "";
+  if (fs.existsSync(AD_SCRIPT_PATH)) {
+    adScript = fs.readFileSync(AD_SCRIPT_PATH, "utf8");
+  }
+
   const posts = [];
   const files = fs
     .readdirSync(CONTENT_DIR)
@@ -232,6 +246,7 @@ ${bodyHtml}
       tags,
       bodyHtml: htmlBody,
       thumbnail,
+      adScript,
     });
 
     fs.writeFileSync(
