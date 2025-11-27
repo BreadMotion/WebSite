@@ -179,6 +179,11 @@ function createHtml({
           <section class="post-detail__body markdown-body">
 ${bodyHtml}
           </section>
+
+          <section class="section section--recommend">
+            <h2 class="section__title">おすすめ記事</h2>
+            <div id="recommendList" class="recommend-grid"></div>
+          </section>
         </article>
       </main>
     </div>
@@ -189,6 +194,7 @@ ${bodyHtml}
     <canvas id="menuAnimationCanvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
     <script src="../assets/js/particles.js"></script>
+    <script src="../assets/js/recommend.js" defer></script>
   </body>
 </html>`;
 }
@@ -226,6 +232,7 @@ ${bodyHtml}
     const date = data.date || "";
     const category = data.category || "";
     const thumbnail = data.thumbnail || "";
+    const recommended = data.recommended || false;
     const tagsRaw = data.tags || [];
     const tags = Array.isArray(tagsRaw)
       ? tagsRaw
@@ -266,6 +273,7 @@ ${bodyHtml}
       tags,
       thumbnail,
       contentPath: relPath,
+      recommended,
     });
   }
 

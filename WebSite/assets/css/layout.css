@@ -454,3 +454,80 @@ body.no-scroll .site-header {
     z-index: -1;
     pointer-events: none;
 }
+
+/* ==========================================================================
+   7. おすすめ記事セクション (共通)
+   ========================================================================== */
+.section--recommend {
+    margin-top: 4rem;
+}
+
+.recommend-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        auto-fit,
+        minmax(280px, 1fr)
+    );
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.card--recommend {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+.card--recommend__thumb {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    background-color: var(--color-surface);
+    border-bottom: 1px solid var(--color-border-soft);
+}
+
+.card--recommend__content {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card--recommend__title {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    line-height: 1.4;
+}
+
+.card--recommend__desc {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.card--recommend__meta {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.card--recommend__tag {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 0.1rem 0.4rem;
+    font-size: 0.75rem;
+}

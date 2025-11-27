@@ -1,0 +1,19 @@
+# Node.js
+node_modules/
+npm-debug.log
+
+# Mac
+.DS_Store
+
+# Windows
+Thumbs.db
+
+# Tools / Secrets
+tools/service_account.json
+tools/service-account.json
+.env
+
+# Editor
+.vscode/
+.idea/
+*.swp

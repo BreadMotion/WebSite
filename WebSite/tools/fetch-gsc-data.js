@@ -1,0 +1,126 @@
+const { google } = require('googleapis');
+const fs = require('fs');
+const path = require('path');
+
+// ==========================================
+// 設定
+// ==========================================
+
+// Google Search Console に登録しているプロパティURL
+// ドメインプロパティの場合は 'sc-domain:breadmotion.github.io' のように記述
+// URLプレフィックスの場合は 'https://breadmotion.github.io/WebSite/' のように記述
+const SITE_URL = 'https://breadmotion.github.io/WebSite/';
+
+// サービスアカウントキーのパス
+// 環境変数 GSC_KEY_FILE または tools/service-account.json を参照
+const KEY_FILE_PATH = process.env.GSC_KEY_FILE || path.join(__dirname, 'service-account.json');
+
+// 出力先ファイルパス
+const OUTPUT_FILE = path.join(__dirname, '../assets/data/popular.json');
+
+// 取得する期間（過去何日分か）
+const DAYS_AGO = 60;
+
+// URLから記事IDを抽出する正規表現
+// 例: https://.../blog/blog_00001.html -> blog_00001
+const BLOG_ID_REGEX = /\/blog\/(blog_\d+)\.html/;
+
+// ==========================================
+// メイン処理
+// ==========================================
+
+async function main() {
+    console.log('--- Fetching Google Search Console Data ---');
+
+    // キーファイルの存在確認
+    if (!fs.existsSync(KEY_FILE_PATH)) {
+        console.warn(`[WARN] Service account key file not found at: ${KEY_FILE_PATH}`);
+        console.warn('Skipping GSC fetch. If you want to use popular posts, please set GSC_KEY_FILE env var or place service-account.json.');
+        // キーがない場合は空配列を書き出して正常終了（ビルドを止めないため）
+        // ただし、既にファイルがある場合は上書きしないようにするなどの配慮も可能だが、
+        // ここでは「データなし」として空配列で上書きする（古いデータが残るのを防ぐ）
+        // 運用に合わせて調整してください。今回は空で作成します。
+        saveJson([]);
+        return;
+    }
+
+    try {
+        // 認証クライアントの作成
+        const auth = new google.auth.GoogleAuth({
+            keyFile: KEY_FILE_PATH,
+            scopes: ['https://www.googleapis.com/auth/webmasters.readonly'],
+        });
+
+        const searchconsole = google.searchconsole({
+            version: 'v1',
+            auth,
+        });
+
+        // 日付範囲の計算
+        const endDate = new Date();
+        const startDate = new Date();
+        startDate.setDate(endDate.getDate() - DAYS_AGO);
+
+        const formatDate = (date) => date.toISOString().split('T')[0];
+
+        console.log(`Querying GSC for site: ${SITE_URL}`);
+        console.log(`Period: ${formatDate(startDate)} to ${formatDate(endDate)}`);
+
+        // データ取得
+        const res = await searchconsole.searchanalytics.query({
+            siteUrl: SITE_URL,
+            requestBody: {
+                startDate: formatDate(startDate),
+                endDate: formatDate(endDate),
+                dimensions: ['page'],
+                rowLimit: 50, // 上位50件を取得してフィルタリング
+            },
+        });
+
+        const rows = res.data.rows || [];
+        console.log(`Fetched ${rows.length} rows.`);
+
+        // ブログ記事IDの抽出と集計
+        // GSCはクリック数順に返してくれるが、念のためソート
+        rows.sort((a, b) => b.clicks - a.clicks);
+
+        const popularIds = [];
+        const seenIds = new Set();
+
+        for (const row of rows) {
+            const url = row.keys[0]; // dimensions: ['page'] なので keys[0] は URL
+            const match = url.match(BLOG_ID_REGEX);
+
+            if (match) {
+                const id = match[1];
+                if (!seenIds.has(id)) {
+                    popularIds.push(id);
+                    seenIds.add(id);
+                }
+            }
+
+            // 上位10件程度あれば十分
+            if (popularIds.length >= 10) break;
+        }
+
+        console.log('Popular Post IDs:', popularIds);
+        saveJson(popularIds);
+
+    } catch (error) {
+        console.error('[ERROR] Failed to fetch GSC data:', error.message);
+        // APIエラー時などはビルドを失敗させるか、空データにするか。
+        // ここではエラーログを出して終了（CI等で気づけるようにexit 1）
+        process.exit(1);
+    }
+}
+
+function saveJson(data) {
+    const dir = path.dirname(OUTPUT_FILE);
+    if (!fs.existsSync(dir)) {
+        fs.mkdirSync(dir, { recursive: true });
+    }
+    fs.writeFileSync(OUTPUT_FILE, JSON.stringify(data, null, 2), 'utf8');
+    console.log(`Saved popular data to: ${OUTPUT_FILE}`);
+}
+
+main();
