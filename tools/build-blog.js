@@ -26,6 +26,16 @@ function escapeHtml(str = "") {
   });
 }
 
+function formatDate(date) {
+  if (!date) return "";
+  const d = new Date(date);
+  if (isNaN(d.getTime())) return String(date);
+  const y = d.getFullYear();
+  const m = ("0" + (d.getMonth() + 1)).slice(-2);
+  const da = ("0" + d.getDate()).slice(-2);
+  return `${y}/${m}/${da}`;
+}
+
 function createHtml({
   id,
   title,
@@ -38,7 +48,7 @@ function createHtml({
 }) {
   const safeTitle = escapeHtml(title);
   const safeDesc = escapeHtml(description || "");
-  const safeDate = escapeHtml(date || "");
+  const safeDate = escapeHtml(formatDate(date));
   const safeCategory = escapeHtml(category || "");
   // tags は配列として受け取り、それぞれエスケープする
   const safeTagsArr = Array.isArray(tags)
