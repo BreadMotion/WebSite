@@ -161,20 +161,6 @@
     );
 }
 
-.btn-outline {
-    background: var(--color-surface);
-    border-color: var(--color-border);
-    color: var(--color-text-muted);
-}
-
-.btn-outline:hover {
-    background: var(--color-accent-soft);
-    border-color: var(--color-accent);
-    color: var(--color-text);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-glow);
-}
-
 /* ==========================================================================
    3. サイドパネル
    ========================================================================== */
