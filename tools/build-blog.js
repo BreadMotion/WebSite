@@ -170,7 +170,7 @@ ${bodyHtml}
 
     <canvas id="menuAnimationCanvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
-    <script src="../assets/js/menuAnimation.js"></script>
+    <script src="../assets/js/particles.js"></script>
   </body>
 </html>`;
 }
