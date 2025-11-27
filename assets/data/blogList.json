@@ -30,6 +30,19 @@
     "contentPath": "blog/blog_00014.html"
   },
   {
+    "id": "blog_00016",
+    "title": "ZedのRuleの追加について",
+    "date": "2025-11-27T00:00:00.000Z",
+    "category": "tool",
+    "description": "ZedのRuleの使い方をまとめました",
+    "tags": [
+      "zed",
+      "ai"
+    ],
+    "thumbnail": "assets/img/ogp.png",
+    "contentPath": "blog/blog_00016.html"
+  },
+  {
     "id": "blog_00013",
     "title": "ポートフォリオの詳細表示をモーダル化してUXを改善する",
     "date": "2025-11-27T00:00:00.000Z",
@@ -94,7 +107,6 @@
     "category": "tool",
     "description": "ZedにC#言語サーバーを導入し、Unityプロジェクトで補完・定義ジャンプを使えるようにするまでの手順とハマりどころをまとめました",
     "tags": [
-      "unity",
       "csharp",
       "zed",
       "lsp",
