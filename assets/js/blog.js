@@ -1,3 +1,13 @@
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  const y = d.getFullYear();
+  const m = ("0" + (d.getMonth() + 1)).slice(-2);
+  const da = ("0" + d.getDate()).slice(-2);
+  return `${y}/${m}/${da}`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   const listEl = document.getElementById("blogList");
   const emptyEl = document.getElementById(
@@ -131,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const meta = document.createElement("p");
       meta.className = "card__meta";
-      const dateText = post.date || "";
+      const dateText = formatDate(post.date);
       const categoryText = post.category || "";
       meta.textContent = [dateText, categoryText]
         .filter(Boolean)

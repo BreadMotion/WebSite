@@ -1,3 +1,13 @@
+function formatDate(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d.getTime())) return dateStr;
+  const y = d.getFullYear();
+  const m = ("0" + (d.getMonth() + 1)).slice(-2);
+  const da = ("0" + d.getDate()).slice(-2);
+  return `${y}/${m}/${da}`;
+}
+
 document.addEventListener("DOMContentLoaded", async () => {
   const blogListEl = document.getElementById(
     "homeLatestBlog",
@@ -43,7 +53,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           const categoryText = post.category
             ? ` / ${post.category}`
             : "";
-          metaSpan.textContent = `${post.date || ""}${categoryText}`;
+          const dateText = formatDate(post.date);
+          metaSpan.textContent = `${dateText}${categoryText}`;
 
           a.appendChild(titleSpan);
           a.appendChild(metaSpan);
