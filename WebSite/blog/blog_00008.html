@@ -82,7 +82,7 @@
 <p>この記事では、個人で運用している <strong>Discord Bot のアーキテクチャをどう組み直したか</strong> をまとめます。</p>
 <p>やりたかったことはざっくりいうと、</p>
 <ul>
-<li>コマンドやイベントを「<strong>ファイルを追加するだけ</strong>」で拡張できる  </li>
+<li>コマンドやイベントを「 <strong>ファイルを追加するだけ</strong> 」で拡張できる  </li>
 <li>サーバー上では <code>pm2</code> で常駐管理  </li>
 <li><code>git pull</code> ＋シェルスクリプトで <strong>半自動デプロイ</strong>  </li>
 <li>将来的に「管理用 Web ページ」や「API」とも連携しやすくしておく</li>
@@ -126,7 +126,7 @@
 ├── config.json     # トークンや設定（dotenv でも可）
 └── index.js        # エントリポイント（コア）
 </code></pre>
-<p>ポイントは <strong>Comand / Event / Data を完全に分離</strong> したことです。</p>
+<p>ポイントは <strong>Command / Event / Data を完全に分離</strong> したことです。</p>
 <ul>
 <li>index.js(コア)は「モジュールを読み込んでWiringするだけ」</li>
 <li>コマンドの中身は Command/ 下のJSファイルが担当</li>
