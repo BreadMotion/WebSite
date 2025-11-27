@@ -101,7 +101,7 @@
 <h3>2. Safe Mode での起動</h3>
 <ul>
 <li>自分の環境では普通に起動</li>
-<li>別のメンバーでは <strong>Unity が Safe Mode でしか開けない</strong></li>
+<li>別のメンバーでは <strong>UnityがSafe Modeでしか開けない</strong></li>
 </ul>
 <p>という状態に。</p>
 <p>自分側で</p>
@@ -133,7 +133,7 @@
 <li><code>Packages/manifest.json</code> 上は Test Framework のバージョンは揃っている</li>
 <li>自分の別プロジェクトでは同じバージョンで問題なく動作している</li>
 </ul>
-<p>という状況だったため、<strong>パッケージそのものが壊れているわけではない</strong>と判断しました。</p>
+<p>という状況だったため、 <strong>パッケージそのものが壊れているわけではない</strong> と判断しました。</p>
 <hr>
 <h2>原因の候補</h2>
 <p>実際にログを見ながら、原因としてありそうだったものはこのあたりです。</p>
@@ -154,12 +154,12 @@
 </ul>
 </li>
 </ol>
-<p>実際には「どれか 1 つ」というより、<strong>複数の条件が重なって Safe Mode 送りになっていた</strong>感じでした。</p>
+<p>実際には「どれか 1 つ」というより、 <strong>複数の条件が重なって Safe Mode 送りになっていた</strong> 感じでした。</p>
 <hr>
 <h2>実際に行った対処手順</h2>
 <p>ここからは、チームで実際にやってもらった手順を整理して書いておきます。</p>
 <h3>手順 1: 全員の作業手順を統一する</h3>
-<p>まずは、**「Pull したあとに何をするか」**を固定しました。</p>
+<p>まずは、 <strong>「Pull したあとに何をするか」</strong> を固定しました。</p>
 <ol>
 <li><code>git pull</code> する</li>
 <li>Unity を閉じた状態で<ul>
@@ -174,7 +174,7 @@
 <p>これだけで直った人もいるので、<br>できれば Odin 導入時に「手順書セットで配る」のがおすすめです。</p>
 </blockquote>
 <h3>手順 2: Odin および Test Framework の状態確認</h3>
-<p>次に、<strong>問題が残ったメンバー</strong>に対しては、パッケージの状態を確認してもらいました。</p>
+<p>次に、 <strong>問題が残ったメンバー</strong> に対しては、パッケージの状態を確認してもらいました。</p>
 <ul>
 <li><code>Window &gt; Package Manager</code> を開く</li>
 <li><strong>Odin</strong> のバージョンを確認<ul>

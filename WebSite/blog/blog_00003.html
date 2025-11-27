@@ -79,7 +79,7 @@
 
           <section class="post-detail__body markdown-body">
 <p>こんにちは！パン君です。</p>
-<p>インディーズのプロジェクトで <strong>Odin Inspector</strong> を使用して、<br>プランナーが Unity の知見をあまり持っていなくても触れるような、**プロジェクト専用の「コンテキストエディター」**を作成しました。</p>
+<p>インディーズのプロジェクトで <strong>Odin Inspector</strong> を使用して、<br>プランナーが Unity の知見をあまり持っていなくても触れるような <strong>プロジェクト専用の「コンテキストエディター」</strong> を作成しました。</p>
 <p>ここでいう「コンテキストエディター」は、</p>
 <blockquote>
 <p>「ゲーム内の◯◯に関係するデータを、ひとつの画面でまとめて編集できるツール」</p>
@@ -90,7 +90,7 @@
 <li>掲載テキストや説明文</li>
 <li>報酬テーブルやフラグ設定</li>
 </ul>
-<p>など、<strong>まとまりとして扱いたい情報を、一箇所から編集できるようにした</strong>という話になります。</p>
+<p>など <strong>まとまりとして扱いたい情報を、一箇所から編集できるようにした</strong> という話になります。</p>
 <hr>
 <h2>概要</h2>
 <p>もともとプロジェクトでは、データ構造を ScriptableObject や CSV で管理していましたが、</p>
@@ -104,7 +104,7 @@
 <blockquote>
 <p>「◯◯の仕様を触るときは、とりあえずこのウィンドウを開けばいい」</p>
 </blockquote>
-<p>という <strong>専用の編集画面（コンテキストエディター）</strong> を Odin で作りました。</p>
+<p>という <strong>専用の編集画面（コンテキストエディター）</strong> をOdinで作りました。</p>
 <p>やったことをざっくりまとめると：</p>
 <ul>
 <li>Odin の <code>OdinEditorWindow</code> を使って <strong>専用ウィンドウを作成</strong></li>
@@ -140,7 +140,7 @@
 <li>報酬テーブル</li>
 <li>ガイド用のテキスト</li>
 </ul>
-<p>など、別々の ScriptableObject に分かれている情報を、<strong>1つのウィンドウに並べて編集</strong>できるようにしました。</p>
+<p>など、別々の ScriptableObject に分かれている情報を、 <strong>1つのウィンドウに並べて編集</strong> できるようにしました。</p>
 <p>Odin の <code>InlineEditor</code> や <code>TableList</code> を使うことで、</p>
 <ul>
 <li>参照先の ScriptableObject を、その場で展開して編集</li>
@@ -158,7 +158,7 @@
 <li><code>HideIf</code> / <code>ShowIf</code> でそもそも見せない</li>
 <li><code>InfoBox</code> で注意書きを出す</li>
 </ul>
-<p>などの工夫を入れて、<strong>「自由度は残しつつ、壊れにくい UI」にする</strong>ことを意識しました。</p>
+<p>などの工夫を入れて、 <strong>「自由度は残しつつ、壊れにくい UI」にする</strong> ことを意識しました。</p>
 <hr>
 <h2>実装構成</h2>
 <p>技術的な構成は、おおよそこんな感じです。</p>
@@ -198,7 +198,7 @@ public class ContextEditorWindow : OdinEditorWindow
 </code></pre>
 <p>ウィンドウを開くだけで</p>
 <ul>
-<li>指定したScriptableObjectの中身が<strong>同じ画面</strong>に展開される</li>
+<li>指定したScriptableObjectの中身が <strong>同じ画面</strong> に展開される</li>
 <li>その場で値を編集、ほぞんが　反映される
 という状態にできます。</li>
 </ul>
@@ -227,7 +227,7 @@ public class EventConfig : ScriptableObject
 }
 </code></pre>
 <p>これを先ほどのContextEditorWindowのフィールドとして参照しておけば、
-ウィンドウ側でInlineEditorしたときに、<strong>Odinのデコレーション込みで表示されます</strong>。</p>
+ウィンドウ側でInlineEditorしたときに、 <strong>Odinのデコレーション込みで表示されます</strong> 。</p>
 <h3>3. ちょっとしたUX改善</h3>
 <p>例：</p>
 <ul>
