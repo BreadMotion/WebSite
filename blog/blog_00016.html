@@ -23,8 +23,8 @@
   "image": [
     "assets/img/ogp.png"
   ],
-  "datePublished": "2025-11-27T00:00:00.000Z",
-  "dateModified": "2025-11-27T00:00:00.000Z",
+  "datePublished": "2025-11-30T00:00:00.000Z",
+  "dateModified": "2025-11-30T00:00:00.000Z",
   "author": {
     "@type": "Person",
     "name": "PanKUN",
@@ -63,7 +63,7 @@
       <main class="main-container">
         <article class="post-detail reveal-on-scroll">
           <header class="post-detail__header">
-            <p class="post-detail__meta">Thu Nov 27 2025 09:00:00 GMT+0900 (日本標準時) / tool</p>
+            <p class="post-detail__meta">Sun Nov 30 2025 09:00:00 GMT+0900 (日本標準時) / tool</p>
             <h1 class="post-detail__title">ZedのRuleの追加について</h1>
             <p class="post-detail__description">ZedのRuleの使い方をまとめました</p>
             <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=zed">zed</a> <a class="tag" href="../blog.html?tag=ai">ai</a></p>
@@ -84,12 +84,15 @@
 <p><img src="https://breadmotion.github.io/WebSite/assets/img/blog_00016_1.md" alt="image"></p>
 <p>以上です！</p>
 <h2>Ruleを適用する方法</h2>
-<p>Zedの場合、エージェントを動的に変更したりモデルを変更したりできAIコーディングとの親和性が高い影響で、ルールを自動で取り込んでくれたりはしてくれません。
-なのでRuleを適用するには、チャット入力欄で <code>@</code> を入力し、表示されるメニューから適用したいルール名を選択します。</p>
-<pre><code>@自然言語
-</code></pre>
-<p>このようにメッセージに含めるだけで、そのルールが応答に反映されるようになります。
+<p>ZedのRuleは更新が続いており、現在は下記で適用は可能です。</p>
+<ul>
+<li>チャット入力欄で <code>@</code> を入力し、表示されるメニューから適用したいルール名を選択</li>
+<li>作成したRuleの<code>+</code>ボタンから<code>Default Rule</code>を選択</li>
+</ul>
+<p>これでそのルールが応答に反映されるようになります。
 あとはプロンプトの内容やモデルの性質次第でそのルールの寿命が変わるのかなぁと感じています。</p>
+<p>また、本来モデル毎に読み込むファイル名が固定化されている？ものなのですが、
+ZedのこのRuleのいい点として、このRuleウィンドウでRuleを作成しておけばどのモデルに切り替えても適用が可能です。</p>
 <h2><code>@</code> はRule適用だけじゃない！</h2>
 <p><code>@</code> は単にルールを適用するだけでなく、AIとの対話に様々な<strong>コンテキスト</strong>を追加するための強力な機能です。</p>
 <p><code>@</code> を入力すると、ルール以外にも以下のような項目が表示されます。</p>
