@@ -8,7 +8,12 @@ const ROOT = path.join(__dirname, "..");
 const OUTPUT = path.join(ROOT, "sitemap.xml");
 
 // 除外したいディレクトリ
-const IGNORE_DIRS = new Set(["node_modules", ".git"]);
+const IGNORE_DIRS = new Set([
+  "node_modules",
+  ".git",
+  "partials",
+  "content",
+]);
 // 除外したいファイル名
 const IGNORE_FILES = new Set(["sitemap.xml"]);
 
