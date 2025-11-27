@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ja">
+  <head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8" />
+    <title>CSSのリファクタリングを手軽にしてみた | PanKUN Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00014.html" />
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://breadmotion.github.io/WebSite/blog/blog_00014.html"
+  },
+  "headline": "CSSのリファクタリングを手軽にしてみた",
+  "description": "個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。",
+  "image": [
+    "assets/img/ogp.png"
+  ],
+  "datePublished": "2024-06-27T00:00:00.000Z",
+  "dateModified": "2024-06-27T00:00:00.000Z",
+  "author": {
+    "@type": "Person",
+    "name": "PanKUN",
+    "url": "https://breadmotion.github.io/WebSite"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "PanKUN",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
+    }
+  }
+}
+    </script>
+
+    <meta property="og:title" content="CSSのリファクタリングを手軽にしてみた | PanKUN Blog" />
+    <meta property="og:description" content="個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/blog_00014.html" />
+    <meta property="og:image" content="assets/img/ogp.png" />
+    <meta property="og:site_name" content="PanKUN" />
+    <meta property="og:email" content="pankun.dev@gmail.com" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="CSSのリファクタリングを手軽にしてみた" />
+    <meta name="twitter:description" content="個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。" />
+    <meta name="twitter:image" content="assets/img/ogp.png" />
+
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/layout.css" />
+    <link rel="stylesheet" href="../assets/css/blog.css" />
+  </head>
+  <body data-page="blog">
+    <div class="page-shell">
+      <main class="main-container">
+        <article class="post-detail reveal-on-scroll">
+          <header class="post-detail__header">
+            <p class="post-detail__meta">Thu Jun 27 2024 09:00:00 GMT+0900 (日本標準時) / 開発ログ</p>
+            <h1 class="post-detail__title">CSSのリファクタリングを手軽にしてみた</h1>
+            <p class="post-detail__description">個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。</p>
+            <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=css">css</a> <a class="tag" href="../blog.html?tag=refactoring">refactoring</a> <a class="tag" href="../blog.html?tag=nodejs">nodejs</a> <a class="tag" href="../blog.html?tag=automation">automation</a></p>
+          </header>
+
+          <section class="post-detail__body markdown-body">
+<p>こんにちは！パン君です。</p>
+<p>機能追加やデザイン変更を繰り返しているうちにCSSファイルの中に**「これ、どこで使ってるんだっけ？」**というクラスが増えてきました。</p>
+<ul>
+<li>デザイン案Aで書いたけど、結局B案にしたから使わなくなったボタンのクラス</li>
+<li>共通化しようとして作ったけど、結局固有クラスを使ったから放置されたスタイル</li>
+</ul>
+<p>などなど。<br>放置しても動くのですが、ファイルサイズも無駄ですし何より精神衛生上よろしくありません。</p>
+<p>そこで、今回はこれらをリファクタリングすることにしました。</p>
+<hr>
+<h2>手動で探すのは無理</h2>
+<p>とはいえ、CSSファイルに書かれているクラス名を一つずつ検索して「使用箇所ゼロ」を確認するのは苦行です。
+世の中には <code>PurgeCSS</code> などの便利なツールもありますが、ビルドプロセスに組み込むのが少し大変だったり設定が複雑だったりします。</p>
+<p>今回は**「もっと手軽に、ざっくりでいいから不要なものを消したい」**というモチベーションだったので、Node.jsで簡単なスクリプトを書いて検出することにしました。</p>
+<h2>自作スクリプトの方針</h2>
+<ol>
+<li><code>assets/css/</code> フォルダ内のCSSファイルを全部読み込む。</li>
+<li>正規表現でクラス名（<code>.classname</code>）とID名（<code>#idname</code>）を抽出する。</li>
+<li>プロジェクト内の全ファイル（HTML, JS, MDなど）をスキャンする。</li>
+<li>「抽出したクラス名が、どのファイルにも一度も登場しない」場合、それを<strong>未使用候補</strong>として出力する。</li>
+</ol>
+<p>これだけです。厳密な構文解析（AST）などはせず、単純な文字列検索（<code>includes</code>）で判定します。
+その分、「クラス名と偶然同じ単語が文章中にあったら検知漏れする」という弱点はありますが、**「使っていないものを安全に削除する」**という目的には十分です。</p>
+<pre><code class="language-javascript">// tools/find-unused-css.js (抜粋)
+
+const cssContent = fs.readFileSync(cssFile, &#39;utf8&#39;);
+const selectors = extractSelectors(cssContent); // 正規表現で抽出
+
+selectors.forEach(sel =&gt; {
+    let isUsed = false;
+    for (const content of contents) {
+        // 単純な文字列検索
+        if (content.includes(sel.name)) {
+            isUsed = true;
+            break;
+        }
+    }
+
+    if (!isUsed) {
+        console.log(`[UNUSED] ${sel.name}`);
+    }
+});
+</code></pre>
+<h2>実行結果</h2>
+<p>スクリプトを実行してみると、いくつかの未使用クラスが見つかりました。</p>
+<pre><code>Checking assets\css\layout.css...
+  [UNUSED] .section--soft
+
+Checking assets\css\top.css...
+  [UNUSED] .btn-outline
+</code></pre>
+<p>確認してみると、
+<code>section--soft</code> は初期デザイン案で作ったカードのバリエーション、
+<code>btn-outline</code> は枠線のみのボタンで、現在は塗りつぶしボタンしか使っていませんでした。</p>
+<p>これらは完全に不要なので迷わず削除！
+CSSファイルが少しスリムになりました。</p>
+<h2>まとめ</h2>
+<p>リファクタリングというと大掛かりな作業をイメージしがちですが、
+<strong>「気になったら小さなスクリプトを書いてサクッと調べる」</strong>
+というアプローチなら、日常的にコードをきれいに保てそうです。</p>
+<p>自分の手で作ったツールで自分のサイトを改善していくのは、エンジニアならではの楽しみですね。</p>
+
+          </section>
+        </article>
+      </main>
+    </div>
+
+    <script src="../assets/js/layout.js" defer></script>
+    <script src="../assets/js/ui.js"></script>
+
+    <canvas id="menuAnimationCanvas"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="../assets/js/particles.js"></script>
+  </body>
+</html>
