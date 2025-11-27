@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="ja">
+  <head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8" />
+    <title>静的サイトにお問い合わせフォームを実装する (GAS連携) | PanKUN Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00012.html" />
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://breadmotion.github.io/WebSite/blog/blog_00012.html"
+  },
+  "headline": "静的サイトにお問い合わせフォームを実装する (GAS連携)",
+  "description": "GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。",
+  "image": [
+    "assets/img/ogp.png"
+  ],
+  "datePublished": "2025-11-27T00:00:00.000Z",
+  "dateModified": "2025-11-27T00:00:00.000Z",
+  "author": {
+    "@type": "Person",
+    "name": "PanKUN",
+    "url": "https://breadmotion.github.io/WebSite"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "PanKUN",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
+    }
+  }
+}
+    </script>
+
+    <meta property="og:title" content="静的サイトにお問い合わせフォームを実装する (GAS連携) | PanKUN Blog" />
+    <meta property="og:description" content="GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/blog_00012.html" />
+    <meta property="og:image" content="assets/img/ogp.png" />
+    <meta property="og:site_name" content="PanKUN" />
+    <meta property="og:email" content="pankun.dev@gmail.com" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="静的サイトにお問い合わせフォームを実装する (GAS連携)" />
+    <meta name="twitter:description" content="GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。" />
+    <meta name="twitter:image" content="assets/img/ogp.png" />
+
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/layout.css" />
+    <link rel="stylesheet" href="../assets/css/blog.css" />
+  </head>
+  <body data-page="blog">
+    <div class="page-shell">
+      <main class="main-container">
+        <article class="post-detail reveal-on-scroll">
+          <header class="post-detail__header">
+            <p class="post-detail__meta">Thu Nov 27 2025 09:00:00 GMT+0900 (日本標準時) / 技術メモ</p>
+            <h1 class="post-detail__title">静的サイトにお問い合わせフォームを実装する (GAS連携)</h1>
+            <p class="post-detail__description">GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。</p>
+            <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=gas">gas</a> <a class="tag" href="../blog.html?tag=javascript">javascript</a> <a class="tag" href="../blog.html?tag=contact-form">contact-form</a></p>
+          </header>
+
+          <section class="post-detail__body markdown-body">
+<h2>はじめに</h2>
+<p>このポートフォリオサイトは GitHub Pages でホスティングしている静的なWebサイトです。<br>サーバーサイドの処理（PHPやNode.jsサーバーなど）が使えない環境なので、通常の方法では「お問い合わせフォーム」のような動的な機能を持たせることができません。</p>
+<p>そこで今回は、<strong>Google Apps Script (GAS)</strong> を簡易的なバックエンドAPIとして利用し、完全無料でメール送信機能を実装しました。</p>
+<h2>なぜ GAS (Google Apps Script) なのか</h2>
+<p>静的サイトでフォームを実装する方法はいくつかあります。</p>
+<ol>
+<li><strong>Formspree などの外部サービスを使う</strong><ul>
+<li>簡単だが、無料枠に制限があったり、送信後にサービスのページにリダイレクトされたりすることがある。</li>
+</ul>
+</li>
+<li><strong>Google Forms を埋め込む</strong><ul>
+<li>一番簡単だが、デザインがサイトと統一できない。</li>
+</ul>
+</li>
+<li><strong>AWS Lambda + API Gateway</strong><ul>
+<li>柔軟だが、構築が少し手間でお金がかかる可能性も。</li>
+</ul>
+</li>
+<li><strong>GAS (Google Apps Script)</strong><ul>
+<li>無料で使える。</li>
+<li>JavaScriptで書ける。</li>
+<li><code>GmailApp</code> を使って簡単にメール送信できる。</li>
+<li>Web APIとして公開できる。</li>
+</ul>
+</li>
+</ol>
+<p>今回は「自前でコントロールしたい」「コストをかけたくない」「JavaScriptで完結させたい」という理由から、<strong>GAS</strong> を採用しました。</p>
+<hr>
+<h2>バックエンド実装 (GAS)</h2>
+<p>まずはバックエンドとなる GAS のコードです。<br>フォームから POST されたデータを受け取り、自分のメールアドレスに送信する処理を書きます。</p>
+<h3>ポイント</h3>
+<ul>
+<li><code>doPost(e)</code> 関数で POST リクエストを受け取る。</li>
+<li><code>e.postData.contents</code> をパースしてデータを取り出す。</li>
+<li><code>GmailApp.sendEmail</code> でメールを送る。</li>
+<li><strong>CORS対策</strong> として、適切なヘッダーを返す必要がある。</li>
+</ul>
+<p>実際のコード（抜粋）はこんな感じです。</p>
+<pre><code class="language-javascript">function doPost(e) {
+  // CORS対策ヘッダー
+  const headers = {
+    &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,
+    &quot;Access-Control-Allow-Methods&quot;: &quot;POST&quot;,
+    &quot;Access-Control-Allow-Headers&quot;: &quot;Content-Type&quot;
+  };
+
+  try {
+    // データのパース
+    let data = {};
+    if (e.postData &amp;&amp; e.postData.contents) {
+        data = JSON.parse(e.postData.contents);
+    } else {
+        data = e.parameter;
+    }
+
+    // メール送信
+    const recipient = &quot;my-email@example.com&quot;; // 自分のアドレス
+    const subject = &quot;お問い合わせがありました&quot;;
+    const body = `名前: ${data.name}\n内容: ${data.message}`;
+
+    GmailApp.sendEmail(recipient, subject, body, {
+        replyTo: data.email
+    });
+
+    // 成功レスポンス
+    const output = ContentService.createTextOutput(JSON.stringify({ result: &quot;success&quot; }));
+    output.setMimeType(ContentService.MimeType.JSON);
+    return output;
+
+  } catch (error) {
+    // エラーレスポンス
+    const output = ContentService.createTextOutput(JSON.stringify({ result: &quot;error&quot; }));
+    output.setMimeType(ContentService.MimeType.JSON);
+    return output;
+  }
+}
+</code></pre>
+<p>これを「ウェブアプリ」としてデプロイし、アクセス権限を「全員 (Anyone)」に設定することで、外部から叩ける API URL が発行されます。</p>
+<hr>
+<h2>フロントエンド実装 (JavaScript)</h2>
+<p>次に、この API を叩くフロントエンド側の処理です。<br><code>fetch</code> API を使って非同期送信を行います。</p>
+<h3>CORSのエラーを回避するコツ</h3>
+<p>GAS に対して <code>application/json</code> で POST すると、CORS (Cross-Origin Resource Sharing) のプリフライトリクエスト (OPTIONS) が発生し、GAS がうまく返答できずにエラーになることがあります。</p>
+<p>これを回避するために、あえて <code>text/plain</code> としてデータを送信する方法を採用しました。</p>
+<pre><code class="language-javascript">const GAS_API_URL = &quot;https://script.google.com/macros/s/xxxx/exec&quot;;
+
+form.addEventListener(&quot;submit&quot;, async (e) =&gt; {
+    e.preventDefault();
+    
+    // 入力データの収集
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    try {
+        // text/plain で送信するのがコツ
+        const response = await fetch(GAS_API_URL, {
+            method: &quot;POST&quot;,
+            body: JSON.stringify(data),
+            headers: {
+                &quot;Content-Type&quot;: &quot;text/plain;charset=utf-8&quot;,
+            },
+        });
+
+        const resJson = await response.json();
+        if (resJson.result === &quot;success&quot;) {
+            alert(&quot;送信しました！&quot;);
+            form.reset();
+        }
+    } catch (err) {
+        alert(&quot;送信に失敗しました&quot;);
+    }
+});
+</code></pre>
+<p>GAS側では <code>JSON.parse(e.postData.contents)</code> で受け取ることで、問題なく JSON として扱えます。</p>
+<hr>
+<h2>デザインの調整</h2>
+<p>機能だけでなく、見た目もサイトのトーン＆マナーに合わせました。</p>
+<ul>
+<li>必須項目のバッジ表示</li>
+<li>送信ボタンのローディングアニメーション</li>
+<li>スマホでの入力しやすさ（<code>input type=&quot;email&quot;</code> や <code>type=&quot;tel&quot;</code> の活用）</li>
+</ul>
+<p>特に送信ボタンは、押した後に「送信中...」であることが視覚的に分かるように、CSSアニメーションでスピナーを表示するようにしました。ユーザーが何度も連打してしまうのを防ぐ効果もあります。</p>
+<h2>まとめ</h2>
+<p>サーバーレスな環境でも、GAS を組み合わせることで本格的なお問い合わせフォームが実装できました。</p>
+<ul>
+<li><strong>GAS</strong> は無料かつ手軽なバックエンドとして優秀。</li>
+<li><code>fetch</code> の <code>Content-Type</code> を工夫することで CORS 問題を回避できる。</li>
+</ul>
+<p>これで、ポートフォリオサイトから直接お仕事の相談を受け付ける準備が整いました！</p>
+
+          </section>
+        </article>
+      </main>
+    </div>
+
+    <script src="../assets/js/layout.js" defer></script>
+    <script src="../assets/js/ui.js"></script>
+
+    <canvas id="menuAnimationCanvas"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="../assets/js/menuAnimation.js"></script>
+  </body>
+</html>

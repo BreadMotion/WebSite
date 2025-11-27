@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="ja">
+  <head prefix="og: https://ogp.me/ns#">
+    <meta charset="UTF-8" />
+    <title>ポートフォリオの詳細表示をモーダル化してUXを改善する | PanKUN Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="ポートフォリオサイトの作品詳細を、ページ遷移なしで閲覧できるようにモーダルウィンドウ化しました。DOMParserを使ったHTML取得や、実装時のハマりポイントについて。" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00013.html" />
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://breadmotion.github.io/WebSite/blog/blog_00013.html"
+  },
+  "headline": "ポートフォリオの詳細表示をモーダル化してUXを改善する",
+  "description": "ポートフォリオサイトの作品詳細を、ページ遷移なしで閲覧できるようにモーダルウィンドウ化しました。DOMParserを使ったHTML取得や、実装時のハマりポイントについて。",
+  "image": [
+    "assets/img/ogp.png"
+  ],
+  "datePublished": "2025-11-27T00:00:00.000Z",
+  "dateModified": "2025-11-27T00:00:00.000Z",
+  "author": {
+    "@type": "Person",
+    "name": "PanKUN",
+    "url": "https://breadmotion.github.io/WebSite"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "PanKUN",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
+    }
+  }
+}
+    </script>
+
+    <meta property="og:title" content="ポートフォリオの詳細表示をモーダル化してUXを改善する | PanKUN Blog" />
+    <meta property="og:description" content="ポートフォリオサイトの作品詳細を、ページ遷移なしで閲覧できるようにモーダルウィンドウ化しました。DOMParserを使ったHTML取得や、実装時のハマりポイントについて。" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/blog_00013.html" />
+    <meta property="og:image" content="assets/img/ogp.png" />
+    <meta property="og:site_name" content="PanKUN" />
+    <meta property="og:email" content="pankun.dev@gmail.com" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="ポートフォリオの詳細表示をモーダル化してUXを改善する" />
+    <meta name="twitter:description" content="ポートフォリオサイトの作品詳細を、ページ遷移なしで閲覧できるようにモーダルウィンドウ化しました。DOMParserを使ったHTML取得や、実装時のハマりポイントについて。" />
+    <meta name="twitter:image" content="assets/img/ogp.png" />
+
+    <link rel="stylesheet" href="../assets/css/base.css" />
+    <link rel="stylesheet" href="../assets/css/layout.css" />
+    <link rel="stylesheet" href="../assets/css/blog.css" />
+  </head>
+  <body data-page="blog">
+    <div class="page-shell">
+      <main class="main-container">
+        <article class="post-detail reveal-on-scroll">
+          <header class="post-detail__header">
+            <p class="post-detail__meta">Thu Nov 27 2025 09:00:00 GMT+0900 (日本標準時) / UI/UX</p>
+            <h1 class="post-detail__title">ポートフォリオの詳細表示をモーダル化してUXを改善する</h1>
+            <p class="post-detail__description">ポートフォリオサイトの作品詳細を、ページ遷移なしで閲覧できるようにモーダルウィンドウ化しました。DOMParserを使ったHTML取得や、実装時のハマりポイントについて。</p>
+            <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=javascript">javascript</a> <a class="tag" href="../blog.html?tag=ui-ux">ui-ux</a> <a class="tag" href="../blog.html?tag=modal">modal</a> <a class="tag" href="../blog.html?tag=fetch">fetch</a></p>
+          </header>
+
+          <section class="post-detail__body markdown-body">
+<h2>ページ遷移のストレスをなくしたい</h2>
+<p>これまで、このサイトの「ポートフォリオ一覧」から作品をクリックすると、詳細ページ（<code>portfolio/xxxx.html</code>）に遷移する仕様になっていました。</p>
+<p>しかし、ポートフォリオを見に来てくれた人は「<strong>いろいろな作品をザッピングしたい</strong>」はずです。
+「クリックして詳細へ移動」→「ブラウザバックで戻る」→「またスクロールして次の作品へ...」という操作は、地味ながらストレスになります。</p>
+<p>そこで、<strong>一覧ページを維持したまま、詳細情報をモーダルウィンドウで重ねて表示する</strong>形に改修しました。</p>
+<hr>
+<h2>実装の方針</h2>
+<p>このサイトはビルドツールを使って、Markdownファイルから静的なHTMLファイルを生成しています。
+ポートフォリオの詳細ページも、すでに <code>portfolio/work_01.html</code> のような形で実ファイルとして存在しています。</p>
+<p>JSONデータにすべての情報を詰め込んでJSで構築する方法もありますが、
+<strong>「すでに生成されている詳細ページのHTMLを再利用する」</strong> 方が、SEO的にもビルドフロー的にも無駄がありません。</p>
+<h3>処理の流れ</h3>
+<ol>
+<li>ユーザーがカードをクリック。</li>
+<li>JSで詳細ページのURL (<code>portfolio/xxxx.html</code>) を <code>fetch</code> する。</li>
+<li>取得したHTMLテキストをパースして、中身のコンテンツ部分だけを取り出す。</li>
+<li>モーダルの中にポイッと入れる。</li>
+</ol>
+<hr>
+<h2>技術的なポイント</h2>
+<h3>1. HTMLをfetchしてパースする</h3>
+<p><code>fetch</code> で取得できるのは単なる「文字列」です。これをDOM要素として扱うために <code>DOMParser</code> を使います。</p>
+<pre><code class="language-javascript">// HTMLを取得
+const res = await fetch(contentPath);
+const text = await res.text();
+
+// 文字列をHTMLドキュメントとしてパース
+const parser = new DOMParser();
+const doc = parser.parseFromString(text, &quot;text/html&quot;);
+
+// 必要な部分（.work-detail）だけを抜き出す
+const detail = doc.querySelector(&quot;.work-detail&quot;);
+
+// モーダルに挿入
+modalContent.appendChild(detail);
+</code></pre>
+<p>これで、<code>iframe</code> を使わずにシームレスにコンテンツを埋め込むことができます。</p>
+<h3>2. 相対パスの罠</h3>
+<p>詳細ページは <code>portfolio/</code> ディレクトリ配下にある前提でビルドされているため、画像などのパスが <code>../assets/img/...</code> のようになっています。
+これをトップページ（ルート階層）のモーダルでそのまま表示すると、リンク切れになってしまいます。</p>
+<p>そこで、取り出したDOMに対してパスの書き換え処理を行いました。</p>
+<pre><code class="language-javascript">// &quot;../&quot; で始まるパスを修正する
+function fixPaths(element) {
+  const nodes = element.querySelectorAll(&#39;[src], [href]&#39;);
+  nodes.forEach((node) =&gt; {
+    // 属性値を取得して &quot;../&quot; を削除するなど置換処理
+    // ...
+  });
+}
+</code></pre>
+<hr>
+<h2>ハマったポイント：中身が表示されない？</h2>
+<p>実装していざ動かしてみると、モーダルは開くのに<strong>中身が真っ白</strong>という現象が発生しました。
+開発者ツールで見ると要素は存在しているのに、画面には映っていません。</p>
+<h3>原因：スクロールアニメーション</h3>
+<p>原因は、詳細ページ側で使っていた「スクロールしたらふわっと表示する」ためのクラス <code>reveal-on-scroll</code> でした。</p>
+<pre><code class="language-css">.reveal-on-scroll {
+    opacity: 0; /* 初期状態は透明 */
+    transform: translateY(20px);
+    /* スクロールして画面内に入ったら .is-visible が付いて不透明になる */
+}
+</code></pre>
+<p>詳細ページとして表示するときはスクロール検知スクリプトが動くので問題ないのですが、
+モーダル内に挿入されたときはそのスクリプトが動かず、<strong>永遠に <code>opacity: 0</code> のまま待機</strong>してしまっていたのです。</p>
+<h3>解決策</h3>
+<p>モーダルに挿入する前に、このクラスを削除するようにしました。</p>
+<pre><code class="language-javascript">const detail = doc.querySelector(&quot;.work-detail&quot;);
+// アニメーション用クラスを削除して強制表示
+detail.classList.remove(&quot;reveal-on-scroll&quot;);
+</code></pre>
+<p>これで無事に表示されるようになりました。</p>
+<hr>
+<h2>まとめ</h2>
+<p>今回の改修で、作品の閲覧体験（UX）はかなり向上したと思います。</p>
+<ul>
+<li>ページ遷移がないのでサクサク見れる。</li>
+<li>一覧のスクロール位置が維持されるので、続きから探しやすい。</li>
+<li>詳細ページへの直接リンク（SEO）も維持されている。</li>
+</ul>
+<p>「静的サイトだから」と諦めず、JavaScriptをうまく使うことで、動的サイトのようなリッチな挙動を実現できました。</p>
+
+          </section>
+        </article>
+      </main>
+    </div>
+
+    <script src="../assets/js/layout.js" defer></script>
+    <script src="../assets/js/ui.js"></script>
+
+    <canvas id="menuAnimationCanvas"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="../assets/js/menuAnimation.js"></script>
+  </body>
+</html>
