@@ -10,18 +10,16 @@ const repulsionStrength = 20;
 let isMouseInsideBrowserWindow = false;
 
 function setup() {
-  // ページの全体の高さを取得
-  let pageHeight = Math.max(
-    document.body.scrollHeight,
-    document.documentElement.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.offsetHeight,
-    document.body.clientHeight,
-    document.documentElement.clientHeight,
-  );
+  // スクロールバーを含まないビューポートの幅を取得
+  let w = document.documentElement.clientWidth;
+  // 背景固定 (fixed) なので、ページ全体の高さではなくウィンドウの高さを使用
+  let h = windowHeight;
 
-  animationCanvas = createCanvas(windowWidth, pageHeight);
+  animationCanvas = createCanvas(w, h);
   animationCanvas.position(0, 0);
+
+  // position: fixed を明示的に設定（p5.jsのデフォルト動作による上書き防止）
+  animationCanvas.style("position", "fixed");
   animationCanvas.style("z-index", "-1");
   animationCanvas.style("pointer-events", "none");
 
@@ -40,15 +38,10 @@ function draw() {
 }
 
 function windowResized() {
-  let pageHeight = Math.max(
-    document.body.scrollHeight,
-    document.documentElement.scrollHeight,
-    document.body.offsetHeight,
-    document.documentElement.offsetHeight,
-    document.body.clientHeight,
-    document.documentElement.clientHeight,
-  );
-  resizeCanvas(windowWidth, pageHeight);
+  // リサイズ時もスクロールバーを含まない幅で計算
+  let w = document.documentElement.clientWidth;
+  let h = windowHeight;
+  resizeCanvas(w, h);
 }
 
 class Particle {
@@ -88,25 +81,29 @@ class Particle {
     this.pos.add(this.vel);
     this.acc.mult(0);
 
+    // 画面端の判定と位置補正
+    // (ウィンドウリサイズでキャンバスが小さくなった場合にパーティクルが外に残らないよう constrain で補正)
     if (
       this.pos.x > width - this.size / 2 ||
       this.pos.x < this.size / 2
     ) {
       this.vel.x *= -1;
-      if (this.pos.x > width - this.size / 2)
-        this.pos.x = width - this.size / 2;
-      if (this.pos.x < this.size / 2)
-        this.pos.x = this.size / 2;
+      this.pos.x = constrain(
+        this.pos.x,
+        this.size / 2,
+        width - this.size / 2,
+      );
     }
     if (
       this.pos.y > height - this.size / 2 ||
       this.pos.y < this.size / 2
     ) {
       this.vel.y *= -1;
-      if (this.pos.y > height - this.size / 2)
-        this.pos.y = height - this.size / 2;
-      if (this.pos.y < this.size / 2)
-        this.pos.y = this.size / 2;
+      this.pos.y = constrain(
+        this.pos.y,
+        this.size / 2,
+        height - this.size / 2,
+      );
     }
   }
 

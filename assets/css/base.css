@@ -59,12 +59,13 @@ html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    overflow-x: hidden; /* 横スクロール防止 */
 }
 
 body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden;
+    overflow-x: hidden; /* 横スクロール防止 */
     font-family: var(--font-body);
     line-height: 1.6;
     color: var(--color-text);
@@ -88,6 +89,8 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-wrap: break-word; /* 長い単語の折り返し */
+    word-break: break-word; /* 長い単語の折り返し(互換性) */
 }
 
 h1,
@@ -197,6 +200,7 @@ button {
     margin: 0 auto;
     padding: 2.5rem 1.25rem;
     flex-grow: 1;
+    width: 100%; /* コンテナのはみ出し防止 */
 }
 
 .text-muted {
