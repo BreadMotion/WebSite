@@ -17,6 +17,24 @@ const IGNORE_DIRS = new Set([
 // 除外したいファイル名
 const IGNORE_FILES = new Set(["sitemap.xml"]);
 
+// XMLエスケープ関数
+function escapeXml(unsafe) {
+  return unsafe.replace(/[<>&'"]/g, function (c) {
+    switch (c) {
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
+      case "&":
+        return "&amp;";
+      case "'":
+        return "&apos;";
+      case '"':
+        return "&quot;";
+    }
+  });
+}
+
 function collectHtmlFiles(dir, list, baseDir) {
   const entries = fs.readdirSync(dir, {
     withFileTypes: true,
@@ -48,10 +66,16 @@ collectHtmlFiles(ROOT, htmlFiles, ROOT);
 
 // index.html は /WebSite/ として、それ以外はそのまま
 function toUrl(relPath) {
-  if (relPath === "index.html") {
+  // パスセグメントごとにURLエンコード（スペースや日本語対応）
+  const encodedPath = relPath
+    .split("/")
+    .map(encodeURIComponent)
+    .join("/");
+
+  if (encodedPath === "index.html") {
     return `${BASE_URL}/`;
   }
-  return `${BASE_URL}/${relPath}`;
+  return `${BASE_URL}/${encodedPath}`;
 }
 
 // ISO8601 日付（lastmod 用）
@@ -65,7 +89,9 @@ const urlEntries = htmlFiles.map((relPath) => {
   const stat = fs.statSync(filePath);
   const lastmod = formatDate(stat.mtime);
 
-  const loc = toUrl(relPath);
+  // XMLとして不正な文字をエスケープ
+  const loc = escapeXml(toUrl(relPath));
+
   return `  <url>
     <loc>${loc}</loc>
     <lastmod>${lastmod}</lastmod>
@@ -84,5 +110,7 @@ fs.writeFileSync(OUTPUT, xml, "utf8");
 console.log(`sitemap generated: ${OUTPUT}`);
 console.log("URLs:");
 for (const rel of htmlFiles) {
+  // コンソール表示用はデコードしたままでも見やすいが、
+  // 実際のXMLに入る値を確認するためURL生成関数を通す
   console.log(" -", toUrl(rel));
 }
