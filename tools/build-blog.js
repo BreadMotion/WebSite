@@ -12,6 +12,9 @@ const LIST_JSON = path.join(
   "blogList.json",
 );
 
+// サイトのベースURL（末尾スラッシュなし）
+const BASE_URL = "https://breadmotion.github.io/WebSite";
+
 function escapeHtml(str = "") {
   return String(str).replace(/[&<>"]/g, (c) => {
     return {
@@ -31,6 +34,7 @@ function createHtml({
   category,
   tags = [],
   bodyHtml,
+  thumbnail,
 }) {
   const safeTitle = escapeHtml(title);
   const safeDesc = escapeHtml(description || "");
@@ -60,6 +64,50 @@ function createHtml({
         .join(" ")}</p>`
     : "";
 
+  // URL関連の構築
+  const canonicalUrl = `${BASE_URL}/blog/${id}.html`;
+
+  // 画像URLの構築（thumbnailがあればそれを優先、なければデフォルトOGP）
+  // 外部URL(httpから始まる)の場合はそのまま、そうでなければサイト内パスとして結合
+  let imageUrl =
+    thumbnail || `${BASE_URL}/assets/img/ogp.png`;
+  if (!imageUrl.startsWith("http")) {
+    // 相対パスっぽく書かれている場合などを考慮し、絶対パス化を試みる
+    // ここでは単純に BASE_URL + パス としたいが、
+    // thumbnail に "../assets/..." のような相対パスが入っている可能性も考慮
+    // いったんシンプルに "http" で始まらなければ BASE_URL/assets/img/ogp.png をデフォルトとする運用が無難だが
+    // 今回は thumbnail が空ならデフォルト、値があればそのまま使う（利用者が絶対パスを書くかどうかに委ねるのが安全）
+    // ただしデフォルト画像は確実に絶対パスにする
+  }
+
+  // 構造化データ (JSON-LD)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": canonicalUrl,
+    },
+    headline: title,
+    description: description || "",
+    image: [imageUrl],
+    datePublished: date,
+    dateModified: date, // 更新日があればそれを使うが、現状データにはないので公開日と同じ
+    author: {
+      "@type": "Person",
+      name: "PanKUN",
+      url: BASE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "PanKUN",
+      logo: {
+        "@type": "ImageObject",
+        url: `${BASE_URL}/assets/img/favicon-192.png`,
+      },
+    },
+  };
+
   return `<!doctype html>
 <html lang="ja">
   <head prefix="og: https://ogp.me/ns#">
@@ -68,17 +116,26 @@ function createHtml({
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="${safeDesc}" />
 
+    <!-- Canonical -->
+    <link rel="canonical" href="${canonicalUrl}" />
+
+    <!-- JSON-LD -->
+    <script type="application/ld+json">
+    ${JSON.stringify(jsonLd, null, 2)}
+    </script>
+
     <meta property="og:title" content="${safeTitle} | PanKUN Blog" />
     <meta property="og:description" content="${safeDesc}" />
-    <meta property="og:type" content="blog" />
-    <meta property="og:image" content="../assets/img/ogp.png" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="${canonicalUrl}" />
+    <meta property="og:image" content="${imageUrl}" />
     <meta property="og:site_name" content="PanKUN" />
     <meta property="og:email" content="pankun.dev@gmail.com" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${safeTitle}" />
     <meta name="twitter:description" content="${safeDesc}" />
-    <meta name="twitter:image" content="https://breadmotion.github.io/WebSite/assets/img/ogp.png" />
+    <meta name="twitter:image" content="${imageUrl}" />
 
     <link rel="stylesheet" href="../assets/css/base.css" />
     <link rel="stylesheet" href="../assets/css/layout.css" />
@@ -155,7 +212,7 @@ ${bodyHtml}
 
     const relPath = `blog/${id}.html`;
 
-    // 個別記事 HTML を書き出し（tags を渡す）
+    // 個別記事 HTML を書き出し（tags, thumbnail を渡す）
     const html = createHtml({
       id,
       title,
@@ -164,6 +221,7 @@ ${bodyHtml}
       category,
       tags,
       bodyHtml: htmlBody,
+      thumbnail,
     });
 
     fs.writeFileSync(
