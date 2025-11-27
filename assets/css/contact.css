@@ -1,157 +1,177 @@
 /* ==========================================================================
-   1. ページヘッダー
-   ========================================================================== */
-.page-header {
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--color-border-soft);
-}
-
-.page-header h1 {
-    margin: 0 0 0.5rem;
-    font-size: 2rem;
-    color: var(--color-heading);
-    line-height: 1.2;
-}
-
-.page-header p {
-    margin: 0 0 0.8rem;
-    color: var(--color-text-muted);
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-.page-header a {
-    color: var(--color-accent);
-    text-decoration: none;
-    font-size: 1rem;
-}
-
-/* ==========================================================================
-   2. フォーム本体
+   1. フォームレイアウト
    ========================================================================== */
 .contact-form {
-    max-width: 38rem;
-    margin: 0 auto 2.5rem;
-    background: var(--color-panel);
-    border-radius: var(--radius-lg);
-    padding: 2.5rem;
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-lg);
+    max-width: 40rem; /* 640px */
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
 }
 
 .form-field {
-    margin-bottom: 1.25rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
 }
 
-.form-field label {
-    font-size: 0.95rem;
-    color: var(--color-text);
-    font-weight: 500;
-}
-
-.form-field input,
-.form-field textarea {
-    padding: 0.8rem 1rem;
-    border-radius: var(--radius-md);
-    border: 1px solid var(--color-border);
-    background: var(--color-surface);
-    color: var(--color-text);
-    font-size: 1rem;
-    transition: var(--transition-smooth);
-}
-
-.form-field textarea {
-    min-height: 8rem;
-    resize: vertical;
-}
-
-.form-field input::placeholder,
-.form-field textarea::placeholder {
-    color: var(--color-text-muted);
-    opacity: 0.7;
-}
-
-.form-field input:focus,
-.form-field textarea:focus {
-    outline: none;
-    border-color: var(--color-accent);
-    box-shadow: var(--shadow-glow);
-    background: var(--color-panel);
-}
-
-.form-actions {
-    margin-top: 2rem;
-    text-align: right;
-}
-
-.form-actions button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.8rem 1.6rem;
-    border-radius: var(--radius-md);
-    font-size: 1.05rem;
+/* ==========================================================================
+   2. ラベル・バッジ
+   ========================================================================== */
+.form-label {
     font-weight: 600;
-    border: 1px solid transparent;
-    cursor: pointer;
-    text-decoration: none;
-    background: linear-gradient(
-        135deg,
-        var(--color-accent-dark) 0%,
-        var(--color-accent) 100%
-    );
-    border-color: var(--color-accent-dark);
-    color: #fff;
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-smooth);
-}
-
-.form-actions button:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
-    background: linear-gradient(
-        135deg,
-        var(--color-accent) 0%,
-        var(--color-accent-dark) 100%
-    );
-}
-
-.contact-result {
-    margin-top: 1.5rem;
+    color: var(--color-heading);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-size: 0.95rem;
-    text-align: center;
-    padding: 0.8rem 1rem;
-    border-radius: var(--radius-md);
 }
 
-.contact-result--ok {
-    color: #84cc16;
-    background: rgba(132, 204, 22, 0.15);
-    border: 1px solid #84cc16;
+.badge-required,
+.badge-optional {
+    font-size: 0.75rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: var(--radius-sm);
+    font-weight: normal;
+    line-height: 1.2;
 }
 
-.contact-result--ng {
+.badge-required {
+    background: rgba(239, 68, 68, 0.15); /* Red-ish */
     color: #ef4444;
-    background: rgba(239, 68, 68, 0.15);
-    border: 1px solid #ef4444;
+    border: 1px solid rgba(239, 68, 68, 0.2);
+}
+
+.badge-optional {
+    background: var(--color-surface);
+    color: var(--color-text-muted);
+    border: 1px solid var(--color-border);
 }
 
 /* ==========================================================================
-   3. レスポンシブデザイン
+   3. 入力フィールド
    ========================================================================== */
-@media (max-width: 768px) {
+.input {
+    width: 100%;
+    background: var(--color-bg); /* 入力欄は少し暗く */
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: var(--color-text);
+    transition: var(--transition-smooth);
+    font-family: inherit;
+}
+
+.input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(var(--color-accent-rgb), 0.2);
+    background: var(--color-surface);
+}
+
+.input::placeholder {
+    color: var(--color-text-muted);
+    opacity: 0.6;
+}
+
+.input--textarea {
+    resize: vertical;
+    min-height: 8rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   4. ボタンエリア
+   ========================================================================== */
+.form-actions {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-submit {
+    min-width: 12rem;
+    padding: 0.9rem 2rem;
+    font-size: 1.1rem;
+    position: relative; /* ローディングアイコン用 */
+}
+
+/* ローディング時の状態 */
+.btn-submit.is-loading {
+    color: transparent; /* 文字を隠す */
+    pointer-events: none;
+    opacity: 0.8;
+}
+
+.btn-loading-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.5rem;
+    height: 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.btn-submit.is-loading .btn-loading-icon {
+    opacity: 1;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* ==========================================================================
+   5. 結果メッセージ
+   ========================================================================== */
+.contact-result {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    text-align: center;
+    display: none; /* 初期非表示 */
+}
+
+.contact-result.success {
+    display: block;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+    color: #10b981;
+}
+
+.contact-result.error {
+    display: block;
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+/* リンクテキスト装飾（メールアドレスリンクなど） */
+.link-text {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+.link-text:hover {
+    color: var(--color-accent);
+}
+
+/* ==========================================================================
+   6. レスポンシブ
+   ========================================================================== */
+@media (max-width: 600px) {
     .contact-form {
-        padding: 1.5rem;
+        gap: 1.2rem;
     }
-    .form-actions {
-        text-align: center;
-    }
-    .form-actions button {
+    .btn-submit {
         width: 100%;
     }
 }

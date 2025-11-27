@@ -1,107 +1,110 @@
-function paraValue(paraName) {
-  var str = location.search.split("?");
-  if (str.length < 2) {
-    return "";
-  }
-
-  var params = str[1].split("&");
-  for (var i = 0; i < params.length; i++) {
-    var paraPair = params[i].split("=");
-    if (paraPair[0] === paraName && paraPair.length === 2) {
-      return decodeURIComponent(paraPair[1]);
-    }
-  }
-  return "";
-}
-
-function init() {
-  var param = paraValue("address");
-  if (param) {
-    var emailInput = document.getElementById("email");
-    if (emailInput) {
-      emailInput.value = param;
-    }
-  }
-}
-
 document.addEventListener("DOMContentLoaded", () => {
+  // =================================================================
+  // 設定: Google Apps Script (GAS) のデプロイURL
+  // =================================================================
+  const GAS_API_URL =
+    "https://script.google.com/macros/s/AKfycbxeCtBCIfYuaef4XG0PrmoyFnBqbx02IjX_ecNd-6Qu-GETA_7vLcVS-k2y0qP5H6EYZw/exec";
+
   const form = document.getElementById("contactForm");
-  const result = document.getElementById("contactResult");
-  if (!form || !result) return;
-  const endpoint = window.CONTACT_API_ENDPOINT || "";
+  const submitBtn = form?.querySelector(
+    "button[type='submit']",
+  );
+  const resultDiv =
+    document.getElementById("contactResult");
+
+  if (!form || !submitBtn || !resultDiv) return;
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const name = form.name.value.trim();
-    const email = form.email.value.trim();
-    const phone = form.phone.value.trim();
-    const message = form.message.value.trim();
-
-    if (!name || !email || !message || !phone) {
-      result.textContent = "未入力の項目があります。";
-      result.style.color = "red";
+    // 1. URL設定チェック
+    if (!GAS_API_URL) {
+      showResult(
+        "error",
+        "現在、お問い合わせフォームのメンテナンス中です。お手数ですがメール（pankun.eng@gmail.com）にてご連絡ください。",
+      );
+      console.error("Error: GAS_API_URL is empty.");
       return;
     }
 
-    if (!endpoint) {
-      console.error("CONTACT_API_ENDPOINT is not set.");
-      result.textContent =
-        "送信先の設定に問題があります。時間をおいてお試しください。";
-      result.style.color = "red";
+    // 2. バリデーション (HTML5標準)
+    if (!form.checkValidity()) {
+      form.reportValidity();
       return;
     }
 
-    result.textContent = "送信中…";
-    result.style.color = "";
-    const submitButton = form.querySelector(
-      "button[type='submit']",
-    );
-    if (submitButton) {
-      submitButton.disabled = true;
-      submitButton.textContent = "送信中…";
-    }
+    // 3. ローディング表示
+    setLoading(true);
+
+    // 4. データ収集
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
     try {
-      const res = await fetch(endpoint, {
+      // 5. 送信
+      const response = await fetch(GAS_API_URL, {
         method: "POST",
+        body: JSON.stringify(data),
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "text/plain;charset=utf-8",
         },
-        body: JSON.stringify({
-          name,
-          email,
-          phone,
-          message,
-        }),
       });
 
-      let data = {};
-      try {
-        data = await res.json();
-      } catch (_) {}
-
-      if (!res.ok || (data && data.ok === false)) {
-        const msg =
-          (data && data.error) ||
-          `サーバーエラーが発生しました (HTTP ${res.status})`;
-        throw new Error(msg);
+      if (!response.ok) {
+        throw new Error(`Server Error: ${response.status}`);
       }
 
-      result.textContent =
-        "送信しました。ご連絡ありがとうございます！";
-      result.style.color = "green";
-      form.reset();
-    } catch (err) {
-      console.error("Contact API error:", err);
-      result.textContent =
-        "送信に失敗しました。時間をおいて再度お試しください。";
-      result.style.color = "red";
+      // レスポンス解析
+      const resJson = await response.json();
+
+      if (resJson.result === "success") {
+        showResult(
+          "success",
+          "お問い合わせありがとうございます。送信が完了しました。\n確認のため、自動返信メールなどは送信しておりませんのでご了承ください。",
+        );
+        form.reset();
+      } else {
+        throw new Error(
+          resJson.error || "GAS script returned error",
+        );
+      }
+    } catch (error) {
+      console.error("Submission failed:", error);
+      showResult(
+        "error",
+        "送信に失敗しました。通信環境をご確認いただくか、直接メールにてお問い合わせください。",
+      );
     } finally {
-      if (submitButton) {
-        submitButton.disabled = false;
-        submitButton.textContent = "送信（ダミー）";
-      }
+      setLoading(false);
     }
   });
+
+  /**
+   * ローディング状態の切り替え
+   */
+  function setLoading(isLoading) {
+    if (isLoading) {
+      submitBtn.classList.add("is-loading");
+      submitBtn.disabled = true;
+      resultDiv.style.display = "none";
+    } else {
+      submitBtn.classList.remove("is-loading");
+      submitBtn.disabled = false;
+    }
+  }
+
+  /**
+   * 結果メッセージ表示
+   * @param {'success'|'error'} type
+   * @param {string} message
+   */
+  function showResult(type, message) {
+    resultDiv.textContent = message;
+    // 改行コードを <br> に変換しない場合、CSS white-space: pre-wrap 推奨
+    // ここではテキストコンテント設定なので改行文字がそのまま入る
+    resultDiv.style.whiteSpace = "pre-wrap";
+
+    resultDiv.className = "contact-result"; // クラスリセット
+    resultDiv.classList.add(type);
+  }
 });

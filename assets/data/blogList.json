@@ -1,5 +1,34 @@
 [
   {
+    "id": "blog_00013",
+    "title": "ポートフォリオの詳細表示をモーダル化してUXを改善する",
+    "date": "2025-11-27T00:00:00.000Z",
+    "category": "UI/UX",
+    "description": "ポートフォリオサイトの作品詳細を、ページ遷移なしで閲覧できるようにモーダルウィンドウ化しました。DOMParserを使ったHTML取得や、実装時のハマりポイントについて。",
+    "tags": [
+      "javascript",
+      "ui-ux",
+      "modal",
+      "fetch"
+    ],
+    "thumbnail": "assets/img/ogp.png",
+    "contentPath": "blog/blog_00013.html"
+  },
+  {
+    "id": "blog_00012",
+    "title": "静的サイトにお問い合わせフォームを実装する (GAS連携)",
+    "date": "2025-11-27T00:00:00.000Z",
+    "category": "技術メモ",
+    "description": "GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。",
+    "tags": [
+      "gas",
+      "javascript",
+      "contact-form"
+    ],
+    "thumbnail": "assets/img/ogp.png",
+    "contentPath": "blog/blog_00012.html"
+  },
+  {
     "id": "blog_00011",
     "title": "自作Discord Botを公開したらスパムに悪用された話",
     "date": "2025-11-26T00:00:00.000Z",
