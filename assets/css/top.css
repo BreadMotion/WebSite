@@ -235,7 +235,7 @@
 }
 
 /* ==========================================================================
-   4. プロフィールセクション
+   4. プロフィールセクション & Featuresセクション
    ========================================================================== */
 .section--profile {
     margin-top: 2.5rem;
@@ -250,54 +250,14 @@
     gap: 1.25rem;
 }
 
-.profile-card {
-    position: relative;
-    z-index: 1;
-    background: var(--color-surface);
-    border-radius: var(--radius-md);
+/* 共通カード（layout.css）への拡張 */
+.card--profile {
     padding: 1.5rem;
-    border: 1px solid var(--color-border-soft);
-    box-shadow: var(--shadow-md);
-    transition: var(--transition-smooth);
-    overflow: hidden;
 }
 
-.profile-card::before {
-    content: "";
-    position: absolute;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    border-radius: inherit;
-    border: 1px solid transparent;
-    background: linear-gradient(
-            to right,
-            var(--color-accent),
-            var(--color-accent-dark)
-        )
-        border-box;
-    mask:
-        linear-gradient(#fff 0 0) padding-box,
-        linear-gradient(#fff 0 0);
-    -webkit-mask-composite: destination-out;
-    mask-composite: exclude;
-    opacity: 0;
-    transition: var(--transition-smooth);
-}
-
-.profile-card:hover {
-    transform: translateY(-4px);
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
-    background: var(--color-panel);
-}
-
-.profile-card:hover::before {
-    opacity: 1;
-}
-
-.profile-card-title {
+/* カード内タイトル */
+.card--profile .card__title,
+.section--feature .card h3 {
     margin: 0 0 1rem;
     font-size: 1.3rem;
     color: var(--color-heading);
@@ -414,10 +374,10 @@
         grid-template-columns: 1fr;
         gap: 1rem;
     }
-    .profile-card {
+    .card--profile {
         padding: 1.2rem;
     }
-    .profile-card-title {
+    .card--profile .card__title {
         font-size: 1.15rem;
         margin-bottom: 0.8rem;
     }
@@ -445,4 +405,49 @@
         auto-fit,
         minmax(280px, 1fr)
     );
+}
+
+/* コンテンツカードのリンク化対応 */
+.section--top-grid .card-list li {
+    display: flex; /* aタグの高さを揃えるためにflex化 */
+}
+
+.card--link {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    color: var(--color-text);
+}
+
+.card--link h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--color-heading);
+    transition: color 0.2s ease;
+}
+
+.card--link p {
+    flex-grow: 1; /* 下部余白を埋めて、"もっと見る"を下揃えに */
+}
+
+.card__more {
+    margin-top: 1.25rem;
+    color: var(--color-accent);
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: inline-flex;
+    align-items: center;
+    transition: transform 0.2s ease;
+}
+
+/* ホバー時の挙動 */
+.card--link:hover h3 {
+    color: var(--color-accent);
+}
+
+.card--link:hover .card__more {
+    transform: translateX(6px);
+    text-decoration: underline;
 }
