@@ -199,16 +199,16 @@ public class ContextEditorWindow : OdinEditorWindow
 <p>ウィンドウを開くだけで</p>
 <ul>
 <li>指定したScriptableObjectの中身が <strong>同じ画面</strong> に展開される</li>
-<li>その場で値を編集、ほぞんが　反映される
-という状態にできます。</li>
+<li>その場で値を編集、ほぞんが　反映される</li>
 </ul>
+<p>という状態にできます。</p>
 <h3>2. ScriptableObject側の設計</h3>
 <p>もともとのデータ構造をScriptableObject化しておけば</p>
 <ul>
 <li>プロジェクト全体では通常通りScriptableObjectとして利用</li>
-<li>編集時だけコンテキストエディターのウィンドウからアクセス
-という二重の使い方ができます。</li>
+<li>編集時だけコンテキストエディターのウィンドウからアクセス</li>
 </ul>
+<p>という二重の使い方ができます。</p>
 <p>例えば :</p>
 <pre><code class="language-csharp">[CreateAssetMenu(menuName = &quot;Game/Event&quot;)]
 public class EventConfig : ScriptableObject
@@ -226,17 +226,16 @@ public class EventConfig : ScriptableObject
     public bool isEnabled;
 }
 </code></pre>
-<p>これを先ほどのContextEditorWindowのフィールドとして参照しておけば、
-ウィンドウ側でInlineEditorしたときに、 <strong>Odinのデコレーション込みで表示されます</strong> 。</p>
+<p>これを先ほどのContextEditorWindowのフィールドとして参照しておけば、<br>ウィンドウ側でInlineEditorしたときに、 <strong>Odinのデコレーション込みで表示されます</strong> 。</p>
 <h3>3. ちょっとしたUX改善</h3>
 <p>例：</p>
 <ul>
 <li>「選択中のステージだけテストシーンを起動する」ボタン</li>
 <li>「報酬テーブルをデフォルト値で初期化する」ボタン</li>
-<li>「特定 ID のデータを検索してフォーカス」ボタン
-Odin の Button 属性を使えば、EditorWindow 内にメソッドをそのままボタンとして出せるので、
-ちょっとしたツール感を簡単に足せます</li>
+<li>「特定 ID のデータを検索してフォーカス」ボタン</li>
 </ul>
+<p>Odin の Button 属性を使えば、EditorWindow 内にメソッドをそのままボタンとして出せるので、
+ちょっとしたツール感を簡単に足せます</p>
 <h2>実際に運用してみて</h2>
 <p>実際にプランナーに使ってもらって感じたメリットはこんな感じでした。</p>
 <ul>
@@ -259,9 +258,7 @@ Odin の Button 属性を使えば、EditorWindow 内にメソッドをそのま
 <li>「プロジェクト専用の編集画面」をサクッと用意したいとき</li>
 </ul>
 <p>にかなり相性がいいと感じました。</p>
-<p>Inspector 拡張だけでは足りないけれど、EditorWindow をフルスクラッチするのは大変
-というケースでは、Odin の属性と EditorWindow を組み合わせるだけで、
-「ちょうどいいライン」のツールが作りやすいです。</p>
+<p>Inspector 拡張だけでは足りないけれど、EditorWindow をフルスクラッチするのは大変<br>というケースでは、Odin の属性と EditorWindow を組み合わせるだけで、<br>「ちょうどいいライン」のツールが作りやすいです。  </p>
 <p>今後は、</p>
 <ul>
 <li>もう少し UI/UX を整理したバージョン</li>
