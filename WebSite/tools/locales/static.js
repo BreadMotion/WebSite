@@ -48,8 +48,10 @@ module.exports = {
 
       // Side
       ".hero-side h2": "Recent Updates",
-      ".home-latest-title:contains('Latest Blog')": "Latest Blog",
-      ".home-latest-title:contains('Latest Portfolio')": "Latest Portfolio",
+      ".home-latest-title:contains('Latest Blog')":
+        "Latest Blog",
+      ".home-latest-title:contains('Latest Portfolio')":
+        "Latest Portfolio",
 
       // Profile (#about)
       "#about .section__title": "About / Profile",
@@ -57,9 +59,12 @@ module.exports = {
       // Card: Experience
       ".card__title:contains('経験')": "Experience",
       ".profile-label:contains('学生開発')": "Student Dev",
-      ".profile-value:contains('約 4 年')": "Approx. 4 years",
-      ".profile-label:contains('業務')": "Professional / Personal",
-      ".profile-value:contains('約 2.5 年')": "Approx. 2.5 years",
+      ".profile-value:contains('約 4 年')":
+        "Approx. 4 years",
+      ".profile-label:contains('業務')":
+        "Professional / Personal",
+      ".profile-value:contains('約 2.5 年')":
+        "Approx. 2.5 years",
       ".profile-note:contains('学生時代から')":
         "Aiming for a position with high commitment and wide coverage, involving not only game development but also tools and infrastructure since student days.",
 
@@ -68,13 +73,15 @@ module.exports = {
 
       // Card: Focus
       ".card__title:contains('Focus')": "Focus / Expertise",
-      ".profile-label:contains('ゲームクライアント')": "Game Client",
+      ".profile-label:contains('ゲームクライアント')":
+        "Game Client",
       ".profile-value:contains('ゲームロジック')":
         "Game Logic / Core Logic / Asset Ops / UI/UX / Effects",
       ".profile-label:contains('ツール開発')": "Tool Dev",
       ".profile-value:contains('Discord Bot')":
         "Discord Bot / Slack Bot / Automation / CI/CD / Internal Tools / API Dev",
-      ".profile-label:contains('インフラ遊び')": "Infrastructure",
+      ".profile-label:contains('インフラ遊び')":
+        "Infrastructure",
       ".profile-value:contains('自宅常駐サーバー')":
         "Home Server (Discord Bot, API Minecraft, Tunneling)",
       ".profile-note:contains('とりあえず必要なもの')":
@@ -83,8 +90,10 @@ module.exports = {
       // Contents
       ".section--top-grid .section__title": "Contents",
 
-      ".card--link:has(h3:contains('Blog')) p": "Technical notes and dev logs",
-      ".card--link:has(h3:contains('Blog')) .card__more": "Go to Blog List →",
+      ".card--link:has(h3:contains('Blog')) p":
+        "Technical notes and dev logs",
+      ".card--link:has(h3:contains('Blog')) .card__more":
+        "Go to Blog List →",
 
       ".card--link:has(h3:contains('Portfolio')) p":
         "Introduction of created games and tools.",
@@ -96,28 +105,36 @@ module.exports = {
       ".card--link:has(h3:contains('Products')) .card__more":
         "Go to Content List →",
 
-      ".card--link:has(h3:contains('Contact')) p": "Business inquiries, etc.",
-      ".card--link:has(h3:contains('Contact')) .card__more": "Contact →",
+      ".card--link:has(h3:contains('Contact')) p":
+        "Business inquiries, etc.",
+      ".card--link:has(h3:contains('Contact')) .card__more":
+        "Contact →",
 
       // Recommend
-      ".section--recommend .section__title": "Recommended Articles",
+      ".section--recommend .section__title":
+        "Recommended Articles",
 
       // Features
-      ".section--feature .section__title": "Features / Future Plans",
+      ".section--feature .section__title":
+        "Features / Future Plans",
 
-      "article h3:contains('Contactページの開発')": "Contact Page Dev",
+      "article h3:contains('Contactページの開発')":
+        "Contact Page Dev",
       "article p:contains('お問い合わせフォーム')":
         "Implementing the contact form content. (Currently disabled due to network restrictions)",
 
-      "article h3:contains('UI/UXの改善')": "UI/UX Improvement",
+      "article h3:contains('UI/UXの改善')":
+        "UI/UX Improvement",
       "article p:contains('ユーザー体験向上')":
         "Redesign for better user experience.",
 
-      "article h3:contains('コンテンツ拡充')": "Content Expansion",
+      "article h3:contains('コンテンツ拡充')":
+        "Content Expansion",
       "article p:contains('新しいブログ記事')":
         "Adding new blog posts and portfolio items.",
 
-      "article h3:contains('プロダクトの拡充')": "Product Expansion",
+      "article h3:contains('プロダクトの拡充')":
+        "Product Expansion",
       "article p:contains('主に下記の開発')":
         "Mainly developing and selling:<br>- Unity games, tools<br>- UE games, tools<br>- Discord bot features",
     },
@@ -146,7 +163,8 @@ module.exports = {
 
       ".section-header h2": "Articles",
 
-      ".blog-filter__label:contains('カテゴリ')": "Category",
+      ".blog-filter__label:contains('カテゴリ')":
+        "Category",
       "#blogCategoryFilter option[value='']": "All",
 
       ".blog-filter__label:contains('検索')": "Search",
@@ -155,7 +173,168 @@ module.exports = {
         value: "Search by title, description, or tags",
       },
 
-      "#blogEmptyMessage": "No articles match the criteria.",
+      "#blogEmptyMessage":
+        "No articles match the criteria.",
+    },
+
+    // -------------------------------------------------------------------------
+    // portfolio.html
+    // -------------------------------------------------------------------------
+    portfolio: {
+      title: "PanKUN | Portfolio",
+      "meta[name='description']": {
+        attr: "content",
+        value: "Engineer PanKUN Portfolio List",
+      },
+      "meta[property='og:title']": {
+        attr: "content",
+        value: "PanKUN Portfolio | pankun.dev",
+      },
+      "meta[property='og:description']": {
+        attr: "content",
+        value: "Engineer PanKUN Portfolio List",
+      },
+      "meta[name='twitter:title']": {
+        attr: "content",
+        value: "PanKUN Portfolio | pankun.dev",
+      },
+      "meta[name='twitter:description']": {
+        attr: "content",
+        value: "Engineer PanKUN Portfolio List",
+      },
+
+      ".page-header h1": "Portfolio",
+      ".page-header p:contains('制作したゲーム')":
+        "Summarizing created games, tools, and participating projects.",
+      ".page-header p:contains('個人制作')":
+        "Publishing personal works, indie games, and professional involvements as much as possible.",
+
+      ".section-header h2": "Works List",
+
+      ".portfolio-filter__label:contains('カテゴリ')":
+        "Category",
+      "#portfolioCategoryFilter option[value='']": "All",
+
+      ".portfolio-filter__label:contains('検索')": "Search",
+      "#portfolioSearch": {
+        attr: "placeholder",
+        value: "Search by title, description, or tags",
+      },
+
+      "#portfolioEmptyMessage":
+        "No works match the criteria.",
+    },
+
+    // -------------------------------------------------------------------------
+    // products.html
+    // -------------------------------------------------------------------------
+    products: {
+      title: "PanKUN | Products",
+      "meta[name='description']": {
+        attr: "content",
+        value: "Engineer PanKUN Products List",
+      },
+      "meta[property='og:title']": {
+        attr: "content",
+        value: "PanKUN Products | pankun.dev",
+      },
+      "meta[property='og:description']": {
+        attr: "content",
+        value: "Engineer PanKUN Products List",
+      },
+      "meta[name='twitter:title']": {
+        attr: "content",
+        value: "PanKUN Products | pankun.dev",
+      },
+      "meta[name='twitter:description']": {
+        attr: "content",
+        value: "Engineer PanKUN Products List",
+      },
+
+      ".page-header h1": "Products",
+      ".page-header p:contains('自分が制作')":
+        "List of games, plugins, and tools I have created and sold.",
+      ".page-header p:contains('外部ストア')":
+        "Summarizing links to external stores and download links for executables.",
+
+      ".section-header h2": "List",
+
+      ".products-filter__label:contains('種類')": "Type",
+      "#productTypeFilter option[value='']": "All",
+
+      ".products-filter__label:contains('検索')": "Search",
+      "#productSearch": {
+        attr: "placeholder",
+        value: "Search by title, tag, or platform",
+      },
+
+      "#productEmptyMessage":
+        "No products match the criteria.",
+    },
+
+    // -------------------------------------------------------------------------
+    // contact.html
+    // -------------------------------------------------------------------------
+    contact: {
+      title: "PanKUN | Contact",
+      "meta[name='description']": {
+        attr: "content",
+        value: "Engineer PanKUN Contact Page",
+      },
+      "meta[property='og:title']": {
+        attr: "content",
+        value: "PanKUN Contact | pankun.dev",
+      },
+      "meta[property='og:description']": {
+        attr: "content",
+        value: "Engineer PanKUN Contact Page",
+      },
+      "meta[name='twitter:title']": {
+        attr: "content",
+        value: "PanKUN Contact | pankun.dev",
+      },
+      "meta[name='twitter:description']": {
+        attr: "content",
+        value: "Engineer PanKUN Contact Page",
+      },
+
+      ".page-header h1": "Contact",
+      ".page-header p:contains('お仕事のご相談')":
+        "Please use the form below for work inquiries or contacting me.",
+      ".page-header .text-muted":
+        'If you wish to send an email directly, please contact <a href="mailto:pankun.eng@gmail.com" class="link-text">pankun.eng@gmail.com</a>.',
+
+      ".section-header h2": "Contact Form",
+
+      "label[for='name']":
+        'Name <span class="badge-required">Required</span>',
+      "#name": {
+        attr: "placeholder",
+        value: "Taro Yamada",
+      },
+
+      "label[for='email']":
+        'Email <span class="badge-required">Required</span>',
+      "#email": {
+        attr: "placeholder",
+        value: "example@email.com",
+      },
+
+      "label[for='phone']":
+        'Phone Number <span class="badge-optional">Optional</span>',
+      "#phone": {
+        attr: "placeholder",
+        value: "090-0000-0000",
+      },
+
+      "label[for='message']":
+        'Message <span class="badge-required">Required</span>',
+      "#message": {
+        attr: "placeholder",
+        value: "Please enter your inquiry here.",
+      },
+
+      ".btn-text": "Submit",
     },
   },
 };

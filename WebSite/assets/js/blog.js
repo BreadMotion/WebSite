@@ -72,13 +72,31 @@ document.addEventListener("DOMContentLoaded", () => {
   async function loadPosts() {
     try {
       const lang = document.documentElement.lang;
-      const jsonPath =
-        lang === "en"
-          ? "assets/data/blogList_en.json"
-          : "assets/data/blogList.json";
+      const isEn = lang === "en";
+      const relativePrefix = isEn ? "../" : "";
+
+      const jsonPath = isEn
+        ? `${relativePrefix}assets/data/blogList_en.json`
+        : `${relativePrefix}assets/data/blogList.json`;
+
       const res = await fetch(jsonPath);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      allPosts = await res.json();
+      const rawPosts = await res.json();
+
+      allPosts = rawPosts.map((p) => {
+        if (isEn) {
+          return {
+            ...p,
+            thumbnail: p.thumbnail
+              ? `${relativePrefix}${p.thumbnail}`
+              : p.thumbnail,
+            contentPath: p.contentPath
+              ? `${relativePrefix}${p.contentPath}`
+              : p.contentPath,
+          };
+        }
+        return p;
+      });
 
       updateCategoryFilter();
       readInitialParams();

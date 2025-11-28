@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
       shell.insertAdjacentHTML("afterbegin", headerHtml);
       shell.insertAdjacentHTML("afterend", footerHtml);
 
-      // Language Switcher Logic
+      // 言語切り替え
       const langSwitch =
         document.querySelector(".lang-switch");
       if (langSwitch) {

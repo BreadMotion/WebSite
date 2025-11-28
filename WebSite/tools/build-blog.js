@@ -210,7 +210,7 @@ function createHtml({
     <link rel="canonical" href="${canonicalUrl}" />
     <link rel="alternate" hreflang="ja" href="${jaUrl}" />
     <link rel="alternate" hreflang="en" href="${enUrl}" />
-    <link rel="alternate" hreflang="x-default" href="${jaUrl}" />
+    <link rel="alternate" hreflang="x-default" href="${enUrl}" />
     ${adScript}
     <script type="application/ld+json">${JSON.stringify(jsonLd, null, 2)}</script>
     <meta property="og:title" content="${safeTitle}${locale.site_title_suffix}" />
@@ -306,119 +306,142 @@ function createHtml({
     .readdirSync(CONTENT_DIR)
     .filter((f) => f.endsWith(".md"));
 
-  for (const file of files) {
-    let lang = "ja";
-    let id = path.basename(file, ".md");
-    if (file.endsWith(".en.md")) {
-      lang = "en";
-      id = path.basename(file, ".en.md");
+  const ids = new Set();
+  files.forEach((f) => {
+    if (f.endsWith(".en.md")) {
+      ids.add(path.basename(f, ".en.md"));
+    } else {
+      ids.add(path.basename(f, ".md"));
+    }
+  });
+
+  for (const id of ids) {
+    const jaPath = path.join(CONTENT_DIR, `${id}.md`);
+    const enPath = path.join(CONTENT_DIR, `${id}.en.md`);
+
+    if (!fs.existsSync(jaPath)) {
+      console.warn(
+        `Japanese content not found for ID: ${id}`,
+      );
+      continue;
     }
 
-    const locale = locales[lang] || locales.ja;
-    const relativePrefix = lang === "ja" ? ".." : "../..";
-
-    const fullPath = path.join(CONTENT_DIR, file);
-    const raw = fs.readFileSync(fullPath, "utf8");
-    const { data, content } = matter(raw);
-
-    const headings = [];
-    const slugger = new marked.Slugger();
-    const renderer = new marked.Renderer();
-    renderer.heading = (text, level) => {
-      const id = slugger.slug(text);
-      headings.push({ level, text, id });
-      return `<h${level} id="${id}">${text}</h${level}>`;
-    };
-
-    renderer.image = (href, title, text) => {
-      let src = href;
-      if (src && src.startsWith("../")) {
-        // Adjust relative paths for images
-        // ja (prefix=".."): "../assets" -> "../assets"
-        // en (prefix="../.."): "../assets" -> "../../assets"
-        src = `${relativePrefix}/${src.substring(3)}`;
+    for (const lang of ["ja", "en"]) {
+      let sourcePath = jaPath;
+      if (lang === "en" && fs.existsSync(enPath)) {
+        sourcePath = enPath;
       }
-      return `<img src="${src}" alt="${text}" title="${title || ""}" />`;
-    };
 
-    const htmlBody = marked.parse(content, { renderer });
-    const tocHtml = createTocHtml(headings, locale);
+      const locale = locales[lang] || locales.ja;
+      const relativePrefix = lang === "ja" ? ".." : "../..";
 
-    const { title, description, date, category } = data;
-    let { thumbnail } = data;
+      const raw = fs.readFileSync(sourcePath, "utf8");
+      const { data, content } = matter(raw);
 
-    if (thumbnail && thumbnail.startsWith("data:image")) {
-      try {
-        const matches = thumbnail.match(
-          /^data:image\/([a-zA-Z0-9]+);base64,(.+)$/,
-        );
-        if (matches) {
-          const ext =
-            matches[1] === "jpeg" ? "jpg" : matches[1];
-          const filename = `${id}.${ext}`; // Same ID shares thumbnail
-          fs.writeFileSync(
-            path.join(THUMBNAIL_DIR, filename),
-            Buffer.from(matches[2], "base64"),
-          );
-          thumbnail = `assets/img/thumbnails/${filename}`;
+      const headings = [];
+      const slugger = new marked.Slugger();
+      const renderer = new marked.Renderer();
+      renderer.heading = (text, level) => {
+        const id = slugger.slug(text);
+        headings.push({ level, text, id });
+        return `<h${level} id="${id}">${text}</h${level}>`;
+      };
+
+      renderer.image = (href, title, text) => {
+        let src = href;
+        if (src && src.startsWith("../")) {
+          // Adjust relative paths for images
+          // ja (prefix=".."): "../assets" -> "../assets"
+          // en (prefix="../.."): "../assets" -> "../../assets"
+          src = `${relativePrefix}/${src.substring(3)}`;
         }
-      } catch (e) {
-        console.error(
-          `Failed to process thumbnail for ${id}:`,
-          e,
-        );
+        return `<img src="${src}" alt="${text}" title="${title || ""}" />`;
+      };
+
+      const htmlBody = marked.parse(content, { renderer });
+      const tocHtml = createTocHtml(headings, locale);
+
+      const { title, description, date, category } = data;
+      let { thumbnail } = data;
+
+      if (thumbnail && thumbnail.startsWith("data:image")) {
+        try {
+          const matches = thumbnail.match(
+            /^data:image\/([a-zA-Z0-9]+);base64,(.+)$/,
+          );
+          if (matches) {
+            const ext =
+              matches[1] === "jpeg" ? "jpg" : matches[1];
+            const filename = `${id}.${ext}`; // Same ID shares thumbnail
+            const thumbPath = path.join(
+              THUMBNAIL_DIR,
+              filename,
+            );
+            // Always overwrite to ensure latest version
+            fs.writeFileSync(
+              thumbPath,
+              Buffer.from(matches[2], "base64"),
+            );
+            thumbnail = `assets/img/thumbnails/${filename}`;
+          }
+        } catch (e) {
+          console.error(
+            `Failed to process thumbnail for ${id}:`,
+            e,
+          );
+        }
       }
-    }
 
-    const tagsRaw = data.tags || [];
-    const tags = (
-      Array.isArray(tagsRaw)
-        ? tagsRaw
-        : String(tagsRaw).split(",")
-    )
-      .map((t) => String(t).trim())
-      .filter(Boolean);
+      const tagsRaw = data.tags || [];
+      const tags = (
+        Array.isArray(tagsRaw)
+          ? tagsRaw
+          : String(tagsRaw).split(",")
+      )
+        .map((t) => String(t).trim())
+        .filter(Boolean);
 
-    const html = createHtml({
-      id,
-      title: title || id,
-      description: description || "",
-      date: date || "",
-      category: category || "",
-      tags,
-      bodyHtml: htmlBody,
-      tocHtml,
-      thumbnail,
-      adScript,
-      locale,
-      lang,
-      relativePrefix,
-    });
+      const html = createHtml({
+        id,
+        title: title || id,
+        description: description || "",
+        date: date || "",
+        category: category || "",
+        tags,
+        bodyHtml: htmlBody,
+        tocHtml,
+        thumbnail,
+        adScript,
+        locale,
+        lang,
+        relativePrefix,
+      });
 
-    const outputFilePath =
-      lang === "ja"
-        ? path.join(OUTPUT_DIR, `${id}.html`)
-        : path.join(enOutputDir, `${id}.html`);
-
-    fs.writeFileSync(outputFilePath, html, "utf8");
-    console.log(
-      `generated (${lang}): ${path.relative(ROOT, outputFilePath)}`,
-    );
-
-    postsMap[lang].push({
-      id,
-      title: title || id,
-      date: date || "",
-      category: category || "",
-      description: description || "",
-      tags,
-      thumbnail,
-      contentPath:
+      const outputFilePath =
         lang === "ja"
-          ? `blog/${id}.html`
-          : `blog/en/${id}.html`,
-      recommended: data.recommended || false,
-    });
+          ? path.join(OUTPUT_DIR, `${id}.html`)
+          : path.join(enOutputDir, `${id}.html`);
+
+      fs.writeFileSync(outputFilePath, html, "utf8");
+      console.log(
+        `generated (${lang}): ${path.relative(ROOT, outputFilePath)}`,
+      );
+
+      postsMap[lang].push({
+        id,
+        title: title || id,
+        date: date || "",
+        category: category || "",
+        description: description || "",
+        tags,
+        thumbnail,
+        contentPath:
+          lang === "ja"
+            ? `blog/${id}.html`
+            : `blog/en/${id}.html`,
+        recommended: data.recommended || false,
+      });
+    }
   }
 
   // Sort and save JA list

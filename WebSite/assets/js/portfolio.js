@@ -211,11 +211,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function loadWorks() {
     try {
+      const lang = document.documentElement.lang;
+      const isEn = lang === "en";
+      const relativePrefix = isEn ? "../" : "";
+
       const res = await fetch(
-        "assets/data/portfolioList.json",
+        `${relativePrefix}assets/data/portfolioList.json`,
       );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      allWorks = await res.json();
+      const rawWorks = await res.json();
+
+      allWorks = rawWorks.map((work) => {
+        if (isEn) {
+          return {
+            ...work,
+            thumbnail: work.thumbnail
+              ? `${relativePrefix}${work.thumbnail}`
+              : work.thumbnail,
+            contentPath: work.contentPath
+              ? `${relativePrefix}${work.contentPath}`
+              : work.contentPath,
+          };
+        }
+        return work;
+      });
+
       readInitialParams();
       render();
     } catch (err) {

@@ -14,15 +14,35 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!form || !submitBtn || !resultDiv) return;
 
+  const lang = document.documentElement.lang;
+  const isEn = lang === "en";
+
+  const messages = {
+    ja: {
+      maintenance:
+        "現在、お問い合わせフォームのメンテナンス中です。お手数ですがメール（pankun.eng@gmail.com）にてご連絡ください。",
+      success:
+        "お問い合わせありがとうございます。送信が完了しました。\n確認のため、自動返信メールなどは送信しておりませんのでご了承ください。",
+      error:
+        "送信に失敗しました。通信環境をご確認いただくか、直接メールにてお問い合わせください。",
+    },
+    en: {
+      maintenance:
+        "The contact form is currently under maintenance. Please contact us via email (pankun.eng@gmail.com).",
+      success:
+        "Thank you for your inquiry. Your message has been sent successfully.\nPlease note that we do not send automatic confirmation emails.",
+      error:
+        "Failed to send. Please check your network connection or contact us directly via email.",
+    },
+  };
+  const msg = isEn ? messages.en : messages.ja;
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     // 1. URL設定チェック
     if (!GAS_API_URL) {
-      showResult(
-        "error",
-        "現在、お問い合わせフォームのメンテナンス中です。お手数ですがメール（pankun.eng@gmail.com）にてご連絡ください。",
-      );
+      showResult("error", msg.maintenance);
       console.error("Error: GAS_API_URL is empty.");
       return;
     }
@@ -58,10 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const resJson = await response.json();
 
       if (resJson.result === "success") {
-        showResult(
-          "success",
-          "お問い合わせありがとうございます。送信が完了しました。\n確認のため、自動返信メールなどは送信しておりませんのでご了承ください。",
-        );
+        showResult("success", msg.success);
         form.reset();
       } else {
         throw new Error(
@@ -70,10 +87,7 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } catch (error) {
       console.error("Submission failed:", error);
-      showResult(
-        "error",
-        "送信に失敗しました。通信環境をご確認いただくか、直接メールにてお問い合わせください。",
-      );
+      showResult("error", msg.error);
     } finally {
       setLoading(false);
     }
