@@ -708,6 +708,7 @@
     margin: 0;
     max-height: calc(100vh - 12rem);
     overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .toc-item {
@@ -721,6 +722,9 @@
     line-height: 1.5;
     transition: var(--transition-smooth);
     display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .toc-item a:hover {
