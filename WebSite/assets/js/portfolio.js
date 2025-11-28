@@ -225,9 +225,11 @@ document.addEventListener("DOMContentLoaded", () => {
         if (isEn) {
           return {
             ...work,
-            thumbnail: work.thumbnail
-              ? `${relativePrefix}${work.thumbnail}`
-              : work.thumbnail,
+            thumbnail:
+              work.thumbnail &&
+              !work.thumbnail.startsWith("http")
+                ? `${relativePrefix}${work.thumbnail}`
+                : work.thumbnail,
             contentPath: work.contentPath
               ? `${relativePrefix}${work.contentPath}`
               : work.contentPath,

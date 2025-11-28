@@ -28,7 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
       const rawProducts = await res.json();
 
       allProducts = rawProducts.map((p) => {
-        if (isEn && p.thumbnail) {
+        if (
+          isEn &&
+          p.thumbnail &&
+          !p.thumbnail.startsWith("http")
+        ) {
           return {
             ...p,
             thumbnail: `${relativePrefix}${p.thumbnail}`,

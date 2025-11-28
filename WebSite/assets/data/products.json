@@ -2,7 +2,7 @@
   {
     "id": "product_0001",
     "title": "Develop Utility",
-    "type": "Discord",
+    "type": "Tool",
     "platform": ["Android", "iOS", "PC<Client, Browser>"],
     "description": "PanKUNがDiscordで開発コミュニケーションを扱う際に使用するボット",
     "tags": ["tool", "discord", "bot"],

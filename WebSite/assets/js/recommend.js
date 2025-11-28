@@ -11,9 +11,17 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.location.pathname.includes("/blog/") &&
     !window.location.pathname.endsWith("blog.html");
 
-  let basePath = isBlogDir ? "../" : "";
-  if (isBlogDir && isEn) {
-    basePath = "../../";
+  let basePath = "";
+  if (isBlogDir) {
+    // ブログ詳細ページなど (/blog/xxx.html)
+    // 日本語: /WebSite/blog/xxx.html -> ../assets/...
+    // 英語: /WebSite/en/blog/xxx.html -> ../../assets/...
+    basePath = isEn ? "../../" : "../";
+  } else {
+    // 一覧ページやトップページ
+    // 日本語: /WebSite/index.html -> assets/...
+    // 英語: /WebSite/en/index.html -> ../assets/...
+    basePath = isEn ? "../" : "";
   }
 
   // データパス
