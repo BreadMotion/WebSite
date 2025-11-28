@@ -2,8 +2,12 @@ const fs = require("fs");
 const path = require("path");
 
 const BASE_URL = "https://breadmotion.github.io";
+// プロジェクトのルート (breadmotion.github.io)
 const ROOT = path.join(__dirname, "..", "..");
 const OUTPUT = path.join(ROOT, "sitemap.xml");
+
+// サイトコンテンツのルート (breadmotion.github.io/WebSite)
+const WEBSITE_ROOT = path.join(ROOT, "WebSite");
 
 // スキャンから完全に除外するディレクトリ名
 const IGNORE_DIRS = new Set([
@@ -52,7 +56,6 @@ function collectHtmlFiles(
   });
 
   for (const entry of entries) {
-    // 除外リストにあるディレクトリ名またはファイル名はスキップ
     if (
       IGNORE_DIRS.has(entry.name) ||
       IGNORE_FILES.has(entry.name)
@@ -78,15 +81,29 @@ function collectHtmlFiles(
   return allFiles;
 }
 
-const htmlFiles = collectHtmlFiles(ROOT);
+// 収集の開始点を WebSite ディレクトリに変更
+const htmlFiles = collectHtmlFiles(WEBSITE_ROOT);
+
+// プロジェクトルートにある index.html も手動で追加する
+if (fs.existsSync(path.join(ROOT, "index.html"))) {
+  // WebSite/index.html と区別するために特別な名前を付けてリストに追加
+  htmlFiles.push("ROOT_INDEX.html");
+}
 
 function toUrl(relPath) {
+  // プロジェクトルートの index.html を処理
+  if (relPath === "ROOT_INDEX.html") {
+    return `${BASE_URL}/`;
+  }
+  // WebSite ディレクトリ直下の index.html を処理
   if (relPath === "index.html") {
     return `${BASE_URL}/`;
   }
+  // サブディレクトリ内の index.html を処理 (例: en/index.html -> /en/)
   if (relPath.endsWith("/index.html")) {
     return `${BASE_URL}/${relPath.substring(0, relPath.length - "index.html".length)}`;
   }
+  // その他のHTMLファイル
   return `${BASE_URL}/${relPath.replace(/\\/g, "/")}`;
 }
 
@@ -94,17 +111,31 @@ function formatDate(d) {
   return d.toISOString().split("T")[0];
 }
 
-const urlEntries = htmlFiles.map((relPath) => {
-  const filePath = path.join(ROOT, relPath);
-  const stat = fs.statSync(filePath);
-  const lastmod = formatDate(stat.mtime);
-  const loc = escapeXml(toUrl(relPath));
+const uniqueUrls = new Set();
 
-  return `  <url>
+const urlEntries = htmlFiles
+  .map((relPath) => {
+    const filePath =
+      relPath === "ROOT_INDEX.html"
+        ? path.join(ROOT, "index.html")
+        : path.join(WEBSITE_ROOT, relPath);
+
+    const stat = fs.statSync(filePath);
+    const lastmod = formatDate(stat.mtime);
+    const loc = escapeXml(toUrl(relPath));
+
+    // 重複するURLは追加しない (ルートURLなど)
+    if (uniqueUrls.has(loc)) {
+      return null;
+    }
+    uniqueUrls.add(loc);
+
+    return `  <url>
     <loc>${loc}</loc>
     <lastmod>${lastmod}</lastmod>
   </url>`;
-});
+  })
+  .filter((entry) => entry !== null); // null (重複エントリ) を除去
 
 const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -115,4 +146,4 @@ ${urlEntries.join("\n")}
 fs.writeFileSync(OUTPUT, xml.trim(), "utf8");
 console.log(`Sitemap generated: ${OUTPUT}`);
 console.log("Included URLs:");
-htmlFiles.forEach((rel) => console.log(" -", toUrl(rel)));
+uniqueUrls.forEach((url) => console.log(" -", url));
