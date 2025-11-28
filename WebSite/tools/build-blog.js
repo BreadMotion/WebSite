@@ -170,6 +170,7 @@ function createHtml({
                 <h1 class="post-detail__title">${safeTitle}</h1>
                 ${safeDesc ? `<p class="post-detail__description">${safeDesc}</p>` : ""}
                 ${tagsHtml}
+
               </header>
               <section class="post-detail__body markdown-body">${bodyHtml}</section>
               <div class="post-detail__nav post-detail__nav--bottom">
@@ -191,6 +192,11 @@ function createHtml({
           <div id="recommendList" class="recommend-grid"></div>
         </section>
       </main>
+      <div class="toc-overlay"></div>
+      <button type="button" class="toc-toggle" aria-label="目次を開く">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
+        <span>目次</span>
+      </button>
     </div>
     <script src="../assets/js/layout.js" defer></script>
     <script src="../assets/js/ui.js"></script>

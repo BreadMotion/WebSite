@@ -69,6 +69,7 @@
                 <h1 class="post-detail__title">Odin でコンテキストエディター作ってみた</h1>
                 <p class="post-detail__description">Odin でプランナー向けのコンテキストエディターを作った話</p>
                 <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=unity">unity</a> <a class="tag" href="../blog.html?tag=plugin">plugin</a> <a class="tag" href="../blog.html?tag=tool">tool</a></p>
+
               </header>
               <section class="post-detail__body markdown-body"><p>こんにちは！パン君です。</p>
 <p>インディーズのプロジェクトで <strong>Odin Inspector</strong> を使用して、<br>プランナーが Unity の知見をあまり持っていなくても触れるような <strong>プロジェクト専用の「コンテキストエディター」</strong> を作成しました。</p>
@@ -267,6 +268,11 @@ public class EventConfig : ScriptableObject
           <div id="recommendList" class="recommend-grid"></div>
         </section>
       </main>
+      <div class="toc-overlay"></div>
+      <button type="button" class="toc-toggle" aria-label="目次を開く">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
+        <span>目次</span>
+      </button>
     </div>
     <script src="../assets/js/layout.js" defer></script>
     <script src="../assets/js/ui.js"></script>
