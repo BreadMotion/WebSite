@@ -189,7 +189,6 @@
    3. 記事詳細ページ
    ========================================================================== */
 .post-detail {
-    /* .post-content の子要素になったため、背景などをこちらで管理 */
     background: var(--color-panel);
     border-radius: var(--radius-lg);
     padding: 3rem;
@@ -201,7 +200,7 @@
     margin-bottom: 2.5rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--color-border-soft);
-    text-align: center; /* タイトル周りを中央寄せに */
+    text-align: center;
 }
 
 .post-detail__meta {
