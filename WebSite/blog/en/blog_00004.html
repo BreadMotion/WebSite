@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Modoium Remote 導入してみた | PanKUN Blog</title>
+    <title>Tried Introducing Modoium Remote | PanKUN Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Unity開発でスマホ端末がプラットフォームの際にデバッグが便利になる機能の紹介" />
+    <meta name="description" content="Introduction of a feature that makes debugging convenient when the smartphone device is the platform in Unity development" />
     <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/en/blog_00004.html" />
     <link rel="alternate" hreflang="ja" href="https://breadmotion.github.io/WebSite/blog/blog_00004.html" />
     <link rel="alternate" hreflang="en" href="https://breadmotion.github.io/WebSite/blog/en/blog_00004.html" />
@@ -23,8 +23,8 @@
     "@type": "WebPage",
     "@id": "https://breadmotion.github.io/WebSite/blog/en/blog_00004.html"
   },
-  "headline": "Modoium Remote 導入してみた",
-  "description": "Unity開発でスマホ端末がプラットフォームの際にデバッグが便利になる機能の紹介",
+  "headline": "Tried Introducing Modoium Remote",
+  "description": "Introduction of a feature that makes debugging convenient when the smartphone device is the platform in Unity development",
   "image": [
     "https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00004.png"
   ],
@@ -44,8 +44,8 @@
     }
   }
 }</script>
-    <meta property="og:title" content="Modoium Remote 導入してみた | PanKUN Blog" />
-    <meta property="og:description" content="Unity開発でスマホ端末がプラットフォームの際にデバッグが便利になる機能の紹介" />
+    <meta property="og:title" content="Tried Introducing Modoium Remote | PanKUN Blog" />
+    <meta property="og:description" content="Introduction of a feature that makes debugging convenient when the smartphone device is the platform in Unity development" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/en/blog_00004.html" />
     <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00004.png" />
@@ -64,20 +64,20 @@
                 <ol class="breadcrumb__list">
                   <li class="breadcrumb__item"><a href="../../index.html">Home</a></li>
                   <li class="breadcrumb__item"><a href="../../blog.html">Blog</a></li>
-                  <li class="breadcrumb__item" aria-current="page">Modoium Remote 導入してみた</li>
+                  <li class="breadcrumb__item" aria-current="page">Tried Introducing Modoium Remote</li>
                 </ol>
               </nav>
               <header class="post-detail__header">
                 <p class="post-detail__meta">2025/04/20 / Unity</p>
-                <h1 class="post-detail__title">Modoium Remote 導入してみた</h1>
-                <p class="post-detail__description">Unity開発でスマホ端末がプラットフォームの際にデバッグが便利になる機能の紹介</p>
+                <h1 class="post-detail__title">Tried Introducing Modoium Remote</h1>
+                <p class="post-detail__description">Introduction of a feature that makes debugging convenient when the smartphone device is the platform in Unity development</p>
                 <p class="post-detail__tags"><a class="tag" href="../../blog.html?tag=unity">unity</a> <a class="tag" href="../../blog.html?tag=plugin">plugin</a> <a class="tag" href="../../blog.html?tag=tool">tool</a> <a class="tag" href="../../blog.html?tag=android">android</a> <a class="tag" href="../../blog.html?tag=ios">ios</a></p>
                 <div class="share-buttons">
     <p class="share-buttons__title">SHARE</p>
     <ul class="share-buttons__list">
       
         <li class="share-buttons__item">
-          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00004.html&text=Modoium%20Remote%20%E5%B0%8E%E5%85%A5%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00004.html&text=Tried%20Introducing%20Modoium%20Remote" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
           </a>
         </li>
@@ -97,49 +97,58 @@
     </ul>
   </div>
               </header>
-              <section class="post-detail__body markdown-body"><p>こんにちは！パン君です</p>
-<p>インディーズのプロジェクトで Modoium Remote を導入して使用してみました。<br>導入方法と詰まった事を話していきます。  </p>
+              <section class="post-detail__body markdown-body"><p>Hello! I&#39;m PanKUN.</p>
+<p>I introduced and used Modoium Remote in an indie project.
+I will talk about the introduction method and where I got stuck.</p>
 <ul>
-<li><a href="https://modoium.com/jp/">公式 URL</a></li>
-<li><a href="https://uuma-memo.xyz/2024/09/01/1080/">参考にしたページ</a></li>
-<li><a href="https://www.youtube.com/watch?list=TLGG3e7swiebjj0xNDExMjAyNA&amp;v=CEazEAeKkpM">公式チュートリル</a></li>
-<li><a href="https://clickedcorp.notion.site/Modoium-User-Guide-b3e19e05c69b465395b8d534cf7f774b">ユーザーガイド</a></li>
+<li><a href="https://modoium.com/jp/">Official URL</a></li>
+<li><a href="https://uuma-memo.xyz/2024/09/01/1080/">Referenced Page</a></li>
+<li><a href="https://www.youtube.com/watch?list=TLGG3e7swiebjj0xNDExMjAyNA&amp;v=CEazEAeKkpM">Official Tutorial</a></li>
+<li><a href="https://clickedcorp.notion.site/Modoium-User-Guide-b3e19e05c69b465395b8d534cf7f774b">User Guide</a></li>
 </ul>
 <hr>
-<h2 id="導入方法">導入方法</h2><p>導入まですごく簡単です。  </p>
+<h2 id="introduction-method">Introduction Method</h2><p>It is very easy to introduce.</p>
 <ol>
-<li>アセットストアから該当アセット購入、導入したいプロジェクトにインポート(無料です)</li>
-<li>Modoium Remote Status ウィンドウが開きます。(開かない方は<code>Window &gt; Modoium Remote &gt; View Status</code>から開きます。)</li>
-<li>再生時操作したいハードに Modoium が提供しているアプリをインストールします。<br>Android は<a href="https://play.google.com/store/apps/details?id=com.modoium.client.app">こちら</a><br>iOS は<a href="https://apps.apple.com/kr/app/modoium/id6587558465">こちら</a></li>
+<li>Purchase the relevant asset from the asset store and import it into the project you want to introduce (It&#39;s free).</li>
+<li>The Modoium Remote Status window will open. (If it doesn&#39;t open, open it from <code>Window &gt; Modoium Remote &gt; View Status</code>.)</li>
+<li>Install the app provided by Modoium on the hardware you want to operate during playback.
+Android is <a href="https://play.google.com/store/apps/details?id=com.modoium.client.app">here</a>
+iOS is <a href="https://apps.apple.com/kr/app/modoium/id6587558465">here</a></li>
 </ol>
-<p>これで導入は終了です。  </p>
+<p>This completes the introduction.</p>
 <hr>
-<h2 id="使用方法">使用方法</h2><p>エディターと端末で接続する際の条件は下記になります。  </p>
+<h2 id="how-to-use">How to use</h2><p>The conditions for connecting the editor and the device are as follows.</p>
 <ol>
-<li>PC とスマホが同じネットワークに接続されている。</li>
-<li>PC のネットワーク設定がプライベートになっている。</li>
+<li>PC and smartphone are connected to the same network.</li>
+<li>The network setting of the PC is private.</li>
 </ol>
-<p>この状態でプロジェクトで Modoium Remote Status ウィンドウを開いて、端末側で Modoium のアプリを開きます。  </p>
-<p>端末側の Modoium アプリに Unity のプロジェクト名が載っていれば正解です。  </p>
-<p>選択して Modoium Remote Status ウィンドウの<br><code>4) Enter the verification code below if necessary:</code>に記載されている番号を Modium アプリ側に入力します。</p>
-<p>以上で動作するはずです。</p>
+<p>In this state, open the Modoium Remote Status window in the project and open the Modoium app on the device side.</p>
+<p>If the Unity project name is listed on the Modoium app on the device side, it is correct.</p>
+<p>Select it and enter the number listed in <code>4) Enter the verification code below if necessary:</code> of the Modoium Remote Status window into the Modium app side.</p>
+<p>It should work with the above.</p>
 <blockquote>
-<p>[! WARNING] Gameview が Simulator だと動作しないそうです。<br>実際しませんでした。</p>
+<p>[! WARNING] It seems that it does not work if Gameview is Simulator.
+Actually it didn&#39;t.</p>
 </blockquote>
 <hr>
-<h3 id="詰まった箇所">詰まった箇所</h3><p>インディーズチームで共同作業する際に発生した事象を話します。  </p>
-<h4 id="一部端末で接続と入力はできるが描画がされない">一部端末で接続と入力はできるが描画がされない</h4><p>発症端末はエクスペリアで所有者の端末特有かエクスペリアか原因の切り分けはできていません。<br>他アプリケーションの影響や、メモリ的な話の可能性もありますが、リモートでの対応なので原因究明に至っておりません。  </p>
+<h3 id="stuck-points">Stuck Points</h3><p>I will talk about the events that occurred during collaborative work in the indie team.</p>
+<h4 id="connection-and-input-are-possible-on-some-devices-but-drawing-is-not-done">Connection and input are possible on some devices, but drawing is not done</h4><p>The affected device is Xperia, and I haven&#39;t been able to isolate whether it&#39;s specific to the owner&#39;s device or Xperia.
+There is a possibility of the influence of other applications or memory issues, but since it was handled remotely, the cause has not been investigated.</p>
 <hr>
-<h4 id="windows-側でインポートし-github-で共有したら、他作業員の-macos-側で-dllexception-エラーが大量に発生">windows 側でインポートし github で共有したら、他作業員の macOS 側で DLLException エラーが大量に発生</h4><p>これは dylib と dll と os 間で動的ライブラリが違うからという話だと最初考えたのですが、該当プロジェクトでは git による管理を行っておりかつ gitIgnore は Unity が推奨しているものを使用しています。<br>なので manifest やインポートされているパッケージ情報のみ共有されているので何故他作業員のところに dll が入っているのかが疑問点です。<br>macOS でインポートしても windows のパッケージがインポートされているのであれば公式のバグではありますが、特に報告にも上がっていませんでしたので、よくわからんです。</p>
+<h4 id="when-imported-on-the-windows-side-and-shared-via-github-dllexception-errors-occurred-frequently-on-the-macos-side-of-other-workers">When imported on the windows side and shared via github, DLLException errors occurred frequently on the macOS side of other workers</h4><p>I initially thought this was because dynamic libraries differ between dylib, dll, and os, but the project is managed by git and uses the gitIgnore recommended by Unity.
+So only the manifest and imported package information are shared, so the question is why the dll is in the other worker&#39;s place.
+If the windows package is imported even if imported on macOS, it would be an official bug, but it was not reported in particular, so I don&#39;t know well.</p>
 <hr>
-<h3 id="最後に">最後に</h3><p>以上 Modoium Remote 導入議事録でした。<br>特に気を付けることは無く正常動作しなかった場合素直に違うハードを使う、Windows 環境で使うってところだけ気を付けていれば、導入して即使用可能なお手軽ツールのお話でした。<br>携帯端末での開発の際は是非。</p>
+<h3 id="finally">Finally</h3><p>That was the Modoium Remote introduction minutes.
+There is nothing particular to be careful about, and if it doesn&#39;t work properly, just honestly use different hardware, and be careful about using it in a Windows environment, it was a story of a handy tool that can be used immediately after introduction.
+Please try it when developing on mobile devices.</p>
 </section>
               <div class="share-buttons">
     <p class="share-buttons__title">SHARE</p>
     <ul class="share-buttons__list">
       
         <li class="share-buttons__item">
-          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00004.html&text=Modoium%20Remote%20%E5%B0%8E%E5%85%A5%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00004.html&text=Tried%20Introducing%20Modoium%20Remote" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
           </a>
         </li>
@@ -167,7 +176,7 @@
             <div class="toc-sticky-container">
               <nav class="toc">
                 <h2 class="toc__title">Table of Contents</h2>
-                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#導入方法">導入方法</a></li><li class="toc-item toc-item--level-2"><a href="#使用方法">使用方法</a></li><li class="toc-item toc-item--level-3"><a href="#詰まった箇所">詰まった箇所</a></li><li class="toc-item toc-item--level-3"><a href="#最後に">最後に</a></li></ul>
+                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#introduction-method">Introduction Method</a></li><li class="toc-item toc-item--level-2"><a href="#how-to-use">How to use</a></li><li class="toc-item toc-item--level-3"><a href="#stuck-points">Stuck Points</a></li><li class="toc-item toc-item--level-3"><a href="#finally">Finally</a></li></ul>
               </nav>
             </div>
           </aside>

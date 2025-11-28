@@ -15,10 +15,10 @@
   },
   {
     "id": "blog_00015",
-    "title": "p5.jsで背景アニメーションを実装してみた",
+    "title": "Tried Implementing Background Animation with p5.js",
     "date": "2025-11-29T00:00:00.000Z",
-    "category": "技術メモ",
-    "description": "静的なポートフォリオサイトに動きを取り入れるため、p5.jsを使って背景アニメーションを実装しました。導入から10パターンの実装まで、初心者の目線で振り返ります。",
+    "category": "Technical Note",
+    "description": "I implemented background animation using p5.js to bring movement to my static portfolio site. I will look back from a beginner's perspective, from introduction to implementation of 10 patterns.",
     "tags": [
       "p5js",
       "javascript"
@@ -29,10 +29,10 @@
   },
   {
     "id": "blog_00014",
-    "title": "CSSのリファクタリングを手軽にしてみた",
+    "title": "Easily Refactored CSS",
     "date": "2025-11-28T00:00:00.000Z",
-    "category": "技術メモ",
-    "description": "個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。",
+    "category": "Technical Note",
+    "description": "I quickly detected and organized \"unused CSS\" that tends to accumulate in personal development websites using a Node.js script.",
     "tags": [
       "css",
       "nodejs"
@@ -43,10 +43,10 @@
   },
   {
     "id": "blog_00012",
-    "title": "静的サイトにお問い合わせフォームを実装する (GAS連携)",
+    "title": "Implementing a Contact Form on a Static Site (GAS Integration)",
     "date": "2025-11-27T00:00:00.000Z",
-    "category": "技術メモ",
-    "description": "GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。",
+    "category": "Technical Note",
+    "description": "Summarized how to implement a contact form without a server on static sites like GitHub Pages (using Google Apps Script).",
     "tags": [
       "gas",
       "javascript"
@@ -57,10 +57,10 @@
   },
   {
     "id": "blog_00013",
-    "title": "ポートフォリオの詳細表示をモーダル化してUXを改善する",
+    "title": "Improving UX by Modaling Portfolio Details",
     "date": "2025-11-27T00:00:00.000Z",
-    "category": "技術メモ",
-    "description": "ポートフォリオサイトの作品詳細を、ページ遷移なしで閲覧できるようにモーダルウィンドウ化しました。DOMParserを使ったHTML取得や、実装時のハマりポイントについて。",
+    "category": "Technical Note",
+    "description": "I modalized the portfolio work details so they can be viewed without page transitions. About HTML acquisition using DOMParser and pitfalls during implementation.",
     "tags": [
       "javascript",
       "ui-ux"
@@ -71,10 +71,10 @@
   },
   {
     "id": "blog_00011",
-    "title": "自作Discord Botを公開したらスパムに悪用された話",
+    "title": "Story of My Self-Made Discord Bot Being Abused for Spam When I Published It",
     "date": "2025-11-26T00:00:00.000Z",
     "category": "Discord",
-    "description": "自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。",
+    "description": "I published a self-made Discord bot, and it was used as a stepping stone for spam. I will summarize the architectural design mistakes that caused this and future security measures.",
     "tags": [
       "discord",
       "nodejs",
@@ -86,13 +86,13 @@
   },
   {
     "id": "blog_00010",
-    "title": "RClone運用フロー",
+    "title": "RClone Operation Flow",
     "date": "2025-11-20T00:00:00.000Z",
-    "category": "CloudStrage",
-    "description": "プロジェクトでrcloneとシェルスクリプトを活用し、大規模アセットの効率的な管理とCI/CD連携を実現する方法を解説します。",
+    "category": "CloudStorage",
+    "description": "Explains how to efficiently manage large-scale assets and achieve CI/CD integration using rclone and shell scripts in a project.",
     "tags": [
       "tool",
-      "cloudstrage",
+      "cloudstorage",
       "git"
     ],
     "thumbnail": "assets/img/thumbnails/blog_00010.png",
@@ -101,10 +101,10 @@
   },
   {
     "id": "blog_00009",
-    "title": "ZedでC#開発環境を構築してみた",
+    "title": "Tried Building a C# Development Environment in Zed",
     "date": "2025-11-19T00:00:00.000Z",
     "category": "IDE",
-    "description": "ZedにC#言語サーバーを導入し、Unityプロジェクトで補完・定義ジャンプを使えるようにするまでの手順とハマりどころをまとめました",
+    "description": "Summarized the steps and pitfalls to introduce a C# language server to Zed and enable completion and definition jumping in Unity projects",
     "tags": [
       "csharp",
       "zed",
@@ -117,13 +117,13 @@
   },
   {
     "id": "blog_00007",
-    "title": "RClone導入フロー",
+    "title": "RClone Introduction Flow",
     "date": "2025-11-17T00:00:00.000Z",
-    "category": "CloudStrage",
-    "description": "Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ",
+    "category": "CloudStorage",
+    "description": "Summary of procedures for introducing rclone in Windows + Git Bash environment and linking with Google Drive",
     "tags": [
       "tool",
-      "cloudstrage",
+      "cloudstorage",
       "git"
     ],
     "thumbnail": "assets/img/thumbnails/blog_00007.png",
@@ -132,10 +132,10 @@
   },
   {
     "id": "blog_00006",
-    "title": "UE5プラグイン開発",
+    "title": "UE5 Plugin Development",
     "date": "2025-10-09T00:00:00.000Z",
     "category": "UE5",
-    "description": "ゲーム開発におけるUE5のプラグイン開発",
+    "description": "Plugin development in UE5 for game development",
     "tags": [
       "ue5",
       "cpp"
@@ -146,15 +146,15 @@
   },
   {
     "id": "blog_00005",
-    "title": "DropBox APIを使ってみた",
+    "title": "Tried using Dropbox API",
     "date": "2025-05-09T00:00:00.000Z",
-    "category": "CloudStrage",
-    "description": "GitLFSの無料ユーザーを救済します！",
+    "category": "CloudStorage",
+    "description": "Saving free GitLFS users!",
     "tags": [
       "git",
       "api",
       "dropbox",
-      "cloudstrage"
+      "cloudstorage"
     ],
     "thumbnail": "assets/img/thumbnails/blog_00005.png",
     "contentPath": "blog/en/blog_00005.html",
@@ -162,10 +162,10 @@
   },
   {
     "id": "blog_00004",
-    "title": "Modoium Remote 導入してみた",
+    "title": "Tried Introducing Modoium Remote",
     "date": "2025-04-20T00:00:00.000Z",
     "category": "Unity",
-    "description": "Unity開発でスマホ端末がプラットフォームの際にデバッグが便利になる機能の紹介",
+    "description": "Introduction of a feature that makes debugging convenient when the smartphone device is the platform in Unity development",
     "tags": [
       "unity",
       "plugin",
@@ -179,10 +179,10 @@
   },
   {
     "id": "blog_00008",
-    "title": "Discord Bot のアーキテクチャを見直した話",
+    "title": "Reevaluating Discord Bot Architecture",
     "date": "2025-02-01T00:00:00.000Z",
     "category": "Discord",
-    "description": "Discord Bot の構成メモ コマンド／イベントをプラグイン的に追加",
+    "description": "Configuration notes for Discord Bot, adding commands/events like plugins",
     "tags": [
       "discord",
       "nodejs",
@@ -196,10 +196,10 @@
   },
   {
     "id": "blog_00003",
-    "title": "Odin でコンテキストエディター作ってみた",
+    "title": "Tried Creating a Context Editor with Odin",
     "date": "2024-06-10T00:00:00.000Z",
     "category": "Unity",
-    "description": "Odin でプランナー向けのコンテキストエディターを作った話",
+    "description": "A story about creating a context editor for planners using Odin",
     "tags": [
       "unity",
       "plugin",
@@ -211,10 +211,10 @@
   },
   {
     "id": "blog_00002",
-    "title": "Odin を導入してみた",
+    "title": "Trying out Odin Inspector",
     "date": "2024-06-02T00:00:00.000Z",
     "category": "Unity",
-    "description": "チームで Odin 導入時にハマったポイントと対処方法",
+    "description": "Trouble points and solutions when introducing Odin in a team",
     "tags": [
       "unity",
       "plugin",
@@ -226,10 +226,10 @@
   },
   {
     "id": "blog_00001",
-    "title": "ブログはじめました",
+    "title": "Started a Blog",
     "date": "2024-06-01T00:00:00.000Z",
-    "category": "日記",
-    "description": "筆者の自己紹介",
+    "category": "Diary",
+    "description": "Self-introduction of the author",
     "tags": [
       "diary"
     ],

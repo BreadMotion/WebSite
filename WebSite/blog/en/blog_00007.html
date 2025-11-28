@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>RClone導入フロー | PanKUN Blog</title>
+    <title>RClone Introduction Flow | PanKUN Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ" />
+    <meta name="description" content="Summary of procedures for introducing rclone in Windows + Git Bash environment and linking with Google Drive" />
     <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/en/blog_00007.html" />
     <link rel="alternate" hreflang="ja" href="https://breadmotion.github.io/WebSite/blog/blog_00007.html" />
     <link rel="alternate" hreflang="en" href="https://breadmotion.github.io/WebSite/blog/en/blog_00007.html" />
@@ -23,8 +23,8 @@
     "@type": "WebPage",
     "@id": "https://breadmotion.github.io/WebSite/blog/en/blog_00007.html"
   },
-  "headline": "RClone導入フロー",
-  "description": "Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ",
+  "headline": "RClone Introduction Flow",
+  "description": "Summary of procedures for introducing rclone in Windows + Git Bash environment and linking with Google Drive",
   "image": [
     "https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00007.png"
   ],
@@ -44,8 +44,8 @@
     }
   }
 }</script>
-    <meta property="og:title" content="RClone導入フロー | PanKUN Blog" />
-    <meta property="og:description" content="Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ" />
+    <meta property="og:title" content="RClone Introduction Flow | PanKUN Blog" />
+    <meta property="og:description" content="Summary of procedures for introducing rclone in Windows + Git Bash environment and linking with Google Drive" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/en/blog_00007.html" />
     <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00007.png" />
@@ -64,20 +64,20 @@
                 <ol class="breadcrumb__list">
                   <li class="breadcrumb__item"><a href="../../index.html">Home</a></li>
                   <li class="breadcrumb__item"><a href="../../blog.html">Blog</a></li>
-                  <li class="breadcrumb__item" aria-current="page">RClone導入フロー</li>
+                  <li class="breadcrumb__item" aria-current="page">RClone Introduction Flow</li>
                 </ol>
               </nav>
               <header class="post-detail__header">
-                <p class="post-detail__meta">2025/11/17 / CloudStrage</p>
-                <h1 class="post-detail__title">RClone導入フロー</h1>
-                <p class="post-detail__description">Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ</p>
-                <p class="post-detail__tags"><a class="tag" href="../../blog.html?tag=tool">tool</a> <a class="tag" href="../../blog.html?tag=cloudstrage">cloudstrage</a> <a class="tag" href="../../blog.html?tag=git">git</a></p>
+                <p class="post-detail__meta">2025/11/17 / CloudStorage</p>
+                <h1 class="post-detail__title">RClone Introduction Flow</h1>
+                <p class="post-detail__description">Summary of procedures for introducing rclone in Windows + Git Bash environment and linking with Google Drive</p>
+                <p class="post-detail__tags"><a class="tag" href="../../blog.html?tag=tool">tool</a> <a class="tag" href="../../blog.html?tag=cloudstorage">cloudstorage</a> <a class="tag" href="../../blog.html?tag=git">git</a></p>
                 <div class="share-buttons">
     <p class="share-buttons__title">SHARE</p>
     <ul class="share-buttons__list">
       
         <li class="share-buttons__item">
-          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00007.html&text=RClone%E5%B0%8E%E5%85%A5%E3%83%95%E3%83%AD%E3%83%BC" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00007.html&text=RClone%20Introduction%20Flow" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
           </a>
         </li>
@@ -97,42 +97,44 @@
     </ul>
   </div>
               </header>
-              <section class="post-detail__body markdown-body"><p>こんにちは！パン君です</p>
-<p>WindowsでGoogle Driveと連携し、大容量ファイルをrcloneで管理します。</p>
+              <section class="post-detail__body markdown-body"><p>Hello! I&#39;m PanKUN.</p>
+<p>Link with Google Drive on Windows and manage large files with rclone.</p>
 <ul>
-<li>WinGet の導入</li>
-<li>rclone のインストール</li>
-<li>Google Drive リモートの設定</li>
-<li>動作確認
-のステップを 一つのフローチャートにまとめて可視化しました。</li>
+<li>Introduction of WinGet</li>
+<li>Installation of rclone</li>
+<li>Google Drive remote settings</li>
+<li>Operation check
+I summarized these steps into a single flowchart and visualized it.</li>
 </ul>
-<h1 id="rclone-導入フロー（mermaid版）">RClone 導入フロー（Mermaid版）</h1><p>最終版のフローチャートは<a href="https://breadmotion.github.io/WebSite/content/other/Rclone.html">こちら</a>です。</p>
-<p><img src="https://breadmotion.github.io/WebSite/assets/img/MMD_rclone.png" alt="RClone導入フローチャート" title="" /></p>
+<h1 id="rclone-introduction-flow-mermaid-version">RClone Introduction Flow (Mermaid version)</h1><p>The final version of the flowchart is <a href="https://breadmotion.github.io/WebSite/content/other/Rclone.html">here</a>.</p>
+<p><img src="https://breadmotion.github.io/WebSite/assets/img/MMD_rclone.png" alt="RClone Introduction Flowchart" title="" /></p>
 <hr>
-<h1 id="このフローで何ができる？">このフローで何ができる？</h1><p>このフローは、Windows環境で以下の一連の作業をミスなく実行できるように可視化したものです。</p>
+<h1 id="what-can-this-flow-do">What can this flow do?</h1><p>This flow visualizes the following series of tasks in a Windows environment so that they can be executed without mistakes.</p>
 <ul>
-<li>WinGet がない場合の対処</li>
-<li>rclone のインストール</li>
-<li>Google Drive リモート設定</li>
-<li>Drive フォルダ ID の取得方法</li>
-<li>動作確認の手順</li>
+<li>What to do if WinGet is missing</li>
+<li>Installation of rclone</li>
+<li>Google Drive remote settings</li>
+<li>How to get Drive Folder ID</li>
+<li>Operation check procedure</li>
 </ul>
-<p>自分やチームの「Windows環境でのGit LFS代用環境構築の詰まりポイント」を解消できます。</p>
+<p>You can eliminate &quot;stuck points in building a Git LFS substitute environment in Windows&quot; for yourself and your team.</p>
 <hr>
-<h1 id="概要">概要</h1><p>Windows環境でGitLFSの制限外で管理できるように共有したい場合のやり方です。<br>大まかな流れは下記です。</p>
+<h1 id="overview">Overview</h1><p>This is how to share files so that they can be managed outside the limits of Git LFS in a Windows environment.
+The rough flow is as follows.</p>
 <ul>
-<li>WinGet導入</li>
-<li>RClone導入</li>
-<li>RCloneの設定</li>
+<li>Introduction of WinGet</li>
+<li>Introduction of RClone</li>
+<li>RClone settings</li>
 </ul>
-<p>これ以降は運用の仕方の話になってくるうえ、<br>CLIに慣れていない人に向ける場合、もう一工夫する必要がある為別の記事で記載予定です。</p>
+<p>Since what follows becomes a story of operation method,
+and if aiming at people who are not used to CLI, one more ingenuity is necessary, so I plan to describe it in another article.</p>
 <hr>
-<h1 id="まとめ">まとめ</h1><p>この記事で行ったこと：</p>
+<h1 id="summary">Summary</h1><p>What I did in this article:</p>
 <ul>
-<li>RClone 導入に必要なステップを可視化</li>
-<li>Mermaid でフローチャート化</li>
-<li>Drive 連携の注意点（root_folder_id など）</li>
-<li>チーム用の手順書として使える内容に整備</li>
+<li>Visualized steps required for RClone introduction</li>
+<li>Flowcharted with Mermaid</li>
+<li>Points to note for Drive integration (root_folder_id etc.)</li>
+<li>Organized content to be usable as a procedure manual for teams</li>
 </ul>
 </section>
               <div class="share-buttons">
@@ -140,7 +142,7 @@
     <ul class="share-buttons__list">
       
         <li class="share-buttons__item">
-          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00007.html&text=RClone%E5%B0%8E%E5%85%A5%E3%83%95%E3%83%AD%E3%83%BC" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00007.html&text=RClone%20Introduction%20Flow" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
           </a>
         </li>

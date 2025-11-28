@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Odin を導入してみた | PanKUN Blog</title>
+    <title>Trying out Odin Inspector | PanKUN Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="チームで Odin 導入時にハマったポイントと対処方法" />
+    <meta name="description" content="Trouble points and solutions when introducing Odin in a team" />
     <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/en/blog_00002.html" />
     <link rel="alternate" hreflang="ja" href="https://breadmotion.github.io/WebSite/blog/blog_00002.html" />
     <link rel="alternate" hreflang="en" href="https://breadmotion.github.io/WebSite/blog/en/blog_00002.html" />
@@ -23,8 +23,8 @@
     "@type": "WebPage",
     "@id": "https://breadmotion.github.io/WebSite/blog/en/blog_00002.html"
   },
-  "headline": "Odin を導入してみた",
-  "description": "チームで Odin 導入時にハマったポイントと対処方法",
+  "headline": "Trying out Odin Inspector",
+  "description": "Trouble points and solutions when introducing Odin in a team",
   "image": [
     "https://cdn-ak.f.st-hatena.com/images/fotolife/R/Raspberly/20201207/20201207023915.png"
   ],
@@ -44,8 +44,8 @@
     }
   }
 }</script>
-    <meta property="og:title" content="Odin を導入してみた | PanKUN Blog" />
-    <meta property="og:description" content="チームで Odin 導入時にハマったポイントと対処方法" />
+    <meta property="og:title" content="Trying out Odin Inspector | PanKUN Blog" />
+    <meta property="og:description" content="Trouble points and solutions when introducing Odin in a team" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/en/blog_00002.html" />
     <meta property="og:image" content="https://cdn-ak.f.st-hatena.com/images/fotolife/R/Raspberly/20201207/20201207023915.png" />
@@ -64,20 +64,20 @@
                 <ol class="breadcrumb__list">
                   <li class="breadcrumb__item"><a href="../../index.html">Home</a></li>
                   <li class="breadcrumb__item"><a href="../../blog.html">Blog</a></li>
-                  <li class="breadcrumb__item" aria-current="page">Odin を導入してみた</li>
+                  <li class="breadcrumb__item" aria-current="page">Trying out Odin Inspector</li>
                 </ol>
               </nav>
               <header class="post-detail__header">
                 <p class="post-detail__meta">2024/06/02 / Unity</p>
-                <h1 class="post-detail__title">Odin を導入してみた</h1>
-                <p class="post-detail__description">チームで Odin 導入時にハマったポイントと対処方法</p>
+                <h1 class="post-detail__title">Trying out Odin Inspector</h1>
+                <p class="post-detail__description">Trouble points and solutions when introducing Odin in a team</p>
                 <p class="post-detail__tags"><a class="tag" href="../../blog.html?tag=unity">unity</a> <a class="tag" href="../../blog.html?tag=plugin">plugin</a> <a class="tag" href="../../blog.html?tag=tool">tool</a></p>
                 <div class="share-buttons">
     <p class="share-buttons__title">SHARE</p>
     <ul class="share-buttons__list">
       
         <li class="share-buttons__item">
-          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00002.html&text=Odin%20%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00002.html&text=Trying%20out%20Odin%20Inspector" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
           </a>
         </li>
@@ -97,178 +97,176 @@
     </ul>
   </div>
               </header>
-              <section class="post-detail__body markdown-body"><p>こんにちは！パン君です。</p>
-<p>今回はインディーズのプロジェクトで <strong>Odin Inspector</strong> を導入した際に起きたトラブルと、そのときに行った対処についてまとめます。</p>
-<p>ざっくり言うと、</p>
+              <section class="post-detail__body markdown-body"><p>Hello! I&#39;m PanKUN.</p>
+<p>This time, I will summarize the troubles that occurred when introducing <strong>Odin Inspector</strong> in an indie project and the actions taken at that time.</p>
+<p>Roughly speaking, the situation was:</p>
 <ul>
-<li><strong>Odin 関連の <code>.meta</code> ファイルに差分が出る</strong></li>
-<li>一部環境で Unity が <strong>Safe Mode でしか起動しない</strong></li>
-<li>Test Framework 周りのエラーも一緒に出る</li>
+<li><strong>Differences appear in <code>.meta</code> files related to Odin</strong></li>
+<li>Unity <strong>only starts in Safe Mode</strong> in some environments</li>
+<li>Errors related to Test Framework also appear</li>
 </ul>
-<p>という状態になりました。</p>
-<p>自分の環境では再現せず、「動いている人」と「動かない人」が混ざる状態だったので、原因の切り分けとチーム内での対処ルールを整える必要がありました。</p>
-<p>この記事では、実際に行った手順ベースで <strong>「こうやっておけば最初の導入時に事故りにくい」</strong> という視点で書いていきます。</p>
+<p>It did not reproduce in my environment, and since &quot;people for whom it works&quot; and &quot;people for whom it doesn&#39;t&quot; were mixed, it was necessary to isolate the cause and establish response rules within the team.</p>
+<p>In this article, I will write from the perspective of <strong>&quot;doing this makes it less likely to cause accidents during the initial introduction&quot;</strong> based on the steps actually taken.</p>
 <hr>
-<h2 id="エラー内容の整理">エラー内容の整理</h2><p>まず、チーム内で実際に発生していた症状を整理します。</p>
-<h3 id="1-meta-ファイルの差分と警告">1. meta ファイルの差分と警告</h3><p>一部メンバーの環境で、Odin 関係の <code>.meta</code> ファイルに差分が発生し、</p>
+<h2 id="organizing-error-details">Organizing Error Details</h2><p>First, I will organize the symptoms that were actually occurring within the team.</p>
+<h3 id="1-differences-and-warnings-in-meta-files">1. Differences and warnings in meta files</h3><p>In the environment of some members, differences occurred in <code>.meta</code> files related to Odin, and warnings like:</p>
 <blockquote>
-<p>無効な meta ファイルが存在します</p>
+<p>Invalid meta file exists</p>
 </blockquote>
-<p>という警告や、Odin 関連のアセンブリがうまく認識されないエラーが出ていました。</p>
-<h3 id="2-safe-mode-での起動">2. Safe Mode での起動</h3><ul>
-<li>自分の環境では普通に起動</li>
-<li>別のメンバーでは <strong>UnityがSafe Modeでしか開けない</strong></li>
+<p>or errors where Odin-related assemblies were not recognized correctly appeared.</p>
+<h3 id="2-starting-in-safe-mode">2. Starting in Safe Mode</h3><ul>
+<li>It starts normally in my environment</li>
+<li><strong>Unity can only be opened in Safe Mode</strong> for other members</li>
 </ul>
-<p>という状態に。</p>
-<p>自分側で</p>
+<p>This became the state.</p>
+<p>Even though there was no problem when I:</p>
 <ul>
-<li>Odin をインポート</li>
-<li>別のローカルプロジェクトで <code>クリーン → チェックアウト</code> して検証</li>
+<li>Imported Odin</li>
+<li>Performed <code>Clean -&gt; Checkout</code> in another local project to verify</li>
 </ul>
-<p>まで行ったときは問題なかったのですが、<br>一部メンバーだけ Safe Mode 行きになると報告をもらいました。</p>
-<h3 id="3-test-framework-のエラー">3. Test Framework のエラー</h3><p>Safe Mode のログを見てもらったところ、Odin とは別に</p>
+<p>I received reports that only some members were sent to Safe Mode.</p>
+<h3 id="3-test-framework-errors">3. Test Framework Errors</h3><p>When I looked at the logs in Safe Mode, there were patterns where:</p>
 <ul>
-<li><strong>Test Framework 関連のエラー</strong></li>
+<li><strong>Errors related to Test Framework</strong></li>
 </ul>
-<p>が出ているパターンがありました。</p>
-<p>Unity の Test Framework は、</p>
+<p>were appearing separately from Odin.</p>
+<p>Unity&#39;s Test Framework is:</p>
 <ul>
-<li>Unity エディタ上部メニュー:<br><code>Window &gt; General &gt; Test Runner（バージョンによって多少名称違い）</code></li>
-<li>コード上では <code>[Test]</code> 属性などで単体テストを書くためのパッケージ</li>
+<li>Unity Editor top menu:
+<code>Window &gt; General &gt; Test Runner (name varies slightly depending on version)</code></li>
+<li>A package for writing unit tests using attributes like <code>[Test]</code> in code</li>
 </ul>
-<p>です。</p>
-<p>ログを読む限り、</p>
+<p>As far as reading the logs, it seemed that:</p>
 <ul>
-<li>Odin 関連のどこかで <strong>Test Framework に依存している</strong></li>
-<li>しかし、あるメンバーの環境では Test Framework が壊れている / 読めていない</li>
+<li>Somewhere related to Odin <strong>depends on the Test Framework</strong></li>
+<li>However, the Test Framework is broken / unreadable in some members&#39; environments</li>
 </ul>
-<p>という状態になっていました。</p>
-<p>ただし、</p>
+<p>However, since:</p>
 <ul>
-<li><code>Packages/manifest.json</code> 上は Test Framework のバージョンは揃っている</li>
-<li>自分の別プロジェクトでは同じバージョンで問題なく動作している</li>
+<li>The version of Test Framework on <code>Packages/manifest.json</code> is consistent</li>
+<li>It works without problems with the same version in my other projects</li>
 </ul>
-<p>という状況だったため、 <strong>パッケージそのものが壊れているわけではない</strong> と判断しました。</p>
+<p>I judged that <strong>the package itself is not broken</strong>.</p>
 <hr>
-<h2 id="原因の候補">原因の候補</h2><p>実際にログを見ながら、原因としてありそうだったものはこのあたりです。</p>
+<h2 id="possible-causes">Possible Causes</h2><p>Here are some likely causes while looking at the logs.</p>
 <ol>
-<li><strong>Unity / Odin / Test Framework のバージョン差異</strong><ul>
-<li>特定メンバーだけ Unity のマイナーバージョンが違う</li>
-<li>Odin をインポートしたときのバージョンが微妙に違う</li>
+<li><strong>Version differences in Unity / Odin / Test Framework</strong><ul>
+<li>Only specific members have different Unity minor versions</li>
+<li>The version when Odin was imported is slightly different</li>
 </ul>
 </li>
-<li><strong><code>.meta</code> ファイルや <code>Library</code> の状態差</strong><ul>
-<li><code>Library</code> フォルダが古いまま</li>
-<li>一部 <code>.meta</code> がローカルだけで生成されており、Git に上がっていない</li>
+<li><strong>State differences in <code>.meta</code> files or <code>Library</code></strong><ul>
+<li>The <code>Library</code> folder remains old</li>
+<li>Some <code>.meta</code> files are generated only locally and not uploaded to Git</li>
 </ul>
 </li>
-<li><strong>Test Framework のインストール状態の差</strong><ul>
-<li>Package Manager 上で一度削除 or Disable されている</li>
-<li>キャッシュが壊れていて、再インポートが完了していない</li>
+<li><strong>Difference in installation state of Test Framework</strong><ul>
+<li>Once deleted or disabled on Package Manager</li>
+<li>Cache is broken and re-import is not completed</li>
 </ul>
 </li>
 </ol>
-<p>実際には「どれか 1 つ」というより、 <strong>複数の条件が重なって Safe Mode 送りになっていた</strong> 感じでした。</p>
+<p>Actually, rather than &quot;one of these&quot;, it felt like <strong>multiple conditions overlapped and caused it to be sent to Safe Mode</strong>.</p>
 <hr>
-<h2 id="実際に行った対処手順">実際に行った対処手順</h2><p>ここからは、チームで実際にやってもらった手順を整理して書いておきます。</p>
-<h3 id="手順-1-全員の作業手順を統一する">手順 1: 全員の作業手順を統一する</h3><p>まずは、 <strong>「Pull したあとに何をするか」</strong> を固定しました。</p>
+<h2 id="actual-response-procedures">Actual Response Procedures</h2><p>From here, I will organize and write down the procedures that the team actually followed.</p>
+<h3 id="step-1-unify-everyone39s-work-procedures">Step 1: Unify everyone&#39;s work procedures</h3><p>First, we fixed <strong>&quot;what to do after Pulling&quot;</strong>.</p>
 <ol>
-<li><code>git pull</code> する</li>
-<li>Unity を閉じた状態で<ul>
-<li><code>Library</code> フォルダを削除</li>
-<li>必要なら <code>Temp</code> や <code>obj</code> も削除（任意）</li>
+<li>Do <code>git pull</code></li>
+<li>With Unity closed<ul>
+<li>Delete the <code>Library</code> folder</li>
+<li>Delete <code>Temp</code> and <code>obj</code> if necessary (optional)</li>
 </ul>
 </li>
-<li>Unity を再起動して、<strong>初回の再インポートを最後まで待つ</strong></li>
+<li>Restart Unity and <strong>wait for the initial re-import to finish</strong></li>
 </ol>
-<p>これをやっていないメンバーが何人かいたため、<br>手順を文章にして Discord / DM で流し、<strong>「まずはここから」</strong>として統一しました。</p>
+<p>Since there were several members who were not doing this,
+I documented the procedure and shared it via Discord / DM, unifying it as <strong>&quot;Start from here&quot;</strong>.</p>
 <blockquote>
-<p>これだけで直った人もいるので、<br>できれば Odin 導入時に「手順書セットで配る」のがおすすめです。</p>
+<p>Since this alone fixed it for some people,
+I recommend distributing a &quot;procedure manual set&quot; when introducing Odin.</p>
 </blockquote>
-<h3 id="手順-2-odin-および-test-framework-の状態確認">手順 2: Odin および Test Framework の状態確認</h3><p>次に、 <strong>問題が残ったメンバー</strong> に対しては、パッケージの状態を確認してもらいました。</p>
+<h3 id="step-2-check-status-of-odin-and-test-framework">Step 2: Check status of Odin and Test Framework</h3><p>Next, for <strong>members who still had problems</strong>, I asked them to check the package status.</p>
 <ul>
-<li><code>Window &gt; Package Manager</code> を開く</li>
-<li><strong>Odin</strong> のバージョンを確認<ul>
-<li>導入したバージョンと一致しているか</li>
+<li>Open <code>Window &gt; Package Manager</code></li>
+<li>Check the version of <strong>Odin</strong><ul>
+<li>Is it consistent with the imported version?</li>
 </ul>
 </li>
-<li><code>Unity Registry</code> 側で <strong>Test Framework</strong> を確認<ul>
-<li>インストール済みか</li>
-<li>バージョンは他メンバーと同じか</li>
-<li>状態が <code>Error</code> / <code>Resolve</code> 待ちになっていないか</li>
+<li>Check <strong>Test Framework</strong> on <code>Unity Registry</code> side<ul>
+<li>Is it installed?</li>
+<li>Is the version the same as other members?</li>
+<li>Is the status not <code>Error</code> / waiting for <code>Resolve</code>?</li>
 </ul>
 </li>
 </ul>
-<p>もし Test Framework が壊れていそうな場合は、</p>
+<p>If the Test Framework seems broken:</p>
 <ol>
-<li>一旦 Test Framework パッケージを「Remove」する</li>
-<li>Unity を再起動</li>
-<li>再度 Package Manager から Test Framework をインストール</li>
+<li>Temporarily &quot;Remove&quot; the Test Framework package</li>
+<li>Restart Unity</li>
+<li>Re-install Test Framework from Package Manager again</li>
 </ol>
-<p>という形で再インポートしてもらいました。</p>
-<h3 id="手順-3-meta-差分の整理">手順 3: <code>.meta</code> 差分の整理</h3><p>Odin 関係の <code>.meta</code> ファイルで差分が出ている場合は、</p>
+<p>I asked them to re-import in this way.</p>
+<h3 id="step-3-organizing-meta-differences">Step 3: Organizing <code>.meta</code> differences</h3><p>If there are differences in <code>.meta</code> files related to Odin:</p>
 <ul>
-<li>まずはリポジトリ側に <strong>正しい状態の Odin + meta をコミット</strong></li>
-<li>その後、他メンバーには</li>
+<li>First, <strong>commit the correct state of Odin + meta</strong> to the repository side</li>
+<li>Then, for other members:</li>
 </ul>
-<pre><code class="language-text">  1. 作業ブランチでローカル変更を避難する（stash or commit）
-  2. 最新ブランチに同期
-  3. Library を削除
-  4. Unity 再起動後、Odin 関係の .meta 差分が出るか確認
+<pre><code class="language-text">  1. Evacuate local changes in work branch (stash or commit)
+  2. Sync to latest branch
+  3. Delete Library
+  4. After restarting Unity, check if .meta differences related to Odin appear
 </code></pre>
-<p>という流れで動いてもらいました。
-　
-「動いている環境」をいったん正としてリポジトリに固め、それ以外の環境を合わせにいく<br>という考え方です。</p>
-<h2 id="チームで-odin-を導入するときの運用ルール">チームで Odin を導入するときの運用ルール</h2><p>今回のトラブルを踏まえて、次のプロジェクト以降で気をつけようと思ったポイントをまとめておきます。  </p>
-<h3 id="1-導入前に「担当者」を決める">1. 導入前に「担当者」を決める</h3><ul>
-<li>Odin のバージョン選定</li>
-<li>プロジェクトへのインポート</li>
-<li>初回コミット</li>
+<p>I asked them to move in this flow.</p>
+<p>The idea is to set the &quot;working environment&quot; as correct and fix it in the repository, then align other environments to it.</p>
+<h2 id="operation-rules-when-introducing-odin-in-a-team">Operation Rules when introducing Odin in a team</h2><p>Based on this trouble, I will summarize the points I decided to be careful about in the next project onwards.</p>
+<h3 id="1-decide-a-quotperson-in-chargequot-before-introduction">1. Decide a &quot;person in charge&quot; before introduction</h3><ul>
+<li>Selection of Odin version</li>
+<li>Import to project</li>
+<li>Initial commit</li>
 </ul>
-<p>ここは <strong>1人の担当者がまとめてやる</strong> 方が事故りにくいです。</p>
-<p>中途半端な状態で複数人がそれぞれインポートすると、<br>.meta や manifest.json がぐちゃっとなりやすいです。  </p>
-<h3 id="2-unity--odin--test-framework-の「想定バージョン」を明文化する">2. Unity / Odin / Test Framework の「想定バージョン」を明文化する</h3><ul>
-<li>プロジェクト開始時に<ul>
-<li>Unity バージョン</li>
-<li>Odin バージョン</li>
-<li>Test Framework バージョン
-を、どこかドキュメントに書いておく<br>後から参加してくるメンバーにも、「これに合わせてください」と案内するだけで済むようになります。</li>
+<p>It is less likely to cause accidents if <strong>one person in charge does this all at once</strong>.</p>
+<p>If multiple people import individually in a halfway state,
+.meta and manifest.json tend to become messy.</p>
+<h3 id="2-document-quotassumed-versionsquot-of-unity--odin--test-framework">2. Document &quot;assumed versions&quot; of Unity / Odin / Test Framework</h3><ul>
+<li>At the start of the project<ul>
+<li>Unity version</li>
+<li>Odin version</li>
+<li>Test Framework version
+write these down in some document.
+It becomes sufficient just to guide members joining later to &quot;please match this&quot;.</li>
 </ul>
 </li>
 </ul>
-<h3 id="3-初回セットアップ手順を-readme-に書いておく">3. 初回セットアップ手順を README に書いておく</h3><p>今回やったような、</p>
+<h3 id="3-write-initial-setup-procedures-in-readme">3. Write initial setup procedures in README</h3><p>Like what we did this time:</p>
 <ul>
-<li>git clone / git pull 後にやること<ul>
-<li>Library 削除</li>
-<li>Unity 再起動</li>
+<li>Things to do after git clone / git pull<ul>
+<li>Delete Library</li>
+<li>Restart Unity</li>
 </ul>
 </li>
-<li>うまく起動しなかったときの確認ポイント<ul>
-<li>Odin / Test Framework の状態確認</li>
-<li>Safe Mode になったときはログを添付して報告してもらう</li>
+<li>Confirmation points when it didn&#39;t start well<ul>
+<li>Status check of Odin / Test Framework</li>
+<li>Ask to report with logs attached when it becomes Safe Mode</li>
 </ul>
 </li>
 </ul>
-<p>といった内容を、簡単な手順書にしておくだけでトラブル時のコミュニケーションコストがかなり下がります。</p>
-<h2 id="まとめ">まとめ</h2><p>今回の Odin 導入で学んだことをまとめると、こんな感じです。</p>
+<p>Just by making a simple procedure manual for such contents, the communication cost during trouble drops considerably.</p>
+<h2 id="summary">Summary</h2><p>Summarizing what I learned from this Odin introduction, it looks like this.</p>
 <ul>
-<li>Odin 自体は便利だが、チーム導入時には「Unity / Test Framework / meta ファイル」の差異で事故りやすい</li>
-<li>「動いている環境」を 1 つ決めて、そこから<ul>
-<li>Odin + Test Framework の状態をコミット</li>
-<li>他メンバーの環境をその状態に寄せていくという方針がやりやすい</li>
+<li>Odin itself is convenient, but it is easy to have accidents due to differences in &quot;Unity / Test Framework / meta files&quot; during team introduction</li>
+<li>It is easy to adopt a policy of deciding one &quot;working environment&quot;, committing the state of Odin + Test Framework from there, and aligning other members&#39; environments to that state</li>
+<li>Just <strong>documenting the procedure and assumed version lightly in advance</strong> makes it much safer</li>
 </ul>
-</li>
-<li>導入時の手順や想定バージョンを <strong>事前に軽くドキュメント化</strong> しておくだけでも、だいぶ安全になる</li>
-</ul>
-<p>Odin はカスタムインスペクターやエディタ拡張まわりでかなり強力なツールなので、<br>一度チームで安定して導入できる形が作れると、 <strong>次以降のプロジェクトがかなり楽</strong> になります。</p>
-<p>今後は実際にどんな機能を Odin で作っているか（属性ベースの Editor 拡張や、Data 管理の工夫など）も、<br>別の記事で書いていければと思います。</p>
+<p>Since Odin is a quite powerful tool around custom inspectors and editor extensions,
+once you can create a form that can be introduced stably in a team, <strong>projects from the next one onwards will be much easier</strong>.</p>
+<p>I hope to write about what features I am actually making with Odin (attribute-based Editor extensions, ingenuity of Data management, etc.) in another article in the future.</p>
 </section>
               <div class="share-buttons">
     <p class="share-buttons__title">SHARE</p>
     <ul class="share-buttons__list">
       
         <li class="share-buttons__item">
-          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00002.html&text=Odin%20%E3%82%92%E5%B0%8E%E5%85%A5%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00002.html&text=Trying%20out%20Odin%20Inspector" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
           </a>
         </li>
@@ -296,7 +294,7 @@
             <div class="toc-sticky-container">
               <nav class="toc">
                 <h2 class="toc__title">Table of Contents</h2>
-                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#エラー内容の整理">エラー内容の整理</a></li><li class="toc-item toc-item--level-3"><a href="#1-meta-ファイルの差分と警告">1. meta ファイルの差分と警告</a></li><li class="toc-item toc-item--level-3"><a href="#2-safe-mode-での起動">2. Safe Mode での起動</a></li><li class="toc-item toc-item--level-3"><a href="#3-test-framework-のエラー">3. Test Framework のエラー</a></li><li class="toc-item toc-item--level-2"><a href="#原因の候補">原因の候補</a></li><li class="toc-item toc-item--level-2"><a href="#実際に行った対処手順">実際に行った対処手順</a></li><li class="toc-item toc-item--level-3"><a href="#手順-1-全員の作業手順を統一する">手順 1: 全員の作業手順を統一する</a></li><li class="toc-item toc-item--level-3"><a href="#手順-2-odin-および-test-framework-の状態確認">手順 2: Odin および Test Framework の状態確認</a></li><li class="toc-item toc-item--level-3"><a href="#手順-3-meta-差分の整理">手順 3: &lt;code&gt;.meta&lt;/code&gt; 差分の整理</a></li><li class="toc-item toc-item--level-2"><a href="#チームで-odin-を導入するときの運用ルール">チームで Odin を導入するときの運用ルール</a></li><li class="toc-item toc-item--level-3"><a href="#1-導入前に「担当者」を決める">1. 導入前に「担当者」を決める</a></li><li class="toc-item toc-item--level-3"><a href="#2-unity--odin--test-framework-の「想定バージョン」を明文化する">2. Unity / Odin / Test Framework の「想定バージョン」を明文化する</a></li><li class="toc-item toc-item--level-3"><a href="#3-初回セットアップ手順を-readme-に書いておく">3. 初回セットアップ手順を README に書いておく</a></li><li class="toc-item toc-item--level-2"><a href="#まとめ">まとめ</a></li></ul>
+                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#organizing-error-details">Organizing Error Details</a></li><li class="toc-item toc-item--level-3"><a href="#1-differences-and-warnings-in-meta-files">1. Differences and warnings in meta files</a></li><li class="toc-item toc-item--level-3"><a href="#2-starting-in-safe-mode">2. Starting in Safe Mode</a></li><li class="toc-item toc-item--level-3"><a href="#3-test-framework-errors">3. Test Framework Errors</a></li><li class="toc-item toc-item--level-2"><a href="#possible-causes">Possible Causes</a></li><li class="toc-item toc-item--level-2"><a href="#actual-response-procedures">Actual Response Procedures</a></li><li class="toc-item toc-item--level-3"><a href="#step-1-unify-everyone39s-work-procedures">Step 1: Unify everyone&amp;#39;s work procedures</a></li><li class="toc-item toc-item--level-3"><a href="#step-2-check-status-of-odin-and-test-framework">Step 2: Check status of Odin and Test Framework</a></li><li class="toc-item toc-item--level-3"><a href="#step-3-organizing-meta-differences">Step 3: Organizing &lt;code&gt;.meta&lt;/code&gt; differences</a></li><li class="toc-item toc-item--level-2"><a href="#operation-rules-when-introducing-odin-in-a-team">Operation Rules when introducing Odin in a team</a></li><li class="toc-item toc-item--level-3"><a href="#1-decide-a-quotperson-in-chargequot-before-introduction">1. Decide a &amp;quot;person in charge&amp;quot; before introduction</a></li><li class="toc-item toc-item--level-3"><a href="#2-document-quotassumed-versionsquot-of-unity--odin--test-framework">2. Document &amp;quot;assumed versions&amp;quot; of Unity / Odin / Test Framework</a></li><li class="toc-item toc-item--level-3"><a href="#3-write-initial-setup-procedures-in-readme">3. Write initial setup procedures in README</a></li><li class="toc-item toc-item--level-2"><a href="#summary">Summary</a></li></ul>
               </nav>
             </div>
           </aside>

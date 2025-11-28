@@ -2,9 +2,9 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>CSSのリファクタリングを手軽にしてみた | PanKUN Blog</title>
+    <title>Easily Refactored CSS | PanKUN Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。" />
+    <meta name="description" content="I quickly detected and organized &quot;unused CSS&quot; that tends to accumulate in personal development websites using a Node.js script." />
     <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/en/blog_00014.html" />
     <link rel="alternate" hreflang="ja" href="https://breadmotion.github.io/WebSite/blog/blog_00014.html" />
     <link rel="alternate" hreflang="en" href="https://breadmotion.github.io/WebSite/blog/en/blog_00014.html" />
@@ -23,8 +23,8 @@
     "@type": "WebPage",
     "@id": "https://breadmotion.github.io/WebSite/blog/en/blog_00014.html"
   },
-  "headline": "CSSのリファクタリングを手軽にしてみた",
-  "description": "個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。",
+  "headline": "Easily Refactored CSS",
+  "description": "I quickly detected and organized \"unused CSS\" that tends to accumulate in personal development websites using a Node.js script.",
   "image": [
     "https://breadmotion.github.io/WebSite/assets/img/ogp.png"
   ],
@@ -44,8 +44,8 @@
     }
   }
 }</script>
-    <meta property="og:title" content="CSSのリファクタリングを手軽にしてみた | PanKUN Blog" />
-    <meta property="og:description" content="個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。" />
+    <meta property="og:title" content="Easily Refactored CSS | PanKUN Blog" />
+    <meta property="og:description" content="I quickly detected and organized &quot;unused CSS&quot; that tends to accumulate in personal development websites using a Node.js script." />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/en/blog_00014.html" />
     <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/ogp.png" />
@@ -64,20 +64,20 @@
                 <ol class="breadcrumb__list">
                   <li class="breadcrumb__item"><a href="../../index.html">Home</a></li>
                   <li class="breadcrumb__item"><a href="../../blog.html">Blog</a></li>
-                  <li class="breadcrumb__item" aria-current="page">CSSのリファクタリングを手軽にしてみた</li>
+                  <li class="breadcrumb__item" aria-current="page">Easily Refactored CSS</li>
                 </ol>
               </nav>
               <header class="post-detail__header">
-                <p class="post-detail__meta">2025/11/28 / 技術メモ</p>
-                <h1 class="post-detail__title">CSSのリファクタリングを手軽にしてみた</h1>
-                <p class="post-detail__description">個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。</p>
+                <p class="post-detail__meta">2025/11/28 / Technical Note</p>
+                <h1 class="post-detail__title">Easily Refactored CSS</h1>
+                <p class="post-detail__description">I quickly detected and organized &quot;unused CSS&quot; that tends to accumulate in personal development websites using a Node.js script.</p>
                 <p class="post-detail__tags"><a class="tag" href="../../blog.html?tag=css">css</a> <a class="tag" href="../../blog.html?tag=nodejs">nodejs</a></p>
                 <div class="share-buttons">
     <p class="share-buttons__title">SHARE</p>
     <ul class="share-buttons__list">
       
         <li class="share-buttons__item">
-          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00014.html&text=CSS%E3%81%AE%E3%83%AA%E3%83%95%E3%82%A1%E3%82%AF%E3%82%BF%E3%83%AA%E3%83%B3%E3%82%B0%E3%82%92%E6%89%8B%E8%BB%BD%E3%81%AB%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00014.html&text=Easily%20Refactored%20CSS" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
           </a>
         </li>
@@ -97,33 +97,36 @@
     </ul>
   </div>
               </header>
-              <section class="post-detail__body markdown-body"><p>こんにちは！パン君です。</p>
-<p>機能追加やデザイン変更を繰り返しているうちにCSSファイルの中に <strong>「これ、どこで使ってるんだっけ？」</strong> というクラスが増えてきました。</p>
+              <section class="post-detail__body markdown-body"><p>Hello! I&#39;m PanKUN.</p>
+<p>As I repeated adding features and changing designs, classes like <strong>&quot;Where is this used again?&quot;</strong> started to increase in my CSS files.</p>
 <ul>
-<li>デザイン案Aで書いたけど、結局B案にしたから使わなくなったボタンのクラス</li>
-<li>共通化しようとして作ったけど、結局固有クラスを使ったから放置されたスタイル</li>
+<li>A button class written for Design Plan A, but eventually Plan B was adopted so it became unused.</li>
+<li>A style created to be common, but ended up being left alone because a specific class was used.</li>
 </ul>
-<p>などなど。<br>放置しても動くのですが、ファイルサイズも無駄ですし何より精神衛生上よろしくありません。</p>
-<p>そこで、今回はこれらをリファクタリングすることにしました。</p>
+<p>And so on.
+It works even if left alone, but it wastes file size and above all, it&#39;s not good for mental health.</p>
+<p>So, I decided to refactor these this time.</p>
 <hr>
-<h2 id="手動で探すのは無理">手動で探すのは無理</h2><p>とはいえ、CSSファイルに書かれているクラス名を一つずつ検索して「使用箇所ゼロ」を確認するのは苦行です。<br>世の中には <code>PurgeCSS</code> などの便利なツールもありますが、ビルドプロセスに組み込むのが少し大変だったり設定が複雑だったりします。</p>
-<p>今回は <strong>「もっと手軽に、ざっくりでいいから不要なものを消したい」</strong> というモチベーションだったので、Node.jsで簡単なスクリプトを書いて検出することにしました。</p>
-<h2 id="自作スクリプトの方針">自作スクリプトの方針</h2><ol>
-<li><code>assets/css/</code> フォルダ内のCSSファイルを全部読み込む。</li>
-<li>正規表現でクラス名（<code>.classname</code>）とID名（<code>#idname</code>）を抽出する。</li>
-<li>プロジェクト内の全ファイル（HTML, JS, MDなど）をスキャンする。</li>
-<li>「抽出したクラス名が、どのファイルにも一度も登場しない」場合、それを<strong>未使用候補</strong>として出力する。</li>
+<h2 id="searching-manually-is-impossible">Searching manually is impossible</h2><p>However, searching for class names written in CSS files one by one to confirm &quot;zero usage&quot; is an ordeal.
+There are convenient tools like <code>PurgeCSS</code> in the world, but incorporating them into the build process can be a bit difficult or the settings can be complicated.</p>
+<p>Since my motivation this time was <strong>&quot;I want to delete unnecessary things more easily and roughly&quot;</strong>, I decided to write a simple script in Node.js to detect them.</p>
+<h2 id="policy-of-the-self-made-script">Policy of the self-made script</h2><ol>
+<li>Read all CSS files in the <code>assets/css/</code> folder.</li>
+<li>Extract class names (<code>.classname</code>) and ID names (<code>#idname</code>) using regular expressions.</li>
+<li>Scan all files in the project (HTML, JS, MD, etc.).</li>
+<li>If &quot;the extracted class name never appears in any file&quot;, output it as an <strong>unused candidate</strong>.</li>
 </ol>
-<p>これだけです。厳密な構文解析（AST）などはせず、単純な文字列検索（<code>includes</code>）で判定します。<br>その分、「クラス名と偶然同じ単語が文章中にあったら検知漏れする」という弱点はありますが、 <strong>「使っていないものを安全に削除する」</strong> という目的には十分です。  </p>
-<pre><code class="language-javascript">// tools/find-unused-css.js (抜粋)
+<p>That&#39;s it. I don&#39;t do strict syntax analysis (AST) etc., but judge by simple string search (<code>includes</code>).
+To that extent, there is a weakness that &quot;detection will be missed if the same word as the class name happens to be in the text&quot;, but it is sufficient for the purpose of <strong>&quot;safely deleting unused things&quot;</strong>.</p>
+<pre><code class="language-javascript">// tools/find-unused-css.js (excerpt)
 
 const cssContent = fs.readFileSync(cssFile, &#39;utf8&#39;);
-const selectors = extractSelectors(cssContent); // 正規表現で抽出
+const selectors = extractSelectors(cssContent); // Extract with regex
 
 selectors.forEach(sel =&gt; {
     let isUsed = false;
     for (const content of contents) {
-        // 単純な文字列検索
+        // Simple string search
         if (content.includes(sel.name)) {
             isUsed = true;
             break;
@@ -135,24 +138,29 @@ selectors.forEach(sel =&gt; {
     }
 });
 </code></pre>
-<h2 id="実行結果">実行結果</h2><p>スクリプトを実行してみると、いくつかの未使用クラスが見つかりました。</p>
+<h2 id="execution-result">Execution Result</h2><p>When I ran the script, I found several unused classes.</p>
 <pre><code>Checking assets\css\layout.css...
   [UNUSED] .section--soft
 
 Checking assets\css\top.css...
   [UNUSED] .btn-outline
 </code></pre>
-<p>確認してみると、<br><code>section--soft</code> は初期デザイン案で作ったカードのバリエーション、<br><code>btn-outline</code> は枠線のみのボタンで、現在は塗りつぶしボタンしか使っていませんでした。</p>
-<p>これらは完全に不要なので迷わず削除！<br>CSSファイルが少しスリムになりました。</p>
-<h2 id="まとめ">まとめ</h2><p>リファクタリングというと大掛かりな作業をイメージしがちですが、<br><strong>「気になったら小さなスクリプトを書いてサクッと調べる」</strong><br>というアプローチなら、日常的にコードをきれいに保てそうです。</p>
-<p>自分の手で作ったツールで自分のサイトを改善していくのは、エンジニアならではの楽しみですね。</p>
+<p>Upon checking,
+<code>section--soft</code> was a variation of a card made in the initial design draft,
+<code>btn-outline</code> was a button with only a border, and currently only filled buttons were used.</p>
+<p>These are completely unnecessary, so delete them without hesitation!
+The CSS file has become a little slimmer.</p>
+<h2 id="summary">Summary</h2><p>Refactoring tends to be imagined as a large-scale task, but
+if you take the approach of <strong>&quot;write a small script and check quickly if you are curious&quot;</strong>,
+it seems possible to keep the code clean on a daily basis.</p>
+<p>It is a pleasure unique to engineers to improve their own site with tools made by their own hands.</p>
 </section>
               <div class="share-buttons">
     <p class="share-buttons__title">SHARE</p>
     <ul class="share-buttons__list">
       
         <li class="share-buttons__item">
-          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00014.html&text=CSS%E3%81%AE%E3%83%AA%E3%83%95%E3%82%A1%E3%82%AF%E3%82%BF%E3%83%AA%E3%83%B3%E3%82%B0%E3%82%92%E6%89%8B%E8%BB%BD%E3%81%AB%E3%81%97%E3%81%A6%E3%81%BF%E3%81%9F" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00014.html&text=Easily%20Refactored%20CSS" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
           </a>
         </li>
@@ -180,7 +188,7 @@ Checking assets\css\top.css...
             <div class="toc-sticky-container">
               <nav class="toc">
                 <h2 class="toc__title">Table of Contents</h2>
-                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#手動で探すのは無理">手動で探すのは無理</a></li><li class="toc-item toc-item--level-2"><a href="#自作スクリプトの方針">自作スクリプトの方針</a></li><li class="toc-item toc-item--level-2"><a href="#実行結果">実行結果</a></li><li class="toc-item toc-item--level-2"><a href="#まとめ">まとめ</a></li></ul>
+                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#searching-manually-is-impossible">Searching manually is impossible</a></li><li class="toc-item toc-item--level-2"><a href="#policy-of-the-self-made-script">Policy of the self-made script</a></li><li class="toc-item toc-item--level-2"><a href="#execution-result">Execution Result</a></li><li class="toc-item toc-item--level-2"><a href="#summary">Summary</a></li></ul>
               </nav>
             </div>
           </aside>
