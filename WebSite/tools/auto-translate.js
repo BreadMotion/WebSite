@@ -1,13 +1,13 @@
 /**
- * Auto Translation Script
+ * Auto Translation Script (Gemini API Version)
  *
  * Usage:
  *   # Linux / Mac / Git Bash
- *   export OPENAI_API_KEY="sk-..."
+ *   export GEMINI_API_KEY="AIza..."
  *   node tools/auto-translate.js [blog_id]
  *
  *   # Windows (CMD)
- *   set OPENAI_API_KEY=sk-...
+ *   set GEMINI_API_KEY=AIza...
  *   node tools/auto-translate.js [blog_id]
  *
  * If blog_id is provided (e.g., blog_00001), only that file is processed.
@@ -19,11 +19,9 @@ const path = require("path");
 const matter = require("gray-matter");
 
 // Configuration
-const API_KEY = process.env.OPENAI_API_KEY;
-const API_ENDPOINT =
-  process.env.OPENAI_API_BASE ||
-  "https://api.openai.com/v1/chat/completions";
-const MODEL = process.env.OPENAI_MODEL || "gpt-4o";
+const API_KEY = process.env.GEMINI_API_KEY;
+const MODEL = process.env.GEMINI_MODEL || "gemini-3-pro";
+const API_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
 
 const ROOT_DIR = path.join(__dirname, "..");
 const BLOG_DIR = path.join(ROOT_DIR, "content", "blog");
@@ -32,12 +30,12 @@ const BLOG_DIR = path.join(ROOT_DIR, "content", "blog");
 if (!API_KEY) {
   console.error(
     "\x1b[31m%s\x1b[0m",
-    "Error: OPENAI_API_KEY is not set.",
+    "Error: GEMINI_API_KEY is not set.",
   );
   console.error(
-    "Please set the OPENAI_API_KEY environment variable.",
+    "Please set the GEMINI_API_KEY environment variable.",
   );
-  console.error("Example: export OPENAI_API_KEY=sk-...");
+  console.error("Example: export GEMINI_API_KEY=AIza...");
   process.exit(1);
 }
 
@@ -52,21 +50,28 @@ Do not translate the file path in the image link.
 ${context ? `Context: ${context}` : ""}
 `;
 
+  const requestBody = {
+    system_instruction: {
+      parts: { text: systemPrompt },
+    },
+    contents: [
+      {
+        role: "user",
+        parts: [{ text: text }],
+      },
+    ],
+    generationConfig: {
+      temperature: 0.3,
+    },
+  };
+
   try {
     const response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${API_KEY}`,
       },
-      body: JSON.stringify({
-        model: MODEL,
-        messages: [
-          { role: "system", content: systemPrompt },
-          { role: "user", content: text },
-        ],
-        temperature: 0.3,
-      }),
+      body: JSON.stringify(requestBody),
     });
 
     if (!response.ok) {
@@ -77,7 +82,22 @@ ${context ? `Context: ${context}` : ""}
     }
 
     const data = await response.json();
-    return data.choices[0].message.content.trim();
+
+    if (
+      !data.candidates ||
+      !data.candidates[0] ||
+      !data.candidates[0].content ||
+      !data.candidates[0].content.parts ||
+      !data.candidates[0].content.parts[0].text
+    ) {
+      console.warn(
+        "Unexpected response format:",
+        JSON.stringify(data),
+      );
+      throw new Error("Failed to parse Gemini response");
+    }
+
+    return data.candidates[0].content.parts[0].text.trim();
   } catch (error) {
     console.error("Translation failed:", error);
     throw error;
@@ -180,7 +200,9 @@ async function main() {
 
   const files = fs
     .readdirSync(BLOG_DIR)
-    .filter((f) => f.endsWith(".md") && !f.endsWith(".en.md"));
+    .filter(
+      (f) => f.endsWith(".md") && !f.endsWith(".en.md"),
+    );
 
   if (targetId) {
     const targetFile = files.find(
