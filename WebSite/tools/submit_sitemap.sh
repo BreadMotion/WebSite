@@ -1,1 +1,1 @@
-php submit_sitemap.php "https://breadmotion.github.io/sitemap.xml"
+php tools/submit_sitemap.php "https://breadmotion.github.io/sitemap.xml"
