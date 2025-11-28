@@ -670,6 +670,7 @@
     }
     .post-sidebar {
         display: block;
+        align-self: start; /* グリッドアイテムの高さをコンテンツに合わせる */
     }
 }
 
@@ -678,7 +679,7 @@
    ========================================================================== */
 .toc-sticky-container {
     position: sticky;
-    top: 6rem;
+    top: 6rem; /* ヘッダーの高さ + 余白 */
 }
 
 .toc {
