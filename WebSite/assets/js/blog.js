@@ -60,6 +60,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const res = await fetch("assets/data/blogList.json");
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       allPosts = await res.json();
+      updateCategoryFilter();
       readInitialParams();
       render();
     } catch (err) {
@@ -70,6 +71,35 @@ document.addEventListener("DOMContentLoaded", () => {
         emptyEl.style.display = "block";
       }
     }
+  }
+
+  // -----------------------------
+  // カテゴリフィルタ更新
+  // -----------------------------
+  function updateCategoryFilter() {
+    if (!categorySelect) return;
+
+    const categories = [
+      ...new Set(
+        allPosts.map((p) => p.category).filter(Boolean),
+      ),
+    ].sort();
+
+    // 既存のオプション（"すべて"以外）をクリア
+    const currentValue = categorySelect.value;
+    while (categorySelect.options.length > 1) {
+      categorySelect.remove(1);
+    }
+
+    categories.forEach((cat) => {
+      const option = document.createElement("option");
+      option.value = cat;
+      option.textContent = cat;
+      categorySelect.appendChild(option);
+    });
+
+    // 以前選択されていた値を復元
+    categorySelect.value = currentValue;
   }
 
   // -----------------------------
