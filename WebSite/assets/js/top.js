@@ -88,9 +88,11 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (blogListEl) {
     try {
-      const res = await fetch(
-        `${relativePrefix}assets/data/blogList.json`,
-      );
+      const jsonPath = isEn
+        ? `${relativePrefix}assets/data/blogList_en.json`
+        : `${relativePrefix}assets/data/blogList.json`;
+
+      const res = await fetch(jsonPath);
       if (!res.ok) throw new Error(res.statusText);
       const posts = await res.json();
 
@@ -112,7 +114,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           const a = document.createElement("a");
           a.className = "home-latest-link";
-          a.href = `blog.html?id=${encodeURIComponent(post.id)}`;
+          a.href = relativePrefix + post.contentPath;
 
           const titleSpan = document.createElement("span");
           titleSpan.className = "home-latest-link-title";
@@ -159,7 +161,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           const a = document.createElement("a");
           a.className = "home-latest-link";
-          a.href = `portfolio.html?id=${encodeURIComponent(work.id)}`;
+          a.href = relativePrefix + work.contentPath;
 
           const titleSpan = document.createElement("span");
           titleSpan.className = "home-latest-link-title";

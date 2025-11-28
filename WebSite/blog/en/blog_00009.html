@@ -109,7 +109,7 @@
 <p>There are such characteristics.</p>
 <p>In this article, I summarized the errors I encountered while actually running Zed in my environment and what I did to solve them.</p>
 <hr>
-<h1 id="why-unity-c-doesn39t-work-in-zed">Why Unity C# doesn&#39;t work in Zed</h1><p>Zed does not have standard C# support for Unity like VSCode or Rider.</p>
+<h2 id="why-unity-c-doesn39t-work-in-zed">Why Unity C# doesn&#39;t work in Zed</h2><p>Zed does not have standard C# support for Unity like VSCode or Rider.</p>
 <p>Therefore,</p>
 <ul>
 <li>C# syntax parsing</li>
@@ -123,7 +123,7 @@ It doesn&#39;t work (at least on Windows).</p>
 <p>I looked it up and found there was nothing I could do, so let&#39;s wait for an update regarding this Omnisharp...</p>
 <p>So, I will change the LSP used this time to <strong>csharp-language-server</strong> and make it work.</p>
 <hr>
-<h1 id="what-you-need-before-introduction">What you need before introduction</h1><p>Please introduce the following.
+<h2 id="what-you-need-before-introduction">What you need before introduction</h2><p>Please introduce the following.
 I will describe how to introduce these somewhere else. (It&#39;s not particularly difficult, so if you search, quite a few will come up.)</p>
 <ul>
 <li>.Net runtime (9.0 upper)</li>
@@ -131,7 +131,7 @@ I will describe how to introduce these somewhere else. (It&#39;s not particularl
 <li>Omnisharp (Install from Zed Extension)</li>
 </ul>
 <hr>
-<h1 id="download-csharp-language-server">Download csharp-language-server</h1><p>If you have cargo, use the following:</p>
+<h2 id="download-csharp-language-server">Download csharp-language-server</h2><p>If you have cargo, use the following:</p>
 <pre><code class="language-shell">cargo install --git https://github.com/SofusA/csharp-language-server
 </code></pre>
 <p>If you don&#39;t have it, please get the binary for Windows from Releases on the official page.
@@ -140,7 +140,7 @@ Don&#39;t forget to pass the path to the stored location from environment variab
 <p>This time I will go with the following.</p>
 <pre><code class="language-markdown">C:\\Users\\&lt;User Name&gt;\\AppData\\Local\\csharp-language-server\\csharp-language-server.exe
 </code></pre>
-<h1 id="link-language-server-to-zed-settings">Link language server to Zed settings</h1><p>Open Zed&#39;s Settings.json (please match which Setting.json to your environment).</p>
+<h2 id="link-language-server-to-zed-settings">Link language server to Zed settings</h2><p>Open Zed&#39;s Settings.json (please match which Setting.json to your environment).</p>
 <pre><code class="language-json">{
   &quot;languages&quot;: {
     &quot;CSharp&quot;: {
@@ -161,7 +161,7 @@ Don&#39;t forget to pass the path to the stored location from environment variab
 It should work just with this.</p>
 <h3 id="zed39s-omnisharp-extension-grabs-old-folder-and-causes-error">Zed&#39;s OmniSharp extension grabs old folder and causes error</h3><p>Manual deletion of the csharp folder in <strong>extensions/work</strong> within the directory where Zed software is stored might solve it.</p>
 <hr>
-<h1 id="if-it-didn39t-work">If it didn&#39;t work</h1><ol>
+<h2 id="if-it-didn39t-work">If it didn&#39;t work</h2><ol>
 <li>Open command palette with &quot;Ctrl + Shift + P&quot; on Zed.</li>
 <li>Get log with <code>zed: open log</code>.</li>
 <li>Throw it to AI and ask or search the error log.</li>
@@ -174,7 +174,7 @@ Gemini 3.0 was released yesterday, so I&#39;m using that^^)</p>
 It seems that completion across assemblies does not work until the target file is opened.
 Let&#39;s open the relevant file with &quot;Ctrl + E&quot;. Completion will start working.</p>
 <hr>
-<h1 id="final-operation-feel">Final operation feel</h1><ul>
+<h2 id="final-operation-feel">Final operation feel</h2><ul>
 <li>Completion: Light</li>
 <li>Definition jump: Works without problems within the range where source exists</li>
 <li>External DLL: Jump is impossible (Specification, but possible for self-made DLLs)</li>
@@ -217,7 +217,7 @@ Personally, I really liked it as an &quot;editor when I want to write Unity ligh
             <div class="toc-sticky-container">
               <nav class="toc">
                 <h2 class="toc__title">Table of Contents</h2>
-                <ul class="toc-list"><li class="toc-item toc-item--level-3"><a href="#zed39s-omnisharp-extension-grabs-old-folder-and-causes-error">Zed&amp;#39;s OmniSharp extension grabs old folder and causes error</a></li></ul>
+                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#why-unity-c-doesn39t-work-in-zed">Why Unity C# doesn&amp;#39;t work in Zed</a></li><li class="toc-item toc-item--level-2"><a href="#what-you-need-before-introduction">What you need before introduction</a></li><li class="toc-item toc-item--level-2"><a href="#download-csharp-language-server">Download csharp-language-server</a></li><li class="toc-item toc-item--level-2"><a href="#link-language-server-to-zed-settings">Link language server to Zed settings</a></li><li class="toc-item toc-item--level-3"><a href="#zed39s-omnisharp-extension-grabs-old-folder-and-causes-error">Zed&amp;#39;s OmniSharp extension grabs old folder and causes error</a></li><li class="toc-item toc-item--level-2"><a href="#if-it-didn39t-work">If it didn&amp;#39;t work</a></li><li class="toc-item toc-item--level-2"><a href="#final-operation-feel">Final operation feel</a></li></ul>
               </nav>
             </div>
           </aside>
