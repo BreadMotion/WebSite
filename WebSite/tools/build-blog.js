@@ -281,12 +281,13 @@ ${bodyHtml}
 
     const recommended = data.recommended || false;
     const tagsRaw = data.tags || [];
-    const tags = Array.isArray(tagsRaw)
-      ? tagsRaw
-      : String(tagsRaw)
-          .split(",")
-          .map((t) => t.trim())
-          .filter(Boolean);
+    const tags = (
+      Array.isArray(tagsRaw)
+        ? tagsRaw
+        : String(tagsRaw).split(",")
+    )
+      .map((t) => String(t).trim())
+      .filter(Boolean);
 
     const relPath = `blog/${id}.html`;
 
