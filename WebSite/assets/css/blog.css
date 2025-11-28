@@ -670,7 +670,6 @@
     }
     .post-sidebar {
         display: block;
-        align-self: start; /* グリッドアイテムの高さをコンテンツに合わせる */
     }
 }
 
