@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Story of My Self-Made Discord Bot Being Abused for Spam When I Published It | PanKUN Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="I published a self-made Discord bot, and it was used as a stepping stone for spam. I will summarize the architectural design mistakes that caused this and future security measures." />
+    <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/en/blog_00011.html" />
+    <link rel="alternate" hreflang="ja" href="https://breadmotion.github.io/WebSite/blog/blog_00011.html" />
+    <link rel="alternate" hreflang="en" href="https://breadmotion.github.io/WebSite/blog/en/blog_00011.html" />
+    <link rel="alternate" hreflang="x-default" href="https://breadmotion.github.io/WebSite/blog/en/blog_00011.html" />
+    <!-- Google AdSense -->
+<script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5284984614496391"
+    crossorigin="anonymous"
+></script>
+
+    <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://breadmotion.github.io/WebSite/blog/en/blog_00011.html"
+  },
+  "headline": "Story of My Self-Made Discord Bot Being Abused for Spam When I Published It",
+  "description": "I published a self-made Discord bot, and it was used as a stepping stone for spam. I will summarize the architectural design mistakes that caused this and future security measures.",
+  "image": [
+    "https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00011.png"
+  ],
+  "datePublished": "2025-11-26T00:00:00.000Z",
+  "dateModified": "2025-11-26T00:00:00.000Z",
+  "author": {
+    "@type": "Person",
+    "name": "PanKUN",
+    "url": "https://breadmotion.github.io/WebSite"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "PanKUN",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
+    }
+  }
+}</script>
+    <meta property="og:title" content="Story of My Self-Made Discord Bot Being Abused for Spam When I Published It | PanKUN Blog" />
+    <meta property="og:description" content="I published a self-made Discord bot, and it was used as a stepping stone for spam. I will summarize the architectural design mistakes that caused this and future security measures." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/en/blog_00011.html" />
+    <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00011.png" />
+    <meta property="og:site_name" content="PanKUN" />
+    <link rel="stylesheet" href="../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../assets/css/layout.css" />
+    <link rel="stylesheet" href="../../assets/css/blog.css" />
+  </head>
+  <body data-page="blog">
+    <div class="page-shell">
+      <main class="main-container">
+        <div class="post-layout">
+          <div class="post-content">
+            <article class="post-detail">
+              <nav aria-label="breadcrumb" class="breadcrumb">
+                <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item"><a href="../../index.html">Home</a></li>
+                  <li class="breadcrumb__item"><a href="../../blog.html">Blog</a></li>
+                  <li class="breadcrumb__item" aria-current="page">Story of My Self-Made Discord Bot Being Abused for Spam When I Published It</li>
+                </ol>
+              </nav>
+              <header class="post-detail__header">
+                <p class="post-detail__meta">2025/11/26 / Discord</p>
+                <h1 class="post-detail__title">Story of My Self-Made Discord Bot Being Abused for Spam When I Published It</h1>
+                <p class="post-detail__description">I published a self-made Discord bot, and it was used as a stepping stone for spam. I will summarize the architectural design mistakes that caused this and future security measures.</p>
+                <p class="post-detail__tags"><a class="tag" href="../../blog.html?tag=discord">discord</a> <a class="tag" href="../../blog.html?tag=nodejs">nodejs</a> <a class="tag" href="../../blog.html?tag=security">security</a></p>
+                <div class="share-buttons">
+    <p class="share-buttons__title">SHARE</p>
+    <ul class="share-buttons__list">
+      
+        <li class="share-buttons__item">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00011.html&text=Story%20of%20My%20Self-Made%20Discord%20Bot%20Being%20Abused%20for%20Spam%20When%20I%20Published%20It" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+          </a>
+        </li>
+      
+        <li class="share-buttons__item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00011.html" class="share-buttons__link share-buttons__link--facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"></path></svg>
+          </a>
+        </li>
+      
+        <li class="share-buttons__item">
+          <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00011.html" class="share-buttons__link share-buttons__link--line" target="_blank" rel="noopener noreferrer" aria-label="LINE Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"></path></svg>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+              </header>
+              <section class="post-detail__body markdown-body"><p>Hello, I&#39;m PanKUN.</p>
+<p>This time, it is a story about <strong>a big failure when I published a Discord Bot I was operating personally</strong>.</p>
+<p>The other day, an incident occurred on the game development server I manage.
+To my surprise, my self-made bot started <strong>posting invite URLs of completely unrelated Discord servers earnestly</strong>, as if it had been hijacked.
+The cause was a <strong>fatal design error hidden in the architecture</strong> of the bot I made.</p>
+<p>This time, with self-admonition, I would like to write down all the mistakes I made and their countermeasures here.</p>
+<h2 id="what-was-the-problem">What was the problem?</h2><p>There were roughly two causes.</p>
+<h3 id="1-commands-could-be-executed-on-other-servers-from-any-server">1. Commands could be executed on other servers from any server</h3><p>The architecture I wrote about in <a href="blog_00008.html">this article</a> was the fundamental problem.
+As a result of aiming to add various functions without adding bots for developers, it had a specification that &quot;commands can be executed from any server&quot;.</p>
+<p><strong>[Why was this bad?]</strong>
+Because of this specification, it became possible for an attacker to perform the stunt of <strong>sending messages to my game development server from their own server</strong>.
+In other words, a command executed on server A would be activated on a completely unrelated server B. This was the direct cause of the spam.</p>
+<p>If you think about it normally, it&#39;s bad, isn&#39;t it?
+Even if it is file-based, I should have managed the commands that can be executed for each server (guild).</p>
+<h3 id="2-the-list-of-participating-servers-was-published-in-the-repository">2. The list of participating servers was published in the repository</h3><p>This was also fatal.
+I managed the information of the servers the bot participates in with a file called <code>guilds.json</code>, but I had <strong>uploaded this to a public repository on GitHub</strong>.</p>
+<p><strong>[Why was this bad?]</strong>
+In <code>guilds.json</code>, all server IDs in which the bot participates were listed.
+The attacker obtained this list, identified the ID of the target server (my game development server), and sent spam messages there.
+Although it is not personal information, the server ID was also splendid confidential information...</p>
+<h2 id="future-measures">Future measures</h2><p>Based on this reflection, I decided to review the bot&#39;s mechanism from the ground up.</p>
+<ol>
+<li><p><strong>Recreation of Bot App &amp; Complete Token Reset</strong>
+First, completely delete the current bot app and recreate it as a new app. Since resetting the token is not enough, it is a restart from a clean state.</p>
+</li>
+<li><p><strong>Thorough permission management for each guild</strong>
+Completely separate processing by server ID (guild ID) so that commands do not affect other servers. In the future, I will introduce a mechanism to manage allowed commands for each server with a file-based DB.</p>
+</li>
+<li><p><strong>Change invitation method to &#39;Request System&#39;</strong>
+Stop the public system for invitations and switch to a request system by contacting me directly so that I can grasp who is using the bot.</p>
+</li>
+<li><p><strong>Repository cleanup</strong>
+I will continue to publish the source code, but files that may contain confidential information like <code>guilds.json</code> will be completely removed from the repository and managed firmly with <code>.gitignore</code>.</p>
+</li>
+</ol>
+<h2 id="summary">Summary</h2><p>So, this was a story about my grand screw-up.
+I deeply reflect that as a result of emphasizing the ease of &quot;making it usable for anyone&quot;, the most important perspective of security was missing.</p>
+<p>I will rebuild the bot into a safer form, so if there is anyone who thinks &quot;I still want to use it!&quot;, I would be happy if you feel free to call out to me.</p>
+</section>
+              <div class="share-buttons">
+    <p class="share-buttons__title">SHARE</p>
+    <ul class="share-buttons__list">
+      
+        <li class="share-buttons__item">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00011.html&text=Story%20of%20My%20Self-Made%20Discord%20Bot%20Being%20Abused%20for%20Spam%20When%20I%20Published%20It" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+          </a>
+        </li>
+      
+        <li class="share-buttons__item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00011.html" class="share-buttons__link share-buttons__link--facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"></path></svg>
+          </a>
+        </li>
+      
+        <li class="share-buttons__item">
+          <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00011.html" class="share-buttons__link share-buttons__link--line" target="_blank" rel="noopener noreferrer" aria-label="LINE Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"></path></svg>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+              <div class="post-detail__nav post-detail__nav--bottom">
+                <a href="../../blog.html" class="btn btn--back">← Back to Blog</a>
+              </div>
+            </article>
+          </div>
+          <aside class="post-sidebar">
+            <div class="toc-sticky-container">
+              <nav class="toc">
+                <h2 class="toc__title">Table of Contents</h2>
+                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#what-was-the-problem">What was the problem?</a></li><li class="toc-item toc-item--level-3"><a href="#1-commands-could-be-executed-on-other-servers-from-any-server">1. Commands could be executed on other servers from any server</a></li><li class="toc-item toc-item--level-3"><a href="#2-the-list-of-participating-servers-was-published-in-the-repository">2. The list of participating servers was published in the repository</a></li><li class="toc-item toc-item--level-2"><a href="#future-measures">Future measures</a></li><li class="toc-item toc-item--level-2"><a href="#summary">Summary</a></li></ul>
+              </nav>
+            </div>
+          </aside>
+        </div>
+        <section class="section section--recommend">
+          <h2 class="section__title">Recommended</h2>
+          <div id="recommendList" class="recommend-grid"></div>
+        </section>
+      </main>
+      <div class="toc-overlay"></div>
+      <button type="button" class="toc-toggle" aria-label="Open Table of Contents">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
+        <span>TOC</span>
+      </button>
+    </div>
+    <script src="../../assets/js/layout.js" defer></script>
+    <script src="../../assets/js/ui.js"></script>
+    <canvas id="menuAnimationCanvas"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="../../assets/js/particles.js"></script>
+    <script src="../../assets/js/toc.js" defer></script>
+    <script src="../../assets/js/recommend.js" defer></script>
+  </body>
+</html>

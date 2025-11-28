@@ -3,14 +3,31 @@ document.addEventListener("DOMContentLoaded", async () => {
     document.getElementById("recommendList");
   if (!recommendListEl) return;
 
+  const lang = document.documentElement.lang;
+  const isEn = lang === "en";
+
   // 現在のパスが /blog/ ディレクトリ内か判定してパスを調整
   const isBlogDir =
     window.location.pathname.includes("/blog/") &&
     !window.location.pathname.endsWith("blog.html");
-  const basePath = isBlogDir ? "../" : "";
+
+  let basePath = "";
+  if (isBlogDir) {
+    // ブログ詳細ページなど (/blog/xxx.html)
+    // 日本語: /WebSite/blog/xxx.html -> ../assets/...
+    // 英語: /WebSite/en/blog/xxx.html -> ../../assets/...
+    basePath = isEn ? "../../" : "../";
+  } else {
+    // 一覧ページやトップページ
+    // 日本語: /WebSite/index.html -> assets/...
+    // 英語: /WebSite/en/index.html -> ../assets/...
+    basePath = isEn ? "../" : "";
+  }
 
   // データパス
-  const blogListPath = `${basePath}assets/data/blogList.json`;
+  const blogListPath = isEn
+    ? `${basePath}assets/data/blogList_en.json`
+    : `${basePath}assets/data/blogList.json`;
   // GSC等から生成する人気記事リスト（IDの配列を想定: ["blog_0001", "blog_0003"]）
   const popularDataPath = `${basePath}assets/data/popular.json`;
 
@@ -41,13 +58,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
 
     let targetPosts = [];
-    let sectionTitle = "おすすめ記事";
+    let sectionTitle = isEn
+      ? "Recommended"
+      : "おすすめ記事";
 
     if (currentId) {
       // ==========================================
       // 記事詳細ページ: タグベースの「関連記事」
       // ==========================================
-      sectionTitle = "関連記事";
+      sectionTitle = isEn ? "Related Posts" : "関連記事";
       const currentPost = posts.find(
         (p) => p.id === currentId,
       );
@@ -117,7 +136,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (popularIds.length > 0) {
         // GSCデータがある場合 -> 「人気記事」
-        sectionTitle = "人気記事";
+        sectionTitle = isEn ? "Popular Posts" : "人気記事";
         targetPosts = popularIds
           .map((id) => posts.find((p) => p.id === id))
           .filter((p) => p !== undefined)
@@ -155,7 +174,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
         // 人気記事データが全くなかった場合はタイトルをデフォルトに戻す
         if (popularIds.length === 0) {
-          sectionTitle = "おすすめ記事";
+          sectionTitle = isEn
+            ? "Recommended"
+            : "おすすめ記事";
         }
       }
     }
@@ -176,8 +197,9 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     } else {
       // 表示するものがない場合はセクションごと隠すなどの処理も検討可能
-      recommendListEl.innerHTML =
-        "<p>記事がありません。</p>";
+      recommendListEl.innerHTML = isEn
+        ? "<p>No articles found.</p>"
+        : "<p>記事がありません。</p>";
     }
   } catch (err) {
     console.error("Failed to load recommended posts:", err);

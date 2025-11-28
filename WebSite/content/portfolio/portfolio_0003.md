@@ -4,6 +4,7 @@ role: Full Stack Engineer
 tech: Javascript / discord.js
 platform: Discord
 description: 開発者用Discord Bot
+category: Tool
 tags: discord, bot
 X: https://x.com/pankun2000_
 thumbnail: assets/img/ogp.png

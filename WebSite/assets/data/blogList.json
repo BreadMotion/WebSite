@@ -9,7 +9,7 @@
       "zed",
       "ai"
     ],
-    "thumbnail": "assets/img/thumbnails/blog_00016.jpg",
+    "thumbnail": "assets/img/zed_icon.png",
     "contentPath": "blog/blog_00016.html",
     "recommended": true
   },
@@ -111,7 +111,7 @@
       "lsp",
       "tool"
     ],
-    "thumbnail": "assets/img/thumbnails/blog_00009.jpg",
+    "thumbnail": "assets/img/zed_icon.png",
     "contentPath": "blog/blog_00009.html",
     "recommended": false
   },
@@ -156,7 +156,7 @@
       "dropbox",
       "cloudstrage"
     ],
-    "thumbnail": "assets/img/thumbnails/blog_00005.png",
+    "thumbnail": "assets/img/dropbox_icon.png",
     "contentPath": "blog/blog_00005.html",
     "recommended": false
   },
@@ -205,7 +205,7 @@
       "plugin",
       "tool"
     ],
-    "thumbnail": "https://cdn-ak.f.st-hatena.com/images/fotolife/R/Raspberly/20201207/20201207023915.png",
+    "thumbnail": "assets/img/thumbnails/blog_00003.png",
     "contentPath": "blog/blog_00003.html",
     "recommended": false
   },
@@ -220,7 +220,7 @@
       "plugin",
       "tool"
     ],
-    "thumbnail": "https://cdn-ak.f.st-hatena.com/images/fotolife/R/Raspberly/20201207/20201207023915.png",
+    "thumbnail": "assets/img/thumbnails/blog_00002.png",
     "contentPath": "blog/blog_00002.html",
     "recommended": false
   },
@@ -233,7 +233,7 @@
     "tags": [
       "diary"
     ],
-    "thumbnail": "https://breadmotion.github.io/WebSite/assets/img/ogp.png",
+    "thumbnail": "assets/img/ogp.png",
     "contentPath": "blog/blog_00001.html",
     "recommended": false
   }

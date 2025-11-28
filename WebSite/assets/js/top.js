@@ -20,10 +20,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (!blogListEl && !portListEl && !slideshowEl) return;
 
+  const lang = document.documentElement.lang;
+  const isEn = lang === "en";
+  const relativePrefix = isEn ? "../" : "";
+
   if (slideshowEl) {
     try {
       const res = await fetch(
-        "assets/data/portfolioList.json",
+        `${relativePrefix}assets/data/portfolioList.json`,
       );
       if (res.ok) {
         let items = await res.json();
@@ -41,7 +45,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             const item = items[currentIndex];
             const slide = document.createElement("div");
             slide.className = "hero-slide";
-            slide.style.backgroundImage = `url('${item.thumbnail}')`;
+
+            let thumbUrl = item.thumbnail;
+            if (
+              isEn &&
+              thumbUrl &&
+              !thumbUrl.startsWith("http")
+            ) {
+              thumbUrl = relativePrefix + thumbUrl;
+            }
+
+            slide.style.backgroundImage = `url('${thumbUrl}')`;
 
             slideshowEl.appendChild(slide);
 
@@ -74,7 +88,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   if (blogListEl) {
     try {
-      const res = await fetch("assets/data/blogList.json");
+      const res = await fetch(
+        `${relativePrefix}assets/data/blogList.json`,
+      );
       if (!res.ok) throw new Error(res.statusText);
       const posts = await res.json();
 
@@ -126,7 +142,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if (portListEl) {
     try {
       const res = await fetch(
-        "assets/data/portfolioList.json",
+        `${relativePrefix}assets/data/portfolioList.json`,
       );
       if (!res.ok) throw new Error(res.statusText);
       const works = await res.json();

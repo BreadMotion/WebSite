@@ -15,6 +15,13 @@ const LIST_JSON = path.join(
   "portfolioList.json",
 );
 
+const THUMBNAIL_DIR = path.join(
+  ROOT,
+  "assets",
+  "img",
+  "thumbnails",
+);
+
 function escapeHtml(str = "") {
   return String(str).replace(/[&<>"]/g, (c) => {
     return {
@@ -145,12 +152,17 @@ ${bodyHtml}
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
 
+  if (!fs.existsSync(THUMBNAIL_DIR)) {
+    fs.mkdirSync(THUMBNAIL_DIR, { recursive: true });
+  }
+
   const works = [];
   const files = fs.existsSync(CONTENT_DIR)
     ? fs
         .readdirSync(CONTENT_DIR)
         .filter((f) => f.endsWith(".md"))
     : [];
+  const usedThumbnails = new Set();
 
   for (const file of files) {
     const id = path.basename(file, ".md"); // work_0001 など
@@ -166,7 +178,72 @@ ${bodyHtml}
     const category = data.category || "";
     const role = data.role || "";
     const tech = data.tech || "";
-    const thumbnail = data.thumbnail || "";
+    let thumbnail = data.thumbnail || "";
+
+    if (thumbnail) {
+      try {
+        if (thumbnail.startsWith("data:image")) {
+          const matches = thumbnail.match(
+            /^data:image\/([a-zA-Z0-9]+);base64,(.+)$/,
+          );
+          if (matches) {
+            const ext =
+              matches[1] === "jpeg" ? "jpg" : matches[1];
+            const filename = `${id}.${ext}`;
+            const thumbPath = path.join(
+              THUMBNAIL_DIR,
+              filename,
+            );
+            fs.writeFileSync(
+              thumbPath,
+              Buffer.from(matches[2], "base64"),
+            );
+            thumbnail = `assets/img/thumbnails/${filename}`;
+            usedThumbnails.add(filename);
+          }
+        } else if (thumbnail.startsWith("http")) {
+          const urlObj = new URL(thumbnail);
+          let ext = path
+            .extname(urlObj.pathname)
+            .substring(1);
+          if (!ext) ext = "png";
+
+          const filename = `${id}.${ext}`;
+          const thumbPath = path.join(
+            THUMBNAIL_DIR,
+            filename,
+          );
+
+          console.log(
+            `Downloading thumbnail for ${id} from ${thumbnail}`,
+          );
+          const res = await fetch(thumbnail);
+          if (res.ok) {
+            const buffer = Buffer.from(
+              await res.arrayBuffer(),
+            );
+            fs.writeFileSync(thumbPath, buffer);
+            thumbnail = `assets/img/thumbnails/${filename}`;
+            usedThumbnails.add(filename);
+          } else {
+            console.error(
+              `Failed to fetch thumbnail for ${id}: ${res.statusText}`,
+            );
+          }
+        } else if (
+          thumbnail.includes("assets/img/thumbnails/")
+        ) {
+          const filename = path.basename(thumbnail);
+          usedThumbnails.add(filename);
+        }
+      } catch (e) {
+        console.error(
+          `Failed to process thumbnail for ${id}:`,
+          e,
+        );
+      }
+    }
+
     const tagsRaw = data.tags || [];
     const tags = Array.isArray(tagsRaw)
       ? tagsRaw
@@ -226,6 +303,20 @@ ${bodyHtml}
     "utf8",
   );
   console.log(`updated: assets/data/portfolioList.json`);
+
+  // Clean up unused portfolio thumbnails
+  if (fs.existsSync(THUMBNAIL_DIR)) {
+    const allThumbnails = fs.readdirSync(THUMBNAIL_DIR);
+    for (const file of allThumbnails) {
+      if (
+        file.startsWith("portfolio_") &&
+        !usedThumbnails.has(file)
+      ) {
+        console.log(`Removing unused thumbnail: ${file}`);
+        fs.unlinkSync(path.join(THUMBNAIL_DIR, file));
+      }
+    }
+  }
 })().catch((err) => {
   console.error(err);
   process.exit(1);

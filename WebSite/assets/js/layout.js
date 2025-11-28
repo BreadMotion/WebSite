@@ -7,14 +7,30 @@ document.addEventListener("DOMContentLoaded", () => {
     return name && name.length > 0 ? name : "index.html";
   })();
 
-  const isBlogDetailPage =
-    window.location.pathname.includes("/blog/");
-  const pathToPartials = isBlogDetailPage
-    ? "../partials/"
-    : "partials/";
+  // layout.js の読み込みパスから相対パスを特定する
+  const getPartialsPath = () => {
+    const scripts = document.getElementsByTagName("script");
+    for (let i = 0; i < scripts.length; i++) {
+      const src = scripts[i].getAttribute("src");
+      if (src && src.endsWith("layout.js")) {
+        // "assets/js/layout.js" の前の部分を取得
+        const prefix = src.replace(
+          "assets/js/layout.js",
+          "",
+        );
+        return prefix + "partials/";
+      }
+    }
+    return "partials/";
+  };
+
+  const pathToPartials = getPartialsPath();
+  const lang = document.documentElement.lang;
+  const headerFile =
+    lang === "en" ? "header_en.html" : "header.html";
 
   Promise.all([
-    fetch(`${pathToPartials}header.html`).then((r) =>
+    fetch(`${pathToPartials}${headerFile}`).then((r) =>
       r.text(),
     ),
     fetch(`${pathToPartials}footer.html`).then((r) =>
@@ -24,6 +40,18 @@ document.addEventListener("DOMContentLoaded", () => {
     .then(([headerHtml, footerHtml]) => {
       shell.insertAdjacentHTML("afterbegin", headerHtml);
       shell.insertAdjacentHTML("afterend", footerHtml);
+
+      // 言語切り替え
+      const langSwitch =
+        document.querySelector(".lang-switch");
+      if (langSwitch) {
+        const isEn = document.documentElement.lang === "en";
+        const search = window.location.search || "";
+        const targetUrl = isEn
+          ? `../${currentPath}${search}`
+          : `en/${currentPath}${search}`;
+        langSwitch.setAttribute("href", targetUrl);
+      }
 
       const navLinks =
         document.querySelectorAll(".site-nav a");

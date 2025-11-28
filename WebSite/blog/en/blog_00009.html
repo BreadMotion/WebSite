@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Tried Building a C# Development Environment in Zed | PanKUN Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Summarized the steps and pitfalls to introduce a C# language server to Zed and enable completion and definition jumping in Unity projects" />
+    <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/en/blog_00009.html" />
+    <link rel="alternate" hreflang="ja" href="https://breadmotion.github.io/WebSite/blog/blog_00009.html" />
+    <link rel="alternate" hreflang="en" href="https://breadmotion.github.io/WebSite/blog/en/blog_00009.html" />
+    <link rel="alternate" hreflang="x-default" href="https://breadmotion.github.io/WebSite/blog/en/blog_00009.html" />
+    <!-- Google AdSense -->
+<script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5284984614496391"
+    crossorigin="anonymous"
+></script>
+
+    <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://breadmotion.github.io/WebSite/blog/en/blog_00009.html"
+  },
+  "headline": "Tried Building a C# Development Environment in Zed",
+  "description": "Summarized the steps and pitfalls to introduce a C# language server to Zed and enable completion and definition jumping in Unity projects",
+  "image": [
+    "https://breadmotion.github.io/WebSite/assets/img/zed_icon.png"
+  ],
+  "datePublished": "2025-11-19T00:00:00.000Z",
+  "dateModified": "2025-11-19T00:00:00.000Z",
+  "author": {
+    "@type": "Person",
+    "name": "PanKUN",
+    "url": "https://breadmotion.github.io/WebSite"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "PanKUN",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
+    }
+  }
+}</script>
+    <meta property="og:title" content="Tried Building a C# Development Environment in Zed | PanKUN Blog" />
+    <meta property="og:description" content="Summarized the steps and pitfalls to introduce a C# language server to Zed and enable completion and definition jumping in Unity projects" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/en/blog_00009.html" />
+    <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/zed_icon.png" />
+    <meta property="og:site_name" content="PanKUN" />
+    <link rel="stylesheet" href="../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../assets/css/layout.css" />
+    <link rel="stylesheet" href="../../assets/css/blog.css" />
+  </head>
+  <body data-page="blog">
+    <div class="page-shell">
+      <main class="main-container">
+        <div class="post-layout">
+          <div class="post-content">
+            <article class="post-detail">
+              <nav aria-label="breadcrumb" class="breadcrumb">
+                <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item"><a href="../../index.html">Home</a></li>
+                  <li class="breadcrumb__item"><a href="../../blog.html">Blog</a></li>
+                  <li class="breadcrumb__item" aria-current="page">Tried Building a C# Development Environment in Zed</li>
+                </ol>
+              </nav>
+              <header class="post-detail__header">
+                <p class="post-detail__meta">2025/11/19 / IDE</p>
+                <h1 class="post-detail__title">Tried Building a C# Development Environment in Zed</h1>
+                <p class="post-detail__description">Summarized the steps and pitfalls to introduce a C# language server to Zed and enable completion and definition jumping in Unity projects</p>
+                <p class="post-detail__tags"><a class="tag" href="../../blog.html?tag=csharp">csharp</a> <a class="tag" href="../../blog.html?tag=zed">zed</a> <a class="tag" href="../../blog.html?tag=lsp">lsp</a> <a class="tag" href="../../blog.html?tag=tool">tool</a></p>
+                <div class="share-buttons">
+    <p class="share-buttons__title">SHARE</p>
+    <ul class="share-buttons__list">
+      
+        <li class="share-buttons__item">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00009.html&text=Tried%20Building%20a%20C%23%20Development%20Environment%20in%20Zed" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+          </a>
+        </li>
+      
+        <li class="share-buttons__item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00009.html" class="share-buttons__link share-buttons__link--facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"></path></svg>
+          </a>
+        </li>
+      
+        <li class="share-buttons__item">
+          <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00009.html" class="share-buttons__link share-buttons__link--line" target="_blank" rel="noopener noreferrer" aria-label="LINE Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"></path></svg>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+              </header>
+              <section class="post-detail__body markdown-body"><p>Hello! I&#39;m PanKUN.</p>
+<p>This time, I will summarize <strong>how to create an environment where you can write Unity C# comfortably with the Zed editor</strong>, which I have been switching to recently.</p>
+<p>In conclusion,</p>
+<ul>
+<li>Zed alone cannot parse Unity C#.</li>
+<li>It is necessary to configure and use an external C# language server (csharp-language-server).</li>
+<li>You can easily get stuck even with insufficient .NET runtime versions.</li>
+<li>Since Unity projects are huge, it becomes heavy if you don&#39;t narrow down the &quot;folders to open&quot;.</li>
+</ul>
+<p>There are such characteristics.</p>
+<p>In this article, I summarized the errors I encountered while actually running Zed in my environment and what I did to solve them.</p>
+<hr>
+<h1 id="why-unity-c-doesn39t-work-in-zed">Why Unity C# doesn&#39;t work in Zed</h1><p>Zed does not have standard C# support for Unity like VSCode or Rider.</p>
+<p>Therefore,</p>
+<ul>
+<li>C# syntax parsing</li>
+<li>Completion</li>
+<li>Definition jump</li>
+<li>Workspace reading</li>
+</ul>
+<p>cannot be done.</p>
+<p>However, there is a language server called Omnisharp that can be installed from Zed&#39;s Extension! But...
+It doesn&#39;t work (at least on Windows).</p>
+<p>I looked it up and found there was nothing I could do, so let&#39;s wait for an update regarding this Omnisharp...</p>
+<p>So, I will change the LSP used this time to <strong>csharp-language-server</strong> and make it work.</p>
+<hr>
+<h1 id="what-you-need-before-introduction">What you need before introduction</h1><p>Please introduce the following.
+I will describe how to introduce these somewhere else. (It&#39;s not particularly difficult, so if you search, quite a few will come up.)</p>
+<ul>
+<li>.Net runtime (9.0 upper)</li>
+<li>Node.js (I believe 20 upper)</li>
+<li>Omnisharp (Install from Zed Extension)</li>
+</ul>
+<hr>
+<h1 id="download-csharp-language-server">Download csharp-language-server</h1><p>If you have cargo, use the following:</p>
+<pre><code class="language-shell">cargo install --git https://github.com/SofusA/csharp-language-server
+</code></pre>
+<p>If you don&#39;t have it, please get the binary for Windows from Releases on the official page.
+The page is <a href="https://github.com/SofusA/csharp-language-server">here</a>
+Don&#39;t forget to pass the path to the stored location from environment variables.</p>
+<p>This time I will go with the following.</p>
+<pre><code class="language-markdown">C:\\Users\\&lt;User Name&gt;\\AppData\\Local\\csharp-language-server\\csharp-language-server.exe
+</code></pre>
+<h1 id="link-language-server-to-zed-settings">Link language server to Zed settings</h1><p>Open Zed&#39;s Settings.json (please match which Setting.json to your environment).</p>
+<pre><code class="language-json">{
+  &quot;languages&quot;: {
+    &quot;CSharp&quot;: {
+      &quot;language_servers&quot;: [&quot;omnisharp&quot;],
+      &quot;roots&quot;: [&quot;*.sln&quot;, &quot;*.csproj&quot;, &quot;.git&quot;]
+    }
+  },
+  &quot;lsp&quot;: {
+    &quot;omnisharp&quot;: {
+      &quot;binary&quot;: {
+        &quot;path&quot;: &quot;C:\\Users\\&lt;User Name&gt;\\AppData\\Local\\csharp-language-server\\csharp-language-server.exe&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<p>Restart Zed and try opening a suitable .cs file.
+It should work just with this.</p>
+<h3 id="zed39s-omnisharp-extension-grabs-old-folder-and-causes-error">Zed&#39;s OmniSharp extension grabs old folder and causes error</h3><p>Manual deletion of the csharp folder in <strong>extensions/work</strong> within the directory where Zed software is stored might solve it.</p>
+<hr>
+<h1 id="if-it-didn39t-work">If it didn&#39;t work</h1><ol>
+<li>Open command palette with &quot;Ctrl + Shift + P&quot; on Zed.</li>
+<li>Get log with <code>zed: open log</code>.</li>
+<li>Throw it to AI and ask or search the error log.</li>
+</ol>
+<p>Let&#39;s solve it like that;;
+Honestly, there are few articles, so throwing it to AI is stable.</p>
+<p>(Zed has insane affinity with AI Agents, so that&#39;s fine too.
+Gemini 3.0 was released yesterday, so I&#39;m using that^^)</p>
+<p>Also, there are cases where <strong>LSP is running but cannot jump to definition</strong>.
+It seems that completion across assemblies does not work until the target file is opened.
+Let&#39;s open the relevant file with &quot;Ctrl + E&quot;. Completion will start working.</p>
+<hr>
+<h1 id="final-operation-feel">Final operation feel</h1><ul>
+<li>Completion: Light</li>
+<li>Definition jump: Works without problems within the range where source exists</li>
+<li>External DLL: Jump is impossible (Specification, but possible for self-made DLLs)</li>
+<li>Not as much as Unity 100% IDE, but quite comfortable (Debugging seems impossible...)</li>
+</ul>
+<p>Lighter than VSCode, simpler than Rider.
+Personally, I really liked it as an &quot;editor when I want to write Unity lightly&quot;!</p>
+<hr>
+</section>
+              <div class="share-buttons">
+    <p class="share-buttons__title">SHARE</p>
+    <ul class="share-buttons__list">
+      
+        <li class="share-buttons__item">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00009.html&text=Tried%20Building%20a%20C%23%20Development%20Environment%20in%20Zed" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+          </a>
+        </li>
+      
+        <li class="share-buttons__item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00009.html" class="share-buttons__link share-buttons__link--facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"></path></svg>
+          </a>
+        </li>
+      
+        <li class="share-buttons__item">
+          <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00009.html" class="share-buttons__link share-buttons__link--line" target="_blank" rel="noopener noreferrer" aria-label="LINE Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"></path></svg>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+              <div class="post-detail__nav post-detail__nav--bottom">
+                <a href="../../blog.html" class="btn btn--back">← Back to Blog</a>
+              </div>
+            </article>
+          </div>
+          <aside class="post-sidebar">
+            <div class="toc-sticky-container">
+              <nav class="toc">
+                <h2 class="toc__title">Table of Contents</h2>
+                <ul class="toc-list"><li class="toc-item toc-item--level-3"><a href="#zed39s-omnisharp-extension-grabs-old-folder-and-causes-error">Zed&amp;#39;s OmniSharp extension grabs old folder and causes error</a></li></ul>
+              </nav>
+            </div>
+          </aside>
+        </div>
+        <section class="section section--recommend">
+          <h2 class="section__title">Recommended</h2>
+          <div id="recommendList" class="recommend-grid"></div>
+        </section>
+      </main>
+      <div class="toc-overlay"></div>
+      <button type="button" class="toc-toggle" aria-label="Open Table of Contents">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
+        <span>TOC</span>
+      </button>
+    </div>
+    <script src="../../assets/js/layout.js" defer></script>
+    <script src="../../assets/js/ui.js"></script>
+    <canvas id="menuAnimationCanvas"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="../../assets/js/particles.js"></script>
+    <script src="../../assets/js/toc.js" defer></script>
+    <script src="../../assets/js/recommend.js" defer></script>
+  </body>
+</html>

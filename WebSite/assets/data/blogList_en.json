@@ -1,0 +1,240 @@
+[
+  {
+    "id": "blog_00016",
+    "title": "Adding Rules in Zed",
+    "date": "2025-11-30T00:00:00.000Z",
+    "category": "IDE",
+    "description": "A summary of how to use Zed's Rule feature",
+    "tags": [
+      "zed",
+      "ai"
+    ],
+    "thumbnail": "assets/img/zed_icon.png",
+    "contentPath": "blog/en/blog_00016.html",
+    "recommended": true
+  },
+  {
+    "id": "blog_00015",
+    "title": "Tried Implementing Background Animation with p5.js",
+    "date": "2025-11-29T00:00:00.000Z",
+    "category": "Technical Note",
+    "description": "I implemented background animation using p5.js to bring movement to my static portfolio site. I will look back from a beginner's perspective, from introduction to implementation of 10 patterns.",
+    "tags": [
+      "p5js",
+      "javascript"
+    ],
+    "thumbnail": "assets/img/ogp.png",
+    "contentPath": "blog/en/blog_00015.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00014",
+    "title": "Easily Refactored CSS",
+    "date": "2025-11-28T00:00:00.000Z",
+    "category": "Technical Note",
+    "description": "I quickly detected and organized \"unused CSS\" that tends to accumulate in personal development websites using a Node.js script.",
+    "tags": [
+      "css",
+      "nodejs"
+    ],
+    "thumbnail": "assets/img/ogp.png",
+    "contentPath": "blog/en/blog_00014.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00012",
+    "title": "Implementing a Contact Form on a Static Site (GAS Integration)",
+    "date": "2025-11-27T00:00:00.000Z",
+    "category": "Technical Note",
+    "description": "Summarized how to implement a contact form without a server on static sites like GitHub Pages (using Google Apps Script).",
+    "tags": [
+      "gas",
+      "javascript"
+    ],
+    "thumbnail": "assets/img/ogp.png",
+    "contentPath": "blog/en/blog_00012.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00013",
+    "title": "Improving UX by Modaling Portfolio Details",
+    "date": "2025-11-27T00:00:00.000Z",
+    "category": "Technical Note",
+    "description": "I modalized the portfolio work details so they can be viewed without page transitions. About HTML acquisition using DOMParser and pitfalls during implementation.",
+    "tags": [
+      "javascript",
+      "ui-ux"
+    ],
+    "thumbnail": "assets/img/ogp.png",
+    "contentPath": "blog/en/blog_00013.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00011",
+    "title": "Story of My Self-Made Discord Bot Being Abused for Spam When I Published It",
+    "date": "2025-11-26T00:00:00.000Z",
+    "category": "Discord",
+    "description": "I published a self-made Discord bot, and it was used as a stepping stone for spam. I will summarize the architectural design mistakes that caused this and future security measures.",
+    "tags": [
+      "discord",
+      "nodejs",
+      "security"
+    ],
+    "thumbnail": "assets/img/thumbnails/blog_00011.png",
+    "contentPath": "blog/en/blog_00011.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00010",
+    "title": "RClone Operation Flow",
+    "date": "2025-11-20T00:00:00.000Z",
+    "category": "CloudStorage",
+    "description": "Explains how to efficiently manage large-scale assets and achieve CI/CD integration using rclone and shell scripts in a project.",
+    "tags": [
+      "tool",
+      "cloudstorage",
+      "git"
+    ],
+    "thumbnail": "assets/img/thumbnails/blog_00010.png",
+    "contentPath": "blog/en/blog_00010.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00009",
+    "title": "Tried Building a C# Development Environment in Zed",
+    "date": "2025-11-19T00:00:00.000Z",
+    "category": "IDE",
+    "description": "Summarized the steps and pitfalls to introduce a C# language server to Zed and enable completion and definition jumping in Unity projects",
+    "tags": [
+      "csharp",
+      "zed",
+      "lsp",
+      "tool"
+    ],
+    "thumbnail": "assets/img/zed_icon.png",
+    "contentPath": "blog/en/blog_00009.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00007",
+    "title": "RClone Introduction Flow",
+    "date": "2025-11-17T00:00:00.000Z",
+    "category": "CloudStorage",
+    "description": "Summary of procedures for introducing rclone in Windows + Git Bash environment and linking with Google Drive",
+    "tags": [
+      "tool",
+      "cloudstorage",
+      "git"
+    ],
+    "thumbnail": "assets/img/thumbnails/blog_00007.png",
+    "contentPath": "blog/en/blog_00007.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00006",
+    "title": "UE5 Plugin Development",
+    "date": "2025-10-09T00:00:00.000Z",
+    "category": "UE5",
+    "description": "Plugin development in UE5 for game development",
+    "tags": [
+      "ue5",
+      "cpp"
+    ],
+    "thumbnail": "assets/img/thumbnails/blog_00006.png",
+    "contentPath": "blog/en/blog_00006.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00005",
+    "title": "Tried using Dropbox API",
+    "date": "2025-05-09T00:00:00.000Z",
+    "category": "CloudStorage",
+    "description": "Saving free GitLFS users!",
+    "tags": [
+      "git",
+      "api",
+      "dropbox",
+      "cloudstorage"
+    ],
+    "thumbnail": "assets/img/dropbox_icon.png",
+    "contentPath": "blog/en/blog_00005.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00004",
+    "title": "Tried Introducing Modoium Remote",
+    "date": "2025-04-20T00:00:00.000Z",
+    "category": "Unity",
+    "description": "Introduction of a feature that makes debugging convenient when the smartphone device is the platform in Unity development",
+    "tags": [
+      "unity",
+      "plugin",
+      "tool",
+      "android",
+      "ios"
+    ],
+    "thumbnail": "assets/img/thumbnails/blog_00004.png",
+    "contentPath": "blog/en/blog_00004.html",
+    "recommended": true
+  },
+  {
+    "id": "blog_00008",
+    "title": "Reevaluating Discord Bot Architecture",
+    "date": "2025-02-01T00:00:00.000Z",
+    "category": "Discord",
+    "description": "Configuration notes for Discord Bot, adding commands/events like plugins",
+    "tags": [
+      "discord",
+      "nodejs",
+      "architecture",
+      "plugin",
+      "tool"
+    ],
+    "thumbnail": "assets/img/thumbnails/blog_00008.png",
+    "contentPath": "blog/en/blog_00008.html",
+    "recommended": true
+  },
+  {
+    "id": "blog_00003",
+    "title": "Tried Creating a Context Editor with Odin",
+    "date": "2024-06-10T00:00:00.000Z",
+    "category": "Unity",
+    "description": "A story about creating a context editor for planners using Odin",
+    "tags": [
+      "unity",
+      "plugin",
+      "tool"
+    ],
+    "thumbnail": "assets/img/thumbnails/blog_00003.png",
+    "contentPath": "blog/en/blog_00003.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00002",
+    "title": "Trying out Odin Inspector",
+    "date": "2024-06-02T00:00:00.000Z",
+    "category": "Unity",
+    "description": "Trouble points and solutions when introducing Odin in a team",
+    "tags": [
+      "unity",
+      "plugin",
+      "tool"
+    ],
+    "thumbnail": "assets/img/thumbnails/blog_00002.png",
+    "contentPath": "blog/en/blog_00002.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00001",
+    "title": "Started a Blog",
+    "date": "2024-06-01T00:00:00.000Z",
+    "category": "Diary",
+    "description": "Self-introduction of the author",
+    "tags": [
+      "diary"
+    ],
+    "thumbnail": "assets/img/ogp.png",
+    "contentPath": "blog/en/blog_00001.html",
+    "recommended": false
+  }
+]

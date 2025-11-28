@@ -17,9 +17,30 @@ document.addEventListener("DOMContentLoaded", () => {
   // -----------------------------
   async function loadProducts() {
     try {
-      const res = await fetch("assets/data/products.json");
+      const lang = document.documentElement.lang;
+      const isEn = lang === "en";
+      const relativePrefix = isEn ? "../" : "";
+
+      const res = await fetch(
+        `${relativePrefix}assets/data/products.json`,
+      );
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      allProducts = await res.json();
+      const rawProducts = await res.json();
+
+      allProducts = rawProducts.map((p) => {
+        if (
+          isEn &&
+          p.thumbnail &&
+          !p.thumbnail.startsWith("http")
+        ) {
+          return {
+            ...p,
+            thumbnail: `${relativePrefix}${p.thumbnail}`,
+          };
+        }
+        return p;
+      });
+
       render();
     } catch (err) {
       console.error("Failed to load products:", err);
