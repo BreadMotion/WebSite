@@ -757,3 +757,99 @@
     color: var(--color-accent);
     font-weight: 600;
 }
+
+/* ==========================================================================
+   TOC Drawer Menu for Responsive
+   ========================================================================== */
+.toc-toggle {
+    display: none; /* PCでは非表示 */
+    position: fixed;
+    bottom: 2rem;
+    right: 1.5rem;
+    z-index: 100;
+    width: 56px;
+    height: 56px;
+    padding: 0;
+    border: none;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    box-shadow: var(--shadow-lg);
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.toc-toggle span {
+    display: none;
+}
+
+.toc-toggle:hover {
+    background: var(--color-accent-dark);
+    transform: translateY(-3px);
+}
+
+.toc-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 101;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+        opacity 0.3s ease,
+        visibility 0s 0.3s;
+}
+
+@media (max-width: 999px) {
+    .toc-toggle {
+        display: flex; /* SP/Tabletで表示 */
+    }
+
+    .post-sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 100%;
+        max-width: 320px;
+        height: 100vh;
+        height: 100dvh;
+        background: var(--color-surface);
+        z-index: 102;
+        transform: translateX(100%);
+        transition: transform 0.3s
+            cubic-bezier(0.16, 1, 0.3, 1);
+        display: block; /* display:noneを解除 */
+        box-shadow: -5px 0 20px rgba(0, 0, 0, 0.3);
+        overflow-y: auto;
+    }
+
+    .post-sidebar.is-open {
+        transform: translateX(0);
+    }
+
+    .toc-overlay.is-open {
+        opacity: 1;
+        visibility: visible;
+        transition-delay: 0s;
+    }
+
+    .toc-sticky-container {
+        position: static;
+        padding: 2rem 1.5rem;
+    }
+
+    .toc {
+        border: none;
+        padding: 0;
+    }
+
+    .toc-list {
+        max-height: none;
+    }
+}

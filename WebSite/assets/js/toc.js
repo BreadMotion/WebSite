@@ -64,4 +64,41 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // すべての見出しを監視対象に追加
   headings.forEach((heading) => observer.observe(heading));
+
+  // --- TOC Drawer Menu Logic ---
+  const tocToggle = document.querySelector(".toc-toggle");
+  const postSidebar =
+    document.querySelector(".post-sidebar");
+  const tocOverlay = document.querySelector(".toc-overlay");
+  const body = document.body;
+
+  if (tocToggle && postSidebar && tocOverlay) {
+    const openToc = () => {
+      postSidebar.classList.add("is-open");
+      tocOverlay.classList.add("is-open");
+      body.classList.add("no-scroll");
+    };
+
+    const closeToc = () => {
+      postSidebar.classList.remove("is-open");
+      tocOverlay.classList.remove("is-open");
+      body.classList.remove("no-scroll");
+    };
+
+    tocToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      postSidebar.classList.contains("is-open")
+        ? closeToc()
+        : openToc();
+    });
+
+    tocOverlay.addEventListener("click", closeToc);
+
+    // Close TOC when a link is clicked inside
+    postSidebar
+      .querySelectorAll(".toc a")
+      .forEach((link) => {
+        link.addEventListener("click", closeToc);
+      });
+  }
 });
