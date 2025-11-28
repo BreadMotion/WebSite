@@ -656,20 +656,24 @@
 }
 
 .post-content {
-    min-width: 0; /* flex/grid itemの幅が縮小できるようにする */
+    min-width: 0;
 }
 
 .post-sidebar {
     display: none;
 }
 
-@media (min-width: 1120px) {
+@media (min-width: 1000px) {
     .post-layout {
-        grid-template-columns: minmax(0, 1fr) 280px;
-        gap: 3rem;
+        grid-template-columns: minmax(0, 1fr) 250px;
+        gap: 1rem;
     }
     .post-sidebar {
         display: block;
+    }
+
+    body[data-page="blog"] .main-container {
+        max-width: 1180px;
     }
 }
 
@@ -747,5 +751,5 @@
 
 .toc-item a.is-active {
     color: var(--color-accent);
-    font-weight: 700;
+    font-weight: 600;
 }
