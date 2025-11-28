@@ -9,8 +9,7 @@ npm-debug.log
 Thumbs.db
 
 # Tools / Secrets
-tools/service_account.json
-tools/service-account.json
+WebSite/tools/service_account.json
 .env
 
 # Editor
