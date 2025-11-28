@@ -94,22 +94,19 @@
 <li>CI/CDパイプラインにおけるアセットの自動同期・ビルド連携のイメージを掴む。</li>
 </ul>
 <h2>大規模アセット管理の課題とrcloneの優位性</h2>
-<p>ゲーム開発では3Dモデル、高解像度テクスチャ、長尺サウンドファイルなど、GB単位の大規模アセットが頻繁に登場します。<br>これらをGitで直接管理するとリポジトリが肥大化し、クローンやフェッチに時間がかかったりGit LFSの容量制限に引っかかったりといった問題が発生しがちです。</p>
-<p>rcloneを外部ストレージ（Google Driveなどと連携させることでこれらの大容量アセットをGitリポジトリから切り離し効率的に管理することが可能になります。
-Gitではアセットへの参照のみを管理し実際のデータはrclone経由で外部ストレージに保存することでリポジトリの軽量化と高速化を実現します。</p>
+<p>ゲーム開発では3Dモデル、高解像度テクスチャ、長尺サウンドファイルなど、GB単位の大規模アセットが頻繁に登場します。<br>これらをGitで直接管理するとリポジトリが肥大化し、クローンやフェッチに時間がかかったりGit LFSの容量制限に引っかかったりといった問題が発生しがちです。  </p>
+<p>rcloneを外部ストレージ（Google Driveなどと連携させることでこれらの大容量アセットをGitリポジトリから切り離し効率的に管理することが可能になります。<br>Gitではアセットへの参照のみを管理し実際のデータはrclone経由で外部ストレージに保存することでリポジトリの軽量化と高速化を実現します。  </p>
 <h2>UEでのRClone運用戦略</h2>
 <p>UEのルートディレクトリに<code>Tool</code>を用意して4つのシェルスクリプトを用意します。(batchファイルに置き換えてコマンド調整しても大丈夫なはず) </p>
 <ul>
 <li><code>Aup.sh</code></li>
 <li><code>Adown.sh</code></li>
 <li><code>Alock.sh</code></li>
-<li><code>Aunlock.sh</code> 
-これらのスクリプトは<code>Assets</code>ディレクトリ以下の大容量ファイルになりうるプリフィックスを対象としてrcloneコマンドをラップしアセットの同期とロックを自動化します。
-(拡張子が.uasset以外の物で対象にしたい場合、判定を追加する事)</li>
+<li><code>Aunlock.sh</code></li>
 </ul>
+<p>これらのスクリプトは<code>Assets</code>ディレクトリ以下の大容量ファイルになりうるプリフィックスを対象としてrcloneコマンドをラップしアセットの同期とロックを自動化します。<br>(拡張子が.uasset以外の物で対象にしたい場合、判定を追加する事)</p>
 <h3>1. <code>Aup.sh</code>：アセットのアップロード</h3>
-<p><code>Aup.sh</code>は、ローカルのプロジェクトのアセットをGoogle Drive（または設定されたリモートストレージにアップロードするために使用します。
-これはアセットの編集が完了し、共有準備ができた際に実行するイメージです。</p>
+<p><code>Aup.sh</code>は、ローカルのプロジェクトのアセットをGoogle Drive（または設定されたリモートストレージにアップロードするために使用します。<br>これはアセットの編集が完了し、共有準備ができた際に実行するイメージです。</p>
 <p><strong>使用例:</strong></p>
 <pre><code class="language-sh"># Unityプロジェクトのルートディレクトリで実行
 sh ./Tool/Aup.sh
@@ -121,8 +118,7 @@ sh ./Tool/Aup.sh
 <li>Gitリポジトリには、アップロードされたアセットのプレースホルダーファイル（またはパス情報のみ）をコミット。</li>
 </ol>
 <h3>2. <code>Adown.sh</code>：アセットのダウンロード</h3>
-<p><code>Adown.sh</code> はリモートストレージ上のアセットをローカルのプロジェクトにダウンロードするために使用します。
-チームメンバーがプロジェクトをクローンしたり、最新のアセットに更新したい場合に実行します。</p>
+<p><code>Adown.sh</code> はリモートストレージ上のアセットをローカルのプロジェクトにダウンロードするために使用します。<br>チームメンバーがプロジェクトをクローンしたり、最新のアセットに更新したい場合に実行します。</p>
 <p><strong>使用例:</strong></p>
 <pre><code class="language-sh"># プロジェクトのルートディレクトリで実行
 sh ./Tool/Adown.sh
@@ -134,8 +130,7 @@ sh ./Tool/Adown.sh
 <li>ダウンロードされたアセットがエディタで認識されるように調整（必要であれば）。</li>
 </ol>
 <h3>3. <code>Alock.sh</code>：アセットのロック</h3>
-<p>大規模アセットの同時編集によるコンフリクトを防ぐためにロック機構は非常に重要です。
-<code>Alock.sh</code> は、特定のアセットをロックし、他のメンバーが同時に編集できないようにします。</p>
+<p>大規模アセットの同時編集によるコンフリクトを防ぐためにロック機構は非常に重要です。<br><code>Alock.sh</code> は、特定のアセットをロックし、他のメンバーが同時に編集できないようにします。  </p>
 <p><strong>使用例:</strong></p>
 <pre><code class="language-sh"># UEプロジェクトのルートディレクトリで実行
 sh ./Tool/Alock.sh Content/Model/SK_ModelX.uasset
@@ -168,16 +163,12 @@ sh ./Tool/Aunlock.sh Content/Model/SK_ModelX.uasset
 </ol>
 <p>これによりビルドサーバーは常に最新のコードとアセットでビルドを実行でき、手動でのアセット同期の手間を省くことができます。</p>
 <h2><code>MMD_rclone.png</code> を参照したイメージ（仮想的な図）</h2>
-<p>前回のRClone導入フローチャート (<code>MMD_rclone.png</code>) は、RClone自体の設定フローでしたが
-今回の運用術におけるアセットの流れは以下のようなイメージになります。</p>
-<p>最終版のフローチャートは<a href="https://breadmotion.github.io/WebSite/content/other/Rclone2.html">こちら</a>です。
-<img src="https://breadmotion.github.io/WebSite/assets/img/MMD_rclone2.png" alt="RClone導入フローチャート"></p>
+<p>前回のRClone導入フローチャート (<code>MMD_rclone.png</code>) は、RClone自体の設定フローでしたが<br>今回の運用術におけるアセットの流れは以下のようなイメージになります。  </p>
+<p>最終版のフローチャートは<a href="https://breadmotion.github.io/WebSite/content/other/Rclone2.html">こちら</a>です。<br><img src="https://breadmotion.github.io/WebSite/assets/img/MMD_rclone2.png" alt="RClone導入フローチャート"></p>
 <h2>ロック・アンロックの重要性 (<code>Alock.sh</code> / <code>Aunlock.sh</code>)</h2>
-<p>複数人で同時に編集する際、意図しない上書きやコンフリクトは避けたい問題です。
-Git LFS のファイルロック機能と同様に<code>rclone</code>を利用したアセット管理においてもこのロック機構は非常に重要になります。<code>Alock.sh</code>と<code>Aunlock.sh</code>は、そのためのカスタムシェルスクリプトです。</p>
+<p>複数人で同時に編集する際、意図しない上書きやコンフリクトは避けたい問題です。<br>Git LFS のファイルロック機能と同様に<code>rclone</code>を利用したアセット管理においてもこのロック機構は非常に重要になります。<code>Alock.sh</code>と<code>Aunlock.sh</code>は、そのためのカスタムシェルスクリプトです。  </p>
 <h3><code>Alock.sh</code>：アセットのロック</h3>
-<p><code>Alock.sh</code> は指定したアセットファイルをリモートストレージ上で「ロック済み」としてマークします。
-これにより他の開発者が同じファイルを同時に編集するのを防ぎ、コンフリクト発生のリスクを大幅に軽減します。</p>
+<p><code>Alock.sh</code> は指定したアセットファイルをリモートストレージ上で「ロック済み」としてマークします。<br>これにより他の開発者が同じファイルを同時に編集するのを防ぎ、コンフリクト発生のリスクを大幅に軽減します。  </p>
 <p><strong>主な機能:</strong></p>
 <ul>
 <li>指定されたアセットのパスを受け取る。</li>
@@ -185,12 +176,9 @@ Git LFS のファイルロック機能と同様に<code>rclone</code>を利用�
 <li>ロックが成功した場合その旨を通知。</li>
 <li>既に他のユーザーによってロックされている場合はその情報を表示し、ロックを拒否する。</li>
 </ul>
-<p><strong>運用イメージ:</strong>
-開発者が特定のアセットの編集を始める前に <code>Alock.sh Content/Model/SK_ModelA.uasset</code> を実行します。
-ロックが成功すれば安心して作業を進めることができます。</p>
+<p><strong>運用イメージ:</strong><br>開発者が特定のアセットの編集を始める前に <code>Alock.sh Content/Model/SK_ModelA.uasset</code> を実行します。<br>ロックが成功すれば安心して作業を進めることができます。  </p>
 <h3><code>Aunlock.sh</code>：アセットのアンロック</h3>
-<p>アセットの編集が完了し<code>Aup.sh</code>でリモートストレージへのアップロードが済んだら<code>Aunlock.sh</code>を使ってロックを解除します。
-これにより他の開発者がそのアセットをロックし、編集できるようになります。</p>
+<p>アセットの編集が完了し<code>Aup.sh</code>でリモートストレージへのアップロードが済んだら<code>Aunlock.sh</code>を使ってロックを解除します。<br>これにより他の開発者がそのアセットをロックし、編集できるようになります。  </p>
 <p><strong>主な機能:</strong></p>
 <ul>
 <li>指定されたアセットのパスを受け取る。</li>
@@ -198,9 +186,7 @@ Git LFS のファイルロック機能と同様に<code>rclone</code>を利用�
 <li>ロック解除が成功した場合その旨を通知。</li>
 <li>ロックされていないファイルや自分以外のユーザーがロックしているファイルを解除しようとした場合はエラーを通知する。</li>
 </ul>
-<p><strong>運用イメージ:</strong>
-アセットの編集とアップロードが終わったら<code>Aunlock.sh Content/Model/SK_ModelA.uasset</code>を実行してロックを解除します。
-これにより他のチームメンバーがそのアセットの最新版を取得し、必要であればロックして編集を開始できます。</p>
+<p><strong>運用イメージ:</strong><br>アセットの編集とアップロードが終わったら<code>Aunlock.sh Content/Model/SK_ModelA.uasset</code>を実行してロックを解除します。<br>これにより他のチームメンバーがそのアセットの最新版を取得し、必要であればロックして編集を開始できます。</p>
 <h3>ロック機構のメリット</h3>
 <ul>
 <li><strong>コンフリクトの防止</strong>: 大容量アセットの複雑なマージ作業を回避できる。</li>
@@ -209,8 +195,7 @@ Git LFS のファイルロック機能と同様に<code>rclone</code>を利用�
 </ul>
 <p>これらのスクリプトとフローを適切に運用することで、Gitとrcloneを組み合わせたプロジェクトのアセット管理はより堅牢で効率的なものとなるでしょう。</p>
 <h2>まとめ</h2>
-<p>プロジェクトにおけるアセット管理はチーム開発の効率を大きく左右する重要な課題です。
-rcloneとカスタムシェルスクリプト <code>Aup.sh</code>, <code>Adown.sh</code>, <code>Alock.sh</code>, <code>Aunlock.sh</code> を組み合わせることで、Gitリポジトリを軽量に保ちつつ大容量アセットを外部ストレージで効率的に管理し、さらにCI/CDパイプラインとの連携もスムーズに行うことが可能になります。</p>
+<p>プロジェクトにおけるアセット管理はチーム開発の効率を大きく左右する重要な課題です。<br>rcloneとカスタムシェルスクリプト <code>Aup.sh</code>, <code>Adown.sh</code>, <code>Alock.sh</code>, <code>Aunlock.sh</code> を組み合わせることで、Gitリポジトリを軽量に保ちつつ大容量アセットを外部ストレージで効率的に管理し、さらにCI/CDパイプラインとの連携もスムーズに行うことが可能になります。  </p>
 <p>この運用術を導入することで開発者はアセットの容量やGit LFSの制限に煩わされることなくコンテンツ制作と開発に集中できるようになるでしょう。</p>
 
           </section>

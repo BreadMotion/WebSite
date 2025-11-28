@@ -206,9 +206,7 @@ module.exports = {
   },
 };
 </code></pre>
-<p>コア側では、Event/ を走査して
-<code>client.on(event.name, handler) or client.once(...)</code>
-を自動で登録するだけにしています。</p>
+<p>コア側では、Event/ を走査して<br><code>client.on(event.name, handler) or client.once(...)</code><br>を自動で登録するだけにしています。</p>
 <hr>
 <h2>pm2とデプロイフロー</h2>
 <h3>pm2での常駐</h3>
@@ -220,9 +218,9 @@ pm2 startup
 <ul>
 <li>SSH を切っても Bot は動き続ける</li>
 <li>pm2 logs bread-bot でログ確認</li>
-<li>pm2 restart bread-bot で反映
-という基本の運用です。</li>
+<li>pm2 restart bread-bot で反映</li>
 </ul>
+<p>という基本の運用です。</p>
 <h3>デプロイ用スクリプト</h3>
 <p>デプロイはシンプルに Shell/ に 1 本スクリプトを置きました。</p>
 <pre><code class="language-bash">#!/usr/bin/env bash
@@ -241,9 +239,9 @@ pm2 restart bread-bot
 </code></pre>
 <ul>
 <li>リポジトリを更新 → サーバー側でこのスクリプト実行</li>
-<li>将来的には Webhook や CI から叩いてもよい
-という形にしています。</li>
+<li>将来的には Webhook や CI から叩いてもよい</li>
 </ul>
+<p>という形にしています。</p>
 <hr>
 <h2>これからやりたい拡張</h2>
 <p>現状でも「コマンドを JS 1 ファイルで追加できる Bot」になりましたが、さらにやりたいのはこのあたりです。</p>
@@ -271,8 +269,7 @@ pm2 restart bread-bot
 <li>pm2 と簡単なシェルスクリプトで、運用とデプロイをシンプルにする</li>
 <li>将来の拡張（Web 管理画面や API）を見据えて、context という共通オブジェクトをコマンドに渡す</li>
 </ul>
-<p>こういう形にしたことで、 「1つの巨大な index.js に全部書いてある Discord Bot」
-から、だいぶ卒業できた気がします。</p>
+<p>こういう形にしたことで、 「1つの巨大な index.js に全部書いてある Discord Bot」から、だいぶ卒業できた気がします。</p>
 <p>同じように Bot を長期運用したい人の参考になれば嬉しいです。</p>
 <hr>
 

@@ -79,8 +79,7 @@
 
           <section class="post-detail__body markdown-body">
 <p>こんにちは！パン君です</p>
-<p>インディーズのプロジェクトで Modoium Remote を導入して使用してみました。
-導入方法と詰まった事を話していきます。</p>
+<p>インディーズのプロジェクトで Modoium Remote を導入して使用してみました。<br>導入方法と詰まった事を話していきます。  </p>
 <ul>
 <li><a href="https://modoium.com/jp/">公式 URL</a></li>
 <li><a href="https://uuma-memo.xyz/2024/09/01/1080/">参考にしたページ</a></li>
@@ -89,43 +88,38 @@
 </ul>
 <hr>
 <h2>導入方法</h2>
-<p>導入まですごく簡単です。</p>
+<p>導入まですごく簡単です。  </p>
 <ol>
 <li>アセットストアから該当アセット購入、導入したいプロジェクトにインポート(無料です)</li>
 <li>Modoium Remote Status ウィンドウが開きます。(開かない方は<code>Window &gt; Modoium Remote &gt; View Status</code>から開きます。)</li>
 <li>再生時操作したいハードに Modoium が提供しているアプリをインストールします。<br>Android は<a href="https://play.google.com/store/apps/details?id=com.modoium.client.app">こちら</a><br>iOS は<a href="https://apps.apple.com/kr/app/modoium/id6587558465">こちら</a></li>
 </ol>
-<p>これで導入は終了です。</p>
+<p>これで導入は終了です。  </p>
 <hr>
 <h2>使用方法</h2>
-<p>エディターと端末で接続する際の条件は下記になります。</p>
+<p>エディターと端末で接続する際の条件は下記になります。  </p>
 <ol>
 <li>PC とスマホが同じネットワークに接続されている。</li>
 <li>PC のネットワーク設定がプライベートになっている。</li>
 </ol>
-<p>この状態でプロジェクトで Modoium Remote Status ウィンドウを開いて、端末側で Modoium のアプリを開きます。</p>
-<p>端末側の Modoium アプリに Unity のプロジェクト名が載っていれば正解です。</p>
-<p>選択して Modoium Remote Status ウィンドウの
-<code>4) Enter the verification code below if necessary:</code>に記載されている番号を Modium アプリ側に入力します。</p>
+<p>この状態でプロジェクトで Modoium Remote Status ウィンドウを開いて、端末側で Modoium のアプリを開きます。  </p>
+<p>端末側の Modoium アプリに Unity のプロジェクト名が載っていれば正解です。  </p>
+<p>選択して Modoium Remote Status ウィンドウの<br><code>4) Enter the verification code below if necessary:</code>に記載されている番号を Modium アプリ側に入力します。</p>
 <p>以上で動作するはずです。</p>
 <blockquote>
 <p>[! WARNING] Gameview が Simulator だと動作しないそうです。<br>実際しませんでした。</p>
 </blockquote>
 <hr>
 <h3>詰まった箇所</h3>
-<p>インディーズチームで共同作業する際に発生した事象を話します。</p>
+<p>インディーズチームで共同作業する際に発生した事象を話します。  </p>
 <h4>一部端末で接続と入力はできるが描画がされない</h4>
-<p>発症端末はエクスペリアで所有者の端末特有かエクスペリアか原因の切り分けはできていません。
-他アプリケーションの影響や、メモリ的な話の可能性もありますが、リモートでの対応なので原因究明に至っておりません。</p>
+<p>発症端末はエクスペリアで所有者の端末特有かエクスペリアか原因の切り分けはできていません。<br>他アプリケーションの影響や、メモリ的な話の可能性もありますが、リモートでの対応なので原因究明に至っておりません。  </p>
 <hr>
 <h4>windows 側でインポートし github で共有したら、他作業員の macOS 側で DLLException エラーが大量に発生</h4>
-<p>これは dylib と dll と os 間で動的ライブラリが違うからという話だと最初考えたのですが、該当プロジェクトでは git による管理を行っておりかつ gitIgnore は Unity が推奨しているものを使用しています。<br>なので manifest やインポートされているパッケージ情報のみ共有されているので何故他作業員のところに dll が入っているのかが疑問点です。
-macOS でインポートしても windows のパッケージがインポートされているのであれば公式のバグではありますが、特に報告にも上がっていませんでしたので、よくわからんです。</p>
+<p>これは dylib と dll と os 間で動的ライブラリが違うからという話だと最初考えたのですが、該当プロジェクトでは git による管理を行っておりかつ gitIgnore は Unity が推奨しているものを使用しています。<br>なので manifest やインポートされているパッケージ情報のみ共有されているので何故他作業員のところに dll が入っているのかが疑問点です。<br>macOS でインポートしても windows のパッケージがインポートされているのであれば公式のバグではありますが、特に報告にも上がっていませんでしたので、よくわからんです。</p>
 <hr>
 <h3>最後に</h3>
-<p>以上 Modoium Remote 導入議事録でした。
-特に気を付けることは無く正常動作しなかった場合素直に違うハードを使う、Windows 環境で使うってところだけ気を付けていれば、導入して即使用可能なお手軽ツールのお話でした。
-携帯端末での開発の際は是非。</p>
+<p>以上 Modoium Remote 導入議事録でした。<br>特に気を付けることは無く正常動作しなかった場合素直に違うハードを使う、Windows 環境で使うってところだけ気を付けていれば、導入して即使用可能なお手軽ツールのお話でした。<br>携帯端末での開発の際は是非。</p>
 
           </section>
 

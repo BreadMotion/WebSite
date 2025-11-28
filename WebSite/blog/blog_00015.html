@@ -81,16 +81,14 @@
 <p>こんにちは！パン君です。</p>
 <p>クリエイティブコーディングの世界で有名な <strong>p5.js</strong> を使ってみることにしました。</p>
 <h2>p5.js とは？</h2>
-<p>Processing というアート向けプログラミング言語をWeb (JavaScript) で動くようにしたライブラリです。
-「キャンバスに絵を描く」「動かす」といったことが、驚くほど簡単なコードで書けます。</p>
+<p>Processing というアート向けプログラミング言語をWeb (JavaScript) で動くようにしたライブラリです。<br>「キャンバスに絵を描く」「動かす」といったことが、驚くほど簡単なコードで書けます。</p>
 <h3>導入は超簡単</h3>
-<p>npm でインストールする方法もありますが、今回は手軽に CDN で導入しました。
-HTMLに1行足すだけです。</p>
+<p>npm でインストールする方法もありますが、今回は手軽に CDN で導入しました。<br>HTMLに1行足すだけです。</p>
 <pre><code class="language-html">&lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js&quot;&gt;&lt;/script&gt;
 </code></pre>
 <p>これだけで準備完了。</p>
 <h2>さっそく書いてみる</h2>
-<p>まずは「画面全体にキャンバスを作って、円を表示する」ところから始めました。</p>
+<p>まずは「画面全体にキャンバスを作って、円を表示する」ところから始めました。  </p>
 <pre><code class="language-javascript">function setup() {
   // 画面いっぱいのキャンバスを作る
   createCanvas(windowWidth, windowHeight);
@@ -104,8 +102,7 @@ function draw() {
   circle(100, 100, 50);
 }
 </code></pre>
-<p>たったこれだけで描画できました。
-<code>setup()</code> が最初に1回だけ呼ばれて、<code>draw()</code> が毎フレーム呼ばれる仕組みです。</p>
+<p>たったこれだけで描画できました。<br><code>setup()</code> が最初に1回だけ呼ばれて、<code>draw()</code> が毎フレーム呼ばれる仕組みです。</p>
 <h2>パーティクルを飛ばしてみる</h2>
 <p>円をクラス化して配列に入れ、座標を更新するようにすれば無数のパーティクルが動くアニメーションになります。</p>
 <pre><code class="language-javascript">class Particle {
@@ -123,23 +120,19 @@ function draw() {
   }
 }
 </code></pre>
-<p>これを <code>draw()</code> の中でループさせれば、泡のように昇るアニメーションの完成です。
-ベクトルや三角関数を使えば、もっと複雑な動きも作れます。</p>
+<p>これを <code>draw()</code> の中でループさせれば、泡のように昇るアニメーションの完成です。<br>ベクトルや三角関数を使えば、もっと複雑な動きも作れます。</p>
 <h2>調子に乗って10パターン作った</h2>
 <p>楽しくなってきたので、いろいろなパターンを実装してみました。</p>
 <ol>
 <li><strong>Network</strong>: 粒子同士を線でつなぐ（ニューラルネットワーク風）</li>
 <li><strong>Cosmos</strong>: 星がキラキラ瞬く</li>
 <li><strong>Rain</strong>: デジタルな雨（マトリックス風）</li>
-<li><strong>Circuit</strong>: 回路図のようなパルスが走る
-...などなど、合計10種類！</li>
+<li><strong>Circuit</strong>: 回路図のようなパルスが走る</li>
 </ol>
-<p>ページを開くたびにランダムで切り替わるようにしたので、
-リロードするたびに違う雰囲気が楽しめます。</p>
+<p>...などなど、合計10種類！</p>
+<p>ページを開くたびにランダムで切り替わるようにしたので、<br>リロードするたびに違う雰囲気が楽しめます。</p>
 <h2>スマホ対策の罠</h2>
-<p>実装中に一つハマったのが、 <strong>スマホでの横スクロール発生</strong> です。</p>
-<p><code>createCanvas(windowWidth, windowHeight)</code></p>
-<p>と書くと、PCでは問題ないのですが、スマホだとスクロールバーの幅が含まれたりして、微妙に画面幅を超えてしまうことがありました。</p>
+<p>実装中に一つハマったのが、 <strong>スマホでの横スクロール発生</strong> です。<br><code>createCanvas(windowWidth, windowHeight)</code><br>と書くと、PCでは問題ないのですが、スマホだとスクロールバーの幅が含まれたりして、微妙に画面幅を超えてしまうことがありました。</p>
 <p>最終的には、</p>
 <pre><code class="language-javascript">let w = document.documentElement.clientWidth;
 </code></pre>
