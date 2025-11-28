@@ -173,9 +173,13 @@ function createHtml({
     <div class="page-shell">
       <main class="main-container">
         <article class="post-detail reveal-on-scroll">
-          <div class="post-detail__nav">
-            <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
-          </div>
+          <nav class="breadcrumb">
+            <a href="../index.html">ホーム</a>
+            <span class="breadcrumb-separator">/</span>
+            <a href="../blog.html">ブログ</a>
+            <span class="breadcrumb-separator">/</span>
+            <span class="breadcrumb-current">${safeTitle}</span>
+          </nav>
           <header class="post-detail__header">
             <p class="post-detail__meta">${safeDate}${
               safeCategory ? " / " + safeCategory : ""
