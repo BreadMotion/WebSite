@@ -89,6 +89,7 @@ body {
     flex-direction: column;
     overflow-wrap: break-word; /* 長い単語の折り返し */
     word-break: break-word; /* 長い単語の折り返し(互換性) */
+    overflow-x: hidden;
 }
 
 h1,
