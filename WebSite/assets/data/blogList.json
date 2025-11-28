@@ -3,7 +3,7 @@
     "id": "blog_00016",
     "title": "ZedのRuleの追加について",
     "date": "2025-11-30T00:00:00.000Z",
-    "category": "tool",
+    "category": "IDE",
     "description": "ZedのRuleの使い方をまとめました",
     "tags": [
       "zed",
@@ -31,7 +31,7 @@
     "id": "blog_00014",
     "title": "CSSのリファクタリングを手軽にしてみた",
     "date": "2025-11-28T00:00:00.000Z",
-    "category": "開発ログ",
+    "category": "技術メモ",
     "description": "個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。",
     "tags": [
       "css",
@@ -45,7 +45,7 @@
     "id": "blog_00013",
     "title": "ポートフォリオの詳細表示をモーダル化してUXを改善する",
     "date": "2025-11-27T00:00:00.000Z",
-    "category": "UI/UX",
+    "category": "技術メモ",
     "description": "ポートフォリオサイトの作品詳細を、ページ遷移なしで閲覧できるようにモーダルウィンドウ化しました。DOMParserを使ったHTML取得や、実装時のハマりポイントについて。",
     "tags": [
       "javascript",
@@ -88,7 +88,7 @@
     "id": "blog_00010",
     "title": "RClone運用フロー",
     "date": "2025-11-20T00:00:00.000Z",
-    "category": "Git",
+    "category": "CloudStrage",
     "description": "プロジェクトでrcloneとシェルスクリプトを活用し、大規模アセットの効率的な管理とCI/CD連携を実現する方法を解説します。",
     "tags": [
       "tool",
@@ -103,7 +103,7 @@
     "id": "blog_00009",
     "title": "ZedでC#開発環境を構築してみた",
     "date": "2025-11-19T00:00:00.000Z",
-    "category": "tool",
+    "category": "IDE",
     "description": "ZedにC#言語サーバーを導入し、Unityプロジェクトで補完・定義ジャンプを使えるようにするまでの手順とハマりどころをまとめました",
     "tags": [
       "csharp",
@@ -119,7 +119,7 @@
     "id": "blog_00007",
     "title": "RClone導入フロー",
     "date": "2025-11-17T00:00:00.000Z",
-    "category": "Git",
+    "category": "CloudStrage",
     "description": "Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ",
     "tags": [
       "tool",
@@ -148,7 +148,7 @@
     "id": "blog_00005",
     "title": "DropBox APIを使ってみた",
     "date": "2025-05-09T00:00:00.000Z",
-    "category": "Git",
+    "category": "CloudStrage",
     "description": "GitLFSの無料ユーザーを救済します！",
     "tags": [
       "git",

@@ -575,9 +575,6 @@
 /* ==========================================================================
    7. 記事詳細のナビゲーション
    ========================================================================== */
-.post-detail__nav {
-    margin-bottom: 2rem;
-}
 
 .post-detail__nav--bottom {
     margin-top: 3rem;
@@ -604,4 +601,33 @@
     color: var(--color-text);
     border-color: var(--color-accent);
     transform: translateX(-4px);
+}
+
+/* ==========================================================================
+   8. パンくずリスト
+   ========================================================================== */
+.breadcrumb {
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+}
+
+.breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+
+.breadcrumb a:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    margin: 0 0.5rem;
+}
+
+.breadcrumb-current {
+    font-weight: 600;
+    color: var(--color-text);
 }
