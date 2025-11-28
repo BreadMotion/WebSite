@@ -3,10 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     ".reveal-on-scroll",
   );
 
-  if (
-    !("IntersectionObserver" in window) ||
-    targets.length === 0
-  ) {
+  if (true) {
     targets.forEach((el) => el.classList.add("is-visible"));
     return;
   }
