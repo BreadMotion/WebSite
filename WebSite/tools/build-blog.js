@@ -17,6 +17,13 @@ const AD_SCRIPT_PATH = path.join(
   "ad-script.html",
 );
 
+const THUMBNAIL_DIR = path.join(
+  ROOT,
+  "assets",
+  "img",
+  "thumbnails",
+);
+
 // サイトのベースURL（末尾スラッシュなし）
 const BASE_URL = "https://breadmotion.github.io/WebSite";
 
@@ -85,15 +92,18 @@ function createHtml({
 
   // 画像URLの構築（thumbnailがあればそれを優先、なければデフォルトOGP）
   // 外部URL(httpから始まる)の場合はそのまま、そうでなければサイト内パスとして結合
-  let imageUrl =
-    thumbnail || `${BASE_URL}/assets/img/ogp.png`;
-  if (!imageUrl.startsWith("http")) {
-    // 相対パスっぽく書かれている場合などを考慮し、絶対パス化を試みる
-    // ここでは単純に BASE_URL + パス としたいが、
-    // thumbnail に "../assets/..." のような相対パスが入っている可能性も考慮
-    // いったんシンプルに "http" で始まらなければ BASE_URL/assets/img/ogp.png をデフォルトとする運用が無難だが
-    // 今回は thumbnail が空ならデフォルト、値があればそのまま使う（利用者が絶対パスを書くかどうかに委ねるのが安全）
-    // ただしデフォルト画像は確実に絶対パスにする
+  let imageUrl = thumbnail;
+  if (imageUrl) {
+    if (!imageUrl.startsWith("http")) {
+      // サイト内パスの場合、絶対パス(URL)に変換する
+      // ../assets/... や assets/... などを考慮して正規化
+      const cleanPath = imageUrl
+        .replace(/^(\.\.\/)+/, "")
+        .replace(/^\/+/, "");
+      imageUrl = `${BASE_URL}/${cleanPath}`;
+    }
+  } else {
+    imageUrl = `${BASE_URL}/assets/img/ogp.png`;
   }
 
   // 構造化データ (JSON-LD)
@@ -146,14 +156,14 @@ function createHtml({
     <meta property="og:description" content="${safeDesc}" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="${canonicalUrl}" />
-    <meta property="og:image" content="${BASE_URL}/assets/img/ogp.png" />
+    <meta property="og:image" content="${imageUrl}" />
     <meta property="og:site_name" content="PanKUN" />
     <meta property="og:email" content="pankun.dev@gmail.com" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="${safeTitle}" />
     <meta name="twitter:description" content="${safeDesc}" />
-    <meta name="twitter:image" content="${BASE_URL}/assets/img/ogp.png" />
+    <meta name="twitter:image" content="${imageUrl}" />
 
     <link rel="stylesheet" href="../assets/css/base.css" />
     <link rel="stylesheet" href="../assets/css/layout.css" />
@@ -208,6 +218,11 @@ ${bodyHtml}
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
 
+  // サムネイル出力先ディレクトリが無ければ作る
+  if (!fs.existsSync(THUMBNAIL_DIR)) {
+    fs.mkdirSync(THUMBNAIL_DIR, { recursive: true });
+  }
+
   // 広告スクリプトの読み込み
   let adScript = "";
   if (fs.existsSync(AD_SCRIPT_PATH)) {
@@ -231,7 +246,39 @@ ${bodyHtml}
     const description = data.description || "";
     const date = data.date || "";
     const category = data.category || "";
-    const thumbnail = data.thumbnail || "";
+    let thumbnail = data.thumbnail || "";
+
+    // Base64画像の場合はファイルとして保存してパスを差し替える
+    if (thumbnail.startsWith("data:image")) {
+      try {
+        const matches = thumbnail.match(
+          /^data:image\/([a-zA-Z0-9]+);base64,(.+)$/,
+        );
+        if (matches) {
+          const ext =
+            matches[1] === "jpeg" ? "jpg" : matches[1];
+          const base64Data = matches[2];
+          const buffer = Buffer.from(base64Data, "base64");
+          const filename = `${id}.${ext}`;
+          const outPath = path.join(
+            THUMBNAIL_DIR,
+            filename,
+          );
+
+          fs.writeFileSync(outPath, buffer);
+          console.log(`Saved thumbnail: ${filename}`);
+
+          // JSONやOGP用にルート相対パス(assets/...)で保持する
+          thumbnail = `assets/img/thumbnails/${filename}`;
+        }
+      } catch (e) {
+        console.error(
+          `Failed to process thumbnail for ${id}:`,
+          e,
+        );
+      }
+    }
+
     const recommended = data.recommended || false;
     const tagsRaw = data.tags || [];
     const tags = Array.isArray(tagsRaw)
