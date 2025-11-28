@@ -80,7 +80,7 @@
       "nodejs",
       "security"
     ],
-    "thumbnail": "https://www.vhv.rs/dpng/d/560-5605966_discord-bot-logo-discord-png-transparent-png.png",
+    "thumbnail": "assets/img/thumbnails/blog_00011.png",
     "contentPath": "blog/blog_00011.html",
     "recommended": false
   },
@@ -95,7 +95,7 @@
       "cloudstrage",
       "git"
     ],
-    "thumbnail": "https://images.icon-icons.com/2699/PNG/512/rclone_logo_icon_169806.png",
+    "thumbnail": "assets/img/thumbnails/blog_00010.png",
     "contentPath": "blog/blog_00010.html",
     "recommended": false
   },
@@ -126,7 +126,7 @@
       "cloudstrage",
       "git"
     ],
-    "thumbnail": "https://images.icon-icons.com/2699/PNG/512/rclone_logo_icon_169806.png",
+    "thumbnail": "assets/img/thumbnails/blog_00007.png",
     "contentPath": "blog/blog_00007.html",
     "recommended": false
   },
@@ -140,7 +140,7 @@
       "ue5",
       "cpp"
     ],
-    "thumbnail": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/UE_Logo_Black_Centered.svg/960px-UE_Logo_Black_Centered.svg.png?20180409154350",
+    "thumbnail": "assets/img/thumbnails/blog_00006.png",
     "contentPath": "blog/blog_00006.html",
     "recommended": false
   },
@@ -156,7 +156,7 @@
       "dropbox",
       "cloudstrage"
     ],
-    "thumbnail": "https://cdn.brandfetch.io/idY3kwH_Nx/theme/dark/logo.svg?c=1dxbfHSJFAPEGdCLU4o5B",
+    "thumbnail": "assets/img/dropbox_icon.png",
     "contentPath": "blog/blog_00005.html",
     "recommended": false
   },
@@ -173,7 +173,7 @@
       "android",
       "ios"
     ],
-    "thumbnail": "https://play-lh.googleusercontent.com/biTX1cxwIjiOLBH1g60Io_pYh4f5tOTIfmjE5lLD2Qbv8cNM32pJ9hUg8sxRP0nOBL76=w240-h480-rw",
+    "thumbnail": "assets/img/thumbnails/blog_00004.png",
     "contentPath": "blog/blog_00004.html",
     "recommended": true
   },
@@ -190,7 +190,7 @@
       "plugin",
       "tool"
     ],
-    "thumbnail": "https://www.vhv.rs/dpng/d/560-5605966_discord-bot-logo-discord-png-transparent-png.png",
+    "thumbnail": "assets/img/thumbnails/blog_00008.png",
     "contentPath": "blog/blog_00008.html",
     "recommended": true
   },
@@ -205,7 +205,7 @@
       "plugin",
       "tool"
     ],
-    "thumbnail": "https://cdn-ak.f.st-hatena.com/images/fotolife/R/Raspberly/20201207/20201207023915.png",
+    "thumbnail": "assets/img/thumbnails/blog_00003.png",
     "contentPath": "blog/blog_00003.html",
     "recommended": false
   },
@@ -220,7 +220,7 @@
       "plugin",
       "tool"
     ],
-    "thumbnail": "https://cdn-ak.f.st-hatena.com/images/fotolife/R/Raspberly/20201207/20201207023915.png",
+    "thumbnail": "assets/img/thumbnails/blog_00002.png",
     "contentPath": "blog/blog_00002.html",
     "recommended": false
   },

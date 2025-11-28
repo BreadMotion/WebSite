@@ -304,9 +304,9 @@ function createHtml({
 
   const files = fs
     .readdirSync(CONTENT_DIR)
-    .filter((f) => f.endsWith(".md"));
-
+    .filter((file) => file.endsWith(".md"));
   const ids = new Set();
+  const usedThumbnails = new Set();
   files.forEach((f) => {
     if (f.endsWith(".en.md")) {
       ids.add(path.basename(f, ".en.md"));
@@ -364,25 +364,62 @@ function createHtml({
       const { title, description, date, category } = data;
       let { thumbnail } = data;
 
-      if (thumbnail && thumbnail.startsWith("data:image")) {
+      if (thumbnail) {
         try {
-          const matches = thumbnail.match(
-            /^data:image\/([a-zA-Z0-9]+);base64,(.+)$/,
-          );
-          if (matches) {
-            const ext =
-              matches[1] === "jpeg" ? "jpg" : matches[1];
-            const filename = `${id}.${ext}`; // Same ID shares thumbnail
+          if (thumbnail.startsWith("data:image")) {
+            const matches = thumbnail.match(
+              /^data:image\/([a-zA-Z0-9]+);base64,(.+)$/,
+            );
+            if (matches) {
+              const ext =
+                matches[1] === "jpeg" ? "jpg" : matches[1];
+              const filename = `${id}.${ext}`; // Same ID shares thumbnail
+              const thumbPath = path.join(
+                THUMBNAIL_DIR,
+                filename,
+              );
+              // Always overwrite to ensure latest version
+              fs.writeFileSync(
+                thumbPath,
+                Buffer.from(matches[2], "base64"),
+              );
+              thumbnail = `assets/img/thumbnails/${filename}`;
+              usedThumbnails.add(filename);
+            }
+          } else if (thumbnail.startsWith("http")) {
+            const urlObj = new URL(thumbnail);
+            let ext = path
+              .extname(urlObj.pathname)
+              .substring(1);
+            if (!ext) ext = "png";
+
+            const filename = `${id}.${ext}`;
             const thumbPath = path.join(
               THUMBNAIL_DIR,
               filename,
             );
-            // Always overwrite to ensure latest version
-            fs.writeFileSync(
-              thumbPath,
-              Buffer.from(matches[2], "base64"),
+
+            console.log(
+              `Downloading thumbnail for ${id} (${lang}) from ${thumbnail}`,
             );
-            thumbnail = `assets/img/thumbnails/${filename}`;
+            const res = await fetch(thumbnail);
+            if (res.ok) {
+              const buffer = Buffer.from(
+                await res.arrayBuffer(),
+              );
+              fs.writeFileSync(thumbPath, buffer);
+              thumbnail = `assets/img/thumbnails/${filename}`;
+              usedThumbnails.add(filename);
+            } else {
+              console.error(
+                `Failed to fetch thumbnail for ${id}: ${res.statusText}`,
+              );
+            }
+          } else if (
+            thumbnail.includes("assets/img/thumbnails/")
+          ) {
+            const filename = path.basename(thumbnail);
+            usedThumbnails.add(filename);
           }
         } catch (e) {
           console.error(
@@ -441,6 +478,17 @@ function createHtml({
             : `blog/en/${id}.html`,
         recommended: data.recommended || false,
       });
+    }
+  }
+
+  // Clean up unused thumbnails
+  if (fs.existsSync(THUMBNAIL_DIR)) {
+    const allThumbnails = fs.readdirSync(THUMBNAIL_DIR);
+    for (const file of allThumbnails) {
+      if (!usedThumbnails.has(file)) {
+        console.log(`Removing unused thumbnail: ${file}`);
+        fs.unlinkSync(path.join(THUMBNAIL_DIR, file));
+      }
     }
   }
 
