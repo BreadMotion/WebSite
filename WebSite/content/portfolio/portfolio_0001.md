@@ -4,6 +4,7 @@ role: Full Stack Engineer
 tech: Unity / C#
 platform: PC/Steam
 description: ８番ライクホラー
+category: Game
 tags: game, steam, pc
 storepage: https://store.steampowered.com/app/2806350/_/
 GameCreatorsCamp: https://game-creators.camp/games/37683783/Reimei_no_Yu

@@ -7,7 +7,10 @@
     "role": "Full Stack Engineer",
     "description": "開発者用Discord Bot",
     "tech": "Javascript / discord.js",
-    "tags": ["discord", "bot"],
+    "tags": [
+      "discord",
+      "bot"
+    ],
     "thumbnail": "assets/img/ogp.png",
     "links": [],
     "contentPath": "portfolio/portfolio_0003.html"
@@ -20,7 +23,11 @@
     "role": "Full Stack Engineer",
     "description": "カジュアル",
     "tech": "Unity / C#",
-    "tags": ["game", "ios", "android"],
+    "tags": [
+      "game",
+      "ios",
+      "android"
+    ],
     "thumbnail": "assets/img/thumbnails/portfolio_0002.png",
     "links": [],
     "contentPath": "portfolio/portfolio_0002.html"
@@ -33,7 +40,11 @@
     "role": "Full Stack Engineer",
     "description": "８番ライクホラー",
     "tech": "Unity / C#",
-    "tags": ["game", "steam", "pc"],
+    "tags": [
+      "game",
+      "steam",
+      "pc"
+    ],
     "thumbnail": "assets/img/thumbnails/portfolio_0001.jpg",
     "links": [],
     "contentPath": "portfolio/portfolio_0001.html"
