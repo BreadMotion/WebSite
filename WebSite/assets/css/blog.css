@@ -189,8 +189,6 @@
    3. 記事詳細ページ
    ========================================================================== */
 .post-detail {
-    max-width: 50rem;
-    margin: 0 auto;
     background: var(--color-panel);
     border-radius: var(--radius-lg);
     padding: 3rem;
@@ -202,7 +200,7 @@
     margin-bottom: 2.5rem;
     padding-bottom: 2rem;
     border-bottom: 1px solid var(--color-border-soft);
-    text-align: center; /* タイトル周りを中央寄せに */
+    text-align: center;
 }
 
 .post-detail__meta {
@@ -501,11 +499,10 @@
     }
     .post-detail {
         padding: 1.5rem; /* スマホでは余白を詰める */
-        border-radius: 0; /* 画面幅いっぱいの場合は角丸なしも一案だが、page-shellがあるので維持 */
+        border-radius: 0;
         border-left: none;
         border-right: none;
-        box-shadow: none; /* シンプルに */
-        background: transparent; /* 背景を抜いて馴染ませる手もあるが、ここではpanel維持 */
+        box-shadow: none;
         background: var(--color-panel);
     }
     .post-detail__title {
@@ -523,8 +520,8 @@
 }
 
 /* ==========================================================================
-       6. ページネーション
-       ========================================================================== */
+   6. ページネーション
+   ========================================================================== */
 .pagination {
     display: flex;
     justify-content: center;
@@ -575,7 +572,6 @@
 /* ==========================================================================
    7. 記事詳細のナビゲーション
    ========================================================================== */
-
 .post-detail__nav--bottom {
     margin-top: 3rem;
     margin-bottom: 0;
@@ -607,9 +603,31 @@
    8. パンくずリスト
    ========================================================================== */
 .breadcrumb {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     font-size: 0.9rem;
     color: var(--color-text-muted);
+    white-space: nowrap; /* Prevent wrapping */
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+}
+.breadcrumb::-webkit-scrollbar {
+    display: none; /* Hide scrollbar for Chrome, Safari */
+}
+
+.breadcrumb__list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.breadcrumb__item:not(:last-child)::after {
+    content: ">";
+    margin: 0 0.75rem;
+    color: var(--color-text-muted);
+    opacity: 0.5;
 }
 
 .breadcrumb a {
@@ -623,11 +641,115 @@
     text-decoration: underline;
 }
 
-.breadcrumb-separator {
-    margin: 0 0.5rem;
-}
-
-.breadcrumb-current {
+.breadcrumb__item[aria-current="page"] {
     font-weight: 600;
     color: var(--color-text);
+}
+
+/* ==========================================================================
+   9. 記事詳細レイアウト（2カラム）
+   ========================================================================== */
+.post-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+.post-content {
+    min-width: 0;
+}
+
+.post-sidebar {
+    display: none;
+}
+
+@media (min-width: 1000px) {
+    .post-layout {
+        grid-template-columns: minmax(0, 1fr) 250px;
+        gap: 1rem;
+    }
+    .post-sidebar {
+        display: block;
+    }
+
+    body[data-page="blog"] .main-container {
+        max-width: 1180px;
+    }
+}
+
+/* ==========================================================================
+   10. 目次 (TOC)
+   ========================================================================== */
+.toc-sticky-container {
+    position: sticky;
+    top: 6rem; /* ヘッダーの高さ + 余白 */
+}
+
+.toc {
+    background: var(--color-surface);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    border: 1px solid var(--color-border);
+}
+
+.toc__title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--color-heading);
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--color-border-soft);
+}
+
+.toc-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: calc(100vh - 12rem);
+    overflow-y: auto;
+}
+
+.toc-item {
+    margin-bottom: 0.5rem;
+}
+
+.toc-item a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    transition: var(--transition-smooth);
+    display: block;
+}
+
+.toc-item a:hover {
+    color: var(--color-accent);
+    transform: translateX(4px);
+}
+
+.toc-item--level-3 {
+    padding-left: 1.2rem;
+}
+
+.toc-item--level-3 a {
+    font-size: 0.85rem;
+    position: relative;
+}
+
+.toc-item--level-3 a::before {
+    content: "";
+    position: absolute;
+    left: -1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--color-border);
+}
+
+.toc-item a.is-active {
+    color: var(--color-accent);
+    font-weight: 600;
 }

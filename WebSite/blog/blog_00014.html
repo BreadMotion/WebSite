@@ -1,14 +1,11 @@
 <!doctype html>
 <html lang="ja">
-  <head prefix="og: https://ogp.me/ns#">
+  <head>
     <meta charset="UTF-8" />
     <title>CSSのリファクタリングを手軽にしてみた | PanKUN Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。" />
-
-    <!-- Canonical -->
     <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00014.html" />
-
     <!-- Google AdSense -->
 <script
     async
@@ -16,10 +13,7 @@
     crossorigin="anonymous"
 ></script>
 
-
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
+    <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "mainEntityOfPage": {
@@ -46,22 +40,13 @@
       "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
     }
   }
-}
-    </script>
-
+}</script>
     <meta property="og:title" content="CSSのリファクタリングを手軽にしてみた | PanKUN Blog" />
     <meta property="og:description" content="個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/blog_00014.html" />
     <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/ogp.png" />
     <meta property="og:site_name" content="PanKUN" />
-    <meta property="og:email" content="pankun.dev@gmail.com" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="CSSのリファクタリングを手軽にしてみた" />
-    <meta name="twitter:description" content="個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。" />
-    <meta name="twitter:image" content="https://breadmotion.github.io/WebSite/assets/img/ogp.png" />
-
     <link rel="stylesheet" href="../assets/css/base.css" />
     <link rel="stylesheet" href="../assets/css/layout.css" />
     <link rel="stylesheet" href="../assets/css/blog.css" />
@@ -69,23 +54,23 @@
   <body data-page="blog">
     <div class="page-shell">
       <main class="main-container">
-        <article class="post-detail reveal-on-scroll">
-          <nav class="breadcrumb">
-            <a href="../index.html">ホーム</a>
-            <span class="breadcrumb-separator">/</span>
-            <a href="../blog.html">ブログ</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">CSSのリファクタリングを手軽にしてみた</span>
-          </nav>
-          <header class="post-detail__header">
-            <p class="post-detail__meta">2025/11/28 / 技術メモ</p>
-            <h1 class="post-detail__title">CSSのリファクタリングを手軽にしてみた</h1>
-            <p class="post-detail__description">個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。</p>
-            <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=css">css</a> <a class="tag" href="../blog.html?tag=nodejs">nodejs</a></p>
-          </header>
-
-          <section class="post-detail__body markdown-body">
-<p>こんにちは！パン君です。</p>
+        <div class="post-layout">
+          <div class="post-content">
+            <article class="post-detail">
+              <nav aria-label="breadcrumb" class="breadcrumb">
+                <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item"><a href="../index.html">ホーム</a></li>
+                  <li class="breadcrumb__item"><a href="../blog.html">ブログ</a></li>
+                  <li class="breadcrumb__item" aria-current="page">CSSのリファクタリングを手軽にしてみた</li>
+                </ol>
+              </nav>
+              <header class="post-detail__header">
+                <p class="post-detail__meta">2025/11/28 / 技術メモ</p>
+                <h1 class="post-detail__title">CSSのリファクタリングを手軽にしてみた</h1>
+                <p class="post-detail__description">個人開発のWebサイトで溜まりがちな「使われていないCSS」をNode.jsスクリプトでサクッと検出して整理しました。</p>
+                <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=css">css</a> <a class="tag" href="../blog.html?tag=nodejs">nodejs</a></p>
+              </header>
+              <section class="post-detail__body markdown-body"><p>こんにちは！パン君です。</p>
 <p>機能追加やデザイン変更を繰り返しているうちにCSSファイルの中に <strong>「これ、どこで使ってるんだっけ？」</strong> というクラスが増えてきました。</p>
 <ul>
 <li>デザイン案Aで書いたけど、結局B案にしたから使わなくなったボタンのクラス</li>
@@ -94,11 +79,9 @@
 <p>などなど。<br>放置しても動くのですが、ファイルサイズも無駄ですし何より精神衛生上よろしくありません。</p>
 <p>そこで、今回はこれらをリファクタリングすることにしました。</p>
 <hr>
-<h2>手動で探すのは無理</h2>
-<p>とはいえ、CSSファイルに書かれているクラス名を一つずつ検索して「使用箇所ゼロ」を確認するのは苦行です。<br>世の中には <code>PurgeCSS</code> などの便利なツールもありますが、ビルドプロセスに組み込むのが少し大変だったり設定が複雑だったりします。</p>
+<h2 id="手動で探すのは無理">手動で探すのは無理</h2><p>とはいえ、CSSファイルに書かれているクラス名を一つずつ検索して「使用箇所ゼロ」を確認するのは苦行です。<br>世の中には <code>PurgeCSS</code> などの便利なツールもありますが、ビルドプロセスに組み込むのが少し大変だったり設定が複雑だったりします。</p>
 <p>今回は <strong>「もっと手軽に、ざっくりでいいから不要なものを消したい」</strong> というモチベーションだったので、Node.jsで簡単なスクリプトを書いて検出することにしました。</p>
-<h2>自作スクリプトの方針</h2>
-<ol>
+<h2 id="自作スクリプトの方針">自作スクリプトの方針</h2><ol>
 <li><code>assets/css/</code> フォルダ内のCSSファイルを全部読み込む。</li>
 <li>正規表現でクラス名（<code>.classname</code>）とID名（<code>#idname</code>）を抽出する。</li>
 <li>プロジェクト内の全ファイル（HTML, JS, MDなど）をスキャンする。</li>
@@ -125,8 +108,7 @@ selectors.forEach(sel =&gt; {
     }
 });
 </code></pre>
-<h2>実行結果</h2>
-<p>スクリプトを実行してみると、いくつかの未使用クラスが見つかりました。</p>
+<h2 id="実行結果">実行結果</h2><p>スクリプトを実行してみると、いくつかの未使用クラスが見つかりました。</p>
 <pre><code>Checking assets\css\layout.css...
   [UNUSED] .section--soft
 
@@ -135,29 +117,35 @@ Checking assets\css\top.css...
 </code></pre>
 <p>確認してみると、<br><code>section--soft</code> は初期デザイン案で作ったカードのバリエーション、<br><code>btn-outline</code> は枠線のみのボタンで、現在は塗りつぶしボタンしか使っていませんでした。</p>
 <p>これらは完全に不要なので迷わず削除！<br>CSSファイルが少しスリムになりました。</p>
-<h2>まとめ</h2>
-<p>リファクタリングというと大掛かりな作業をイメージしがちですが、<br><strong>「気になったら小さなスクリプトを書いてサクッと調べる」</strong><br>というアプローチなら、日常的にコードをきれいに保てそうです。</p>
+<h2 id="まとめ">まとめ</h2><p>リファクタリングというと大掛かりな作業をイメージしがちですが、<br><strong>「気になったら小さなスクリプトを書いてサクッと調べる」</strong><br>というアプローチなら、日常的にコードをきれいに保てそうです。</p>
 <p>自分の手で作ったツールで自分のサイトを改善していくのは、エンジニアならではの楽しみですね。</p>
-
-          </section>
-
-          <section class="section section--recommend">
-            <h2 class="section__title">おすすめ記事</h2>
-            <div id="recommendList" class="recommend-grid"></div>
-          </section>
-          <div class="post-detail__nav post-detail__nav--bottom">
-            <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+</section>
+              <div class="post-detail__nav post-detail__nav--bottom">
+                <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+              </div>
+            </article>
           </div>
-        </article>
+          <aside class="post-sidebar">
+            <div class="toc-sticky-container">
+              <nav class="toc">
+                <h2 class="toc__title">目次</h2>
+                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#手動で探すのは無理">手動で探すのは無理</a></li><li class="toc-item toc-item--level-2"><a href="#自作スクリプトの方針">自作スクリプトの方針</a></li><li class="toc-item toc-item--level-2"><a href="#実行結果">実行結果</a></li><li class="toc-item toc-item--level-2"><a href="#まとめ">まとめ</a></li></ul>
+              </nav>
+            </div>
+          </aside>
+        </div>
+        <section class="section section--recommend">
+          <h2 class="section__title">おすすめ記事</h2>
+          <div id="recommendList" class="recommend-grid"></div>
+        </section>
       </main>
     </div>
-
     <script src="../assets/js/layout.js" defer></script>
     <script src="../assets/js/ui.js"></script>
-
     <canvas id="menuAnimationCanvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
     <script src="../assets/js/particles.js"></script>
+    <script src="../assets/js/toc.js" defer></script>
     <script src="../assets/js/recommend.js" defer></script>
   </body>
 </html>

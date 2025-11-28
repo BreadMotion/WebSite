@@ -1,14 +1,11 @@
 <!doctype html>
 <html lang="ja">
-  <head prefix="og: https://ogp.me/ns#">
+  <head>
     <meta charset="UTF-8" />
     <title>ZedでC#開発環境を構築してみた | PanKUN Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="ZedにC#言語サーバーを導入し、Unityプロジェクトで補完・定義ジャンプを使えるようにするまでの手順とハマりどころをまとめました" />
-
-    <!-- Canonical -->
     <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00009.html" />
-
     <!-- Google AdSense -->
 <script
     async
@@ -16,10 +13,7 @@
     crossorigin="anonymous"
 ></script>
 
-
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
+    <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "mainEntityOfPage": {
@@ -46,22 +40,13 @@
       "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
     }
   }
-}
-    </script>
-
+}</script>
     <meta property="og:title" content="ZedでC#開発環境を構築してみた | PanKUN Blog" />
     <meta property="og:description" content="ZedにC#言語サーバーを導入し、Unityプロジェクトで補完・定義ジャンプを使えるようにするまでの手順とハマりどころをまとめました" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/blog_00009.html" />
     <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00009.jpg" />
     <meta property="og:site_name" content="PanKUN" />
-    <meta property="og:email" content="pankun.dev@gmail.com" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ZedでC#開発環境を構築してみた" />
-    <meta name="twitter:description" content="ZedにC#言語サーバーを導入し、Unityプロジェクトで補完・定義ジャンプを使えるようにするまでの手順とハマりどころをまとめました" />
-    <meta name="twitter:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00009.jpg" />
-
     <link rel="stylesheet" href="../assets/css/base.css" />
     <link rel="stylesheet" href="../assets/css/layout.css" />
     <link rel="stylesheet" href="../assets/css/blog.css" />
@@ -69,23 +54,23 @@
   <body data-page="blog">
     <div class="page-shell">
       <main class="main-container">
-        <article class="post-detail reveal-on-scroll">
-          <nav class="breadcrumb">
-            <a href="../index.html">ホーム</a>
-            <span class="breadcrumb-separator">/</span>
-            <a href="../blog.html">ブログ</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">ZedでC#開発環境を構築してみた</span>
-          </nav>
-          <header class="post-detail__header">
-            <p class="post-detail__meta">2025/11/19 / IDE</p>
-            <h1 class="post-detail__title">ZedでC#開発環境を構築してみた</h1>
-            <p class="post-detail__description">ZedにC#言語サーバーを導入し、Unityプロジェクトで補完・定義ジャンプを使えるようにするまでの手順とハマりどころをまとめました</p>
-            <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=csharp">csharp</a> <a class="tag" href="../blog.html?tag=zed">zed</a> <a class="tag" href="../blog.html?tag=lsp">lsp</a> <a class="tag" href="../blog.html?tag=tool">tool</a></p>
-          </header>
-
-          <section class="post-detail__body markdown-body">
-<p>こんにちは！パン君です。</p>
+        <div class="post-layout">
+          <div class="post-content">
+            <article class="post-detail">
+              <nav aria-label="breadcrumb" class="breadcrumb">
+                <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item"><a href="../index.html">ホーム</a></li>
+                  <li class="breadcrumb__item"><a href="../blog.html">ブログ</a></li>
+                  <li class="breadcrumb__item" aria-current="page">ZedでC#開発環境を構築してみた</li>
+                </ol>
+              </nav>
+              <header class="post-detail__header">
+                <p class="post-detail__meta">2025/11/19 / IDE</p>
+                <h1 class="post-detail__title">ZedでC#開発環境を構築してみた</h1>
+                <p class="post-detail__description">ZedにC#言語サーバーを導入し、Unityプロジェクトで補完・定義ジャンプを使えるようにするまでの手順とハマりどころをまとめました</p>
+                <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=csharp">csharp</a> <a class="tag" href="../blog.html?tag=zed">zed</a> <a class="tag" href="../blog.html?tag=lsp">lsp</a> <a class="tag" href="../blog.html?tag=tool">tool</a></p>
+              </header>
+              <section class="post-detail__body markdown-body"><p>こんにちは！パン君です。</p>
 <p>今回は最近乗り換えを進めている <strong>ZedエディタでUnityのC#を快適に書ける環境を作る</strong> ところまでをまとめます。</p>
 <p>結論から言うと、</p>
 <ul>
@@ -97,8 +82,7 @@
 <p>こういう特徴があります。</p>
 <p>この記事では実際に自分の環境で Zed を動かす中で遭遇したエラーや、<br>そこから解決までにやったことをまとめました。</p>
 <hr>
-<h1>ZedでUnityのC#が動かない理由</h1>
-<p>ZedはVSCode・RiderのようにUnity用のC#サポートが標準で入っていません。</p>
+<h1 id="zedでunityのcが動かない理由">ZedでUnityのC#が動かない理由</h1><p>ZedはVSCode・RiderのようにUnity用のC#サポートが標準で入っていません。</p>
 <p>そのため</p>
 <ul>
 <li>C# の構文解析</li>
@@ -111,24 +95,21 @@
 <p>調べたところどうしようも無かったので、このOmnisharpに関しては更新を待ちましょう....</p>
 <p>なので今回使用するLSPを <strong>csharp-language-server</strong> に変更して動作させていきます。</p>
 <hr>
-<h1>導入前に必要なもの</h1>
-<p>下記導入しておいてください。<br>これらの導入方法はまたどこかで記述します。(特に難しくないので、検索したら結構な数出てきます。)</p>
+<h1 id="導入前に必要なもの">導入前に必要なもの</h1><p>下記導入しておいてください。<br>これらの導入方法はまたどこかで記述します。(特に難しくないので、検索したら結構な数出てきます。)</p>
 <ul>
 <li>.Net runtime(9.0 upper)</li>
 <li>Node.js(確か20　upper)</li>
 <li>Omnisharp(ZedのExtensionからInstall)</li>
 </ul>
 <hr>
-<h1>csharp-language-serverをダウンロード</h1>
-<p>cargoがある方は下記</p>
+<h1 id="csharp-language-serverをダウンロード">csharp-language-serverをダウンロード</h1><p>cargoがある方は下記</p>
 <pre><code class="language-shell">cargo install --git https://github.com/SofusA/csharp-language-server
 </code></pre>
 <p>無い方は公式ページのReleasesからWindows用のバイナリを手に入れてください。<br>ページは<a href="https://github.com/SofusA/csharp-language-server">こちら</a><br>環境変数からまた格納した場所にパスを通すのも忘れずに</p>
 <p>今回は下記でいきます。  </p>
 <pre><code class="language-markdown">C:\\Users\\&lt;User Name&gt;\\AppData\\Local\\csharp-language-server\\csharp-language-server.exe
 </code></pre>
-<h1>Zedの設定に言語サーバーを紐付ける</h1>
-<p>ZedのSettings.jsonを開いて(どのSetting.jsonかは環境に合わせてください。)</p>
+<h1 id="zedの設定に言語サーバーを紐付ける">Zedの設定に言語サーバーを紐付ける</h1><p>ZedのSettings.jsonを開いて(どのSetting.jsonかは環境に合わせてください。)</p>
 <pre><code class="language-json">{
   &quot;languages&quot;: {
     &quot;CSharp&quot;: {
@@ -146,11 +127,9 @@
 }
 </code></pre>
 <p>Zedを再起動して適当な.csファイルを開いてみましょう。<br>これだけで稼働自体はするはずです。  </p>
-<h3>ZedのOmniSharp拡張が古いフォルダを掴んでエラーになる</h3>
-<p>Zedソフトが格納されているディレクトリ内の <strong>extensions/work</strong> の csharpフォルダを手動削除で解決するかも</p>
+<h3 id="zedのomnisharp拡張が古いフォルダを掴んでエラーになる">ZedのOmniSharp拡張が古いフォルダを掴んでエラーになる</h3><p>Zedソフトが格納されているディレクトリ内の <strong>extensions/work</strong> の csharpフォルダを手動削除で解決するかも</p>
 <hr>
-<h1>稼働しなかった場合</h1>
-<ol>
+<h1 id="稼働しなかった場合">稼働しなかった場合</h1><ol>
 <li>Zed上で「Ctrl + Shift + P」でコマンドパレットを開く</li>
 <li>zed: open logでログ取得</li>
 <li>AIに投げて質問 or エラーログを検索</li>
@@ -159,8 +138,7 @@
 <p>(ZedがAI Agentとの親和性がエグイのでそれでもいいです。<br>Gemini3.0が昨日公開されたので、自分はそれを使用しています^^)  </p>
 <p>また <strong>LSPは稼働しているけど定義に飛べない</strong> などのケースもあります。<br>どうやらアセンブリを跨いだ補完は対象のファイルを開くまで効かないらしいです。<br>「Ctrl + E」で該当ファイルを開いてやりましょう。補完が効き始めます。  </p>
 <hr>
-<h1>最終的な動作感</h1>
-<ul>
+<h1 id="最終的な動作感">最終的な動作感</h1><ul>
 <li>補完：軽快</li>
 <li>定義ジャンプ：ソースがある範囲では問題なく動く</li>
 <li>外部DLL：ジャンプは不可（仕様だが、自作DLLの場合可能）</li>
@@ -168,26 +146,33 @@
 </ul>
 <p>VSCodeより軽く、Riderよりシンプル。<br>個人的には「ライトにUnityを書きたいときのエディタ」としてすごく気に入りました!  </p>
 <hr>
-
-          </section>
-
-          <section class="section section--recommend">
-            <h2 class="section__title">おすすめ記事</h2>
-            <div id="recommendList" class="recommend-grid"></div>
-          </section>
-          <div class="post-detail__nav post-detail__nav--bottom">
-            <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+</section>
+              <div class="post-detail__nav post-detail__nav--bottom">
+                <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+              </div>
+            </article>
           </div>
-        </article>
+          <aside class="post-sidebar">
+            <div class="toc-sticky-container">
+              <nav class="toc">
+                <h2 class="toc__title">目次</h2>
+                <ul class="toc-list"><li class="toc-item toc-item--level-3"><a href="#zedのomnisharp拡張が古いフォルダを掴んでエラーになる">ZedのOmniSharp拡張が古いフォルダを掴んでエラーになる</a></li></ul>
+              </nav>
+            </div>
+          </aside>
+        </div>
+        <section class="section section--recommend">
+          <h2 class="section__title">おすすめ記事</h2>
+          <div id="recommendList" class="recommend-grid"></div>
+        </section>
       </main>
     </div>
-
     <script src="../assets/js/layout.js" defer></script>
     <script src="../assets/js/ui.js"></script>
-
     <canvas id="menuAnimationCanvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
     <script src="../assets/js/particles.js"></script>
+    <script src="../assets/js/toc.js" defer></script>
     <script src="../assets/js/recommend.js" defer></script>
   </body>
 </html>

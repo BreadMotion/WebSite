@@ -59,13 +59,11 @@ html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    overflow-x: hidden; /* 横スクロール防止 */
 }
 
 body {
     margin: 0;
     padding: 0;
-    overflow-x: hidden; /* 横スクロール防止 */
     font-family: var(--font-body);
     line-height: 1.6;
     color: var(--color-text);

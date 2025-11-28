@@ -1,14 +1,11 @@
 <!doctype html>
 <html lang="ja">
-  <head prefix="og: https://ogp.me/ns#">
+  <head>
     <meta charset="UTF-8" />
     <title>ブログはじめました | PanKUN Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="筆者の自己紹介" />
-
-    <!-- Canonical -->
     <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00001.html" />
-
     <!-- Google AdSense -->
 <script
     async
@@ -16,10 +13,7 @@
     crossorigin="anonymous"
 ></script>
 
-
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
+    <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "mainEntityOfPage": {
@@ -46,22 +40,13 @@
       "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
     }
   }
-}
-    </script>
-
+}</script>
     <meta property="og:title" content="ブログはじめました | PanKUN Blog" />
     <meta property="og:description" content="筆者の自己紹介" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/blog_00001.html" />
     <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/ogp.png" />
     <meta property="og:site_name" content="PanKUN" />
-    <meta property="og:email" content="pankun.dev@gmail.com" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ブログはじめました" />
-    <meta name="twitter:description" content="筆者の自己紹介" />
-    <meta name="twitter:image" content="https://breadmotion.github.io/WebSite/assets/img/ogp.png" />
-
     <link rel="stylesheet" href="../assets/css/base.css" />
     <link rel="stylesheet" href="../assets/css/layout.css" />
     <link rel="stylesheet" href="../assets/css/blog.css" />
@@ -69,31 +54,29 @@
   <body data-page="blog">
     <div class="page-shell">
       <main class="main-container">
-        <article class="post-detail reveal-on-scroll">
-          <nav class="breadcrumb">
-            <a href="../index.html">ホーム</a>
-            <span class="breadcrumb-separator">/</span>
-            <a href="../blog.html">ブログ</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">ブログはじめました</span>
-          </nav>
-          <header class="post-detail__header">
-            <p class="post-detail__meta">2024/06/01 / 日記</p>
-            <h1 class="post-detail__title">ブログはじめました</h1>
-            <p class="post-detail__description">筆者の自己紹介</p>
-            <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=diary">diary</a></p>
-          </header>
-
-          <section class="post-detail__body markdown-body">
-<h2>自己紹介</h2>
-<p>こんにちは、パン君です。</p>
+        <div class="post-layout">
+          <div class="post-content">
+            <article class="post-detail">
+              <nav aria-label="breadcrumb" class="breadcrumb">
+                <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item"><a href="../index.html">ホーム</a></li>
+                  <li class="breadcrumb__item"><a href="../blog.html">ブログ</a></li>
+                  <li class="breadcrumb__item" aria-current="page">ブログはじめました</li>
+                </ol>
+              </nav>
+              <header class="post-detail__header">
+                <p class="post-detail__meta">2024/06/01 / 日記</p>
+                <h1 class="post-detail__title">ブログはじめました</h1>
+                <p class="post-detail__description">筆者の自己紹介</p>
+                <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=diary">diary</a></p>
+              </header>
+              <section class="post-detail__body markdown-body"><h2 id="自己紹介">自己紹介</h2><p>こんにちは、パン君です。</p>
 <p>私はとあるゲーム会社で働きながら、インディーズや個人制作でも活動しているゲームエンジニアです。</p>
 <p>社会人2年目ということもあり、インディーズやプライベートで制作した作品などを整理して<br>今後の活動に役立つような「まとめの場所」が欲しいと思いこのサイトを作りました。</p>
 <p>本当はサーバーを借りたり、常駐用のミニPCを用意して1から環境構築して……という方法も考えましたが、<br>まずは <strong>「早く出す」ことを優先</strong> して、今回は GitHub Pages を使っています。  </p>
 <p>ページのクオリティは自分次第なので、今後もいろいろ調べながらブラッシュアップしていく予定です。<br>その過程も含めて、このサイトを通じて成長していけたらいいなと思っています。  </p>
 <hr>
-<h2>やりたいこと</h2>
-<p>このサイトの大きな目標は下記のとおりです。</p>
+<h2 id="やりたいこと">やりたいこと</h2><p>このサイトの大きな目標は下記のとおりです。</p>
 <ul>
 <li>ポートフォリオを、将来的に「商売にも使えるレベル」のものに育てる  </li>
 <li>ポートフォリオを起点に、仕事の依頼やプロジェクトの相談が来る状態を目指す</li>
@@ -106,8 +89,7 @@
 <p>といった内容をまとめておき、<br><strong>ポートフォリオの補足資料</strong> としても使えるようにしたい、という思いがあります。  </p>
 <p>ブログの記事自体も、長い目で見れば <strong>スキルと実績を示すポートフォリオの一部</strong> になるので、<br>「これはお得だな」と感じて始めました。  </p>
 <hr>
-<h2>このサイトの構成イメージ</h2>
-<p>現時点で想定している構成はこんな感じです。</p>
+<h2 id="このサイトの構成イメージ">このサイトの構成イメージ</h2><p>現時点で想定している構成はこんな感じです。</p>
 <p><strong>ポートフォリオ</strong><br>: 進捗報告や作品の掲載、関連するブログ記事の一部をまとめる場所</p>
 <p><strong>ブログ</strong><br>: 技術メモ、開発中の作品の一部機能紹介、ハマりどころの整理など</p>
 <p><strong>プロジェクト一覧</strong><br>: 参加・制作したプロジェクトの一覧と簡単な説明、必要に応じて告知など</p>
@@ -115,36 +97,41 @@
 <p><strong>スキル一覧</strong><br>: 触れる技術や得意な領域を整理したスキルシート的なページ</p>
 <p><strong>コンタクト</strong><br>: 活動場所や連絡先など、筆者へのアクセス情報をまとめたページ</p>
 <hr>
-<h2>サイトの不備について</h2>
-<ul>
+<h2 id="サイトの不備について">サイトの不備について</h2><ul>
 <li>サイトのシステム的な不備<br>→ 気づき次第、随時修正していきます。</li>
 <li>記載している URL を悪用した迷惑行為<br>→ 発覚次第、可能な範囲で対応・対策を行います。</li>
 </ul>
 <hr>
-<h2>最後に</h2>
-<p>最後まで読んでくださり、ありがとうございました！</p>
+<h2 id="最後に">最後に</h2><p>最後まで読んでくださり、ありがとうございました！</p>
 <p>まだ立ち上げたばかりのサイトですが、<br>今後も技術記事や制作物の紹介などを更新していくつもりです。</p>
 <p>たまに覗いてもらえたら、とても嬉しいです。<br>これからもよろしくお願いします。</p>
-
-          </section>
-
-          <section class="section section--recommend">
-            <h2 class="section__title">おすすめ記事</h2>
-            <div id="recommendList" class="recommend-grid"></div>
-          </section>
-          <div class="post-detail__nav post-detail__nav--bottom">
-            <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+</section>
+              <div class="post-detail__nav post-detail__nav--bottom">
+                <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+              </div>
+            </article>
           </div>
-        </article>
+          <aside class="post-sidebar">
+            <div class="toc-sticky-container">
+              <nav class="toc">
+                <h2 class="toc__title">目次</h2>
+                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#自己紹介">自己紹介</a></li><li class="toc-item toc-item--level-2"><a href="#やりたいこと">やりたいこと</a></li><li class="toc-item toc-item--level-2"><a href="#このサイトの構成イメージ">このサイトの構成イメージ</a></li><li class="toc-item toc-item--level-2"><a href="#サイトの不備について">サイトの不備について</a></li><li class="toc-item toc-item--level-2"><a href="#最後に">最後に</a></li></ul>
+              </nav>
+            </div>
+          </aside>
+        </div>
+        <section class="section section--recommend">
+          <h2 class="section__title">おすすめ記事</h2>
+          <div id="recommendList" class="recommend-grid"></div>
+        </section>
       </main>
     </div>
-
     <script src="../assets/js/layout.js" defer></script>
     <script src="../assets/js/ui.js"></script>
-
     <canvas id="menuAnimationCanvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
     <script src="../assets/js/particles.js"></script>
+    <script src="../assets/js/toc.js" defer></script>
     <script src="../assets/js/recommend.js" defer></script>
   </body>
 </html>
