@@ -1,14 +1,11 @@
 <!doctype html>
 <html lang="ja">
-  <head prefix="og: https://ogp.me/ns#">
+  <head>
     <meta charset="UTF-8" />
     <title>自作Discord Botを公開したらスパムに悪用された話 | PanKUN Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。" />
-
-    <!-- Canonical -->
     <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00011.html" />
-
     <!-- Google AdSense -->
 <script
     async
@@ -16,10 +13,7 @@
     crossorigin="anonymous"
 ></script>
 
-
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
+    <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "mainEntityOfPage": {
@@ -46,22 +40,13 @@
       "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
     }
   }
-}
-    </script>
-
+}</script>
     <meta property="og:title" content="自作Discord Botを公開したらスパムに悪用された話 | PanKUN Blog" />
     <meta property="og:description" content="自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/blog_00011.html" />
     <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00011.png" />
     <meta property="og:site_name" content="PanKUN" />
-    <meta property="og:email" content="pankun.dev@gmail.com" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="自作Discord Botを公開したらスパムに悪用された話" />
-    <meta name="twitter:description" content="自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。" />
-    <meta name="twitter:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00011.png" />
-
     <link rel="stylesheet" href="../assets/css/base.css" />
     <link rel="stylesheet" href="../assets/css/layout.css" />
     <link rel="stylesheet" href="../assets/css/blog.css" />
@@ -69,37 +54,33 @@
   <body data-page="blog">
     <div class="page-shell">
       <main class="main-container">
-        <article class="post-detail reveal-on-scroll">
-          <nav class="breadcrumb">
-            <a href="../index.html">ホーム</a>
-            <span class="breadcrumb-separator">/</span>
-            <a href="../blog.html">ブログ</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">自作Discord Botを公開したらスパムに悪用された話</span>
-          </nav>
-          <header class="post-detail__header">
-            <p class="post-detail__meta">2025/11/26 / Discord</p>
-            <h1 class="post-detail__title">自作Discord Botを公開したらスパムに悪用された話</h1>
-            <p class="post-detail__description">自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。</p>
-            <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=discord">discord</a> <a class="tag" href="../blog.html?tag=nodejs">nodejs</a> <a class="tag" href="../blog.html?tag=security">security</a></p>
-          </header>
-
-          <section class="post-detail__body markdown-body">
-<p>こんにちは、パン君です。</p>
+        <div class="post-layout">
+          <div class="post-content">
+            <article class="post-detail">
+              <nav aria-label="breadcrumb" class="breadcrumb">
+                <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item"><a href="../index.html">ホーム</a></li>
+                  <li class="breadcrumb__item"><a href="../blog.html">ブログ</a></li>
+                  <li class="breadcrumb__item" aria-current="page">自作Discord Botを公開したらスパムに悪用された話</li>
+                </ol>
+              </nav>
+              <header class="post-detail__header">
+                <p class="post-detail__meta">2025/11/26 / Discord</p>
+                <h1 class="post-detail__title">自作Discord Botを公開したらスパムに悪用された話</h1>
+                <p class="post-detail__description">自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。</p>
+                <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=discord">discord</a> <a class="tag" href="../blog.html?tag=nodejs">nodejs</a> <a class="tag" href="../blog.html?tag=security">security</a></p>
+              </header>
+              <section class="post-detail__body markdown-body"><p>こんにちは、パン君です。</p>
 <p>今回は個人で運用していた <strong>Discord Botを公開したら大失敗した</strong> という話になります。</p>
 <p>先日、僕が運営しているゲーム開発サーバーで事件が起きました。<br>なんと自作ボットが乗っ取られたかのように、 <strong>全く関係ないDiscordサーバーの招待URLをひたすら連投し始めた</strong> んです。<br>原因は僕が作ったボットの <strong>アーキテクチャに潜んでいた致命的な設計ミス</strong> でした。  </p>
 <p>今回は自戒を込めて、僕がやらかしたミスとその対策を全部ここに書き残しておこうと思います。</p>
-<h2>何が問題だったのか？</h2>
-<p>原因は大きく分けて2つありました。</p>
-<h3>1. どのサーバーからでも、他のサーバーにコマンドが実行できた</h3>
-<p>詳細は<a href="https://breadmotion.github.io/WebSite/blog/blog_00008.html">こちらの記事</a>でも書いたアーキテクチャが根本的な問題でした。<br>開発者向けにボットを追加しなくても色々な機能を追加できることを目指した結果、「どのサーバーからでもコマンドを実行できる」という仕様になっていたんです。  </p>
+<h2 id="何が問題だったのか？">何が問題だったのか？</h2><p>原因は大きく分けて2つありました。</p>
+<h3 id="1-どのサーバーからでも、他のサーバーにコマンドが実行できた">1. どのサーバーからでも、他のサーバーにコマンドが実行できた</h3><p>詳細は<a href="https://breadmotion.github.io/WebSite/blog/blog_00008.html">こちらの記事</a>でも書いたアーキテクチャが根本的な問題でした。<br>開発者向けにボットを追加しなくても色々な機能を追加できることを目指した結果、「どのサーバーからでもコマンドを実行できる」という仕様になっていたんです。  </p>
 <p><strong>【なぜこれがヤバかったか？】</strong><br>この仕様のせいで攻撃者は <strong>自分のサーバーから、僕のゲーム開発サーバーに対してメッセージを送信する</strong> という離れ業が可能になっていました。<br>つまり、Aサーバーで実行したコマンドが全く無関係なBサーバーで発動してしまう状態だったんです。これがスパムの直接的な原因でした。  </p>
 <p>普通に考えたらマズいですよね。<br>ファイルベースでも良いので、サーバー（ギルド）ごとに実行できるコマンドを管理すべきでした。  </p>
-<h3>2. 参加サーバーの一覧をリポジトリで公開していた</h3>
-<p>これも致命的でした。<br>ボットが参加しているサーバーの情報を <code>guilds.json</code> というファイルで管理していたのですが、これを <strong>GitHubの公開リポジトリにアップしてしまっていた</strong> んです。  </p>
+<h3 id="2-参加サーバーの一覧をリポジトリで公開していた">2. 参加サーバーの一覧をリポジトリで公開していた</h3><p>これも致命的でした。<br>ボットが参加しているサーバーの情報を <code>guilds.json</code> というファイルで管理していたのですが、これを <strong>GitHubの公開リポジトリにアップしてしまっていた</strong> んです。  </p>
 <p><strong>【なぜこれがヤバかったか？】</strong><br><code>guilds.json</code> には、ボットが参加している全てのサーバーIDがリストアップされていました。<br>攻撃者はこのリストを手に入れ、標的となるサーバー（僕のゲーム開発サーバー）のIDを特定し、そこに向けてスパムメッセージを送信していたわけです。<br>個人情報じゃないとはいえ、サーバーIDも立派な機密情報でした...。  </p>
-<h2>今後の対策</h2>
-<p>今回の反省を踏まえて、ボットの仕組みを根本から見直すことにしました。</p>
+<h2 id="今後の対策">今後の対策</h2><p>今回の反省を踏まえて、ボットの仕組みを根本から見直すことにしました。</p>
 <ol>
 <li><p><strong>Botアプリの再作成 &amp; トークンの完全リセット</strong><br>まずは今のボットアプリを完全に削除して、新しいアプリとして作り直します。トークンをリセットするだけじゃ不十分なので、クリーンな状態から再スタートです。</p>
 </li>
@@ -110,26 +91,31 @@
 <li><p><strong>リポジトリのクリーンアップ</strong><br>ソースコードは引き続き公開しますが、<code>guilds.json</code>のような機密情報を含んでしまう可能性があるファイルはリポジトリから完全に削除し、<code>.gitignore</code>でしっかり管理するようにします。</p>
 </li>
 </ol>
-<h2>まとめ</h2>
-<p>というわけで、今回は僕の盛大なやらかしについての話でした。<br>「誰でも使えるように」という手軽さを重視した結果、セキュリティという一番大事な視点が抜け落ちていたなと深く反省しています。  </p>
+<h2 id="まとめ">まとめ</h2><p>というわけで、今回は僕の盛大なやらかしについての話でした。<br>「誰でも使えるように」という手軽さを重視した結果、セキュリティという一番大事な視点が抜け落ちていたなと深く反省しています。  </p>
 <p>ボットはもっと安全な形に作り直していくので、もし「それでも使ってみたい！」と思ってくれる人がいたら気軽に声をかけてくれると嬉しいです。</p>
-
-          </section>
-
-          <section class="section section--recommend">
-            <h2 class="section__title">おすすめ記事</h2>
-            <div id="recommendList" class="recommend-grid"></div>
-          </section>
-          <div class="post-detail__nav post-detail__nav--bottom">
-            <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+</section>
+              <section class="section section--recommend">
+                <h2 class="section__title">おすすめ記事</h2>
+                <div id="recommendList" class="recommend-grid"></div>
+              </section>
+              <div class="post-detail__nav post-detail__nav--bottom">
+                <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+              </div>
+            </article>
           </div>
-        </article>
+          <aside class="post-sidebar">
+            <div class="toc-sticky-container">
+              <nav class="toc">
+                <h2 class="toc__title">目次</h2>
+                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#何が問題だったのか？">何が問題だったのか？</a></li><li class="toc-item toc-item--level-3"><a href="#1-どのサーバーからでも、他のサーバーにコマンドが実行できた">1. どのサーバーからでも、他のサーバーにコマンドが実行できた</a></li><li class="toc-item toc-item--level-3"><a href="#2-参加サーバーの一覧をリポジトリで公開していた">2. 参加サーバーの一覧をリポジトリで公開していた</a></li><li class="toc-item toc-item--level-2"><a href="#今後の対策">今後の対策</a></li><li class="toc-item toc-item--level-2"><a href="#まとめ">まとめ</a></li></ul>
+              </nav>
+            </div>
+          </aside>
+        </div>
       </main>
     </div>
-
     <script src="../assets/js/layout.js" defer></script>
     <script src="../assets/js/ui.js"></script>
-
     <canvas id="menuAnimationCanvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
     <script src="../assets/js/particles.js"></script>

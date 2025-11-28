@@ -42,20 +42,6 @@
     "recommended": false
   },
   {
-    "id": "blog_00013",
-    "title": "ポートフォリオの詳細表示をモーダル化してUXを改善する",
-    "date": "2025-11-27T00:00:00.000Z",
-    "category": "技術メモ",
-    "description": "ポートフォリオサイトの作品詳細を、ページ遷移なしで閲覧できるようにモーダルウィンドウ化しました。DOMParserを使ったHTML取得や、実装時のハマりポイントについて。",
-    "tags": [
-      "javascript",
-      "ui-ux"
-    ],
-    "thumbnail": "assets/img/ogp.png",
-    "contentPath": "blog/blog_00013.html",
-    "recommended": false
-  },
-  {
     "id": "blog_00012",
     "title": "静的サイトにお問い合わせフォームを実装する (GAS連携)",
     "date": "2025-11-27T00:00:00.000Z",
@@ -67,6 +53,20 @@
     ],
     "thumbnail": "assets/img/ogp.png",
     "contentPath": "blog/blog_00012.html",
+    "recommended": false
+  },
+  {
+    "id": "blog_00013",
+    "title": "ポートフォリオの詳細表示をモーダル化してUXを改善する",
+    "date": "2025-11-27T00:00:00.000Z",
+    "category": "技術メモ",
+    "description": "ポートフォリオサイトの作品詳細を、ページ遷移なしで閲覧できるようにモーダルウィンドウ化しました。DOMParserを使ったHTML取得や、実装時のハマりポイントについて。",
+    "tags": [
+      "javascript",
+      "ui-ux"
+    ],
+    "thumbnail": "assets/img/ogp.png",
+    "contentPath": "blog/blog_00013.html",
     "recommended": false
   },
   {

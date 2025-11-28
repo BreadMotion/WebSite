@@ -1,14 +1,11 @@
 <!doctype html>
 <html lang="ja">
-  <head prefix="og: https://ogp.me/ns#">
+  <head>
     <meta charset="UTF-8" />
     <title>Odin でコンテキストエディター作ってみた | PanKUN Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Odin でプランナー向けのコンテキストエディターを作った話" />
-
-    <!-- Canonical -->
     <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00003.html" />
-
     <!-- Google AdSense -->
 <script
     async
@@ -16,10 +13,7 @@
     crossorigin="anonymous"
 ></script>
 
-
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
+    <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "mainEntityOfPage": {
@@ -46,22 +40,13 @@
       "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
     }
   }
-}
-    </script>
-
+}</script>
     <meta property="og:title" content="Odin でコンテキストエディター作ってみた | PanKUN Blog" />
     <meta property="og:description" content="Odin でプランナー向けのコンテキストエディターを作った話" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/blog_00003.html" />
     <meta property="og:image" content="https://cdn-ak.f.st-hatena.com/images/fotolife/R/Raspberly/20201207/20201207023915.png" />
     <meta property="og:site_name" content="PanKUN" />
-    <meta property="og:email" content="pankun.dev@gmail.com" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Odin でコンテキストエディター作ってみた" />
-    <meta name="twitter:description" content="Odin でプランナー向けのコンテキストエディターを作った話" />
-    <meta name="twitter:image" content="https://cdn-ak.f.st-hatena.com/images/fotolife/R/Raspberly/20201207/20201207023915.png" />
-
     <link rel="stylesheet" href="../assets/css/base.css" />
     <link rel="stylesheet" href="../assets/css/layout.css" />
     <link rel="stylesheet" href="../assets/css/blog.css" />
@@ -69,23 +54,23 @@
   <body data-page="blog">
     <div class="page-shell">
       <main class="main-container">
-        <article class="post-detail reveal-on-scroll">
-          <nav class="breadcrumb">
-            <a href="../index.html">ホーム</a>
-            <span class="breadcrumb-separator">/</span>
-            <a href="../blog.html">ブログ</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">Odin でコンテキストエディター作ってみた</span>
-          </nav>
-          <header class="post-detail__header">
-            <p class="post-detail__meta">2024/06/10 / Unity</p>
-            <h1 class="post-detail__title">Odin でコンテキストエディター作ってみた</h1>
-            <p class="post-detail__description">Odin でプランナー向けのコンテキストエディターを作った話</p>
-            <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=unity">unity</a> <a class="tag" href="../blog.html?tag=plugin">plugin</a> <a class="tag" href="../blog.html?tag=tool">tool</a></p>
-          </header>
-
-          <section class="post-detail__body markdown-body">
-<p>こんにちは！パン君です。</p>
+        <div class="post-layout">
+          <div class="post-content">
+            <article class="post-detail">
+              <nav aria-label="breadcrumb" class="breadcrumb">
+                <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item"><a href="../index.html">ホーム</a></li>
+                  <li class="breadcrumb__item"><a href="../blog.html">ブログ</a></li>
+                  <li class="breadcrumb__item" aria-current="page">Odin でコンテキストエディター作ってみた</li>
+                </ol>
+              </nav>
+              <header class="post-detail__header">
+                <p class="post-detail__meta">2024/06/10 / Unity</p>
+                <h1 class="post-detail__title">Odin でコンテキストエディター作ってみた</h1>
+                <p class="post-detail__description">Odin でプランナー向けのコンテキストエディターを作った話</p>
+                <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=unity">unity</a> <a class="tag" href="../blog.html?tag=plugin">plugin</a> <a class="tag" href="../blog.html?tag=tool">tool</a></p>
+              </header>
+              <section class="post-detail__body markdown-body"><p>こんにちは！パン君です。</p>
 <p>インディーズのプロジェクトで <strong>Odin Inspector</strong> を使用して、<br>プランナーが Unity の知見をあまり持っていなくても触れるような <strong>プロジェクト専用の「コンテキストエディター」</strong> を作成しました。</p>
 <p>ここでいう「コンテキストエディター」は、</p>
 <blockquote>
@@ -99,8 +84,7 @@
 </ul>
 <p>など <strong>まとまりとして扱いたい情報を、一箇所から編集できるようにした</strong> という話になります。</p>
 <hr>
-<h2>概要</h2>
-<p>もともとプロジェクトでは、データ構造を ScriptableObject や CSV で管理していましたが、</p>
+<h2 id="概要">概要</h2><p>もともとプロジェクトでは、データ構造を ScriptableObject や CSV で管理していましたが、</p>
 <ul>
 <li>「どのデータがどこにあるのか」が分かりづらい</li>
 <li>パラメータを変えるために <strong>何個もアセットを開く必要がある</strong></li>
@@ -121,10 +105,8 @@
 </ul>
 <p>という構成です。</p>
 <hr>
-<h2>やりたかったこと</h2>
-<p>このコンテキストエディターでは、主に次のような体験を目指しました。</p>
-<h3>1. 「どこを触ればいいか」が一目で分かる</h3>
-<ul>
+<h2 id="やりたかったこと">やりたかったこと</h2><p>このコンテキストエディターでは、主に次のような体験を目指しました。</p>
+<h3 id="1-「どこを触ればいいか」が一目で分かる">1. 「どこを触ればいいか」が一目で分かる</h3><ul>
 <li>プランナーが Unity に詳しくなくても、<ul>
 <li><strong>左側にカテゴリー</strong></li>
 <li><strong>右側に編集する内容</strong></li>
@@ -139,8 +121,7 @@
 <li>管理用の ID や内部フラグは ReadOnly で表示のみ</li>
 </ul>
 <p>など、Odin の装飾系属性をフル活用しています。</p>
-<h3>2. 関連データを横断して編集できる</h3>
-<p>たとえば「◯◯イベント」のコンテキストだったら、</p>
+<h3 id="2-関連データを横断して編集できる">2. 関連データを横断して編集できる</h3><p>たとえば「◯◯イベント」のコンテキストだったら、</p>
 <ul>
 <li>イベント全体の基本設定</li>
 <li>各ステージの難易度テーブル</li>
@@ -154,8 +135,7 @@
 <li>配列・リストをテーブル形式で編集</li>
 </ul>
 <p>といった UI を、カスタム EditorWindow 側に貼り付けることができました。</p>
-<h3>3. 安全な範囲だけ触れるようにする</h3>
-<ul>
+<h3 id="3-安全な範囲だけ触れるようにする">3. 安全な範囲だけ触れるようにする</h3><ul>
 <li>プランナーには見えてほしいが、触ってほしくないフィールド</li>
 <li>開発途中で変更すると危険なフラグ</li>
 </ul>
@@ -167,10 +147,8 @@
 </ul>
 <p>などの工夫を入れて、 <strong>「自由度は残しつつ、壊れにくい UI」にする</strong> ことを意識しました。</p>
 <hr>
-<h2>実装構成</h2>
-<p>技術的な構成は、おおよそこんな感じです。</p>
-<h3>1. ベースとなる Window クラス</h3>
-<ul>
+<h2 id="実装構成">実装構成</h2><p>技術的な構成は、おおよそこんな感じです。</p>
+<h3 id="1-ベースとなる-window-クラス">1. ベースとなる Window クラス</h3><ul>
 <li><code>OdinEditorWindow</code> を継承した <code>ContextEditorWindow</code> を用意</li>
 <li><code>MenuItem</code> 属性でメニューから開けるようにする</li>
 </ul>
@@ -209,8 +187,7 @@ public class ContextEditorWindow : OdinEditorWindow
 <li>その場で値を編集、ほぞんが　反映される</li>
 </ul>
 <p>という状態にできます。</p>
-<h3>2. ScriptableObject側の設計</h3>
-<p>もともとのデータ構造をScriptableObject化しておけば</p>
+<h3 id="2-scriptableobject側の設計">2. ScriptableObject側の設計</h3><p>もともとのデータ構造をScriptableObject化しておけば</p>
 <ul>
 <li>プロジェクト全体では通常通りScriptableObjectとして利用</li>
 <li>編集時だけコンテキストエディターのウィンドウからアクセス</li>
@@ -234,8 +211,7 @@ public class EventConfig : ScriptableObject
 }
 </code></pre>
 <p>これを先ほどのContextEditorWindowのフィールドとして参照しておけば、<br>ウィンドウ側でInlineEditorしたときに、 <strong>Odinのデコレーション込みで表示されます</strong> 。</p>
-<h3>3. ちょっとしたUX改善</h3>
-<p>例：</p>
+<h3 id="3-ちょっとしたux改善">3. ちょっとしたUX改善</h3><p>例：</p>
 <ul>
 <li>「選択中のステージだけテストシーンを起動する」ボタン</li>
 <li>「報酬テーブルをデフォルト値で初期化する」ボタン</li>
@@ -243,8 +219,7 @@ public class EventConfig : ScriptableObject
 </ul>
 <p>Odin の Button 属性を使えば、EditorWindow 内にメソッドをそのままボタンとして出せるので、
 ちょっとしたツール感を簡単に足せます</p>
-<h2>実際に運用してみて</h2>
-<p>実際にプランナーに使ってもらって感じたメリットはこんな感じでした。</p>
+<h2 id="実際に運用してみて">実際に運用してみて</h2><p>実際にプランナーに使ってもらって感じたメリットはこんな感じでした。</p>
 <ul>
 <li>「この仕様を触りたいときは、このウィンドウを開けばいい」という入口が固定された</li>
 <li>Unity の Project ウィンドウや Inspector をさまよう時間が減った</li>
@@ -258,8 +233,7 @@ public class EventConfig : ScriptableObject
 <li>UI を作り込みすぎると「専用ツール」になりすぎて、柔軟性が落ちる</li>
 </ul>
 <p>といった点もありました。</p>
-<h2>最後に</h2>
-<p>Odin を使ったコンテキストエディターは、</p>
+<h2 id="最後に">最後に</h2><p>Odin を使ったコンテキストエディターは、</p>
 <ul>
 <li>「プランナーが直接触れる Unity ツール」を作りたいとき</li>
 <li>「プロジェクト専用の編集画面」をサクッと用意したいとき</li>
@@ -273,23 +247,29 @@ public class EventConfig : ScriptableObject
 </ul>
 <p>にもチャレンジしてみたいと思っています。</p>
 <p>興味があれば、別の記事で具体的なコードや属性の使い方も掘り下げていくので、また読んでもらえたら嬉しいです。</p>
-
-          </section>
-
-          <section class="section section--recommend">
-            <h2 class="section__title">おすすめ記事</h2>
-            <div id="recommendList" class="recommend-grid"></div>
-          </section>
-          <div class="post-detail__nav post-detail__nav--bottom">
-            <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+</section>
+              <section class="section section--recommend">
+                <h2 class="section__title">おすすめ記事</h2>
+                <div id="recommendList" class="recommend-grid"></div>
+              </section>
+              <div class="post-detail__nav post-detail__nav--bottom">
+                <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+              </div>
+            </article>
           </div>
-        </article>
+          <aside class="post-sidebar">
+            <div class="toc-sticky-container">
+              <nav class="toc">
+                <h2 class="toc__title">目次</h2>
+                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#概要">概要</a></li><li class="toc-item toc-item--level-2"><a href="#やりたかったこと">やりたかったこと</a></li><li class="toc-item toc-item--level-3"><a href="#1-「どこを触ればいいか」が一目で分かる">1. 「どこを触ればいいか」が一目で分かる</a></li><li class="toc-item toc-item--level-3"><a href="#2-関連データを横断して編集できる">2. 関連データを横断して編集できる</a></li><li class="toc-item toc-item--level-3"><a href="#3-安全な範囲だけ触れるようにする">3. 安全な範囲だけ触れるようにする</a></li><li class="toc-item toc-item--level-2"><a href="#実装構成">実装構成</a></li><li class="toc-item toc-item--level-3"><a href="#1-ベースとなる-window-クラス">1. ベースとなる Window クラス</a></li><li class="toc-item toc-item--level-3"><a href="#2-scriptableobject側の設計">2. ScriptableObject側の設計</a></li><li class="toc-item toc-item--level-3"><a href="#3-ちょっとしたux改善">3. ちょっとしたUX改善</a></li><li class="toc-item toc-item--level-2"><a href="#実際に運用してみて">実際に運用してみて</a></li><li class="toc-item toc-item--level-2"><a href="#最後に">最後に</a></li></ul>
+              </nav>
+            </div>
+          </aside>
+        </div>
       </main>
     </div>
-
     <script src="../assets/js/layout.js" defer></script>
     <script src="../assets/js/ui.js"></script>
-
     <canvas id="menuAnimationCanvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
     <script src="../assets/js/particles.js"></script>

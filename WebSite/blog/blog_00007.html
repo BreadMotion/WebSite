@@ -1,14 +1,11 @@
 <!doctype html>
 <html lang="ja">
-  <head prefix="og: https://ogp.me/ns#">
+  <head>
     <meta charset="UTF-8" />
     <title>RClone導入フロー | PanKUN Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ" />
-
-    <!-- Canonical -->
     <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00007.html" />
-
     <!-- Google AdSense -->
 <script
     async
@@ -16,10 +13,7 @@
     crossorigin="anonymous"
 ></script>
 
-
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
+    <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "mainEntityOfPage": {
@@ -46,22 +40,13 @@
       "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
     }
   }
-}
-    </script>
-
+}</script>
     <meta property="og:title" content="RClone導入フロー | PanKUN Blog" />
     <meta property="og:description" content="Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/blog_00007.html" />
     <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00007.png" />
     <meta property="og:site_name" content="PanKUN" />
-    <meta property="og:email" content="pankun.dev@gmail.com" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="RClone導入フロー" />
-    <meta name="twitter:description" content="Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ" />
-    <meta name="twitter:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00007.png" />
-
     <link rel="stylesheet" href="../assets/css/base.css" />
     <link rel="stylesheet" href="../assets/css/layout.css" />
     <link rel="stylesheet" href="../assets/css/blog.css" />
@@ -69,23 +54,23 @@
   <body data-page="blog">
     <div class="page-shell">
       <main class="main-container">
-        <article class="post-detail reveal-on-scroll">
-          <nav class="breadcrumb">
-            <a href="../index.html">ホーム</a>
-            <span class="breadcrumb-separator">/</span>
-            <a href="../blog.html">ブログ</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">RClone導入フロー</span>
-          </nav>
-          <header class="post-detail__header">
-            <p class="post-detail__meta">2025/11/17 / CloudStrage</p>
-            <h1 class="post-detail__title">RClone導入フロー</h1>
-            <p class="post-detail__description">Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ</p>
-            <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=tool">tool</a> <a class="tag" href="../blog.html?tag=cloudstrage">cloudstrage</a> <a class="tag" href="../blog.html?tag=git">git</a></p>
-          </header>
-
-          <section class="post-detail__body markdown-body">
-<p>こんにちは！パン君です</p>
+        <div class="post-layout">
+          <div class="post-content">
+            <article class="post-detail">
+              <nav aria-label="breadcrumb" class="breadcrumb">
+                <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item"><a href="../index.html">ホーム</a></li>
+                  <li class="breadcrumb__item"><a href="../blog.html">ブログ</a></li>
+                  <li class="breadcrumb__item" aria-current="page">RClone導入フロー</li>
+                </ol>
+              </nav>
+              <header class="post-detail__header">
+                <p class="post-detail__meta">2025/11/17 / CloudStrage</p>
+                <h1 class="post-detail__title">RClone導入フロー</h1>
+                <p class="post-detail__description">Windows + Git Bash環境でrcloneを導入し、Google Driveと連携するまでの手順まとめ</p>
+                <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=tool">tool</a> <a class="tag" href="../blog.html?tag=cloudstrage">cloudstrage</a> <a class="tag" href="../blog.html?tag=git">git</a></p>
+              </header>
+              <section class="post-detail__body markdown-body"><p>こんにちは！パン君です</p>
 <p>WindowsでGoogle Driveと連携し、大容量ファイルをrcloneで管理します。</p>
 <ul>
 <li>WinGet の導入</li>
@@ -94,12 +79,10 @@
 <li>動作確認
 のステップを 一つのフローチャートにまとめて可視化しました。</li>
 </ul>
-<h1>RClone 導入フロー（Mermaid版）</h1>
-<p>最終版のフローチャートは<a href="https://breadmotion.github.io/WebSite/content/other/Rclone.html">こちら</a>です。</p>
+<h1 id="rclone-導入フロー（mermaid版）">RClone 導入フロー（Mermaid版）</h1><p>最終版のフローチャートは<a href="https://breadmotion.github.io/WebSite/content/other/Rclone.html">こちら</a>です。</p>
 <p><img src="https://breadmotion.github.io/WebSite/assets/img/MMD_rclone.png" alt="RClone導入フローチャート"></p>
 <hr>
-<h1>このフローで何ができる？</h1>
-<p>このフローは、Windows環境で以下の一連の作業をミスなく実行できるように可視化したものです。</p>
+<h1 id="このフローで何ができる？">このフローで何ができる？</h1><p>このフローは、Windows環境で以下の一連の作業をミスなく実行できるように可視化したものです。</p>
 <ul>
 <li>WinGet がない場合の対処</li>
 <li>rclone のインストール</li>
@@ -109,8 +92,7 @@
 </ul>
 <p>自分やチームの「Windows環境でのGit LFS代用環境構築の詰まりポイント」を解消できます。</p>
 <hr>
-<h1>概要</h1>
-<p>Windows環境でGitLFSの制限外で管理できるように共有したい場合のやり方です。<br>大まかな流れは下記です。</p>
+<h1 id="概要">概要</h1><p>Windows環境でGitLFSの制限外で管理できるように共有したい場合のやり方です。<br>大まかな流れは下記です。</p>
 <ul>
 <li>WinGet導入</li>
 <li>RClone導入</li>
@@ -118,31 +100,36 @@
 </ul>
 <p>これ以降は運用の仕方の話になってくるうえ、<br>CLIに慣れていない人に向ける場合、もう一工夫する必要がある為別の記事で記載予定です。</p>
 <hr>
-<h1>まとめ</h1>
-<p>この記事で行ったこと：</p>
+<h1 id="まとめ">まとめ</h1><p>この記事で行ったこと：</p>
 <ul>
 <li>RClone 導入に必要なステップを可視化</li>
 <li>Mermaid でフローチャート化</li>
 <li>Drive 連携の注意点（root_folder_id など）</li>
 <li>チーム用の手順書として使える内容に整備</li>
 </ul>
-
-          </section>
-
-          <section class="section section--recommend">
-            <h2 class="section__title">おすすめ記事</h2>
-            <div id="recommendList" class="recommend-grid"></div>
-          </section>
-          <div class="post-detail__nav post-detail__nav--bottom">
-            <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+</section>
+              <section class="section section--recommend">
+                <h2 class="section__title">おすすめ記事</h2>
+                <div id="recommendList" class="recommend-grid"></div>
+              </section>
+              <div class="post-detail__nav post-detail__nav--bottom">
+                <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+              </div>
+            </article>
           </div>
-        </article>
+          <aside class="post-sidebar">
+            <div class="toc-sticky-container">
+              <nav class="toc">
+                <h2 class="toc__title">目次</h2>
+                
+              </nav>
+            </div>
+          </aside>
+        </div>
       </main>
     </div>
-
     <script src="../assets/js/layout.js" defer></script>
     <script src="../assets/js/ui.js"></script>
-
     <canvas id="menuAnimationCanvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
     <script src="../assets/js/particles.js"></script>

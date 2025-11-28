@@ -1,14 +1,11 @@
 <!doctype html>
 <html lang="ja">
-  <head prefix="og: https://ogp.me/ns#">
+  <head>
     <meta charset="UTF-8" />
     <title>ZedのRuleの追加について | PanKUN Blog</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="ZedのRuleの使い方をまとめました" />
-
-    <!-- Canonical -->
     <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00016.html" />
-
     <!-- Google AdSense -->
 <script
     async
@@ -16,10 +13,7 @@
     crossorigin="anonymous"
 ></script>
 
-
-    <!-- JSON-LD -->
-    <script type="application/ld+json">
-    {
+    <script type="application/ld+json">{
   "@context": "https://schema.org",
   "@type": "BlogPosting",
   "mainEntityOfPage": {
@@ -46,22 +40,13 @@
       "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
     }
   }
-}
-    </script>
-
+}</script>
     <meta property="og:title" content="ZedのRuleの追加について | PanKUN Blog" />
     <meta property="og:description" content="ZedのRuleの使い方をまとめました" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/blog_00016.html" />
     <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00016.jpg" />
     <meta property="og:site_name" content="PanKUN" />
-    <meta property="og:email" content="pankun.dev@gmail.com" />
-
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="ZedのRuleの追加について" />
-    <meta name="twitter:description" content="ZedのRuleの使い方をまとめました" />
-    <meta name="twitter:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00016.jpg" />
-
     <link rel="stylesheet" href="../assets/css/base.css" />
     <link rel="stylesheet" href="../assets/css/layout.css" />
     <link rel="stylesheet" href="../assets/css/blog.css" />
@@ -69,72 +54,72 @@
   <body data-page="blog">
     <div class="page-shell">
       <main class="main-container">
-        <article class="post-detail reveal-on-scroll">
-          <nav class="breadcrumb">
-            <a href="../index.html">ホーム</a>
-            <span class="breadcrumb-separator">/</span>
-            <a href="../blog.html">ブログ</a>
-            <span class="breadcrumb-separator">/</span>
-            <span class="breadcrumb-current">ZedのRuleの追加について</span>
-          </nav>
-          <header class="post-detail__header">
-            <p class="post-detail__meta">2025/11/30 / IDE</p>
-            <h1 class="post-detail__title">ZedのRuleの追加について</h1>
-            <p class="post-detail__description">ZedのRuleの使い方をまとめました</p>
-            <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=zed">zed</a> <a class="tag" href="../blog.html?tag=ai">ai</a></p>
-          </header>
-
-          <section class="post-detail__body markdown-body">
-<p>こんにちは！パン君です。</p>
+        <div class="post-layout">
+          <div class="post-content">
+            <article class="post-detail">
+              <nav aria-label="breadcrumb" class="breadcrumb">
+                <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item"><a href="../index.html">ホーム</a></li>
+                  <li class="breadcrumb__item"><a href="../blog.html">ブログ</a></li>
+                  <li class="breadcrumb__item" aria-current="page">ZedのRuleの追加について</li>
+                </ol>
+              </nav>
+              <header class="post-detail__header">
+                <p class="post-detail__meta">2025/11/30 / IDE</p>
+                <h1 class="post-detail__title">ZedのRuleの追加について</h1>
+                <p class="post-detail__description">ZedのRuleの使い方をまとめました</p>
+                <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=zed">zed</a> <a class="tag" href="../blog.html?tag=ai">ai</a></p>
+              </header>
+              <section class="post-detail__body markdown-body"><p>こんにちは！パン君です。</p>
 <p>今回は、ZedエディタのAI機能である「Zed Agent」の <strong>Rule機能</strong> について、使い方をまとめてみました。</p>
-<h2>Rule機能とは？</h2>
-<p>Zed Agentには、AIとの対話に特定の指示や制約（ルール）を事前に設定できる「Rule」という機能があります。</p>
+<h2 id="rule機能とは？">Rule機能とは？</h2><p>Zed Agentには、AIとの対話に特定の指示や制約（ルール）を事前に設定できる「Rule」という機能があります。</p>
 <p>例えば、「必ず日本語で回答する」「特定のコーディングスタイルに従う」といったルールを設定しておくことで<br>毎回同じ指示を繰り返す手間を省き、AIの応答を自分の好みに合わせてカスタマイズすることができます。</p>
 <p>公式Documentは<a href="https://zed.dev/docs/ai/rules">こちら</a></p>
-<h2>Ruleの作成方法</h2>
-<p>Agent Panelの右上の３点リーダー？のメニューの中にRulesがあります。<br><img src="../assets/img/blog_00016_0.png" alt="image"></p>
+<h2 id="ruleの作成方法">Ruleの作成方法</h2><p>Agent Panelの右上の３点リーダー？のメニューの中にRulesがあります。<br><img src="../assets/img/blog_00016_0.png" alt="image"></p>
 <p>押下するとこのような画面が出てきますので、タイトルにルール名と中に自然言語でプロンプトを書きましょう。<br><img src="../assets/img/blog_00016_1.png" alt="image"></p>
 <p>以上です！</p>
-<h2>Ruleを適用する方法</h2>
-<p>ZedのRuleは更新が続いており、現在は下記で適用は可能です。</p>
+<h2 id="ruleを適用する方法">Ruleを適用する方法</h2><p>ZedのRuleは更新が続いており、現在は下記で適用は可能です。</p>
 <ul>
 <li>チャット入力欄で <code>@</code> を入力し、表示されるメニューから適用したいルール名を選択</li>
 <li>作成したRuleの<code>+</code>ボタンから<code>Default Rule</code>を選択</li>
 </ul>
 <p>これでそのルールが応答に反映されるようになります。<br>あとはプロンプトの内容やモデルの性質次第でそのルールの寿命が変わるのかなぁと感じています。</p>
 <p>また、本来モデル毎に読み込むファイル名が固定化されている？ものなのですが、<br>ZedのこのRuleのいい点として、このRuleウィンドウでRuleを作成しておけばどのモデルに切り替えても適用が可能です。</p>
-<h2><code>@</code> はRule適用だけじゃない！</h2>
-<p><code>@</code> は単にルールを適用するだけでなく、AIとの対話に様々な <strong>コンテキスト</strong> を追加するための強力な機能です。<br><code>@</code> を入力すると、ルール以外にも以下のような項目が表示されます。  </p>
+<h2 id="-はrule適用だけじゃない！"><code>@</code> はRule適用だけじゃない！</h2><p><code>@</code> は単にルールを適用するだけでなく、AIとの対話に様々な <strong>コンテキスト</strong> を追加するための強力な機能です。<br><code>@</code> を入力すると、ルール以外にも以下のような項目が表示されます。  </p>
 <ul>
 <li><strong>ファイルパス</strong> : 特定のファイルの内容を文脈としてAIに渡せる。</li>
 <li><strong>Files &amp; Directories</strong> : プロジェクト内のファイルやディレクトリ構造をAIに認識させられる。</li>
 <li><strong>Symbols</strong> : コード内の特定の関数やクラスをピンポイントで指定できる。</li>
 </ul>
-<h3><code>@</code> を使うメリット</h3>
-<p>この <code>@</code> 機能を活用する最大のメリットは、 <strong>AIとの対話の効率化</strong> です。  </p>
+<h3 id="-を使うメリット"><code>@</code> を使うメリット</h3><p>この <code>@</code> 機能を活用する最大のメリットは、 <strong>AIとの対話の効率化</strong> です。  </p>
 <p>通常であれば、<br>「<code>〇〇</code>というファイルについて質問です」<br>→（AIがファイルを探す）<br>→（AIがファイルを読む）<br>→「はい、何でしょう？」<br>といった手順が必要でした。</p>
 <p>しかし、<code>@</code> を使えば、<br>「<code>@〇〇</code> このファイルの要約を教えて」<br>と入力するだけで、AIはファイルを探したり読んだりする手間を <strong>完全に省略</strong> して、すぐに本題に入ることができます。</p>
 <p>これにより、AIが使用するトークンやリクエストの節約にも繋がり、より迅速で正確な応答が期待できます。<br>※コンテキストの種類によってはそれを配置すること自体がコストな事はあります。</p>
-<h2>まとめ</h2>
-<p>Zedの <code>@</code> 機能は、単なるルール適用だけでなく、ファイルやコードの文脈をAIに直接、効率的に伝えるための非常に優れた機能です。<br>この機能を使いこなすことで、AIを「何も知らないアシスタント」から、「必要な情報をすべて理解している優秀なパートナー」に変えることができます。</p>
+<h2 id="まとめ">まとめ</h2><p>Zedの <code>@</code> 機能は、単なるルール適用だけでなく、ファイルやコードの文脈をAIに直接、効率的に伝えるための非常に優れた機能です。<br>この機能を使いこなすことで、AIを「何も知らないアシスタント」から、「必要な情報をすべて理解している優秀なパートナー」に変えることができます。</p>
 <p>ぜひ活用して、快適なAIコーディングを楽しみましょう。</p>
-
-          </section>
-
-          <section class="section section--recommend">
-            <h2 class="section__title">おすすめ記事</h2>
-            <div id="recommendList" class="recommend-grid"></div>
-          </section>
-          <div class="post-detail__nav post-detail__nav--bottom">
-            <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+</section>
+              <section class="section section--recommend">
+                <h2 class="section__title">おすすめ記事</h2>
+                <div id="recommendList" class="recommend-grid"></div>
+              </section>
+              <div class="post-detail__nav post-detail__nav--bottom">
+                <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+              </div>
+            </article>
           </div>
-        </article>
+          <aside class="post-sidebar">
+            <div class="toc-sticky-container">
+              <nav class="toc">
+                <h2 class="toc__title">目次</h2>
+                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#rule機能とは？">Rule機能とは？</a></li><li class="toc-item toc-item--level-2"><a href="#ruleの作成方法">Ruleの作成方法</a></li><li class="toc-item toc-item--level-2"><a href="#ruleを適用する方法">Ruleを適用する方法</a></li><li class="toc-item toc-item--level-2"><a href="#-はrule適用だけじゃない！">&lt;code&gt;@&lt;/code&gt; はRule適用だけじゃない！</a></li><li class="toc-item toc-item--level-3"><a href="#-を使うメリット">&lt;code&gt;@&lt;/code&gt; を使うメリット</a></li><li class="toc-item toc-item--level-2"><a href="#まとめ">まとめ</a></li></ul>
+              </nav>
+            </div>
+          </aside>
+        </div>
       </main>
     </div>
-
     <script src="../assets/js/layout.js" defer></script>
     <script src="../assets/js/ui.js"></script>
-
     <canvas id="menuAnimationCanvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
     <script src="../assets/js/particles.js"></script>
