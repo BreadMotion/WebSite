@@ -7,17 +7,23 @@ document.addEventListener("DOMContentLoaded", () => {
     return name && name.length > 0 ? name : "index.html";
   })();
 
+  const isBlogDetailPage =
+    window.location.pathname.includes("/blog/");
+  const pathToPartials = isBlogDetailPage
+    ? "../partials/"
+    : "partials/";
+
   Promise.all([
-    fetch(
-      "https://breadmotion.github.io/WebSite/partials/header.html",
-    ).then((r) => r.text()),
-    fetch(
-      "https://breadmotion.github.io/WebSite/partials/footer.html",
-    ).then((r) => r.text()),
+    fetch(`${pathToPartials}header.html`).then((r) =>
+      r.text(),
+    ),
+    fetch(`${pathToPartials}footer.html`).then((r) =>
+      r.text(),
+    ),
   ])
     .then(([headerHtml, footerHtml]) => {
       shell.insertAdjacentHTML("afterbegin", headerHtml);
-      shell.insertAdjacentHTML("beforeend", footerHtml);
+      shell.insertAdjacentHTML("afterend", footerHtml);
 
       const navLinks =
         document.querySelectorAll(".site-nav a");
