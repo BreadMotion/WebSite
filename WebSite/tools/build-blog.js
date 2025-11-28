@@ -173,6 +173,9 @@ function createHtml({
     <div class="page-shell">
       <main class="main-container">
         <article class="post-detail reveal-on-scroll">
+          <div class="post-detail__nav">
+            <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+          </div>
           <header class="post-detail__header">
             <p class="post-detail__meta">${safeDate}${
               safeCategory ? " / " + safeCategory : ""
@@ -194,6 +197,9 @@ ${bodyHtml}
             <h2 class="section__title">おすすめ記事</h2>
             <div id="recommendList" class="recommend-grid"></div>
           </section>
+          <div class="post-detail__nav post-detail__nav--bottom">
+            <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+          </div>
         </article>
       </main>
     </div>
