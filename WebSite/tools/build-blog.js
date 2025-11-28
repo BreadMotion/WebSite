@@ -172,10 +172,6 @@ function createHtml({
                 ${tagsHtml}
               </header>
               <section class="post-detail__body markdown-body">${bodyHtml}</section>
-              <section class="section section--recommend">
-                <h2 class="section__title">おすすめ記事</h2>
-                <div id="recommendList" class="recommend-grid"></div>
-              </section>
               <div class="post-detail__nav post-detail__nav--bottom">
                 <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
               </div>
@@ -190,6 +186,10 @@ function createHtml({
             </div>
           </aside>
         </div>
+        <section class="section section--recommend">
+          <h2 class="section__title">おすすめ記事</h2>
+          <div id="recommendList" class="recommend-grid"></div>
+        </section>
       </main>
     </div>
     <script src="../assets/js/layout.js" defer></script>
