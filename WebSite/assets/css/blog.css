@@ -853,3 +853,61 @@
         max-height: none;
     }
 }
+
+/* ==========================================================================
+   Share Buttons
+   ========================================================================== */
+.share-buttons {
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.share-buttons__title {
+    margin-bottom: 1rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+    letter-spacing: 0.1em;
+}
+
+.share-buttons__list {
+    display: inline-flex;
+    gap: 1rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.share-buttons__link {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--color-surface);
+    color: var(--color-text);
+    transition: var(--transition-smooth);
+    border: 1px solid var(--color-border);
+}
+
+.share-buttons__link:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    color: #fff;
+}
+
+.share-buttons__link--twitter:hover {
+    background-color: #1da1f2;
+    border-color: #1da1f2;
+}
+
+.share-buttons__link--facebook:hover {
+    background-color: #1877f2;
+    border-color: #1877f2;
+}
+
+.share-buttons__link--line:hover {
+    background-color: #06c755;
+    border-color: #06c755;
+}
