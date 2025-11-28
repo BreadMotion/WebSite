@@ -15,6 +15,7 @@
     "node_modules",
     "*.vscode",
     "package-lock.json",
-    "LICENSE"
+    "LICENSE",
+    "vendor"
   ]
 }

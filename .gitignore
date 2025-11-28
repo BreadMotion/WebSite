@@ -16,3 +16,4 @@ WebSite/tools/service_account.json
 .vscode/
 .idea/
 *.swp
+WebSite/vendor
