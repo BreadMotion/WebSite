@@ -71,7 +71,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Data Loading & Initialization ---
   async function loadPosts() {
     try {
-      const res = await fetch("assets/data/blogList.json");
+      const lang = document.documentElement.lang;
+      const jsonPath =
+        lang === "en"
+          ? "assets/data/blogList_en.json"
+          : "assets/data/blogList.json";
+      const res = await fetch(jsonPath);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       allPosts = await res.json();
 

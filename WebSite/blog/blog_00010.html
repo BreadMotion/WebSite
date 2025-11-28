@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="プロジェクトでrcloneとシェルスクリプトを活用し、大規模アセットの効率的な管理とCI/CD連携を実現する方法を解説します。" />
     <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00010.html" />
+    <link rel="alternate" hreflang="ja" href="https://breadmotion.github.io/WebSite/blog/blog_00010.html" />
+    <link rel="alternate" hreflang="en" href="https://breadmotion.github.io/WebSite/blog/en/blog_00010.html" />
+    <link rel="alternate" hreflang="x-default" href="https://breadmotion.github.io/WebSite/blog/blog_00010.html" />
     <!-- Google AdSense -->
 <script
     async
@@ -171,7 +174,7 @@ sh ./Tool/Aunlock.sh Content/Model/SK_ModelX.uasset
 </ol>
 <p>これによりビルドサーバーは常に最新のコードとアセットでビルドを実行でき、手動でのアセット同期の手間を省くことができます。</p>
 <h2 id="mmd_rclonepng-を参照したイメージ（仮想的な図）"><code>MMD_rclone.png</code> を参照したイメージ（仮想的な図）</h2><p>前回のRClone導入フローチャート (<code>MMD_rclone.png</code>) は、RClone自体の設定フローでしたが<br>今回の運用術におけるアセットの流れは以下のようなイメージになります。  </p>
-<p>最終版のフローチャートは<a href="https://breadmotion.github.io/WebSite/content/other/Rclone2.html">こちら</a>です。<br><img src="https://breadmotion.github.io/WebSite/assets/img/MMD_rclone2.png" alt="RClone導入フローチャート"></p>
+<p>最終版のフローチャートは<a href="https://breadmotion.github.io/WebSite/content/other/Rclone2.html">こちら</a>です。<br><img src="https://breadmotion.github.io/WebSite/assets/img/MMD_rclone2.png" alt="RClone導入フローチャート" title="" /></p>
 <h2 id="ロック・アンロックの重要性-alocksh--aunlocksh">ロック・アンロックの重要性 (<code>Alock.sh</code> / <code>Aunlock.sh</code>)</h2><p>複数人で同時に編集する際、意図しない上書きやコンフリクトは避けたい問題です。<br>Git LFS のファイルロック機能と同様に<code>rclone</code>を利用したアセット管理においてもこのロック機構は非常に重要になります。<code>Alock.sh</code>と<code>Aunlock.sh</code>は、そのためのカスタムシェルスクリプトです。  </p>
 <h3 id="alocksh：アセットのロック"><code>Alock.sh</code>：アセットのロック</h3><p><code>Alock.sh</code> は指定したアセットファイルをリモートストレージ上で「ロック済み」としてマークします。<br>これにより他の開発者が同じファイルを同時に編集するのを防ぎ、コンフリクト発生のリスクを大幅に軽減します。  </p>
 <p><strong>主な機能:</strong></p>

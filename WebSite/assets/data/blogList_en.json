@@ -1,0 +1,16 @@
+[
+  {
+    "id": "blog_00016",
+    "title": "Adding Rules in Zed",
+    "date": "2025-11-30T00:00:00.000Z",
+    "category": "IDE",
+    "description": "A summary of how to use Zed's Rule feature",
+    "tags": [
+      "zed",
+      "ai"
+    ],
+    "thumbnail": "assets/img/thumbnails/blog_00016.jpg",
+    "contentPath": "blog/en/blog_00016.html",
+    "recommended": true
+  }
+]

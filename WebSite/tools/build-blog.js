@@ -1,15 +1,22 @@
 const fs = require("fs");
 const path = require("path");
 const matter = require("gray-matter");
+const locales = require("./locales");
 
 const ROOT = path.join(__dirname, "..");
 const CONTENT_DIR = path.join(ROOT, "content", "blog");
 const OUTPUT_DIR = path.join(ROOT, "blog");
-const LIST_JSON = path.join(
+const LIST_JSON_JA = path.join(
   ROOT,
   "assets",
   "data",
   "blogList.json",
+);
+const LIST_JSON_EN = path.join(
+  ROOT,
+  "assets",
+  "data",
+  "blogList_en.json",
 );
 const AD_SCRIPT_PATH = path.join(
   ROOT,
@@ -49,7 +56,7 @@ function formatDate(date) {
   return `${y}/${m}/${da}`;
 }
 
-function createTocHtml(headings) {
+function createTocHtml(headings, locale) {
   if (!headings || headings.length === 0) return "";
   const filteredHeadings = headings.filter(
     (h) => h.level === 2 || h.level === 3,
@@ -64,9 +71,11 @@ function createTocHtml(headings) {
   return tocHtml;
 }
 
-function createShareButtonsHtml(title, url) {
+function createShareButtonsHtml(title, url, locale) {
   const encodedTitle = encodeURIComponent(title);
   const encodedUrl = encodeURIComponent(url);
+  const shareTitle = locale.share_title;
+  const labelSuffix = locale.share_label_suffix;
 
   const services = [
     {
@@ -90,13 +99,13 @@ function createShareButtonsHtml(title, url) {
   ];
 
   return `<div class="share-buttons">
-    <p class="share-buttons__title">SHARE</p>
+    <p class="share-buttons__title">${shareTitle}</p>
     <ul class="share-buttons__list">
       ${services
         .map(
           (service) => `
         <li class="share-buttons__item">
-          <a href="${service.url}" class="share-buttons__link share-buttons__link--${service.className}" target="_blank" rel="noopener noreferrer" aria-label="${service.name}でシェア">
+          <a href="${service.url}" class="share-buttons__link share-buttons__link--${service.className}" target="_blank" rel="noopener noreferrer" aria-label="${service.name}${labelSuffix}">
             ${service.icon}
           </a>
         </li>
@@ -118,6 +127,9 @@ function createHtml({
   tocHtml,
   thumbnail,
   adScript = "",
+  locale,
+  lang,
+  relativePrefix,
 }) {
   const safeTitle = escapeHtml(title);
   const safeDesc = escapeHtml(description || "");
@@ -133,14 +145,18 @@ function createHtml({
     .map((t) => escapeHtml(t));
 
   const tagsHtml = safeTagsArr.length
-    ? `<p class="post-detail__tags">${safeTagsArr.map((t) => `<a class="tag" href="../blog.html?tag=${encodeURIComponent(t)}">${t}</a>`).join(" ")}</p>`
+    ? `<p class="post-detail__tags">${safeTagsArr.map((t) => `<a class="tag" href="${relativePrefix}/blog.html?tag=${encodeURIComponent(t)}">${t}</a>`).join(" ")}</p>`
     : "";
 
-  const canonicalUrl = `${BASE_URL}/blog/${id}.html`;
+  const canonicalUrl =
+    lang === "ja"
+      ? `${BASE_URL}/blog/${id}.html`
+      : `${BASE_URL}/blog/en/${id}.html`;
 
   const shareButtonsHtml = createShareButtonsHtml(
     title,
     canonicalUrl,
+    locale,
   );
 
   let imageUrl = thumbnail;
@@ -181,25 +197,31 @@ function createHtml({
     },
   };
 
+  const jaUrl = `${BASE_URL}/blog/${id}.html`;
+  const enUrl = `${BASE_URL}/blog/en/${id}.html`;
+
   return `<!doctype html>
-<html lang="ja">
+<html lang="${locale.lang}">
   <head>
     <meta charset="UTF-8" />
-    <title>${safeTitle} | PanKUN Blog</title>
+    <title>${safeTitle}${locale.site_title_suffix}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="${safeDesc}" />
     <link rel="canonical" href="${canonicalUrl}" />
+    <link rel="alternate" hreflang="ja" href="${jaUrl}" />
+    <link rel="alternate" hreflang="en" href="${enUrl}" />
+    <link rel="alternate" hreflang="x-default" href="${jaUrl}" />
     ${adScript}
     <script type="application/ld+json">${JSON.stringify(jsonLd, null, 2)}</script>
-    <meta property="og:title" content="${safeTitle} | PanKUN Blog" />
+    <meta property="og:title" content="${safeTitle}${locale.site_title_suffix}" />
     <meta property="og:description" content="${safeDesc}" />
     <meta property="og:type" content="article" />
     <meta property="og:url" content="${canonicalUrl}" />
     <meta property="og:image" content="${imageUrl}" />
     <meta property="og:site_name" content="PanKUN" />
-    <link rel="stylesheet" href="../assets/css/base.css" />
-    <link rel="stylesheet" href="../assets/css/layout.css" />
-    <link rel="stylesheet" href="../assets/css/blog.css" />
+    <link rel="stylesheet" href="${relativePrefix}/assets/css/base.css" />
+    <link rel="stylesheet" href="${relativePrefix}/assets/css/layout.css" />
+    <link rel="stylesheet" href="${relativePrefix}/assets/css/blog.css" />
   </head>
   <body data-page="blog">
     <div class="page-shell">
@@ -209,8 +231,8 @@ function createHtml({
             <article class="post-detail">
               <nav aria-label="breadcrumb" class="breadcrumb">
                 <ol class="breadcrumb__list">
-                  <li class="breadcrumb__item"><a href="../index.html">ホーム</a></li>
-                  <li class="breadcrumb__item"><a href="../blog.html">ブログ</a></li>
+                  <li class="breadcrumb__item"><a href="${relativePrefix}/index.html">${locale.breadcrumb_home}</a></li>
+                  <li class="breadcrumb__item"><a href="${relativePrefix}/blog.html">${locale.breadcrumb_blog}</a></li>
                   <li class="breadcrumb__item" aria-current="page">${safeTitle}</li>
                 </ol>
               </nav>
@@ -224,37 +246,37 @@ function createHtml({
               <section class="post-detail__body markdown-body">${bodyHtml}</section>
               ${shareButtonsHtml}
               <div class="post-detail__nav post-detail__nav--bottom">
-                <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
+                <a href="${relativePrefix}/blog.html" class="btn btn--back">${locale.back_to_blog}</a>
               </div>
             </article>
           </div>
           <aside class="post-sidebar">
             <div class="toc-sticky-container">
               <nav class="toc">
-                <h2 class="toc__title">目次</h2>
+                <h2 class="toc__title">${locale.toc_title}</h2>
                 ${tocHtml}
               </nav>
             </div>
           </aside>
         </div>
         <section class="section section--recommend">
-          <h2 class="section__title">おすすめ記事</h2>
+          <h2 class="section__title">${locale.recommended_title}</h2>
           <div id="recommendList" class="recommend-grid"></div>
         </section>
       </main>
       <div class="toc-overlay"></div>
-      <button type="button" class="toc-toggle" aria-label="目次を開く">
+      <button type="button" class="toc-toggle" aria-label="${locale.toc_button_label}">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
-        <span>目次</span>
+        <span>${locale.toc_button_text}</span>
       </button>
     </div>
-    <script src="../assets/js/layout.js" defer></script>
-    <script src="../assets/js/ui.js"></script>
+    <script src="${relativePrefix}/assets/js/layout.js" defer></script>
+    <script src="${relativePrefix}/assets/js/ui.js"></script>
     <canvas id="menuAnimationCanvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
-    <script src="../assets/js/particles.js"></script>
-    <script src="../assets/js/toc.js" defer></script>
-    <script src="../assets/js/recommend.js" defer></script>
+    <script src="${relativePrefix}/assets/js/particles.js"></script>
+    <script src="${relativePrefix}/assets/js/toc.js" defer></script>
+    <script src="${relativePrefix}/assets/js/recommend.js" defer></script>
   </body>
 </html>`;
 }
@@ -262,8 +284,12 @@ function createHtml({
 (async () => {
   const { marked } = await import("marked");
 
+  const enOutputDir = path.join(OUTPUT_DIR, "en");
+
   if (!fs.existsSync(OUTPUT_DIR))
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+  if (!fs.existsSync(enOutputDir))
+    fs.mkdirSync(enOutputDir, { recursive: true });
   if (!fs.existsSync(THUMBNAIL_DIR))
     fs.mkdirSync(THUMBNAIL_DIR, { recursive: true });
 
@@ -271,13 +297,26 @@ function createHtml({
     ? fs.readFileSync(AD_SCRIPT_PATH, "utf8")
     : "";
 
-  const posts = [];
+  const postsMap = {
+    ja: [],
+    en: [],
+  };
+
   const files = fs
     .readdirSync(CONTENT_DIR)
     .filter((f) => f.endsWith(".md"));
 
   for (const file of files) {
-    const id = path.basename(file, ".md");
+    let lang = "ja";
+    let id = path.basename(file, ".md");
+    if (file.endsWith(".en.md")) {
+      lang = "en";
+      id = path.basename(file, ".en.md");
+    }
+
+    const locale = locales[lang] || locales.ja;
+    const relativePrefix = lang === "ja" ? ".." : "../..";
+
     const fullPath = path.join(CONTENT_DIR, file);
     const raw = fs.readFileSync(fullPath, "utf8");
     const { data, content } = matter(raw);
@@ -291,8 +330,19 @@ function createHtml({
       return `<h${level} id="${id}">${text}</h${level}>`;
     };
 
+    renderer.image = (href, title, text) => {
+      let src = href;
+      if (src && src.startsWith("../")) {
+        // Adjust relative paths for images
+        // ja (prefix=".."): "../assets" -> "../assets"
+        // en (prefix="../.."): "../assets" -> "../../assets"
+        src = `${relativePrefix}/${src.substring(3)}`;
+      }
+      return `<img src="${src}" alt="${text}" title="${title || ""}" />`;
+    };
+
     const htmlBody = marked.parse(content, { renderer });
-    const tocHtml = createTocHtml(headings);
+    const tocHtml = createTocHtml(headings, locale);
 
     const { title, description, date, category } = data;
     let { thumbnail } = data;
@@ -305,7 +355,7 @@ function createHtml({
         if (matches) {
           const ext =
             matches[1] === "jpeg" ? "jpg" : matches[1];
-          const filename = `${id}.${ext}`;
+          const filename = `${id}.${ext}`; // Same ID shares thumbnail
           fs.writeFileSync(
             path.join(THUMBNAIL_DIR, filename),
             Buffer.from(matches[2], "base64"),
@@ -340,16 +390,22 @@ function createHtml({
       tocHtml,
       thumbnail,
       adScript,
+      locale,
+      lang,
+      relativePrefix,
     });
 
-    fs.writeFileSync(
-      path.join(OUTPUT_DIR, `${id}.html`),
-      html,
-      "utf8",
-    );
-    console.log(`generated: blog/${id}.html`);
+    const outputFilePath =
+      lang === "ja"
+        ? path.join(OUTPUT_DIR, `${id}.html`)
+        : path.join(enOutputDir, `${id}.html`);
 
-    posts.push({
+    fs.writeFileSync(outputFilePath, html, "utf8");
+    console.log(
+      `generated (${lang}): ${path.relative(ROOT, outputFilePath)}`,
+    );
+
+    postsMap[lang].push({
       id,
       title: title || id,
       date: date || "",
@@ -357,18 +413,35 @@ function createHtml({
       description: description || "",
       tags,
       thumbnail,
-      contentPath: `blog/${id}.html`,
+      contentPath:
+        lang === "ja"
+          ? `blog/${id}.html`
+          : `blog/en/${id}.html`,
       recommended: data.recommended || false,
     });
   }
 
-  posts.sort((a, b) => new Date(b.date) - new Date(a.date));
+  // Sort and save JA list
+  postsMap.ja.sort(
+    (a, b) => new Date(b.date) - new Date(a.date),
+  );
   fs.writeFileSync(
-    LIST_JSON,
-    JSON.stringify(posts, null, 2),
+    LIST_JSON_JA,
+    JSON.stringify(postsMap.ja, null, 2),
     "utf8",
   );
   console.log(`updated: assets/data/blogList.json`);
+
+  // Sort and save EN list
+  postsMap.en.sort(
+    (a, b) => new Date(b.date) - new Date(a.date),
+  );
+  fs.writeFileSync(
+    LIST_JSON_EN,
+    JSON.stringify(postsMap.en, null, 2),
+    "utf8",
+  );
+  console.log(`updated: assets/data/blogList_en.json`);
 })().catch((err) => {
   console.error(err);
   process.exit(1);

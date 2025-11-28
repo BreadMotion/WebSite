@@ -1,0 +1,28 @@
+module.exports = {
+  ja: {
+    lang: "ja",
+    site_title_suffix: " | PanKUN Blog",
+    breadcrumb_home: "ホーム",
+    breadcrumb_blog: "ブログ",
+    share_title: "SHARE",
+    share_label_suffix: "でシェア",
+    toc_title: "目次",
+    toc_button_label: "目次を開く",
+    toc_button_text: "目次",
+    back_to_blog: "← ブログ一覧へ戻る",
+    recommended_title: "おすすめ記事",
+  },
+  en: {
+    lang: "en",
+    site_title_suffix: " | PanKUN Blog",
+    breadcrumb_home: "Home",
+    breadcrumb_blog: "Blog",
+    share_title: "SHARE",
+    share_label_suffix: " Share",
+    toc_title: "Table of Contents",
+    toc_button_label: "Open Table of Contents",
+    toc_button_text: "TOC",
+    back_to_blog: "← Back to Blog",
+    recommended_title: "Recommended",
+  },
+};
