@@ -1,9 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+  // 目次内のリンクをすべて取得
   const tocLinks = document.querySelectorAll(".toc a");
   if (tocLinks.length === 0) {
     return;
   }
 
+  // 目次リンクから対応する見出し要素を取得
   const headings = Array.from(tocLinks)
     .map((link) => {
       const href = link.getAttribute("href");
@@ -16,11 +18,12 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
+  // IntersectionObserverを初期化して、見出しが画面内に入ったかを監視
   const observer = new IntersectionObserver(
     (entries) => {
       let activeHeading = null;
 
-      // Find the heading that is intersecting and closest to the top trigger margin
+      // 画面内に表示されている見出しの中から、最も上にあるものを探す
       for (const entry of entries) {
         if (entry.isIntersecting) {
           if (
@@ -33,8 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // If no heading is currently intersecting within the rootMargin,
-      // find the last one that scrolled past the top of the viewport.
+      // 画面内に見出しがない場合、最後に通過した見出しをアクティブにする
       if (!activeHeading) {
         for (let i = headings.length - 1; i >= 0; i--) {
           if (headings[i].getBoundingClientRect().top < 0) {
@@ -44,26 +46,22 @@ document.addEventListener("DOMContentLoaded", () => {
         }
       }
 
-      // Update the active class on all links
+      // すべての目次リンクのアクティブ状態を更新
       tocLinks.forEach((link) => {
-        if (
+        const isActive =
           activeHeading &&
           link.getAttribute("href") ===
-            `#${activeHeading.id}`
-        ) {
-          link.classList.add("is-active");
-        } else {
-          link.classList.remove("is-active");
-        }
+            `#${activeHeading.id}`;
+        link.classList.toggle("is-active", isActive);
       });
     },
     {
-      // This creates a "trigger zone". An observation entry is created when a
-      // heading enters the area between 20% from the top and 20% from the bottom.
+      // ビューポートの上部20%から下部80%の範囲で見出しを監視
       rootMargin: "-20% 0px -80% 0px",
       threshold: 0,
     },
   );
 
+  // すべての見出しを監視対象に追加
   headings.forEach((heading) => observer.observe(heading));
 });
