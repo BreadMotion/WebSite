@@ -9,6 +9,9 @@ function formatDate(dateStr) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  const POSTS_PER_PAGE = 10;
+
+  // --- DOM Elements ---
   const listEl = document.getElementById("blogList");
   const emptyEl = document.getElementById(
     "blogEmptyMessage",
@@ -17,49 +20,61 @@ document.addEventListener("DOMContentLoaded", () => {
   const categorySelect = document.getElementById(
     "blogCategoryFilter",
   );
+  const paginationContainer = document.getElementById(
+    "paginationContainer",
+  );
 
   if (!listEl) return;
 
-  /** @type {Array<any>} */
+  // --- State ---
   let allPosts = [];
+  let currentPage = 1;
 
-  // -----------------------------
-  // URL パラメータ操作ヘルパ
-  // -----------------------------
+  // --- URL Parameter Handling ---
+  function updateUrlParams(keyword, category, page) {
+    const params = new URLSearchParams(
+      window.location.search,
+    );
+    // Remove one-off "tag" param if it exists
+    params.delete("tag");
+
+    if (keyword) params.set("q", keyword);
+    else params.delete("q");
+
+    if (category) params.set("category", category);
+    else params.delete("category");
+
+    if (page > 1) params.set("page", page);
+    else params.delete("page");
+
+    const newUrl = `${window.location.pathname}${params.toString() ? `?${params.toString()}` : ""}`;
+    history.replaceState(null, "", newUrl);
+  }
+
   function readInitialParams() {
     const params = new URLSearchParams(location.search);
-    // 優先順: tag -> q
     const tag = params.get("tag") || "";
     const q = params.get("q") || "";
     const category = params.get("category") || "";
 
-    const initial = tag || q;
-    if (searchInput && initial) {
-      searchInput.value = initial;
+    currentPage = parseInt(params.get("page"), 10) || 1;
+
+    if (searchInput) {
+      searchInput.value = tag || q;
     }
     if (categorySelect && category) {
+      // This runs after categories are populated
       categorySelect.value = category;
     }
   }
 
-  function updateUrlParams(keyword, category) {
-    const params = new URLSearchParams();
-    if (keyword) params.set("q", keyword);
-    if (category) params.set("category", category);
-    const newUrl =
-      location.pathname +
-      (params.toString() ? "?" + params.toString() : "");
-    history.replaceState(null, "", newUrl);
-  }
-
-  // -----------------------------
-  // JSON 読み込み
-  // -----------------------------
+  // --- Data Loading & Initialization ---
   async function loadPosts() {
     try {
       const res = await fetch("assets/data/blogList.json");
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       allPosts = await res.json();
+
       updateCategoryFilter();
       readInitialParams();
       render();
@@ -73,20 +88,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // -----------------------------
-  // カテゴリフィルタ更新
-  // -----------------------------
+  // --- UI Component Rendering ---
   function updateCategoryFilter() {
     if (!categorySelect) return;
-
     const categories = [
       ...new Set(
         allPosts.map((p) => p.category).filter(Boolean),
       ),
     ].sort();
 
-    // 既存のオプション（"すべて"以外）をクリア
-    const currentValue = categorySelect.value;
     while (categorySelect.options.length > 1) {
       categorySelect.remove(1);
     }
@@ -97,14 +107,66 @@ document.addEventListener("DOMContentLoaded", () => {
       option.textContent = cat;
       categorySelect.appendChild(option);
     });
-
-    // 以前選択されていた値を復元
-    categorySelect.value = currentValue;
   }
 
-  // -----------------------------
-  // 描画
-  // -----------------------------
+  function renderPagination(
+    totalPosts,
+    postsPerPage,
+    currentPage,
+  ) {
+    if (!paginationContainer) return;
+    paginationContainer.innerHTML = "";
+    const totalPages = Math.ceil(totalPosts / postsPerPage);
+
+    if (totalPages <= 1) return;
+
+    const createButton = (
+      text,
+      page,
+      isDisabled = false,
+      isActive = false,
+      className = "",
+    ) => {
+      const button = document.createElement("button");
+      button.className = `pagination__item ${className}`;
+      button.textContent = text;
+      button.disabled = isDisabled;
+      button.dataset.page = page;
+      if (isActive) {
+        button.classList.add("is-active");
+        button.setAttribute("aria-current", "page");
+      }
+      return button;
+    };
+
+    paginationContainer.appendChild(
+      createButton(
+        "‹",
+        currentPage - 1,
+        currentPage === 1,
+        false,
+        "pagination__item--prev",
+      ),
+    );
+
+    for (let i = 1; i <= totalPages; i++) {
+      paginationContainer.appendChild(
+        createButton(i, i, false, i === currentPage),
+      );
+    }
+
+    paginationContainer.appendChild(
+      createButton(
+        "›",
+        currentPage + 1,
+        currentPage === totalPages,
+        false,
+        "pagination__item--next",
+      ),
+    );
+  }
+
+  // --- Main Render Function ---
   function render() {
     const keyword = (searchInput?.value || "")
       .trim()
@@ -113,162 +175,172 @@ document.addEventListener("DOMContentLoaded", () => {
       categorySelect?.value || ""
     ).trim();
 
-    const filtered = allPosts.filter((post) => {
+    const filteredPosts = allPosts.filter((post) => {
       if (
         categoryFilter &&
         post.category !== categoryFilter
       )
         return false;
-
       if (keyword) {
         const tags = Array.isArray(post.tags)
           ? post.tags
           : String(post.tags || "")
               .split(",")
-              .map((t) => t.trim())
-              .filter(Boolean);
-
+              .map((t) => t.trim());
         const haystack = [
-          post.title || "",
-          post.description || "",
-          post.category || "",
+          post.title,
+          post.description,
+          post.category,
           ...tags,
         ]
           .join(" ")
           .toLowerCase();
-
         if (!haystack.includes(keyword)) return false;
       }
-
       return true;
     });
 
-    updateUrlParams(keyword, categoryFilter);
-
     listEl.innerHTML = "";
-    if (!filtered.length) {
+    if (paginationContainer)
+      paginationContainer.innerHTML = "";
+
+    if (!filteredPosts.length) {
       if (emptyEl) emptyEl.style.display = "block";
+      updateUrlParams(keyword, categoryFilter, 1);
       return;
     }
     if (emptyEl) emptyEl.style.display = "none";
 
-    filtered.forEach((post) => {
-      const card = document.createElement("article");
-      card.className = "card card--clickable blog-card";
+    const totalPosts = filteredPosts.length;
+    const totalPages = Math.ceil(
+      totalPosts / POSTS_PER_PAGE,
+    );
+    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage < 1) currentPage = 1;
 
-      if (post.thumbnail) {
-        const thumb = document.createElement("div");
-        thumb.className = "card__thumb";
-        const img = document.createElement("img");
-        img.src = post.thumbnail;
-        img.alt = post.title || "";
-        thumb.appendChild(img);
-        card.appendChild(thumb);
-      }
+    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+    const endIndex = startIndex + POSTS_PER_PAGE;
+    const postsToShow = filteredPosts.slice(
+      startIndex,
+      endIndex,
+    );
 
-      const body = document.createElement("div");
-      body.className = "card__body";
+    postsToShow.forEach(createAndAppendCard);
 
-      const meta = document.createElement("p");
-      meta.className = "card__meta";
-      const dateText = formatDate(post.date);
-      const categoryText = post.category || "";
-      meta.textContent = [dateText, categoryText]
-        .filter(Boolean)
-        .join(" / ");
-      body.appendChild(meta);
-
-      const titleRow = document.createElement("div");
-      titleRow.className = "card__title-row";
-
-      const title = document.createElement("h3");
-      title.className = "card__title";
-      title.textContent = post.title || "";
-      titleRow.appendChild(title);
-
-      body.appendChild(titleRow);
-
-      if (post.description) {
-        const desc = document.createElement("p");
-        desc.className = "card__description";
-        desc.textContent = post.description;
-        body.appendChild(desc);
-      }
-
-      const tagsArr = Array.isArray(post.tags)
-        ? post.tags
-        : String(post.tags || "")
-            .split(",")
-            .map((t) => t.trim())
-            .filter(Boolean);
-
-      if (tagsArr.length) {
-        const tagRow = document.createElement("div");
-        tagRow.className = "card__tags";
-        tagsArr.forEach((t) => {
-          const tag = document.createElement("span");
-          tag.className = "tag";
-          tag.textContent = t;
-
-          tag.addEventListener("click", (e) => {
-            e.stopPropagation();
-            if (searchInput) searchInput.value = t;
-            if (categorySelect) categorySelect.value = "";
-            render();
-            const params = new URLSearchParams();
-            params.set("q", t);
-            const newUrl =
-              location.pathname + "?" + params.toString();
-            history.replaceState(null, "", newUrl);
-          });
-
-          tag.tabIndex = 0;
-          tag.addEventListener("keydown", (ev) => {
-            if (ev.key === "Enter" || ev.key === " ") {
-              ev.preventDefault();
-              tag.click();
-            }
-          });
-
-          tagRow.appendChild(tag);
-        });
-        body.appendChild(tagRow);
-      }
-
-      card.appendChild(body);
-      card.addEventListener("click", () => {
-        if (post.contentPath) {
-          const params = new URLSearchParams();
-          const q = (searchInput?.value || "").trim();
-          const category = (
-            categorySelect?.value || ""
-          ).trim();
-          if (q) params.set("q", q);
-          if (category) params.set("category", category);
-          const target =
-            post.contentPath +
-            (params.toString()
-              ? "?" + params.toString()
-              : "");
-          window.location.href = target;
-        }
-      });
-
-      listEl.appendChild(card);
-    });
+    renderPagination(
+      totalPosts,
+      POSTS_PER_PAGE,
+      currentPage,
+    );
+    updateUrlParams(keyword, categoryFilter, currentPage);
   }
 
-  // -----------------------------
-  // イベント登録
-  // -----------------------------
+  function createAndAppendCard(post) {
+    const card = document.createElement("article");
+    card.className = "card card--clickable blog-card";
+
+    if (post.thumbnail) {
+      const thumb = document.createElement("div");
+      thumb.className = "card__thumb";
+      const img = document.createElement("img");
+      img.src = post.thumbnail;
+      img.alt = post.title || "";
+      thumb.appendChild(img);
+      card.appendChild(thumb);
+    }
+
+    const body = document.createElement("div");
+    body.className = "card__body";
+
+    const meta = document.createElement("p");
+    meta.className = "card__meta";
+    meta.textContent = [
+      formatDate(post.date),
+      post.category || "",
+    ]
+      .filter(Boolean)
+      .join(" / ");
+    body.appendChild(meta);
+
+    const title = document.createElement("h3");
+    title.className = "card__title";
+    title.textContent = post.title || "";
+    body.appendChild(title);
+
+    if (post.description) {
+      const desc = document.createElement("p");
+      desc.className = "card__description";
+      desc.textContent = post.description;
+      body.appendChild(desc);
+    }
+
+    const tagsArr = Array.isArray(post.tags)
+      ? post.tags
+      : String(post.tags || "")
+          .split(",")
+          .map((t) => t.trim())
+          .filter(Boolean);
+    if (tagsArr.length) {
+      const tagRow = document.createElement("div");
+      tagRow.className = "card__tags";
+      tagsArr.forEach((t) => {
+        const tag = document.createElement("span");
+        tag.className = "tag";
+        tag.textContent = t;
+        tag.addEventListener("click", (e) => {
+          e.stopPropagation();
+          if (searchInput) searchInput.value = t;
+          if (categorySelect) categorySelect.value = "";
+          currentPage = 1;
+          render();
+        });
+        tagRow.appendChild(tag);
+      });
+      body.appendChild(tagRow);
+    }
+
+    card.appendChild(body);
+    card.addEventListener("click", () => {
+      if (post.contentPath)
+        window.location.href = post.contentPath;
+    });
+    listEl.appendChild(card);
+  }
+
+  // --- Event Listeners ---
   if (searchInput) {
     searchInput.addEventListener("input", () => {
+      currentPage = 1;
       render();
     });
   }
   if (categorySelect) {
-    categorySelect.addEventListener("change", render);
+    categorySelect.addEventListener("change", () => {
+      currentPage = 1;
+      render();
+    });
+  }
+  if (paginationContainer) {
+    paginationContainer.addEventListener("click", (e) => {
+      const target = e.target.closest("button");
+      if (
+        target &&
+        target.dataset.page &&
+        !target.disabled
+      ) {
+        const page = parseInt(target.dataset.page, 10);
+        if (page !== currentPage) {
+          currentPage = page;
+          render();
+          listEl.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
+      }
+    });
   }
 
+  // --- Initial Load ---
   loadPosts();
 });
