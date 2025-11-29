@@ -28,8 +28,8 @@
   "image": [
     "https://breadmotion.github.io/WebSite/assets/img/zed_icon.png"
   ],
-  "datePublished": "2025-11-30T00:00:00.000Z",
-  "dateModified": "2025-11-30T00:00:00.000Z",
+  "datePublished": "2025-12-01T00:00:00.000Z",
+  "dateModified": "2025-12-01T00:00:00.000Z",
   "author": {
     "@type": "Person",
     "name": "PanKUN",
@@ -68,7 +68,7 @@
                 </ol>
               </nav>
               <header class="post-detail__header">
-                <p class="post-detail__meta">2025/11/30 / IDE</p>
+                <p class="post-detail__meta">2025/12/01 / IDE</p>
                 <h1 class="post-detail__title">ZedのAI機能活用術：Text Threadとスラッシュコマンド徹底解説</h1>
                 <p class="post-detail__description">ZedのRuleの使い方をまとめました</p>
                 <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=zed">zed</a> <a class="tag" href="../blog.html?tag=ai">ai</a></p>
@@ -98,19 +98,20 @@
   </div>
               </header>
               <section class="post-detail__body markdown-body"><p>こんにちは！パン君です。</p>
-<p>今回は、ZedエディタのAI機能周りで <strong>Text Thread</strong> (テキストスレッド) と <strong>スラッシュコマンド</strong> についてまとめてみました。<br><img src="../assets/img/blog_00017_0.png" alt="ZedのText Threadとスラッシュコマンド" title="" /></p>
-<h2 id="text-threadとは？">Text Threadとは？</h2><p>ZedのAssistant Panel（AIチャット画面）は単なるチャットUIではなく、実態は <strong>エディタのバッファ</strong> として扱われています。<br>つまり、通常のテキストファイルと同じように以下のことができます。</p>
+<p>今回はZedエディタのAI機能周りで <strong>Text Thread</strong> (テキストスレッド) と <strong>スラッシュコマンド</strong> についてまとめてみました。  </p>
+<p><img src="../assets/img/blog_00017_0.png" alt="ZedのText Threadとスラッシュコマンド" title="" /></p>
+<h2 id="text-threadとは？">Text Threadとは？</h2><p>ZedのAssistant Panel（AIチャット画面）は単なるチャットUIではなく,実態は <strong>エディタのバッファ</strong> として扱われています。<br>つまり通常のテキストファイルと同じように以下のことができます。</p>
 <ul>
 <li>カーソル操作やショートカットキーがそのまま使える</li>
 <li>複数のAIチャットをタブとして開いておける</li>
 <li>会話の内容をそのままテキストファイルとして保存できる</li>
 </ul>
-<p>これを活用することで過去の技術的な相談内容を <code>.md</code> ファイルとして保存し、ナレッジベースとして残すといった運用が可能になります。</p>
+<p>これを活用することで過去の技術的な相談内容を <code>.md</code> ファイルとして保存しナレッジベースとして残すといった運用が可能になります。</p>
 <h2 id="スラッシュコマンド--で定型処理を爆速化">スラッシュコマンド (<code>/</code>) で定型処理を爆速化</h2><p>前回紹介した <code>@</code> がコンテキスト（参照ファイルなど）を指定する機能だったのに対し、<br><strong>スラッシュコマンド (<code>/</code>)</strong> は <strong>「AIへの具体的な指示（プロンプト）」を呼び出す</strong> 機能です。</p>
-<p>例えば、「このコードをリファクタリングして」「日本語に翻訳して」「単体テストを書いて」といった、よく使う指示を <code>/</code> から始まるコマンドとして登録できます。</p>
-<h3 id="基本的な使い方">基本的な使い方</h3><p>Assistant Panelの入力欄で <code>/</code> を入力すると、登録されているコマンドのリストが表示されます。<br>選択してEnterを押すだけで、事前に設定したプロンプトが展開されます。</p>
-<p>これまでは毎回「～について解説してください」と手入力していた部分が、 <code>/explain</code> だけで済むようになります。</p>
-<h3 id="独自のスラッシュコマンドを作る">独自のスラッシュコマンドを作る</h3><p>Zedの強力な点は、このスラッシュコマンドを自分で定義できることです。<br>設定ファイル (<code>settings.json</code>) に以下のように記述することで追加できます。</p>
+<p>例えば「このコードをリファクタリングして」「日本語に翻訳して」「単体テストを書いて」といったよく使う指示を <code>/</code> から始まるコマンドとして登録できます。</p>
+<h3 id="基本的な使い方">基本的な使い方</h3><p>Assistant Panelの入力欄で <code>/</code> を入力すると、登録されているコマンドのリストが表示されます。<br>選択してEnterを押すだけで事前に設定したプロンプトが展開されます。</p>
+<p>これまでは毎回「～について解説してください」と手入力していた部分が <code>/explain</code> だけで済むようになります。</p>
+<h3 id="独自のスラッシュコマンドを作る">独自のスラッシュコマンドを作る</h3><p>Zedの強力な点はこのスラッシュコマンドを自分で定義できることです。<br>設定ファイル (<code>settings.json</code>) に以下のように記述することで追加できます。</p>
 <pre><code class="language-json">{
   &quot;assistant&quot;: {
     &quot;slash_commands&quot;: {
@@ -131,9 +132,9 @@
 <li><strong><code>@</code> (Context)</strong> : 「何について」話すか（ファイル、シンボル、ドキュメントなど）</li>
 <li><strong><code>/</code> (Command)</strong> : 「何をさせる」か（解説、修正、テスト生成など）</li>
 </ul>
-<p>この2つを組み合わせることで、<br><code>@main.rs /refactor</code><br>のように <strong>「対象」と「操作」をコマンドラインのように記述してAIに指示を出す</strong> ことが可能になります。これがZedのAI体験を高速化する鍵です。</p>
-<h2 id="まとめ">まとめ</h2><p>Text Threadによる履歴管理と、スラッシュコマンドによる定型プロンプトの呼び出しを組み合わせると、Zedは単なるエディタを超えた「自分専用の開発パートナー」になります。<br>特にスラッシュコマンドは、自分の好みのプロンプトを育てていく楽しさもあるので、ぜひ設定ファイルをいじってみてください。</p>
-<p>それでは、快適なZedライフを！</p>
+<p>この2つを組み合わせることで、<br><code>@main.rs /refactor</code><br>のように <strong>「対象」と「操作」をコマンドラインのように記述してAIに指示を出す</strong> ことが可能になります。<br>これがZedのAI体験を高速化する鍵です。</p>
+<h2 id="まとめ">まとめ</h2><p>Text Threadによる履歴管理とスラッシュコマンドによる定型プロンプトの呼び出しを組み合わせると、<br>Zedは単なるエディタを超えた「自分専用の開発パートナー」になります。<br>特にスラッシュコマンドは自分の好みのプロンプトを育てていく楽しさもあるのでぜひ設定ファイルをいじってみてください。</p>
+<p>それでは快適なZedライフを！</p>
 </section>
               <div class="share-buttons">
     <p class="share-buttons__title">SHARE</p>
