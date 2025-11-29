@@ -15,10 +15,10 @@
   },
   {
     "id": "blog_00017",
-    "title": "ZedのAI機能活用術：Text Threadとスラッシュコマンド徹底解説",
+    "title": "## Mastering Zed's AI Features: A Comprehensive Guide to Text Threads and Slash Commands",
     "date": "2025-11-30T00:00:00.000Z",
     "category": "IDE",
-    "description": "ZedのRuleの使い方をまとめました",
+    "description": "Here's a summary of how to use Zed's Rules.",
     "tags": [
       "zed",
       "ai"

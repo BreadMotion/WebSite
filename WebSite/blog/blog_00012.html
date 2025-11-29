@@ -100,7 +100,7 @@
               <section class="post-detail__body markdown-body"><p>こんにちは！パン君です。</p>
 <p>このポートフォリオサイトは GitHub Pages でホスティングしている静的なWebサイトです。  </p>
 <p>そしてお問い合わせを実装するにはメールに送信するための仕組みがいります。<br>API実装を常駐サーバーでトンネル通信をPlayit.ggを利用して行っていますが、数週間前からトンネルの作成が出来ずに困っています...<br>(公式には連絡したのですが...)</p>
-<p>そこで今回は、 <strong>Google Apps Script (GAS)</strong> を簡易的なバックエンドAPIとして利用し、完全無料でメール送信機能を実装しました。  </p>
+<p>そこで今回は <strong>Google Apps Script (GAS)</strong> を簡易的なバックエンドAPIとして利用し、完全無料でメール送信機能を実装しました。  </p>
 <h2 id="なぜ-gas-google-apps-script-なのか">なぜ GAS (Google Apps Script) なのか</h2><p>静的サイトでフォームを実装する方法はいくつかあります。  </p>
 <ol>
 <li><strong>Formspree などの外部サービスを使う</strong><ul>
@@ -174,9 +174,9 @@
 </code></pre>
 <p>これを「ウェブアプリ」としてデプロイし、アクセス権限を「全員 (Anyone)」に設定することで、外部から叩ける API URL が発行されます。  </p>
 <hr>
-<h2 id="フロントエンド実装-javascript">フロントエンド実装 (JavaScript)</h2><p>次に、この API を叩くフロントエンド側の処理です。<br><code>fetch</code> API を使って非同期送信を行います。</p>
+<h2 id="フロントエンド実装-javascript">フロントエンド実装 (JavaScript)</h2><p>次にこの API を叩くフロントエンド側の処理です。<br><code>fetch</code> API を使って非同期送信を行います。</p>
 <h3 id="corsのエラーを回避するコツ">CORSのエラーを回避するコツ</h3><p>GAS に対して <code>application/json</code> で POST すると、CORS (Cross-Origin Resource Sharing) のプリフライトリクエスト (OPTIONS) が発生し、GAS がうまく返答できずにエラーになることがあります。</p>
-<p>これを回避するために、あえて <code>text/plain</code> としてデータを送信する方法を採用しました。</p>
+<p>これを回避するためにあえて <code>text/plain</code> としてデータを送信する方法を採用しました。</p>
 <pre><code class="language-javascript">const GAS_API_URL = &quot;https://script.google.com/macros/s/xxxx/exec&quot;;
 
 form.addEventListener(&quot;submit&quot;, async (e) =&gt; {
@@ -208,19 +208,19 @@ form.addEventListener(&quot;submit&quot;, async (e) =&gt; {
 </code></pre>
 <p>GAS側では <code>JSON.parse(e.postData.contents)</code> で受け取ることで、問題なく JSON として扱えます。</p>
 <hr>
-<h2 id="デザインの調整">デザインの調整</h2><p>機能だけでなく、見た目もサイトのトーン＆マナーに合わせました。</p>
+<h2 id="デザインの調整">デザインの調整</h2><p>機能だけでなく見た目もサイトのトーン＆マナーに合わせました。</p>
 <ul>
 <li>必須項目のバッジ表示</li>
 <li>送信ボタンのローディングアニメーション</li>
 <li>スマホでの入力しやすさ（<code>input type=&quot;email&quot;</code> や <code>type=&quot;tel&quot;</code> の活用）</li>
 </ul>
-<p>特に送信ボタンは、押した後に「送信中...」であることが視覚的に分かるように、CSSアニメーションでスピナーを表示するようにしました。ユーザーが何度も連打してしまうのを防ぐ効果もあります。</p>
-<h2 id="まとめ">まとめ</h2><p>サーバーレスな環境でも、GAS を組み合わせることで本格的なお問い合わせフォームが実装できました。</p>
+<p>特に送信ボタンは押した後に「送信中...」であることが視覚的に分かるように、CSSアニメーションでスピナーを表示するようにしました。<br>ユーザーが何度も連打してしまうのを防ぐ効果もあります。</p>
+<h2 id="まとめ">まとめ</h2><p>サーバーレスな環境でも GAS を組み合わせることで本格的なお問い合わせフォームが実装できました。</p>
 <ul>
 <li><strong>GAS</strong> は無料かつ手軽なバックエンドとして優秀。</li>
 <li><code>fetch</code> の <code>Content-Type</code> を工夫することで CORS 問題を回避できる。</li>
 </ul>
-<p>これで、ポートフォリオサイトから直接お仕事の相談を受け付ける準備が整いました！</p>
+<p>これでポートフォリオサイトから直接お仕事の相談を受け付ける準備が整いました！</p>
 </section>
               <div class="share-buttons">
     <p class="share-buttons__title">SHARE</p>
