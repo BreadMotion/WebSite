@@ -161,7 +161,36 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           const a = document.createElement("a");
           a.className = "home-latest-link";
-          a.href = relativePrefix + work.contentPath;
+          a.href = "#";
+          a.addEventListener("click", (e) => {
+            e.preventDefault();
+            if (
+              work.contentPath &&
+              window.openPortfolioModal
+            ) {
+              const contentPath =
+                relativePrefix + work.contentPath;
+
+              // On the top page, if a tag link in the modal is clicked,
+              // navigate to the portfolio list page with that tag filtered.
+              const linkHandler = (tag) => {
+                const portfolioUrl = "portfolio.html";
+                if (tag) {
+                  window.location.href = `${portfolioUrl}?tag=${encodeURIComponent(
+                    tag,
+                  )}`;
+                } else {
+                  window.location.href = portfolioUrl;
+                }
+              };
+
+              window.openPortfolioModal(
+                contentPath,
+                isEn,
+                linkHandler,
+              );
+            }
+          });
 
           const titleSpan = document.createElement("span");
           titleSpan.className = "home-latest-link-title";
