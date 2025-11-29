@@ -108,13 +108,13 @@ document.addEventListener("DOMContentLoaded", async () => {
           return dateB - dateA;
         });
 
-        // 上位3件を取得（スコア0でもリストには入るので、関連なしなら最新順になる）
+        // 上位6件を取得（スコア0でもリストには入るので、関連なしなら最新順になる）
         targetPosts = scoredPosts
-          .slice(0, 3)
+          .slice(0, 6)
           .map((item) => item.post);
       } else {
         // 現在の記事が見つからない場合は最新記事を表示
-        targetPosts = posts.slice(0, 3);
+        targetPosts = posts.slice(0, 6);
       }
     } else {
       // ==========================================
@@ -140,11 +140,11 @@ document.addEventListener("DOMContentLoaded", async () => {
         targetPosts = popularIds
           .map((id) => posts.find((p) => p.id === id))
           .filter((p) => p !== undefined)
-          .slice(0, 3);
+          .slice(0, 6);
       }
 
       // 人気記事がない、または数が足りない場合 -> 「おすすめ記事」(recommended: true) で埋める
-      if (targetPosts.length < 3) {
+      if (targetPosts.length < 6) {
         const recommended = posts
           .filter((p) => p.recommended === true)
           .filter((p) => !targetPosts.includes(p)) // 重複除外
@@ -158,17 +158,17 @@ document.addEventListener("DOMContentLoaded", async () => {
             return dateB - dateA;
           });
 
-        const needed = 3 - targetPosts.length;
+        const needed = 6 - targetPosts.length;
         targetPosts = [
           ...targetPosts,
           ...recommended.slice(0, needed),
         ];
 
         // それでも足りなければ最新記事で埋める
-        if (targetPosts.length < 3) {
+        if (targetPosts.length < 6) {
           const latest = posts
             .filter((p) => !targetPosts.includes(p))
-            .slice(0, 3 - targetPosts.length);
+            .slice(0, 6 - targetPosts.length);
           targetPosts = [...targetPosts, ...latest];
         }
 
