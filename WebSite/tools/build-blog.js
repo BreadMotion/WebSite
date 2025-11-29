@@ -259,6 +259,10 @@ function createHtml({
             </div>
           </aside>
         </div>
+        <section class="section section--related">
+          <h2 class="section__title">${locale.related_title}</h2>
+          <div id="relatedList" class="recommend-grid"></div>
+        </section>
         <section class="section section--recommend">
           <h2 class="section__title">${locale.recommended_title}</h2>
           <div id="recommendList" class="recommend-grid"></div>
@@ -350,9 +354,6 @@ function createHtml({
       renderer.image = (href, title, text) => {
         let src = href;
         if (src && src.startsWith("../")) {
-          // Adjust relative paths for images
-          // ja (prefix=".."): "../assets" -> "../assets"
-          // en (prefix="../.."): "../assets" -> "../../assets"
           src = `${relativePrefix}/${src.substring(3)}`;
         }
         return `<img src="${src}" alt="${text}" title="${title || ""}" />`;
@@ -481,7 +482,6 @@ function createHtml({
     }
   }
 
-  // Clean up unused thumbnails
   if (fs.existsSync(THUMBNAIL_DIR)) {
     const allThumbnails = fs.readdirSync(THUMBNAIL_DIR);
     for (const file of allThumbnails) {
@@ -492,7 +492,6 @@ function createHtml({
     }
   }
 
-  // Sort and save JA list
   postsMap.ja.sort(
     (a, b) => new Date(b.date) - new Date(a.date),
   );
@@ -503,7 +502,6 @@ function createHtml({
   );
   console.log(`updated: assets/data/blogList.json`);
 
-  // Sort and save EN list
   postsMap.en.sort(
     (a, b) => new Date(b.date) - new Date(a.date),
   );

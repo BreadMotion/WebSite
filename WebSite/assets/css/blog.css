@@ -759,7 +759,7 @@
 }
 
 /* ==========================================================================
-   TOC Drawer Menu for Responsive
+   レスポンシブ対応のTOCメニュー
    ========================================================================== */
 .toc-toggle {
     display: none; /* PCでは非表示 */
@@ -908,6 +908,10 @@
 }
 
 .share-buttons__link--line:hover {
-    background-color: #06c755;
-    border-color: #06c755;
+    background-color: #00c300;
+    border-color: #00c300;
+}
+
+.section--related {
+    margin-top: 4rem;
 }
