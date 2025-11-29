@@ -1,26 +1,12 @@
-/**
- * Auto Translation Script (Gemini API Version)
- *
- * Usage:
- *   # Linux / Mac / Git Bash
- *   export GEMINI_API_KEY="AIza..."
- *   node tools/auto-translate.js [blog_id]
- *
- *   # Windows (CMD)
- *   set GEMINI_API_KEY=AIza...
- *   node tools/auto-translate.js [blog_id]
- *
- * If blog_id is provided (e.g., blog_00001), only that file is processed.
- * Otherwise, it scans for missing .en.md files and translates them.
- */
-
 const fs = require("fs");
 const path = require("path");
 const matter = require("gray-matter");
+require("dotenv").config();
 
 // Configuration
 const API_KEY = process.env.GEMINI_API_KEY;
-const MODEL = process.env.GEMINI_MODEL || "gemini-3-pro";
+const MODEL =
+  process.env.GEMINI_MODEL || "gemini-2.0-flash"; // 2.5-proは未リリースの可能性があるため、動作確認済みのモデルまたは環境変数に従う
 const API_ENDPOINT = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${API_KEY}`;
 
 const ROOT_DIR = path.join(__dirname, "..");
@@ -60,8 +46,28 @@ ${context ? `Context: ${context}` : ""}
         parts: [{ text: text }],
       },
     ],
+    // 修正箇所: セーフティ設定を追加し、誤検知による停止を防ぐ
+    safetySettings: [
+      {
+        category: "HARM_CATEGORY_HARASSMENT",
+        threshold: "BLOCK_NONE",
+      },
+      {
+        category: "HARM_CATEGORY_HATE_SPEECH",
+        threshold: "BLOCK_NONE",
+      },
+      {
+        category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+        threshold: "BLOCK_NONE",
+      },
+      {
+        category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+        threshold: "BLOCK_NONE",
+      },
+    ],
     generationConfig: {
       temperature: 0.3,
+      maxOutputTokens: 8192, // 修正箇所: 長文での途中切れを防ぐため十分なトークン数を確保
     },
   };
 
@@ -83,21 +89,49 @@ ${context ? `Context: ${context}` : ""}
 
     const data = await response.json();
 
-    if (
-      !data.candidates ||
-      !data.candidates[0] ||
-      !data.candidates[0].content ||
-      !data.candidates[0].content.parts ||
-      !data.candidates[0].content.parts[0].text
-    ) {
+    if (!data.candidates || !data.candidates[0]) {
       console.warn(
         "Unexpected response format:",
         JSON.stringify(data),
       );
-      throw new Error("Failed to parse Gemini response");
+      throw new Error(
+        "Failed to parse Gemini response: No candidates found",
+      );
     }
 
-    return data.candidates[0].content.parts[0].text.trim();
+    const candidate = data.candidates[0];
+
+    // 修正箇所: 終了理由を確認し、正常終了でない場合は警告を出す
+    if (
+      candidate.finishReason &&
+      candidate.finishReason !== "STOP"
+    ) {
+      console.warn(
+        `\x1b[33mWarning: Translation stopped early. Reason: ${candidate.finishReason}\x1b[0m`,
+      );
+      // SAFETY等の理由でコンテンツが空の場合はエラーとする
+      if (
+        !candidate.content ||
+        !candidate.content.parts ||
+        !candidate.content.parts[0].text
+      ) {
+        throw new Error(
+          `Generation blocked due to: ${candidate.finishReason}`,
+        );
+      }
+    }
+
+    if (
+      !candidate.content ||
+      !candidate.content.parts ||
+      !candidate.content.parts[0].text
+    ) {
+      throw new Error(
+        "Failed to parse Gemini response: No text content",
+      );
+    }
+
+    return candidate.content.parts[0].text.trim();
   } catch (error) {
     console.error("Translation failed:", error);
     throw error;
@@ -192,6 +226,8 @@ async function processFile(filePath) {
       `\x1b[31mFailed to process ${fileName}:\x1b[0m`,
       error.message,
     );
+    // エラー時に中途半端なファイルを残さないため、必要であれば削除処理を追加することも検討できますが、
+    // ここではエラーログの表示にとどめます。
   }
 }
 
