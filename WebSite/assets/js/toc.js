@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     {
       // ビューポートの上部20%から下部80%の範囲で見出しを監視
-      rootMargin: "-20% 0px -80% 0px",
+      rootMargin: "-60px 0px 0px 0px",
       threshold: 0,
     },
   );
