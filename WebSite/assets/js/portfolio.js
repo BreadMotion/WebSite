@@ -10,12 +10,6 @@ document.addEventListener("DOMContentLoaded", () => {
     "portfolioCategoryFilter",
   );
 
-  // モーダル要素
-  let modalOverlay,
-    modalContainer,
-    modalContent,
-    modalCloseBtn;
-
   if (!listEl) return;
 
   /** @type {Array<any>} */
@@ -414,8 +408,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
       // カード全体クリックでモーダル表示
       card.addEventListener("click", () => {
-        if (work.contentPath) {
-          openModal(work.contentPath);
+        if (work.contentPath && window.openPortfolioModal) {
+          const lang = document.documentElement.lang;
+          const isEn = lang === "en";
+
+          // モーダル内のタグクリック時のハンドラ
+          const linkHandler = (tag) => {
+            if (tag && searchInput) {
+              searchInput.value = tag;
+              if (categorySelect) categorySelect.value = "";
+              render();
+              updateUrlParams(tag, "");
+            }
+          };
+
+          window.openPortfolioModal(
+            work.contentPath,
+            isEn,
+            linkHandler,
+          );
         }
       });
 
@@ -424,7 +435,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // 初期化実行
-  initModal();
+
   if (searchInput) {
     searchInput.addEventListener("input", render);
   }
