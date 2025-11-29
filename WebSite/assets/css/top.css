@@ -190,47 +190,6 @@
 }
 
 /* ==========================================================================
-   2. ボタン (Disabled)
-   ========================================================================== */
-/*
-.btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1.25rem;
-    border-radius: var(--radius-md);
-    font-size: 1rem;
-    font-weight: 600;
-    border: 1px solid transparent;
-    cursor: pointer;
-    text-decoration: none;
-    transition: var(--transition-smooth);
-}
-
-.btn-primary {
-    background: linear-gradient(
-        135deg,
-        var(--color-accent-dark) 0%,
-        var(--color-accent) 100%
-    );
-    border-color: var(--color-accent-dark);
-    color: #fff;
-    box-shadow: var(--shadow-md);
-}
-
-.btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg), var(--shadow-glow);
-    background: linear-gradient(
-        135deg,
-        var(--color-accent) 0%,
-        var(--color-accent-dark) 100%
-    );
-}
-*/
-
-/* ==========================================================================
    3. サイドパネル
    ========================================================================== */
 .hero-side {
@@ -466,7 +425,7 @@
 
 /* コンテンツカードのリンク化対応 */
 .section--top-grid .card-list li {
-    display: flex; /* aタグの高さを揃えるためにflex化 */
+    display: flex;
 }
 
 .card--link {
@@ -486,7 +445,7 @@
 }
 
 .card--link p {
-    flex-grow: 1; /* 下部余白を埋めて、"もっと見る"を下揃えに */
+    flex-grow: 1;
 }
 
 .card__more {
@@ -518,7 +477,7 @@
 }
 
 /* ==========================================================================
-   8. 最近の更新（サイドバー）の改善
+   8. 最近の更新（サイドバー）
    ========================================================================== */
 .home-latest-item {
     background: var(--color-surface);
