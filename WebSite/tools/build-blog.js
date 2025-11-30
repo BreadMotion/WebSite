@@ -220,14 +220,14 @@ function createHtml({
     <meta property="og:url" content="${canonicalUrl}" />
     <meta property="og:image" content="${imageUrl}" />
     <meta property="og:site_name" content="PanKUN" />
-    <link rel="icon" type="image/png" href="${relativePrefix}/assets/img/favicon-32.png" sizes="32x32">
     <link rel="shortcut icon" href="${pathPrefix}/../favicon.ico">
+    <link rel="icon" type="image/png" href="${pathPrefix}/assets/img/favicon-32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="${pathPrefix}/assets/img/favicon-192.png" sizes="192x192">
     <link rel="apple-touch-icon" href="${pathPrefix}/assets/img/favicon-192.png">
     <link rel="stylesheet" href="${pathPrefix}/assets/css/base.css" />
+    <link rel="stylesheet" href="${pathPrefix}/assets/css/prism.css" />
     <link rel="stylesheet" href="${pathPrefix}/assets/css/layout.css" />
     <link rel="stylesheet" href="${pathPrefix}/assets/css/blog.css" />
-    <link rel="stylesheet" href="${relativePrefix}/assets/css/blog.css" />
   </head>
   <body data-page="blog">
     <div class="page-shell">
