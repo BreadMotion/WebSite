@@ -128,10 +128,18 @@ document.addEventListener("DOMContentLoaded", async () => {
           const dateText = formatDate(post.date);
           metaSpan.textContent = `${dateText}${categoryText}`;
 
+          const div = document.createElement("div");
+          div.className = "home-latest-link-thumbnail";
+
+          const img = document.createElement("img");
+          img.src = relativePrefix + post.thumbnail;
+
           a.appendChild(titleSpan);
           a.appendChild(metaSpan);
+          a.appendChild(div);
           li.appendChild(a);
           blogListEl.appendChild(li);
+          div.appendChild(img);
         });
       }
     } catch (err) {
@@ -205,6 +213,17 @@ document.addEventListener("DOMContentLoaded", async () => {
 
           a.appendChild(titleSpan);
           a.appendChild(metaSpan);
+
+          if (work.thumbnail) {
+            const div = document.createElement("div");
+            div.className = "home-latest-link-thumbnail";
+            const img = document.createElement("img");
+            img.src = relativePrefix + work.thumbnail;
+            img.alt = "";
+            div.appendChild(img);
+            a.appendChild(div);
+          }
+
           li.appendChild(a);
           portListEl.appendChild(li);
         });
