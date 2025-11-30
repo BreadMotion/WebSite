@@ -3,7 +3,7 @@
    ========================================================================== */
 .hero {
     display: grid;
-    grid-template-columns: minmax(0, 3fr) minmax(0, 2.2fr);
+    grid-template-columns: 1fr;
     gap: 2.25rem;
     align-items: stretch;
     margin-bottom: 2.5rem;
@@ -207,8 +207,8 @@
 }
 
 .home-latest {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.25rem;
 }
 
