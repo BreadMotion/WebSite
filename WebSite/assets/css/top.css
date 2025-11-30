@@ -374,6 +374,7 @@
         font-size: 1.3rem;
     }
     .home-latest {
+        grid-template-columns: 1fr;
         gap: 1rem;
     }
     .home-latest-block {
@@ -485,6 +486,8 @@
     border-radius: var(--radius-md);
     padding: 1rem;
     transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
 }
 
 .home-latest-item:hover {
@@ -495,7 +498,7 @@
 }
 
 .home-latest-link:hover {
-    transform: none; /* 親のliで動かすので無効化 */
+    transform: none;
     color: inherit;
 }
 
@@ -507,4 +510,48 @@
 
 .home-latest-item:hover .home-latest-link-title {
     color: var(--color-accent);
+}
+
+@property --mask-percent {
+    syntax: "<percentage>";
+    initial-value: 30%;
+    inherits: false;
+}
+
+.home-latest-link-thumbnail {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    pointer-events: none;
+    --mask-percent: 30%;
+
+    mask-image: linear-gradient(
+        to right,
+        transparent var(--mask-percent),
+        black 100%
+    );
+    -webkit-mask-image: linear-gradient(
+        to right,
+        transparent var(--mask-percent),
+        black 100%
+    );
+    transition: --mask-percent 0.2s ease;
+}
+
+.home-latest-link-thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.5;
+    transition: opacity 0.2s ease;
+}
+
+.home-latest-item:hover .home-latest-link-thumbnail {
+    --mask-percent: 10%;
+}
+
+.home-latest-item:hover .home-latest-link-thumbnail img {
+    opacity: 1;
 }
