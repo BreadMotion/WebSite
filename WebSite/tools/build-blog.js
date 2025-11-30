@@ -131,6 +131,7 @@ function createHtml({
   lang,
   relativePrefix,
 }) {
+  const pathPrefix = lang === "ja" ? ".." : "../..";
   const safeTitle = escapeHtml(title);
   const safeDesc = escapeHtml(description || "");
   const safeDate = escapeHtml(formatDate(date));
@@ -145,7 +146,7 @@ function createHtml({
     .map((t) => escapeHtml(t));
 
   const tagsHtml = safeTagsArr.length
-    ? `<p class="post-detail__tags">${safeTagsArr.map((t) => `<a class="tag" href="${relativePrefix}/blog.html?tag=${encodeURIComponent(t)}">${t}</a>`).join(" ")}</p>`
+    ? `<p class="post-detail__tags">${safeTagsArr.map((t) => `<a class="tag" href="${pathPrefix}/blog.html?tag=${encodeURIComponent(t)}">${t}</a>`).join(" ")}</p>`
     : "";
 
   const canonicalUrl =
@@ -219,11 +220,13 @@ function createHtml({
     <meta property="og:url" content="${canonicalUrl}" />
     <meta property="og:image" content="${imageUrl}" />
     <meta property="og:site_name" content="PanKUN" />
-    <link rel="shortcut icon" href="${relativePrefix}/../favicon.ico">
-    <link rel="icon" type="image/png" href="${relativePrefix}/assets/img/favicon-192.png" sizes="192x192">
-    <link rel="apple-touch-icon" href="${relativePrefix}/assets/img/favicon-192.png">
-    <link rel="stylesheet" href="${relativePrefix}/assets/css/base.css" />
-    <link rel="stylesheet" href="${relativePrefix}/assets/css/layout.css" />
+    <link rel="icon" type="image/png" href="${relativePrefix}/assets/img/favicon-32.png" sizes="32x32">
+    <link rel="shortcut icon" href="${pathPrefix}/../favicon.ico">
+    <link rel="icon" type="image/png" href="${pathPrefix}/assets/img/favicon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="${pathPrefix}/assets/img/favicon-192.png">
+    <link rel="stylesheet" href="${pathPrefix}/assets/css/base.css" />
+    <link rel="stylesheet" href="${pathPrefix}/assets/css/layout.css" />
+    <link rel="stylesheet" href="${pathPrefix}/assets/css/blog.css" />
     <link rel="stylesheet" href="${relativePrefix}/assets/css/blog.css" />
   </head>
   <body data-page="blog">
@@ -234,8 +237,8 @@ function createHtml({
             <article class="post-detail">
               <nav aria-label="breadcrumb" class="breadcrumb">
                 <ol class="breadcrumb__list">
-                  <li class="breadcrumb__item"><a href="${relativePrefix}/index.html">${locale.breadcrumb_home}</a></li>
-                  <li class="breadcrumb__item"><a href="${relativePrefix}/blog.html">${locale.breadcrumb_blog}</a></li>
+                  <li class="breadcrumb__item"><a href="${pathPrefix}/index.html">${locale.breadcrumb_home}</a></li>
+                  <li class="breadcrumb__item"><a href="${pathPrefix}/blog.html">${locale.breadcrumb_blog}</a></li>
                   <li class="breadcrumb__item" aria-current="page">${safeTitle}</li>
                 </ol>
               </nav>
@@ -249,7 +252,7 @@ function createHtml({
               <section class="post-detail__body markdown-body">${bodyHtml}</section>
               ${shareButtonsHtml}
               <div class="post-detail__nav post-detail__nav--bottom">
-                <a href="${relativePrefix}/blog.html" class="btn btn--back">${locale.back_to_blog}</a>
+                <a href="${pathPrefix}/blog.html" class="btn btn--back">${locale.back_to_blog}</a>
               </div>
             </article>
           </div>
@@ -277,13 +280,13 @@ function createHtml({
         <span>${locale.toc_button_text}</span>
       </button>
     </div>
-    <script src="${relativePrefix}/assets/js/layout.js" defer></script>
-    <script src="${relativePrefix}/assets/js/ui.js"></script>
+    <script src="${pathPrefix}/assets/js/layout.js" defer></script>
+    <script src="${pathPrefix}/assets/js/ui.js"></script>
     <canvas id="menuAnimationCanvas"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
-    <script src="${relativePrefix}/assets/js/particles.js"></script>
-    <script src="${relativePrefix}/assets/js/toc.js" defer></script>
-    <script src="${relativePrefix}/assets/js/recommend.js" defer></script>
+    <script src="${pathPrefix}/assets/js/particles.js"></script>
+    <script src="${pathPrefix}/assets/js/toc.js" defer></script>
+    <script src="${pathPrefix}/assets/js/recommend.js" defer></script>
   </body>
 </html>`;
 }
