@@ -1,5 +1,19 @@
 [
   {
+    "id": "blog_00018",
+    "title": "I Tried Controlling Discord from the Terminal with Discordo",
+    "date": "2025-12-02T00:00:00.000Z",
+    "category": "Discord",
+    "description": "This article provides a clear and easy-to-understand guide on how to install and use \"Discordo,\" a terminal-based Discord client, specifically for Windows environments.",
+    "tags": [
+      "discord",
+      "terminal"
+    ],
+    "thumbnail": "assets/img/thumbnails/blog_00018.png",
+    "contentPath": "blog/en/blog_00018.html",
+    "recommended": true
+  },
+  {
     "id": "blog_00016",
     "title": "Adding Rules in Zed",
     "date": "2025-11-30T00:00:00.000Z",

@@ -1,5 +1,19 @@
 [
   {
+    "id": "blog_00018",
+    "title": "DiscordoでDiscordをターミナルから触ってみた",
+    "date": "2025-12-02T00:00:00.000Z",
+    "category": "Discord",
+    "description": "ターミナルで動作するDiscordクライアント『Discordo』の導入方法と使い方を、Windows環境向けに分かりやすく解説します。",
+    "tags": [
+      "discord",
+      "terminal"
+    ],
+    "thumbnail": "assets/img/thumbnails/blog_00018.png",
+    "contentPath": "blog/blog_00018.html",
+    "recommended": true
+  },
+  {
     "id": "blog_00017",
     "title": "ZedのAI機能活用術：Text Threadとスラッシュコマンド徹底解説",
     "date": "2025-12-01T00:00:00.000Z",
