@@ -2,31 +2,29 @@ document.addEventListener("DOMContentLoaded", () => {
   const shell =
     document.querySelector(".page-shell") || document.body;
 
-  // 修正: 'WebSite' ディレクトリを基準とした相対パスを取得する
+  // 'WebSite' ディレクトリを基準とした相対パスを取得する
   const getCurrentRelativePath = () => {
     const pathname = location.pathname;
-    // 'WebSite' ディレクトリより前の部分を削除
-    const webSiteIndex = pathname.indexOf("/WebSite/");
     let relativePath = pathname;
 
+    // パスから '/WebSite/' より前の部分を削除
+    const webSiteIndex = pathname.indexOf("/WebSite/");
     if (webSiteIndex !== -1) {
-      // '/WebSite/' の後の部分を取得 (先頭の '/' も含む)
+      // '/WebSite/' の後の部分を取得 (例: en/blog/blog_00018.html)
       relativePath = pathname.substring(
-        webSiteIndex + "/WebSite".length,
+        webSiteIndex + "/WebSite/".length,
       );
-    } else {
-      // 'WebSite' がない場合は、先頭の '/' を削除したパス
-      relativePath = pathname.startsWith("/")
-        ? pathname.substring(1)
-        : pathname;
+    } else if (pathname.startsWith("/")) {
+      // 'WebSite' がない場合は、先頭の '/' を削除
+      relativePath = pathname.substring(1);
     }
 
-    // パスが空またはディレクトリの場合は 'index.html' (仮定)
+    // パスが空またはディレクトリの場合は 'index.html' (ルートページと仮定)
     if (relativePath === "" || relativePath.endsWith("/")) {
       relativePath += "index.html";
     }
 
-    return relativePath;
+    return relativePath; // 例: index.html, blog/blog_00001.html, en/blog/blog_00001.html
   };
 
   const currentPath = getCurrentRelativePath();
@@ -72,21 +70,14 @@ document.addEventListener("DOMContentLoaded", () => {
         .filter((segment) => segment.length > 0);
       let depth = 0;
       const webSiteIndex = pathSegments.indexOf("WebSite");
+
       if (webSiteIndex !== -1) {
-        // 'WebSite' ディレクトリが基準
-        depth = pathSegments.length - (webSiteIndex + 1); // WebSite より下の階層数
-      } else {
-        // 'WebSite' がない場合の階層深さを計算 (例: /page.html なら 0, /dir/page.html なら 1)
-        // ファイル名を除いたパスセグメントの数とする
-        const isFile =
-          pathSegments.length > 0 &&
-          pathSegments[pathSegments.length - 1].includes(
-            ".",
-          );
-        depth = isFile
-          ? pathSegments.length - 1
-          : pathSegments.length;
+        // 'WebSite' ディレクトリを基準として、それより下の階層数を計算
+        // depthはWebSite以下のセグメント数から1(ファイル名)を引いたもの
+        depth = pathSegments.length - (webSiteIndex + 1);
+        // 例: /WebSite/a/b/c.html -> depth = 3
       }
+      // ... (WebSiteがない場合のロジックは前回と同様でOK) ...
 
       // ベースURLのプレフィックスを生成 (例: "../../" for depth 2)
       const relativeRootPrefix = "../".repeat(depth);
@@ -131,21 +122,56 @@ document.addEventListener("DOMContentLoaded", () => {
         const isEn = document.documentElement.lang === "en";
         const search = window.location.search || "";
 
-        // 言語プレフィックスを削除したクリーンなパスを取得
-        // 'en/' ディレクトリ構成を仮定し、現在のパスから言語プレフィックスを取り除く
-        let cleanPath = currentPath;
-        if (cleanPath.startsWith("en/")) {
-          cleanPath = cleanPath.slice(3); // 'en/' の 3 文字を削除
+        // 現在のURLパス (例: /WebSite/blog/en/blog_00018.html)
+        const pathname = location.pathname;
+
+        // ファイル名のみを取得 (例: blog_00018.html)
+        const currentFilename = getFilename(pathname);
+
+        let targetPath = currentFilename; // ターゲットの基本はファイル名
+
+        // 1. ターゲットとなるディレクトリ構造を決定
+        if (pathname.includes("/blog/")) {
+          // ブログページの場合
+          if (isEn) {
+            // 英語 -> 日本語へ切り替え: /WebSite/blog/ + ファイル名
+            targetPath = `blog/${targetPath}`;
+          } else {
+            // 日本語 -> 英語へ切り替え: /WebSite/blog/en/ + ファイル名
+            targetPath = `blog/en/${targetPath}`;
+          }
+        } else {
+          // ブログ以外のページの場合 (index.htmlなど)
+          if (isEn) {
+            // 英語 -> 日本語へ切り替え: /WebSite/ + ファイル名
+            // targetPathはそのまま
+          } else {
+            // 日本語 -> 英語へ切り替え: /WebSite/en/ + ファイル名
+            targetPath = `en/${targetPath}`;
+          }
         }
 
-        // 切り替え先の言語のプレフィックスを設定
-        const targetLangPrefix = isEn ? "" : "en/"; // en -> (なし), その他 -> en/
+        // 2. ターゲットURLを生成:
+        // relativeRootPrefix: 現在のページから WebSite/ の直下にアクセスするための相対パス
+        // targetPath: WebSite/ からのターゲット相対パス (例: blog/en/blog_00018.html)
+        const targetUrl = `${relativeRootPrefix}${targetPath}${search}`;
 
-        // ターゲットURLを生成: 相対ルート + ターゲット言語プレフィックス + クリーンなパス + クエリ
-        const targetUrl = `${relativeRootPrefix}${targetLangPrefix}${cleanPath}${search}`;
+        // index.htmlの特殊処理: targetPathがindex.htmlでrelativeRootPrefixがない場合、ルートを指す
+        if (
+          targetPath === "index.html" &&
+          relativeRootPrefix === ""
+        ) {
+          targetUrl = `./${targetPath}${search}`;
+        } else if (
+          targetPath === "index.html" &&
+          relativeRootPrefix.length > 0
+        ) {
+          // blog/ から /index.html に戻る場合など
+          targetUrl = `${relativeRootPrefix}${targetPath}${search}`;
+        }
+
         langSwitch.setAttribute("href", targetUrl);
       }
-
       const navToggle =
         document.querySelector(".nav-toggle");
       const siteNav = document.querySelector(".site-nav");
