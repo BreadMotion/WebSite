@@ -1,142 +1,417 @@
 <!doctype html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <title>静的サイトにお問い合わせフォームを実装する (GAS連携) | PanKUN Blog</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。" />
-    <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00012.html" />
-    <link rel="alternate" hreflang="ja" href="https://breadmotion.github.io/WebSite/blog/blog_00012.html" />
-    <link rel="alternate" hreflang="en" href="https://breadmotion.github.io/WebSite/blog/en/blog_00012.html" />
-    <link rel="alternate" hreflang="x-default" href="https://breadmotion.github.io/WebSite/blog/en/blog_00012.html" />
-    <!-- Google AdSense -->
-<script
-    async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5284984614496391"
-    crossorigin="anonymous"
-></script>
+    <head>
+        <meta charset="UTF-8" />
+        <title>
+            静的サイトにお問い合わせフォームを実装する
+            (GAS連携) | PanKUN Blog
+        </title>
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1"
+        />
+        <meta
+            name="description"
+            content="GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。"
+        />
+        <link
+            rel="canonical"
+            href="https://breadmotion.github.io/WebSite/blog/blog_00012.html"
+        />
+        <link
+            rel="alternate"
+            hreflang="ja"
+            href="https://breadmotion.github.io/WebSite/blog/blog_00012.html"
+        />
+        <link
+            rel="alternate"
+            hreflang="en"
+            href="https://breadmotion.github.io/WebSite/blog/en/blog_00012.html"
+        />
+        <link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://breadmotion.github.io/WebSite/blog/en/blog_00012.html"
+        />
+        <!-- Google AdSense -->
+        <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5284984614496391"
+            crossorigin="anonymous"
+        ></script>
 
-    <script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://breadmotion.github.io/WebSite/blog/blog_00012.html"
-  },
-  "headline": "静的サイトにお問い合わせフォームを実装する (GAS連携)",
-  "description": "GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。",
-  "image": [
-    "https://breadmotion.github.io/WebSite/assets/img/ogp.png"
-  ],
-  "datePublished": "2025-11-27T00:00:00.000Z",
-  "dateModified": "2025-11-27T00:00:00.000Z",
-  "author": {
-    "@type": "Person",
-    "name": "PanKUN",
-    "url": "https://breadmotion.github.io/WebSite"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "PanKUN",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
-    }
-  }
-}</script>
-    <meta property="og:title" content="静的サイトにお問い合わせフォームを実装する (GAS連携) | PanKUN Blog" />
-    <meta property="og:description" content="GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/blog_00012.html" />
-    <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/ogp.png" />
-    <meta property="og:site_name" content="PanKUN" />
-    <link rel="shortcut icon" href="../../favicon.ico">
-    <link rel="icon" type="image/png" href="../assets/img/favicon-192.png" sizes="192x192">
-    <link rel="apple-touch-icon" href="../assets/img/favicon-192.png">
-    <link rel="stylesheet" href="../assets/css/base.css" />
-    <link rel="stylesheet" href="../assets/css/layout.css" />
-    <link rel="stylesheet" href="../assets/css/blog.css" />
-  </head>
-  <body data-page="blog">
-    <div class="page-shell">
-      <main class="main-container">
-        <div class="post-layout">
-          <div class="post-content">
-            <article class="post-detail">
-              <nav aria-label="breadcrumb" class="breadcrumb">
-                <ol class="breadcrumb__list">
-                  <li class="breadcrumb__item"><a href="../index.html">ホーム</a></li>
-                  <li class="breadcrumb__item"><a href="../blog.html">ブログ</a></li>
-                  <li class="breadcrumb__item" aria-current="page">静的サイトにお問い合わせフォームを実装する (GAS連携)</li>
-                </ol>
-              </nav>
-              <header class="post-detail__header">
-                <p class="post-detail__meta">2025/11/27 / 技術メモ</p>
-                <h1 class="post-detail__title">静的サイトにお問い合わせフォームを実装する (GAS連携)</h1>
-                <p class="post-detail__description">GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。</p>
-                <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=gas">gas</a> <a class="tag" href="../blog.html?tag=javascript">javascript</a></p>
-                <div class="share-buttons">
-    <p class="share-buttons__title">SHARE</p>
-    <ul class="share-buttons__list">
-      
-        <li class="share-buttons__item">
-          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00012.html&text=%E9%9D%99%E7%9A%84%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%82%92%E5%AE%9F%E8%A3%85%E3%81%99%E3%82%8B%20(GAS%E9%80%A3%E6%90%BA)" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitterでシェア">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-          </a>
-        </li>
-      
-        <li class="share-buttons__item">
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00012.html" class="share-buttons__link share-buttons__link--facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebookでシェア">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"></path></svg>
-          </a>
-        </li>
-      
-        <li class="share-buttons__item">
-          <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00012.html" class="share-buttons__link share-buttons__link--line" target="_blank" rel="noopener noreferrer" aria-label="LINEでシェア">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"></path></svg>
-          </a>
-        </li>
-      
-    </ul>
-  </div>
-              </header>
-              <section class="post-detail__body markdown-body"><p>こんにちは！パン君です。</p>
-<p>このポートフォリオサイトは GitHub Pages でホスティングしている静的なWebサイトです。  </p>
-<p>そしてお問い合わせを実装するにはメールに送信するための仕組みがいります。<br>API実装を常駐サーバーでトンネル通信をPlayit.ggを利用して行っていますが、数週間前からトンネルの作成が出来ずに困っています...<br>(公式には連絡したのですが...)</p>
-<p>そこで今回は <strong>Google Apps Script (GAS)</strong> を簡易的なバックエンドAPIとして利用し、完全無料でメール送信機能を実装しました。  </p>
-<h2 id="なぜ-gas-google-apps-script-なのか">なぜ GAS (Google Apps Script) なのか</h2><p>静的サイトでフォームを実装する方法はいくつかあります。  </p>
-<ol>
-<li><strong>Formspree などの外部サービスを使う</strong><ul>
-<li>簡単だが、無料枠に制限があったり、送信後にサービスのページにリダイレクトされたりすることがある。</li>
-</ul>
-</li>
-<li><strong>Google Forms を埋め込む</strong><ul>
-<li>一番簡単だが、デザインがサイトと統一できない。</li>
-</ul>
-</li>
-<li><strong>AWS Lambda + API Gateway</strong><ul>
-<li>柔軟だが、構築が少し手間でお金がかかる可能性も。</li>
-</ul>
-</li>
-<li><strong>GAS (Google Apps Script)</strong><ul>
-<li>無料で使える。</li>
-<li>JavaScriptで書ける。</li>
-<li><code>GmailApp</code> を使って簡単にメール送信できる。</li>
-<li>Web APIとして公開できる。</li>
-</ul>
-</li>
-</ol>
-<p>今回は「自前でコントロールしたい」「コストをかけたくない」「JavaScriptで完結させたい」という理由から、 <strong>GAS</strong> を採用しました。  </p>
-<hr>
-<h2 id="バックエンド実装-gas">バックエンド実装 (GAS)</h2><p>まずはバックエンドとなる GAS のコードです。<br>フォームから POST されたデータを受け取り、自分のメールアドレスに送信する処理を書きます。  </p>
-<h3 id="ポイント">ポイント</h3><ul>
-<li><code>doPost(e)</code> 関数で POST リクエストを受け取る。</li>
-<li><code>e.postData.contents</code> をパースしてデータを取り出す。</li>
-<li><code>GmailApp.sendEmail</code> でメールを送る。</li>
-<li><strong>CORS対策</strong> として、適切なヘッダーを返す必要がある。</li>
-</ul>
-<p>実際のコード（抜粋）はこんな感じです。</p>
-<pre><code class="language-javascript">function doPost(e) {
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "BlogPosting",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https://breadmotion.github.io/WebSite/blog/blog_00012.html"
+                },
+                "headline": "静的サイトにお問い合わせフォームを実装する (GAS連携)",
+                "description": "GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。",
+                "image": [
+                    "https://breadmotion.github.io/WebSite/assets/img/ogp.png"
+                ],
+                "datePublished": "2025-11-27T00:00:00.000Z",
+                "dateModified": "2025-11-27T00:00:00.000Z",
+                "author": {
+                    "@type": "Person",
+                    "name": "PanKUN",
+                    "url": "https://breadmotion.github.io/WebSite"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "PanKUN",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
+                    }
+                }
+            }
+        </script>
+        <meta
+            property="og:title"
+            content="静的サイトにお問い合わせフォームを実装する (GAS連携) | PanKUN Blog"
+        />
+        <meta
+            property="og:description"
+            content="GitHub Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google Apps Script利用）をまとめました。"
+        />
+        <meta property="og:type" content="article" />
+        <meta
+            property="og:url"
+            content="https://breadmotion.github.io/WebSite/blog/blog_00012.html"
+        />
+        <meta
+            property="og:image"
+            content="https://breadmotion.github.io/WebSite/assets/img/ogp.png"
+        />
+        <meta property="og:site_name" content="PanKUN" />
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <link
+            rel="icon"
+            type="image/png"
+            href="../assets/img/favicon-192.png"
+            sizes="192x192"
+        />
+        <link
+            rel="apple-touch-icon"
+            href="../assets/img/favicon-192.png"
+        />
+        <link
+            rel="stylesheet"
+            href="../assets/css/base.css"
+        />
+        <link
+            rel="stylesheet"
+            href="../assets/css/layout.css"
+        />
+        <link
+            rel="stylesheet"
+            href="../assets/css/blog.css"
+        />
+    </head>
+    <body data-page="blog">
+        <div class="page-shell">
+            <main class="main-container">
+                <div class="post-layout">
+                    <div class="post-content">
+                        <article class="post-detail">
+                            <nav
+                                aria-label="breadcrumb"
+                                class="breadcrumb"
+                            >
+                                <ol
+                                    class="breadcrumb__list"
+                                >
+                                    <li
+                                        class="breadcrumb__item"
+                                    >
+                                        <a
+                                            href="../index.html"
+                                            >ホーム</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="breadcrumb__item"
+                                    >
+                                        <a
+                                            href="../blog.html"
+                                            >ブログ</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="breadcrumb__item"
+                                        aria-current="page"
+                                    >
+                                        静的サイトにお問い合わせフォームを実装する
+                                        (GAS連携)
+                                    </li>
+                                </ol>
+                            </nav>
+                            <header
+                                class="post-detail__header"
+                            >
+                                <p
+                                    class="post-detail__meta"
+                                >
+                                    2025/11/27 / 技術メモ
+                                </p>
+                                <h1
+                                    class="post-detail__title"
+                                >
+                                    静的サイトにお問い合わせフォームを実装する
+                                    (GAS連携)
+                                </h1>
+                                <p
+                                    class="post-detail__description"
+                                >
+                                    GitHub
+                                    Pagesなどの静的サイトで、サーバーを持たずにお問い合わせフォームを実装する方法（Google
+                                    Apps
+                                    Script利用）をまとめました。
+                                </p>
+                                <p
+                                    class="post-detail__tags"
+                                >
+                                    <a
+                                        class="tag"
+                                        href="../blog.html?tag=gas"
+                                        >gas</a
+                                    >
+                                    <a
+                                        class="tag"
+                                        href="../blog.html?tag=javascript"
+                                        >javascript</a
+                                    >
+                                </p>
+                                <div class="share-buttons">
+                                    <p
+                                        class="share-buttons__title"
+                                    >
+                                        SHARE
+                                    </p>
+                                    <ul
+                                        class="share-buttons__list"
+                                    >
+                                        <li
+                                            class="share-buttons__item"
+                                        >
+                                            <a
+                                                href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00012.html&text=%E9%9D%99%E7%9A%84%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%82%92%E5%AE%9F%E8%A3%85%E3%81%99%E3%82%8B%20(GAS%E9%80%A3%E6%90%BA)"
+                                                class="share-buttons__link share-buttons__link--twitter"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label="Twitterでシェア"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                                    width="20"
+                                                    height="20"
+                                                >
+                                                    <path
+                                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                                                    ></path>
+                                                </svg>
+                                            </a>
+                                        </li>
+
+                                        <li
+                                            class="share-buttons__item"
+                                        >
+                                            <a
+                                                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00012.html"
+                                                class="share-buttons__link share-buttons__link--facebook"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label="Facebookでシェア"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                                    width="20"
+                                                    height="20"
+                                                >
+                                                    <path
+                                                        d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"
+                                                    ></path>
+                                                </svg>
+                                            </a>
+                                        </li>
+
+                                        <li
+                                            class="share-buttons__item"
+                                        >
+                                            <a
+                                                href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00012.html"
+                                                class="share-buttons__link share-buttons__link--line"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label="LINEでシェア"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                                    width="20"
+                                                    height="20"
+                                                >
+                                                    <path
+                                                        d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"
+                                                    ></path>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </header>
+                            <section
+                                class="post-detail__body markdown-body"
+                            >
+                                <p>
+                                    こんにちは！パン君です。
+                                </p>
+                                <p>
+                                    このポートフォリオサイトは
+                                    GitHub Pages
+                                    でホスティングしている静的なWebサイトです。
+                                </p>
+                                <p>
+                                    そしてお問い合わせを実装するにはメールに送信するための仕組みがいります。<br />API実装を常駐サーバーでトンネル通信をPlayit.ggを利用して行っていますが、数週間前からトンネルの作成が出来ずに困っています...<br />(公式には連絡したのですが...)
+                                </p>
+                                <p>
+                                    そこで今回は
+                                    <strong
+                                        >Google Apps Script
+                                        (GAS)</strong
+                                    >
+                                    を簡易的なバックエンドAPIとして利用し、完全無料でメール送信機能を実装しました。
+                                </p>
+                                <h2
+                                    id="なぜ-gas-google-apps-script-なのか"
+                                >
+                                    なぜ GAS (Google Apps
+                                    Script) なのか
+                                </h2>
+                                <p>
+                                    静的サイトでフォームを実装する方法はいくつかあります。
+                                </p>
+                                <ol>
+                                    <li>
+                                        <strong
+                                            >Formspree
+                                            などの外部サービスを使う</strong
+                                        >
+                                        <ul>
+                                            <li>
+                                                簡単だが、無料枠に制限があったり、送信後にサービスのページにリダイレクトされたりすることがある。
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <strong
+                                            >Google Forms
+                                            を埋め込む</strong
+                                        >
+                                        <ul>
+                                            <li>
+                                                一番簡単だが、デザインがサイトと統一できない。
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <strong
+                                            >AWS Lambda +
+                                            API
+                                            Gateway</strong
+                                        >
+                                        <ul>
+                                            <li>
+                                                柔軟だが、構築が少し手間でお金がかかる可能性も。
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <strong
+                                            >GAS (Google
+                                            Apps
+                                            Script)</strong
+                                        >
+                                        <ul>
+                                            <li>
+                                                無料で使える。
+                                            </li>
+                                            <li>
+                                                JavaScriptで書ける。
+                                            </li>
+                                            <li>
+                                                <code
+                                                    >GmailApp</code
+                                                >
+                                                を使って簡単にメール送信できる。
+                                            </li>
+                                            <li>
+                                                Web
+                                                APIとして公開できる。
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                                <p>
+                                    今回は「自前でコントロールしたい」「コストをかけたくない」「JavaScriptで完結させたい」という理由から、
+                                    <strong>GAS</strong>
+                                    を採用しました。
+                                </p>
+                                <hr />
+                                <h2
+                                    id="バックエンド実装-gas"
+                                >
+                                    バックエンド実装 (GAS)
+                                </h2>
+                                <p>
+                                    まずはバックエンドとなる
+                                    GAS のコードです。<br />フォームから
+                                    POST
+                                    されたデータを受け取り、自分のメールアドレスに送信する処理を書きます。
+                                </p>
+                                <h3 id="ポイント">
+                                    ポイント
+                                </h3>
+                                <ul>
+                                    <li>
+                                        <code
+                                            >doPost(e)</code
+                                        >
+                                        関数で POST
+                                        リクエストを受け取る。
+                                    </li>
+                                    <li>
+                                        <code
+                                            >e.postData.contents</code
+                                        >
+                                        をパースしてデータを取り出す。
+                                    </li>
+                                    <li>
+                                        <code
+                                            >GmailApp.sendEmail</code
+                                        >
+                                        でメールを送る。
+                                    </li>
+                                    <li>
+                                        <strong
+                                            >CORS対策</strong
+                                        >
+                                        として、適切なヘッダーを返す必要がある。
+                                    </li>
+                                </ul>
+                                <p>
+                                    実際のコード（抜粋）はこんな感じです。
+                                </p>
+                                <pre><code class="language-javascript">function doPost(e) {
   // CORS対策ヘッダー
   const headers = {
     &quot;Access-Control-Allow-Origin&quot;: &quot;*&quot;,
@@ -175,16 +450,53 @@
   }
 }
 </code></pre>
-<p>これを「ウェブアプリ」としてデプロイし、アクセス権限を「全員 (Anyone)」に設定することで、外部から叩ける API URL が発行されます。  </p>
-<hr>
-<h2 id="フロントエンド実装-javascript">フロントエンド実装 (JavaScript)</h2><p>次にこの API を叩くフロントエンド側の処理です。<br><code>fetch</code> API を使って非同期送信を行います。</p>
-<h3 id="corsのエラーを回避するコツ">CORSのエラーを回避するコツ</h3><p>GAS に対して <code>application/json</code> で POST すると、CORS (Cross-Origin Resource Sharing) のプリフライトリクエスト (OPTIONS) が発生し、GAS がうまく返答できずにエラーになることがあります。</p>
-<p>これを回避するためにあえて <code>text/plain</code> としてデータを送信する方法を採用しました。</p>
-<pre><code class="language-javascript">const GAS_API_URL = &quot;https://script.google.com/macros/s/xxxx/exec&quot;;
+                                <p>
+                                    これを「ウェブアプリ」としてデプロイし、アクセス権限を「全員
+                                    (Anyone)」に設定することで、外部から叩ける
+                                    API URL が発行されます。
+                                </p>
+                                <hr />
+                                <h2
+                                    id="フロントエンド実装-javascript"
+                                >
+                                    フロントエンド実装
+                                    (JavaScript)
+                                </h2>
+                                <p>
+                                    次にこの API
+                                    を叩くフロントエンド側の処理です。<br /><code
+                                        >fetch</code
+                                    >
+                                    API
+                                    を使って非同期送信を行います。
+                                </p>
+                                <h3
+                                    id="corsのエラーを回避するコツ"
+                                >
+                                    CORSのエラーを回避するコツ
+                                </h3>
+                                <p>
+                                    GAS に対して
+                                    <code
+                                        >application/json</code
+                                    >
+                                    で POST すると、CORS
+                                    (Cross-Origin Resource
+                                    Sharing)
+                                    のプリフライトリクエスト
+                                    (OPTIONS) が発生し、GAS
+                                    がうまく返答できずにエラーになることがあります。
+                                </p>
+                                <p>
+                                    これを回避するためにあえて
+                                    <code>text/plain</code>
+                                    としてデータを送信する方法を採用しました。
+                                </p>
+                                <pre><code class="language-javascript">const GAS_API_URL = &quot;https://script.google.com/macros/s/xxxx/exec&quot;;
 
 form.addEventListener(&quot;submit&quot;, async (e) =&gt; {
     e.preventDefault();
-    
+
     // 入力データの収集
     const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
@@ -209,81 +521,282 @@ form.addEventListener(&quot;submit&quot;, async (e) =&gt; {
     }
 });
 </code></pre>
-<p>GAS側では <code>JSON.parse(e.postData.contents)</code> で受け取ることで、問題なく JSON として扱えます。</p>
-<hr>
-<h2 id="デザインの調整">デザインの調整</h2><p>機能だけでなく見た目もサイトのトーン＆マナーに合わせました。</p>
-<ul>
-<li>必須項目のバッジ表示</li>
-<li>送信ボタンのローディングアニメーション</li>
-<li>スマホでの入力しやすさ（<code>input type=&quot;email&quot;</code> や <code>type=&quot;tel&quot;</code> の活用）</li>
-</ul>
-<p>特に送信ボタンは押した後に「送信中...」であることが視覚的に分かるように、CSSアニメーションでスピナーを表示するようにしました。<br>ユーザーが何度も連打してしまうのを防ぐ効果もあります。</p>
-<h2 id="まとめ">まとめ</h2><p>サーバーレスな環境でも GAS を組み合わせることで本格的なお問い合わせフォームが実装できました。</p>
-<ul>
-<li><strong>GAS</strong> は無料かつ手軽なバックエンドとして優秀。</li>
-<li><code>fetch</code> の <code>Content-Type</code> を工夫することで CORS 問題を回避できる。</li>
-</ul>
-<p>これでポートフォリオサイトから直接お仕事の相談を受け付ける準備が整いました！</p>
-</section>
-              <div class="share-buttons">
-    <p class="share-buttons__title">SHARE</p>
-    <ul class="share-buttons__list">
-      
-        <li class="share-buttons__item">
-          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00012.html&text=%E9%9D%99%E7%9A%84%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%82%92%E5%AE%9F%E8%A3%85%E3%81%99%E3%82%8B%20(GAS%E9%80%A3%E6%90%BA)" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitterでシェア">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-          </a>
-        </li>
-      
-        <li class="share-buttons__item">
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00012.html" class="share-buttons__link share-buttons__link--facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebookでシェア">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"></path></svg>
-          </a>
-        </li>
-      
-        <li class="share-buttons__item">
-          <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00012.html" class="share-buttons__link share-buttons__link--line" target="_blank" rel="noopener noreferrer" aria-label="LINEでシェア">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"></path></svg>
-          </a>
-        </li>
-      
-    </ul>
-  </div>
-              <div class="post-detail__nav post-detail__nav--bottom">
-                <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
-              </div>
-            </article>
-          </div>
-          <aside class="post-sidebar">
-            <div class="toc-sticky-container">
-              <nav class="toc">
-                <h2 class="toc__title">目次</h2>
-                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#なぜ-gas-google-apps-script-なのか">なぜ GAS (Google Apps Script) なのか</a></li><li class="toc-item toc-item--level-2"><a href="#バックエンド実装-gas">バックエンド実装 (GAS)</a></li><li class="toc-item toc-item--level-3"><a href="#ポイント">ポイント</a></li><li class="toc-item toc-item--level-2"><a href="#フロントエンド実装-javascript">フロントエンド実装 (JavaScript)</a></li><li class="toc-item toc-item--level-3"><a href="#corsのエラーを回避するコツ">CORSのエラーを回避するコツ</a></li><li class="toc-item toc-item--level-2"><a href="#デザインの調整">デザインの調整</a></li><li class="toc-item toc-item--level-2"><a href="#まとめ">まとめ</a></li></ul>
-              </nav>
-            </div>
-          </aside>
+                                <p>
+                                    GAS側では
+                                    <code
+                                        >JSON.parse(e.postData.contents)</code
+                                    >
+                                    で受け取ることで、問題なく
+                                    JSON として扱えます。
+                                </p>
+                                <hr />
+                                <h2 id="デザインの調整">
+                                    デザインの調整
+                                </h2>
+                                <p>
+                                    機能だけでなく見た目もサイトのトーン＆マナーに合わせました。
+                                </p>
+                                <ul>
+                                    <li>
+                                        必須項目のバッジ表示
+                                    </li>
+                                    <li>
+                                        送信ボタンのローディングアニメーション
+                                    </li>
+                                    <li>
+                                        スマホでの入力しやすさ（<code
+                                            >input
+                                            type=&quot;email&quot;</code
+                                        >
+                                        や
+                                        <code
+                                            >type=&quot;tel&quot;</code
+                                        >
+                                        の活用）
+                                    </li>
+                                </ul>
+                                <p>
+                                    特に送信ボタンは押した後に「送信中...」であることが視覚的に分かるように、CSSアニメーションでスピナーを表示するようにしました。<br />ユーザーが何度も連打してしまうのを防ぐ効果もあります。
+                                </p>
+                                <h2 id="まとめ">まとめ</h2>
+                                <p>
+                                    サーバーレスな環境でも
+                                    GAS
+                                    を組み合わせることで本格的なお問い合わせフォームが実装できました。
+                                </p>
+                                <ul>
+                                    <li>
+                                        <strong>GAS</strong>
+                                        は無料かつ手軽なバックエンドとして優秀。
+                                    </li>
+                                    <li>
+                                        <code>fetch</code>
+                                        の
+                                        <code
+                                            >Content-Type</code
+                                        >
+                                        を工夫することで
+                                        CORS
+                                        問題を回避できる。
+                                    </li>
+                                </ul>
+                                <p>
+                                    これでポートフォリオサイトから直接お仕事の相談を受け付ける準備が整いました！
+                                </p>
+                            </section>
+                            <div class="share-buttons">
+                                <p
+                                    class="share-buttons__title"
+                                >
+                                    SHARE
+                                </p>
+                                <ul
+                                    class="share-buttons__list"
+                                >
+                                    <li
+                                        class="share-buttons__item"
+                                    >
+                                        <a
+                                            href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00012.html&text=%E9%9D%99%E7%9A%84%E3%82%B5%E3%82%A4%E3%83%88%E3%81%AB%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%E3%83%95%E3%82%A9%E3%83%BC%E3%83%A0%E3%82%92%E5%AE%9F%E8%A3%85%E3%81%99%E3%82%8B%20(GAS%E9%80%A3%E6%90%BA)"
+                                            class="share-buttons__link share-buttons__link--twitter"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="Twitterでシェア"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                width="20"
+                                                height="20"
+                                            >
+                                                <path
+                                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                                                ></path>
+                                            </svg>
+                                        </a>
+                                    </li>
+
+                                    <li
+                                        class="share-buttons__item"
+                                    >
+                                        <a
+                                            href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00012.html"
+                                            class="share-buttons__link share-buttons__link--facebook"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="Facebookでシェア"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                width="20"
+                                                height="20"
+                                            >
+                                                <path
+                                                    d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"
+                                                ></path>
+                                            </svg>
+                                        </a>
+                                    </li>
+
+                                    <li
+                                        class="share-buttons__item"
+                                    >
+                                        <a
+                                            href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00012.html"
+                                            class="share-buttons__link share-buttons__link--line"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="LINEでシェア"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                width="20"
+                                                height="20"
+                                            >
+                                                <path
+                                                    d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"
+                                                ></path>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div
+                                class="post-detail__nav post-detail__nav--bottom"
+                            >
+                                <a
+                                    href="../blog.html"
+                                    class="btn btn--back"
+                                    >← ブログ一覧へ戻る</a
+                                >
+                            </div>
+                        </article>
+                    </div>
+                    <aside class="post-sidebar">
+                        <div class="toc-sticky-container">
+                            <nav class="toc">
+                                <h2 class="toc__title">
+                                    目次
+                                </h2>
+                                <ul class="toc-list">
+                                    <li
+                                        class="toc-item toc-item--level-2"
+                                    >
+                                        <a
+                                            href="#なぜ-gas-google-apps-script-なのか"
+                                            >なぜ GAS
+                                            (Google Apps
+                                            Script)
+                                            なのか</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="toc-item toc-item--level-2"
+                                    >
+                                        <a
+                                            href="#バックエンド実装-gas"
+                                            >バックエンド実装
+                                            (GAS)</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="toc-item toc-item--level-3"
+                                    >
+                                        <a href="#ポイント"
+                                            >ポイント</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="toc-item toc-item--level-2"
+                                    >
+                                        <a
+                                            href="#フロントエンド実装-javascript"
+                                            >フロントエンド実装
+                                            (JavaScript)</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="toc-item toc-item--level-3"
+                                    >
+                                        <a
+                                            href="#corsのエラーを回避するコツ"
+                                            >CORSのエラーを回避するコツ</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="toc-item toc-item--level-2"
+                                    >
+                                        <a
+                                            href="#デザインの調整"
+                                            >デザインの調整</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="toc-item toc-item--level-2"
+                                    >
+                                        <a href="#まとめ"
+                                            >まとめ</a
+                                        >
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </aside>
+                </div>
+                <section class="section section--related">
+                    <h2 class="section__title">
+                        undefined
+                    </h2>
+                    <div
+                        id="relatedList"
+                        class="recommend-grid"
+                    ></div>
+                </section>
+                <section class="section section--recommend">
+                    <h2 class="section__title">
+                        おすすめ記事
+                    </h2>
+                    <div
+                        id="recommendList"
+                        class="recommend-grid"
+                    ></div>
+                </section>
+            </main>
+            <div class="toc-overlay"></div>
+            <button
+                type="button"
+                class="toc-toggle"
+                aria-label="目次を開く"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    width="20"
+                    height="20"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"
+                    ></path>
+                </svg>
+                <span>目次</span>
+            </button>
         </div>
-        <section class="section section--related">
-          <h2 class="section__title">undefined</h2>
-          <div id="relatedList" class="recommend-grid"></div>
-        </section>
-        <section class="section section--recommend">
-          <h2 class="section__title">おすすめ記事</h2>
-          <div id="recommendList" class="recommend-grid"></div>
-        </section>
-      </main>
-      <div class="toc-overlay"></div>
-      <button type="button" class="toc-toggle" aria-label="目次を開く">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
-        <span>目次</span>
-      </button>
-    </div>
-    <script src="../assets/js/layout.js" defer></script>
-    <script src="../assets/js/ui.js"></script>
-    <canvas id="menuAnimationCanvas"></canvas>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
-    <script src="../assets/js/particles.js"></script>
-    <script src="../assets/js/toc.js" defer></script>
-    <script src="../assets/js/recommend.js" defer></script>
-  </body>
+        <script src="../assets/js/layout.js" defer></script>
+        <script src="../assets/js/ui.js"></script>
+        <canvas id="menuAnimationCanvas"></canvas>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+        <script src="../assets/js/particles.js"></script>
+        <script src="../assets/js/toc.js" defer></script>
+        <script
+            src="../assets/js/recommend.js"
+            defer
+        ></script>
+    </body>
 </html>

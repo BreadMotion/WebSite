@@ -1,188 +1,601 @@
 <!doctype html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <title>自作Discord Botを公開したらスパムに悪用された話 | PanKUN Blog</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。" />
-    <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/blog_00011.html" />
-    <link rel="alternate" hreflang="ja" href="https://breadmotion.github.io/WebSite/blog/blog_00011.html" />
-    <link rel="alternate" hreflang="en" href="https://breadmotion.github.io/WebSite/blog/en/blog_00011.html" />
-    <link rel="alternate" hreflang="x-default" href="https://breadmotion.github.io/WebSite/blog/en/blog_00011.html" />
-    <!-- Google AdSense -->
-<script
-    async
-    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5284984614496391"
-    crossorigin="anonymous"
-></script>
+    <head>
+        <meta charset="UTF-8" />
+        <title>
+            自作Discord Botを公開したらスパムに悪用された話
+            | PanKUN Blog
+        </title>
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1"
+        />
+        <meta
+            name="description"
+            content="自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。"
+        />
+        <link
+            rel="canonical"
+            href="https://breadmotion.github.io/WebSite/blog/blog_00011.html"
+        />
+        <link
+            rel="alternate"
+            hreflang="ja"
+            href="https://breadmotion.github.io/WebSite/blog/blog_00011.html"
+        />
+        <link
+            rel="alternate"
+            hreflang="en"
+            href="https://breadmotion.github.io/WebSite/blog/en/blog_00011.html"
+        />
+        <link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://breadmotion.github.io/WebSite/blog/en/blog_00011.html"
+        />
+        <!-- Google AdSense -->
+        <script
+            async
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5284984614496391"
+            crossorigin="anonymous"
+        ></script>
 
-    <script type="application/ld+json">{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://breadmotion.github.io/WebSite/blog/blog_00011.html"
-  },
-  "headline": "自作Discord Botを公開したらスパムに悪用された話",
-  "description": "自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。",
-  "image": [
-    "https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00011.png"
-  ],
-  "datePublished": "2025-11-26T00:00:00.000Z",
-  "dateModified": "2025-11-26T00:00:00.000Z",
-  "author": {
-    "@type": "Person",
-    "name": "PanKUN",
-    "url": "https://breadmotion.github.io/WebSite"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "PanKUN",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
-    }
-  }
-}</script>
-    <meta property="og:title" content="自作Discord Botを公開したらスパムに悪用された話 | PanKUN Blog" />
-    <meta property="og:description" content="自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/blog_00011.html" />
-    <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00011.png" />
-    <meta property="og:site_name" content="PanKUN" />
-    <link rel="shortcut icon" href="../../favicon.ico">
-    <link rel="icon" type="image/png" href="../assets/img/favicon-192.png" sizes="192x192">
-    <link rel="apple-touch-icon" href="../assets/img/favicon-192.png">
-    <link rel="stylesheet" href="../assets/css/base.css" />
-    <link rel="stylesheet" href="../assets/css/layout.css" />
-    <link rel="stylesheet" href="../assets/css/blog.css" />
-  </head>
-  <body data-page="blog">
-    <div class="page-shell">
-      <main class="main-container">
-        <div class="post-layout">
-          <div class="post-content">
-            <article class="post-detail">
-              <nav aria-label="breadcrumb" class="breadcrumb">
-                <ol class="breadcrumb__list">
-                  <li class="breadcrumb__item"><a href="../index.html">ホーム</a></li>
-                  <li class="breadcrumb__item"><a href="../blog.html">ブログ</a></li>
-                  <li class="breadcrumb__item" aria-current="page">自作Discord Botを公開したらスパムに悪用された話</li>
-                </ol>
-              </nav>
-              <header class="post-detail__header">
-                <p class="post-detail__meta">2025/11/26 / Discord</p>
-                <h1 class="post-detail__title">自作Discord Botを公開したらスパムに悪用された話</h1>
-                <p class="post-detail__description">自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。</p>
-                <p class="post-detail__tags"><a class="tag" href="../blog.html?tag=discord">discord</a> <a class="tag" href="../blog.html?tag=nodejs">nodejs</a> <a class="tag" href="../blog.html?tag=security">security</a></p>
-                <div class="share-buttons">
-    <p class="share-buttons__title">SHARE</p>
-    <ul class="share-buttons__list">
-      
-        <li class="share-buttons__item">
-          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00011.html&text=%E8%87%AA%E4%BD%9CDiscord%20Bot%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%9F%E3%82%89%E3%82%B9%E3%83%91%E3%83%A0%E3%81%AB%E6%82%AA%E7%94%A8%E3%81%95%E3%82%8C%E3%81%9F%E8%A9%B1" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitterでシェア">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-          </a>
-        </li>
-      
-        <li class="share-buttons__item">
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00011.html" class="share-buttons__link share-buttons__link--facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebookでシェア">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"></path></svg>
-          </a>
-        </li>
-      
-        <li class="share-buttons__item">
-          <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00011.html" class="share-buttons__link share-buttons__link--line" target="_blank" rel="noopener noreferrer" aria-label="LINEでシェア">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"></path></svg>
-          </a>
-        </li>
-      
-    </ul>
-  </div>
-              </header>
-              <section class="post-detail__body markdown-body"><p>こんにちは!パン君です。</p>
-<p>今回は個人で運用していた <strong>Discord Botを公開したら大失敗した</strong> という話になります。</p>
-<p>先日、僕が運営しているゲーム開発サーバーで事件が起きました。<br>なんと自作ボットが乗っ取られたかのように、 <strong>全く関係ないDiscordサーバーの招待URLをひたすら連投し始めた</strong> んです。<br>原因は僕が作ったボットの <strong>アーキテクチャに潜んでいた致命的な設計ミス</strong> でした。  </p>
-<p>今回は自戒を込めて、僕がやらかしたミスとその対策を全部ここに書き残しておこうと思います。</p>
-<h2 id="何が問題だったのか？">何が問題だったのか？</h2><p>原因は大きく分けて2つありました。</p>
-<h3 id="1-どのサーバーからでも、他のサーバーにコマンドが実行できた">1. どのサーバーからでも、他のサーバーにコマンドが実行できた</h3><p>詳細は<a href="https://breadmotion.github.io/WebSite/blog/blog_00008.html">こちらの記事</a>でも書いたアーキテクチャが根本的な問題でした。<br>開発者向けにボットを追加しなくても色々な機能を追加できることを目指した結果、「どのサーバーからでもコマンドを実行できる」という仕様になっていたんです。  </p>
-<p><strong>【なぜこれがヤバかったか？】</strong><br>この仕様のせいで攻撃者は <strong>自分のサーバーから、僕のゲーム開発サーバーに対してメッセージを送信する</strong> という離れ業が可能になっていました。<br>つまり、Aサーバーで実行したコマンドが全く無関係なBサーバーで発動してしまう状態だったんです。これがスパムの直接的な原因でした。  </p>
-<p>普通に考えたらマズいですよね。<br>ファイルベースでも良いので、サーバー（ギルド）ごとに実行できるコマンドを管理すべきでした。  </p>
-<h3 id="2-参加サーバーの一覧をリポジトリで公開していた">2. 参加サーバーの一覧をリポジトリで公開していた</h3><p>これも致命的でした。<br>ボットが参加しているサーバーの情報を <code>guilds.json</code> というファイルで管理していたのですが、これを <strong>GitHubの公開リポジトリにアップしてしまっていた</strong> んです。  </p>
-<p><strong>【なぜこれがヤバかったか？】</strong><br><code>guilds.json</code> には、ボットが参加している全てのサーバーIDがリストアップされていました。<br>攻撃者はこのリストを手に入れ、標的となるサーバー（僕のゲーム開発サーバー）のIDを特定し、そこに向けてスパムメッセージを送信していたわけです。<br>個人情報じゃないとはいえ、サーバーIDも立派な機密情報でした...。  </p>
-<h2 id="今後の対策">今後の対策</h2><p>今回の反省を踏まえて、ボットの仕組みを根本から見直すことにしました。</p>
-<ol>
-<li><p><strong>Botアプリの再作成 &amp; トークンの完全リセット</strong><br>まずは今のボットアプリを完全に削除して、新しいアプリとして作り直します。トークンをリセットするだけじゃ不十分なので、クリーンな状態から再スタートです。</p>
-</li>
-<li><p><strong>ギルドごとの権限管理を徹底</strong><br>コマンドが他のサーバーに影響を与えないように、サーバーID（ギルドID）で完全に処理を分離します。今後はファイルベースのDBで、サーバーごとに許可するコマンドを管理する仕組みを導入します。</p>
-</li>
-<li><p><strong>招待方法を「リクエスト制」に変更</strong><br>誰がボットを使っているかを僕が把握できるように、招待は公開制をやめて、僕への直接連絡によるリクエスト制に切り替えます。</p>
-</li>
-<li><p><strong>リポジトリのクリーンアップ</strong><br>ソースコードは引き続き公開しますが、<code>guilds.json</code>のような機密情報を含んでしまう可能性があるファイルはリポジトリから完全に削除し、<code>.gitignore</code>でしっかり管理するようにします。</p>
-</li>
-</ol>
-<h2 id="まとめ">まとめ</h2><p>というわけで、今回は僕の盛大なやらかしについての話でした。<br>「誰でも使えるように」という手軽さを重視した結果、セキュリティという一番大事な視点が抜け落ちていたなと深く反省しています。  </p>
-<p>ボットはもっと安全な形に作り直していくので、もし「それでも使ってみたい！」と思ってくれる人がいたら気軽に声をかけてくれると嬉しいです。</p>
-</section>
-              <div class="share-buttons">
-    <p class="share-buttons__title">SHARE</p>
-    <ul class="share-buttons__list">
-      
-        <li class="share-buttons__item">
-          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00011.html&text=%E8%87%AA%E4%BD%9CDiscord%20Bot%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%9F%E3%82%89%E3%82%B9%E3%83%91%E3%83%A0%E3%81%AB%E6%82%AA%E7%94%A8%E3%81%95%E3%82%8C%E3%81%9F%E8%A9%B1" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitterでシェア">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
-          </a>
-        </li>
-      
-        <li class="share-buttons__item">
-          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00011.html" class="share-buttons__link share-buttons__link--facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebookでシェア">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"></path></svg>
-          </a>
-        </li>
-      
-        <li class="share-buttons__item">
-          <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00011.html" class="share-buttons__link share-buttons__link--line" target="_blank" rel="noopener noreferrer" aria-label="LINEでシェア">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"></path></svg>
-          </a>
-        </li>
-      
-    </ul>
-  </div>
-              <div class="post-detail__nav post-detail__nav--bottom">
-                <a href="../blog.html" class="btn btn--back">← ブログ一覧へ戻る</a>
-              </div>
-            </article>
-          </div>
-          <aside class="post-sidebar">
-            <div class="toc-sticky-container">
-              <nav class="toc">
-                <h2 class="toc__title">目次</h2>
-                <ul class="toc-list"><li class="toc-item toc-item--level-2"><a href="#何が問題だったのか？">何が問題だったのか？</a></li><li class="toc-item toc-item--level-3"><a href="#1-どのサーバーからでも、他のサーバーにコマンドが実行できた">1. どのサーバーからでも、他のサーバーにコマンドが実行できた</a></li><li class="toc-item toc-item--level-3"><a href="#2-参加サーバーの一覧をリポジトリで公開していた">2. 参加サーバーの一覧をリポジトリで公開していた</a></li><li class="toc-item toc-item--level-2"><a href="#今後の対策">今後の対策</a></li><li class="toc-item toc-item--level-2"><a href="#まとめ">まとめ</a></li></ul>
-              </nav>
-            </div>
-          </aside>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "BlogPosting",
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": "https://breadmotion.github.io/WebSite/blog/blog_00011.html"
+                },
+                "headline": "自作Discord Botを公開したらスパムに悪用された話",
+                "description": "自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。",
+                "image": [
+                    "https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00011.png"
+                ],
+                "datePublished": "2025-11-26T00:00:00.000Z",
+                "dateModified": "2025-11-26T00:00:00.000Z",
+                "author": {
+                    "@type": "Person",
+                    "name": "PanKUN",
+                    "url": "https://breadmotion.github.io/WebSite"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "PanKUN",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
+                    }
+                }
+            }
+        </script>
+        <meta
+            property="og:title"
+            content="自作Discord Botを公開したらスパムに悪用された話 | PanKUN Blog"
+        />
+        <meta
+            property="og:description"
+            content="自作したDiscord Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。"
+        />
+        <meta property="og:type" content="article" />
+        <meta
+            property="og:url"
+            content="https://breadmotion.github.io/WebSite/blog/blog_00011.html"
+        />
+        <meta
+            property="og:image"
+            content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00011.png"
+        />
+        <meta property="og:site_name" content="PanKUN" />
+        <link rel="shortcut icon" href="../favicon.ico" />
+        <link
+            rel="icon"
+            type="image/png"
+            href="../assets/img/favicon-192.png"
+            sizes="192x192"
+        />
+        <link
+            rel="apple-touch-icon"
+            href="../assets/img/favicon-192.png"
+        />
+        <link
+            rel="stylesheet"
+            href="../assets/css/base.css"
+        />
+        <link
+            rel="stylesheet"
+            href="../assets/css/layout.css"
+        />
+        <link
+            rel="stylesheet"
+            href="../assets/css/blog.css"
+        />
+    </head>
+    <body data-page="blog">
+        <div class="page-shell">
+            <main class="main-container">
+                <div class="post-layout">
+                    <div class="post-content">
+                        <article class="post-detail">
+                            <nav
+                                aria-label="breadcrumb"
+                                class="breadcrumb"
+                            >
+                                <ol
+                                    class="breadcrumb__list"
+                                >
+                                    <li
+                                        class="breadcrumb__item"
+                                    >
+                                        <a
+                                            href="../index.html"
+                                            >ホーム</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="breadcrumb__item"
+                                    >
+                                        <a
+                                            href="../blog.html"
+                                            >ブログ</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="breadcrumb__item"
+                                        aria-current="page"
+                                    >
+                                        自作Discord
+                                        Botを公開したらスパムに悪用された話
+                                    </li>
+                                </ol>
+                            </nav>
+                            <header
+                                class="post-detail__header"
+                            >
+                                <p
+                                    class="post-detail__meta"
+                                >
+                                    2025/11/26 / Discord
+                                </p>
+                                <h1
+                                    class="post-detail__title"
+                                >
+                                    自作Discord
+                                    Botを公開したらスパムに悪用された話
+                                </h1>
+                                <p
+                                    class="post-detail__description"
+                                >
+                                    自作したDiscord
+                                    Botを公開したところ、スパムの踏み台にされてしまいました。原因となったアーキテクチャの設計ミスと、今後のセキュリティ対策についてまとめます。
+                                </p>
+                                <p
+                                    class="post-detail__tags"
+                                >
+                                    <a
+                                        class="tag"
+                                        href="../blog.html?tag=discord"
+                                        >discord</a
+                                    >
+                                    <a
+                                        class="tag"
+                                        href="../blog.html?tag=nodejs"
+                                        >nodejs</a
+                                    >
+                                    <a
+                                        class="tag"
+                                        href="../blog.html?tag=security"
+                                        >security</a
+                                    >
+                                </p>
+                                <div class="share-buttons">
+                                    <p
+                                        class="share-buttons__title"
+                                    >
+                                        SHARE
+                                    </p>
+                                    <ul
+                                        class="share-buttons__list"
+                                    >
+                                        <li
+                                            class="share-buttons__item"
+                                        >
+                                            <a
+                                                href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00011.html&text=%E8%87%AA%E4%BD%9CDiscord%20Bot%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%9F%E3%82%89%E3%82%B9%E3%83%91%E3%83%A0%E3%81%AB%E6%82%AA%E7%94%A8%E3%81%95%E3%82%8C%E3%81%9F%E8%A9%B1"
+                                                class="share-buttons__link share-buttons__link--twitter"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label="Twitterでシェア"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                                    width="20"
+                                                    height="20"
+                                                >
+                                                    <path
+                                                        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                                                    ></path>
+                                                </svg>
+                                            </a>
+                                        </li>
+
+                                        <li
+                                            class="share-buttons__item"
+                                        >
+                                            <a
+                                                href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00011.html"
+                                                class="share-buttons__link share-buttons__link--facebook"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label="Facebookでシェア"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                                    width="20"
+                                                    height="20"
+                                                >
+                                                    <path
+                                                        d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"
+                                                    ></path>
+                                                </svg>
+                                            </a>
+                                        </li>
+
+                                        <li
+                                            class="share-buttons__item"
+                                        >
+                                            <a
+                                                href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00011.html"
+                                                class="share-buttons__link share-buttons__link--line"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                aria-label="LINEでシェア"
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 24 24"
+                                                    fill="currentColor"
+                                                    width="20"
+                                                    height="20"
+                                                >
+                                                    <path
+                                                        d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"
+                                                    ></path>
+                                                </svg>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </header>
+                            <section
+                                class="post-detail__body markdown-body"
+                            >
+                                <p>
+                                    こんにちは!パン君です。
+                                </p>
+                                <p>
+                                    今回は個人で運用していた
+                                    <strong
+                                        >Discord
+                                        Botを公開したら大失敗した</strong
+                                    >
+                                    という話になります。
+                                </p>
+                                <p>
+                                    先日、僕が運営しているゲーム開発サーバーで事件が起きました。<br />なんと自作ボットが乗っ取られたかのように、
+                                    <strong
+                                        >全く関係ないDiscordサーバーの招待URLをひたすら連投し始めた</strong
+                                    >
+                                    んです。<br />原因は僕が作ったボットの
+                                    <strong
+                                        >アーキテクチャに潜んでいた致命的な設計ミス</strong
+                                    >
+                                    でした。
+                                </p>
+                                <p>
+                                    今回は自戒を込めて、僕がやらかしたミスとその対策を全部ここに書き残しておこうと思います。
+                                </p>
+                                <h2
+                                    id="何が問題だったのか？"
+                                >
+                                    何が問題だったのか？
+                                </h2>
+                                <p>
+                                    原因は大きく分けて2つありました。
+                                </p>
+                                <h3
+                                    id="1-どのサーバーからでも、他のサーバーにコマンドが実行できた"
+                                >
+                                    1.
+                                    どのサーバーからでも、他のサーバーにコマンドが実行できた
+                                </h3>
+                                <p>
+                                    詳細は<a
+                                        href="https://breadmotion.github.io/WebSite/blog/blog_00008.html"
+                                        >こちらの記事</a
+                                    >でも書いたアーキテクチャが根本的な問題でした。<br />開発者向けにボットを追加しなくても色々な機能を追加できることを目指した結果、「どのサーバーからでもコマンドを実行できる」という仕様になっていたんです。
+                                </p>
+                                <p>
+                                    <strong
+                                        >【なぜこれがヤバかったか？】</strong
+                                    ><br />この仕様のせいで攻撃者は
+                                    <strong
+                                        >自分のサーバーから、僕のゲーム開発サーバーに対してメッセージを送信する</strong
+                                    >
+                                    という離れ業が可能になっていました。<br />つまり、Aサーバーで実行したコマンドが全く無関係なBサーバーで発動してしまう状態だったんです。これがスパムの直接的な原因でした。
+                                </p>
+                                <p>
+                                    普通に考えたらマズいですよね。<br />ファイルベースでも良いので、サーバー（ギルド）ごとに実行できるコマンドを管理すべきでした。
+                                </p>
+                                <h3
+                                    id="2-参加サーバーの一覧をリポジトリで公開していた"
+                                >
+                                    2.
+                                    参加サーバーの一覧をリポジトリで公開していた
+                                </h3>
+                                <p>
+                                    これも致命的でした。<br />ボットが参加しているサーバーの情報を
+                                    <code>guilds.json</code>
+                                    というファイルで管理していたのですが、これを
+                                    <strong
+                                        >GitHubの公開リポジトリにアップしてしまっていた</strong
+                                    >
+                                    んです。
+                                </p>
+                                <p>
+                                    <strong
+                                        >【なぜこれがヤバかったか？】</strong
+                                    ><br /><code
+                                        >guilds.json</code
+                                    >
+                                    には、ボットが参加している全てのサーバーIDがリストアップされていました。<br />攻撃者はこのリストを手に入れ、標的となるサーバー（僕のゲーム開発サーバー）のIDを特定し、そこに向けてスパムメッセージを送信していたわけです。<br />個人情報じゃないとはいえ、サーバーIDも立派な機密情報でした...。
+                                </p>
+                                <h2 id="今後の対策">
+                                    今後の対策
+                                </h2>
+                                <p>
+                                    今回の反省を踏まえて、ボットの仕組みを根本から見直すことにしました。
+                                </p>
+                                <ol>
+                                    <li>
+                                        <p>
+                                            <strong
+                                                >Botアプリの再作成
+                                                &amp;
+                                                トークンの完全リセット</strong
+                                            ><br />まずは今のボットアプリを完全に削除して、新しいアプリとして作り直します。トークンをリセットするだけじゃ不十分なので、クリーンな状態から再スタートです。
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <strong
+                                                >ギルドごとの権限管理を徹底</strong
+                                            ><br />コマンドが他のサーバーに影響を与えないように、サーバーID（ギルドID）で完全に処理を分離します。今後はファイルベースのDBで、サーバーごとに許可するコマンドを管理する仕組みを導入します。
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <strong
+                                                >招待方法を「リクエスト制」に変更</strong
+                                            ><br />誰がボットを使っているかを僕が把握できるように、招待は公開制をやめて、僕への直接連絡によるリクエスト制に切り替えます。
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>
+                                            <strong
+                                                >リポジトリのクリーンアップ</strong
+                                            ><br />ソースコードは引き続き公開しますが、<code>guilds.json</code>のような機密情報を含んでしまう可能性があるファイルはリポジトリから完全に削除し、<code>.gitignore</code>でしっかり管理するようにします。
+                                        </p>
+                                    </li>
+                                </ol>
+                                <h2 id="まとめ">まとめ</h2>
+                                <p>
+                                    というわけで、今回は僕の盛大なやらかしについての話でした。<br />「誰でも使えるように」という手軽さを重視した結果、セキュリティという一番大事な視点が抜け落ちていたなと深く反省しています。
+                                </p>
+                                <p>
+                                    ボットはもっと安全な形に作り直していくので、もし「それでも使ってみたい！」と思ってくれる人がいたら気軽に声をかけてくれると嬉しいです。
+                                </p>
+                            </section>
+                            <div class="share-buttons">
+                                <p
+                                    class="share-buttons__title"
+                                >
+                                    SHARE
+                                </p>
+                                <ul
+                                    class="share-buttons__list"
+                                >
+                                    <li
+                                        class="share-buttons__item"
+                                    >
+                                        <a
+                                            href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00011.html&text=%E8%87%AA%E4%BD%9CDiscord%20Bot%E3%82%92%E5%85%AC%E9%96%8B%E3%81%97%E3%81%9F%E3%82%89%E3%82%B9%E3%83%91%E3%83%A0%E3%81%AB%E6%82%AA%E7%94%A8%E3%81%95%E3%82%8C%E3%81%9F%E8%A9%B1"
+                                            class="share-buttons__link share-buttons__link--twitter"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="Twitterでシェア"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                width="20"
+                                                height="20"
+                                            >
+                                                <path
+                                                    d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"
+                                                ></path>
+                                            </svg>
+                                        </a>
+                                    </li>
+
+                                    <li
+                                        class="share-buttons__item"
+                                    >
+                                        <a
+                                            href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00011.html"
+                                            class="share-buttons__link share-buttons__link--facebook"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="Facebookでシェア"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                width="20"
+                                                height="20"
+                                            >
+                                                <path
+                                                    d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"
+                                                ></path>
+                                            </svg>
+                                        </a>
+                                    </li>
+
+                                    <li
+                                        class="share-buttons__item"
+                                    >
+                                        <a
+                                            href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fblog_00011.html"
+                                            class="share-buttons__link share-buttons__link--line"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            aria-label="LINEでシェア"
+                                        >
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="currentColor"
+                                                width="20"
+                                                height="20"
+                                            >
+                                                <path
+                                                    d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"
+                                                ></path>
+                                            </svg>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div
+                                class="post-detail__nav post-detail__nav--bottom"
+                            >
+                                <a
+                                    href="../blog.html"
+                                    class="btn btn--back"
+                                    >← ブログ一覧へ戻る</a
+                                >
+                            </div>
+                        </article>
+                    </div>
+                    <aside class="post-sidebar">
+                        <div class="toc-sticky-container">
+                            <nav class="toc">
+                                <h2 class="toc__title">
+                                    目次
+                                </h2>
+                                <ul class="toc-list">
+                                    <li
+                                        class="toc-item toc-item--level-2"
+                                    >
+                                        <a
+                                            href="#何が問題だったのか？"
+                                            >何が問題だったのか？</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="toc-item toc-item--level-3"
+                                    >
+                                        <a
+                                            href="#1-どのサーバーからでも、他のサーバーにコマンドが実行できた"
+                                            >1.
+                                            どのサーバーからでも、他のサーバーにコマンドが実行できた</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="toc-item toc-item--level-3"
+                                    >
+                                        <a
+                                            href="#2-参加サーバーの一覧をリポジトリで公開していた"
+                                            >2.
+                                            参加サーバーの一覧をリポジトリで公開していた</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="toc-item toc-item--level-2"
+                                    >
+                                        <a
+                                            href="#今後の対策"
+                                            >今後の対策</a
+                                        >
+                                    </li>
+                                    <li
+                                        class="toc-item toc-item--level-2"
+                                    >
+                                        <a href="#まとめ"
+                                            >まとめ</a
+                                        >
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </aside>
+                </div>
+                <section class="section section--related">
+                    <h2 class="section__title">
+                        undefined
+                    </h2>
+                    <div
+                        id="relatedList"
+                        class="recommend-grid"
+                    ></div>
+                </section>
+                <section class="section section--recommend">
+                    <h2 class="section__title">
+                        おすすめ記事
+                    </h2>
+                    <div
+                        id="recommendList"
+                        class="recommend-grid"
+                    ></div>
+                </section>
+            </main>
+            <div class="toc-overlay"></div>
+            <button
+                type="button"
+                class="toc-toggle"
+                aria-label="目次を開く"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    width="20"
+                    height="20"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"
+                    ></path>
+                </svg>
+                <span>目次</span>
+            </button>
         </div>
-        <section class="section section--related">
-          <h2 class="section__title">undefined</h2>
-          <div id="relatedList" class="recommend-grid"></div>
-        </section>
-        <section class="section section--recommend">
-          <h2 class="section__title">おすすめ記事</h2>
-          <div id="recommendList" class="recommend-grid"></div>
-        </section>
-      </main>
-      <div class="toc-overlay"></div>
-      <button type="button" class="toc-toggle" aria-label="目次を開く">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
-        <span>目次</span>
-      </button>
-    </div>
-    <script src="../assets/js/layout.js" defer></script>
-    <script src="../assets/js/ui.js"></script>
-    <canvas id="menuAnimationCanvas"></canvas>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
-    <script src="../assets/js/particles.js"></script>
-    <script src="../assets/js/toc.js" defer></script>
-    <script src="../assets/js/recommend.js" defer></script>
-  </body>
+        <script src="../assets/js/layout.js" defer></script>
+        <script src="../assets/js/ui.js"></script>
+        <canvas id="menuAnimationCanvas"></canvas>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+        <script src="../assets/js/particles.js"></script>
+        <script src="../assets/js/toc.js" defer></script>
+        <script
+            src="../assets/js/recommend.js"
+            defer
+        ></script>
+    </body>
 </html>
