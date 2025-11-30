@@ -219,6 +219,9 @@ function createHtml({
     <meta property="og:url" content="${canonicalUrl}" />
     <meta property="og:image" content="${imageUrl}" />
     <meta property="og:site_name" content="PanKUN" />
+    <link rel="shortcut icon" href="${relativePrefix}/../favicon.ico">
+    <link rel="icon" type="image/png" href="${relativePrefix}/assets/img/favicon-192.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="${relativePrefix}/assets/img/favicon-192.png">
     <link rel="stylesheet" href="${relativePrefix}/assets/css/base.css" />
     <link rel="stylesheet" href="${relativePrefix}/assets/css/layout.css" />
     <link rel="stylesheet" href="${relativePrefix}/assets/css/blog.css" />
@@ -367,27 +370,7 @@ function createHtml({
 
       if (thumbnail) {
         try {
-          if (thumbnail.startsWith("data:image")) {
-            const matches = thumbnail.match(
-              /^data:image\/([a-zA-Z0-9]+);base64,(.+)$/,
-            );
-            if (matches) {
-              const ext =
-                matches[1] === "jpeg" ? "jpg" : matches[1];
-              const filename = `${id}.${ext}`; // Same ID shares thumbnail
-              const thumbPath = path.join(
-                THUMBNAIL_DIR,
-                filename,
-              );
-              // Always overwrite to ensure latest version
-              fs.writeFileSync(
-                thumbPath,
-                Buffer.from(matches[2], "base64"),
-              );
-              thumbnail = `assets/img/thumbnails/${filename}`;
-              usedThumbnails.add(filename);
-            }
-          } else if (thumbnail.startsWith("http")) {
+          if (thumbnail.startsWith("http")) {
             const urlObj = new URL(thumbnail);
             let ext = path
               .extname(urlObj.pathname)
