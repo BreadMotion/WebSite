@@ -225,7 +225,6 @@ function createHtml({
     <link rel="icon" type="image/png" href="${pathPrefix}/assets/img/favicon-192.png" sizes="192x192">
     <link rel="apple-touch-icon" href="${pathPrefix}/assets/img/favicon-192.png">
     <link rel="stylesheet" href="${pathPrefix}/assets/css/base.css" />
-    <link rel="stylesheet" href="${pathPrefix}/assets/css/prism.css" />
     <link rel="stylesheet" href="${pathPrefix}/assets/css/layout.css" />
     <link rel="stylesheet" href="${pathPrefix}/assets/css/blog.css" />
   </head>
