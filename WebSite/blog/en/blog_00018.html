@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>I Tried Controlling Discord from the Terminal with Discordo | PanKUN Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="This article provides a clear and easy-to-understand guide on how to install and use &quot;Discordo,&quot; a terminal-based Discord client, specifically for Windows environments." />
+    <link rel="canonical" href="https://breadmotion.github.io/WebSite/blog/en/blog_00018.html" />
+    <link rel="alternate" hreflang="ja" href="https://breadmotion.github.io/WebSite/blog/blog_00018.html" />
+    <link rel="alternate" hreflang="en" href="https://breadmotion.github.io/WebSite/blog/en/blog_00018.html" />
+    <link rel="alternate" hreflang="x-default" href="https://breadmotion.github.io/WebSite/blog/en/blog_00018.html" />
+    <!-- Google AdSense -->
+<script
+    async
+    src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5284984614496391"
+    crossorigin="anonymous"
+></script>
+
+    <script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://breadmotion.github.io/WebSite/blog/en/blog_00018.html"
+  },
+  "headline": "I Tried Controlling Discord from the Terminal with Discordo",
+  "description": "This article provides a clear and easy-to-understand guide on how to install and use \"Discordo,\" a terminal-based Discord client, specifically for Windows environments.",
+  "image": [
+    "https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00018.png"
+  ],
+  "datePublished": "2025-12-02T00:00:00.000Z",
+  "dateModified": "2025-12-02T00:00:00.000Z",
+  "author": {
+    "@type": "Person",
+    "name": "PanKUN",
+    "url": "https://breadmotion.github.io/WebSite"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "PanKUN",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://breadmotion.github.io/WebSite/assets/img/favicon-192.png"
+    }
+  }
+}</script>
+    <meta property="og:title" content="I Tried Controlling Discord from the Terminal with Discordo | PanKUN Blog" />
+    <meta property="og:description" content="This article provides a clear and easy-to-understand guide on how to install and use &quot;Discordo,&quot; a terminal-based Discord client, specifically for Windows environments." />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://breadmotion.github.io/WebSite/blog/en/blog_00018.html" />
+    <meta property="og:image" content="https://breadmotion.github.io/WebSite/assets/img/thumbnails/blog_00018.png" />
+    <meta property="og:site_name" content="PanKUN" />
+    <link rel="stylesheet" href="../../assets/css/base.css" />
+    <link rel="stylesheet" href="../../assets/css/layout.css" />
+    <link rel="stylesheet" href="../../assets/css/blog.css" />
+  </head>
+  <body data-page="blog">
+    <div class="page-shell">
+      <main class="main-container">
+        <div class="post-layout">
+          <div class="post-content">
+            <article class="post-detail">
+              <nav aria-label="breadcrumb" class="breadcrumb">
+                <ol class="breadcrumb__list">
+                  <li class="breadcrumb__item"><a href="../../index.html">Home</a></li>
+                  <li class="breadcrumb__item"><a href="../../blog.html">Blog</a></li>
+                  <li class="breadcrumb__item" aria-current="page">I Tried Controlling Discord from the Terminal with Discordo</li>
+                </ol>
+              </nav>
+              <header class="post-detail__header">
+                <p class="post-detail__meta">2025/12/02 / Discord</p>
+                <h1 class="post-detail__title">I Tried Controlling Discord from the Terminal with Discordo</h1>
+                <p class="post-detail__description">This article provides a clear and easy-to-understand guide on how to install and use &quot;Discordo,&quot; a terminal-based Discord client, specifically for Windows environments.</p>
+                <p class="post-detail__tags"><a class="tag" href="../../blog.html?tag=discord">discord</a> <a class="tag" href="../../blog.html?tag=terminal">terminal</a></p>
+                <div class="share-buttons">
+    <p class="share-buttons__title">SHARE</p>
+    <ul class="share-buttons__list">
+      
+        <li class="share-buttons__item">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00018.html&text=I%20Tried%20Controlling%20Discord%20from%20the%20Terminal%20with%20Discordo" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+          </a>
+        </li>
+      
+        <li class="share-buttons__item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00018.html" class="share-buttons__link share-buttons__link--facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"></path></svg>
+          </a>
+        </li>
+      
+        <li class="share-buttons__item">
+          <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00018.html" class="share-buttons__link share-buttons__link--line" target="_blank" rel="noopener noreferrer" aria-label="LINE Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"></path></svg>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+              </header>
+              <section class="post-detail__body markdown-body"><p>Hello! This is Pan-kun.</p>
+<p>This time, I tried out a tool that I happened to see on X (formerly Twitter).<br>It&#39;s called <a href="https://github.com/ayn2op/discordo?tab=readme-ov-file">Discordo</a>!</p>
+<p>After checking the README.md, the installation seemed very easy, so I&#39;ll describe how to install it on a Windows environment.</p>
+<h3 id="installation-method">Installation Method</h3><ol>
+<li><p><strong>Download</strong>:<br>Download Discordo for Windows from <a href="https://nightly.link/ayn2op/discordo/workflows/ci/main">here</a> and extract the zip file.</p>
+</li>
+<li><p><strong>Placement</strong>:<br>Place the <code>discordo.exe</code> file in the extracted folder into an arbitrary directory.<br>Example: <code>C:\Users\YourUsername\AppData\Local\Discordo</code></p>
+</li>
+<li><p><strong>Environment Variable</strong>:<br>Add the path of the directory where you placed <code>discordo.exe</code> to the <code>PATH</code> environment variable.<br>This allows you to execute the <code>discordo</code> command from the command prompt or Git Bash.</p>
+</li>
+<li><p><strong>Execution</strong>:<br>Start the command prompt or Git Bash and type <code>discordo</code> to execute it.<br>The first time you start it, a screen will appear asking you to select a login method.<br>Log in using a QR code or your email address and password.</p>
+</li>
+</ol>
+<p>Now, let&#39;s take a look at the basic usage after logging in.</p>
+<h3 id="basic-usage">Basic Usage</h3><p>After logging in, a list of Discord channels will be displayed on the terminal.</p>
+<p><img src="../../assets/img/blog_00018_0.png" alt="discordo image" title="" /></p>
+<ul>
+<li><strong>Channel Selection</strong>:<ul>
+<li>Use the up/down keys to select a channel.</li>
+<li>Press the Enter key to enter the selected channel.</li>
+</ul>
+</li>
+<li><strong>Message Sending</strong>:<ul>
+<li>Enter a message in the channel and press the Enter key to send it.</li>
+</ul>
+</li>
+<li><strong>Commands</strong>:<ul>
+<li>You can execute commands starting with <code>/</code>.</li>
+<li>Example: <code>/help</code> to display help</li>
+</ul>
+</li>
+<li><strong>Exit</strong>:<ul>
+<li>Exit Discordo with <code>Ctrl + C</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="useful-features">Useful Features</h3><p>Discordo has several useful features for operating Discord from the terminal.</p>
+<ul>
+<li><strong>Mentions</strong>:<ul>
+<li>You can send mentions with <code>@username</code>. You can complete the username with the Tab key.</li>
+</ul>
+</li>
+<li><strong>File Sending</strong>:<ul>
+<li>Not implemented yet. (Unfortunately)</li>
+</ul>
+</li>
+<li><strong>Emoji</strong>:<ul>
+<li>You can send emojis with <code>:emoji_name:</code>. You can complete the emoji name with the Tab key.</li>
+</ul>
+</li>
+<li><strong>Markdown</strong>:<ul>
+<li>You can decorate messages in Markdown format, just like in Discord.</li>
+<li>Example: <code>*emphasis*</code>, <code>**bold**</code>, <code>_italics_</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="application-examples">Application Examples</h3><p>By using Discordo, you can consider various applications for operating Discord from the terminal.</p>
+<ul>
+<li><strong>Scripts</strong>:<ul>
+<li>By executing Discordo from a script, you can automate the sending of routine messages and the control of bots.</li>
+</ul>
+</li>
+<li><strong>Server Monitoring</strong>:<ul>
+<li>You can create a script that monitors the status of the server and notifies Discord if an abnormality occurs.</li>
+</ul>
+</li>
+</ul>
+<h3 id="precautions">Precautions</h3><p>Here are some precautions when using Discordo.</p>
+<ul>
+<li><strong>Security</strong>:<ul>
+<li>This tool is an unofficial client. Since you will be entering your Discord login information (email address and password), please use it at your own risk.</li>
+<li>Use it only in a trusted environment and be careful about security, such as avoiding reusing passwords.</li>
+</ul>
+</li>
+<li><strong>Terms of Service</strong>:<ul>
+<li>The use of unofficial clients may violate Discord&#39;s Terms of Service. Please understand that there is a risk that your account may be affected before using it.</li>
+</ul>
+</li>
+</ul>
+<h3 id="summary">Summary</h3><p>Discordo is a convenient tool that allows you to easily operate Discord from the terminal.<br>For engineers, it can lead to improved work efficiency because they can check Discord information and send messages without leaving the terminal.</p>
+<p>If you are interested, please try it out.</p>
+</section>
+              <div class="share-buttons">
+    <p class="share-buttons__title">SHARE</p>
+    <ul class="share-buttons__list">
+      
+        <li class="share-buttons__item">
+          <a href="https://twitter.com/intent/tweet?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00018.html&text=I%20Tried%20Controlling%20Discord%20from%20the%20Terminal%20with%20Discordo" class="share-buttons__link share-buttons__link--twitter" target="_blank" rel="noopener noreferrer" aria-label="Twitter Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+          </a>
+        </li>
+      
+        <li class="share-buttons__item">
+          <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00018.html" class="share-buttons__link share-buttons__link--facebook" target="_blank" rel="noopener noreferrer" aria-label="Facebook Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4z"></path></svg>
+          </a>
+        </li>
+      
+        <li class="share-buttons__item">
+          <a href="https://social-plugins.line.me/lineit/share?url=https%3A%2F%2Fbreadmotion.github.io%2FWebSite%2Fblog%2Fen%2Fblog_00018.html" class="share-buttons__link share-buttons__link--line" target="_blank" rel="noopener noreferrer" aria-label="LINE Share">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path d="M21.5,4.9C20.2,3.7,18.6,3,16.9,3c-3.7,0-6.8,2.8-7.2,6.4c-0.1,0.5-0.1,1-0.1,1.6c0,0-0.1,0.2-0.2,0.3c-0.3,0.3-0.7,0.2-1.2,0.1C7.8,11,7.4,10.8,7,10.7c-0.2-0.1-0.4-0.1-0.6-0.1c-0.3,0-0.6,0-0.8,0.1c-0.3,0.1-0.5,0.3-0.5,0.6c0,0.2,0.1,0.4,0.2,0.5c0.2,0.2,0.5,0.4,0.8,0.6c0.7,0.4,1.5,0.8,2.2,1.2c0.2,0.1,0.3,0.2,0.3,0.3c0,0.1,0,0.2-0.1,0.3C8.4,14.6,8,15,7.5,15.4c-0.2,0.2-0.4,0.3-0.5,0.5c-0.1,0.2-0.2,0.4-0.2,0.6c0,0.3,0.1,0.6,0.4,0.8C7.5,17.5,8,17.7,8.5,17.7c0.2,0,0.4-0.1,0.6-0.1c0.5-0.2,1-0.5,1.5-0.8c0.2-0.1,0.3-0.2,0.5-0.2c0.1,0,0.2,0,0.2,0.1c0.3,0.3,0.6,0.8,0.8,1.3c0.1,0.1,0.1,0.2,0.1,0.3c0,0.4-0.2,0.9-0.5,1.4c-0.1,0.2-0.2,0.3-0.2,0.5c0,0.2,0,0.4,0.1,0.5c0.1,0.2,0.3,0.3,0.5,0.4c0.2,0.1,0.5,0.1,0.7,0.1c0.6,0,1.2-0.2,1.7-0.6c0.1-0.1,0.2-0.2,0.3-0.2c0.1,0,0.2,0,0.3,0.1c0.7,0.5,1.5,0.8,2.4,0.8c3.7,0,6.8-2.8,7.2-6.4c0-0.1,0.1-0.2,0.1-0.4c0-0.1,0-0.2,0-0.3c0-0.1,0-0.1,0-0.2c0,0,0-0.1,0-0.1C22.2,9,22.2,8.9,22.2,8.8c0,0,0,0,0,0c0-0.2,0-0.4,0-0.6c-0.1-0.8-0.2-1.5-0.4-2.2C21.6,5.5,21.6,5.2,21.5,4.9z M16.9,4c1.5,0,2.9,0.6,3.9,1.6c0.1,0.1,0.1,0.2,0.1,0.3c0.3,0.7,0.5,1.4,0.5,2.2c0,0.2,0,0.3,0,0.5c0,0,0,0.1,0,0.1c0,0.1,0,0.1,0,0.2c0,0,0,0.1,0,0.1c0,0,0,0,0,0c0,0.1-0.1,0.2-0.1,0.3c-0.3,3.1-3.1,5.4-6.3,5.4c-0.8,0-1.6-0.2-2.3-0.6c-0.1-0.1-0.2-0.1-0.3-0.1c-0.1,0-0.3,0.1-0.4,0.2c-0.5,0.4-1.1,0.6-1.7,0.6c-0.1,0-0.2,0-0.3-0.1c-0.1,0-0.1-0.1-0.1-0.1c0-0.1,0.1-0.2,0.1-0.2c0.2-0.5,0.5-0.9,0.7-1.3c0.1-0.1,0.1-0.3,0.1-0.5c0-0.1-0.1-0.2-0.2-0.3c-0.2-0.2-0.5-0.5-0.8-0.8c-0.1-0.1-0.1-0.2-0.1-0.3c0-0.2,0.1-0.4,0.2-0.5c0.5-0.4,0.9-0.8,1.1-1.1c0.1-0.1,0.1-0.2,0.1-0.3c0-0.1-0.1-0.1-0.1-0.2c-0.7-0.4-1.4-0.8-2.1-1.1c-0.3-0.2-0.5-0.3-0.7-0.5c-0.1-0.1-0.2-0.2-0.2-0.3c0-0.1,0.1-0.2,0.1-0.2c0.1,0,0.2-0.1,0.3-0.1c0.2,0,0.5,0.1,0.6,0.1c0.4,0.1,0.9,0.4,1.2,0.5c0.5,0.2,0.9,0.2,1.2,0.1c0.1,0,0.1,0,0.2-0.1c0.3-3.1,3.1-5.4,6.3-5.4z M9.5,8.8C9.2,8.8,9,9,9,9.3v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H9.5z M14.8,8.8c-0.3,0-0.5,0.2-0.5,0.5v1.8c0,0.3,0.2,0.5,0.5,0.5h1.3c0.3,0,0.5-0.2,0.5-0.5V9.3c0-0.3-0.2-0.5-0.5-0.5H14.8z"></path></svg>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+              <div class="post-detail__nav post-detail__nav--bottom">
+                <a href="../../blog.html" class="btn btn--back">← Back to Blog</a>
+              </div>
+            </article>
+          </div>
+          <aside class="post-sidebar">
+            <div class="toc-sticky-container">
+              <nav class="toc">
+                <h2 class="toc__title">Table of Contents</h2>
+                <ul class="toc-list"><li class="toc-item toc-item--level-3"><a href="#installation-method">Installation Method</a></li><li class="toc-item toc-item--level-3"><a href="#basic-usage">Basic Usage</a></li><li class="toc-item toc-item--level-3"><a href="#useful-features">Useful Features</a></li><li class="toc-item toc-item--level-3"><a href="#application-examples">Application Examples</a></li><li class="toc-item toc-item--level-3"><a href="#precautions">Precautions</a></li><li class="toc-item toc-item--level-3"><a href="#summary">Summary</a></li></ul>
+              </nav>
+            </div>
+          </aside>
+        </div>
+        <section class="section section--related">
+          <h2 class="section__title">undefined</h2>
+          <div id="relatedList" class="recommend-grid"></div>
+        </section>
+        <section class="section section--recommend">
+          <h2 class="section__title">Recommended</h2>
+          <div id="recommendList" class="recommend-grid"></div>
+        </section>
+      </main>
+      <div class="toc-overlay"></div>
+      <button type="button" class="toc-toggle" aria-label="Open Table of Contents">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"></path></svg>
+        <span>TOC</span>
+      </button>
+    </div>
+    <script src="../../assets/js/layout.js" defer></script>
+    <script src="../../assets/js/ui.js"></script>
+    <canvas id="menuAnimationCanvas"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="../../assets/js/particles.js"></script>
+    <script src="../../assets/js/toc.js" defer></script>
+    <script src="../../assets/js/recommend.js" defer></script>
+  </body>
+</html>
